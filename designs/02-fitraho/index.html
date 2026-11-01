@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FitRaho — One app. Your entire fitness journey.</title>
+  <meta name="description" content="FitRaho connects gyms, trainers and members with AI workout plans, AI diet plans and progress you can actually see.">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="preload" href="assets/fonts/fitraho-display-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../vendor/lenis/lenis.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0A0A'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23CBF23D' stroke-width='4' stroke-dasharray='38 12' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body class="is-loading">
+
+<!-- ================= SPRITE ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ring" viewBox="0 0 20 20"><circle cx="10" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-dasharray="30 11" stroke-linecap="round" transform="rotate(-60 10 10)"/></symbol>
+    <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 21a2 2 0 0 0 3.4 0"/><path d="M3.3 15.3A1 1 0 0 0 4 17h16a1 1 0 0 0 .7-1.7C19.4 14 18 12.5 18 8A6 6 0 0 0 6 8c0 4.5-1.4 6-2.7 7.3"/></g></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.2a1.2 1.2 0 0 1 1.8-1l9.6 6.3a1.8 1.8 0 0 1 0 3l-9.6 6.3A1.2 1.2 0 0 1 8 18.8Z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><g fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.4"/><rect x="14" y="5" width="4" height="14" rx="1.4"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-utensils" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></g></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .7-1.5l7-6a2 2 0 0 1 2.6 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></g></symbol>
+    <symbol id="i-dumbbell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.66 21.51a2 2 0 1 1-2.83-2.83l-1.77 1.77a2 2 0 1 1-2.83-2.83l6.37-6.37a2 2 0 1 1 2.83 2.83l-1.77 1.77a2 2 0 1 1 2.83 2.83z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.4 12.77a2 2 0 1 1-2.83-2.83l1.77-1.77a2 2 0 1 1-2.83-2.83l2.83-2.83a2 2 0 1 1 2.83 2.83l1.77-1.77a2 2 0 1 1 2.83 2.83z"/></g></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></g></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2.8a1 1 0 0 1 2 0l1 5.6a2 2 0 0 0 1.6 1.6l5.6 1a1 1 0 0 1 0 2l-5.6 1a2 2 0 0 0-1.6 1.6l-1 5.6a1 1 0 0 1-2 0l-1-5.6A2 2 0 0 0 8.4 14l-5.6-1a1 1 0 0 1 0-2l5.6-1A2 2 0 0 0 10 8.4z"/><path d="M20 2v4M22 4h-4"/></g></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></g></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></g></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12Z" fill="currentColor"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></g></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17l-5.6 3 1.1-6.3L2.9 9.3l6.3-.9Z" fill="currentColor"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3q1 4 4 6.5t3 5.5a7 7 0 0 1-14 0 5 5 0 0 1 1-3 3 3 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></g></symbol>
+    <symbol id="i-door" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.56v16.88a.5.5 0 0 1-.62.49l-6-1.72A2 2 0 0 1 5 18.28V5.72a2 2 0 0 1 1.38-1.9l6-1.72A.5.5 0 0 1 13 2.6Z"/></g></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></g></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8.5 9.5a5 5 0 0 1 7 0L13 12"/></g></symbol>
+    <symbol id="i-run" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="4.5" r="2"/><path d="m7 21 3-5 3 2 1 5M6 11l3-3 4 1 2 4 3 1"/><path d="m10 16-1-4"/></g></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-apple" viewBox="0 0 24 24"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.97.9-3.76 2.28-1.61 2.79-.41 6.91 1.15 9.17.77 1.1 1.68 2.34 2.87 2.3 1.16-.05 1.59-.74 2.99-.74 1.39 0 1.79.74 3 .72 1.24-.02 2.03-1.12 2.78-2.23.88-1.28 1.24-2.53 1.26-2.59-.03-.01-2.42-.93-2.45-3.69zM14.1 5.86c.63-.77 1.06-1.83.94-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.28z" fill="currentColor"/></symbol>
+    <symbol id="i-gplay" viewBox="0 0 24 24"><path d="M4.2 2.4 13.6 12l-9.4 9.6c-.4-.2-.6-.6-.6-1.1V3.5c0-.5.2-.9.6-1.1Z" fill="currentColor" opacity=".95"/><path d="M4.2 2.4c.4-.2 1-.2 1.5.1l10.8 6.2-2.9 3.3Z" fill="currentColor" opacity=".75"/><path d="m4.2 21.6 9.4-9.6 2.9 3.3-10.8 6.2c-.5.3-1.1.3-1.5.1Z" fill="currentColor" opacity=".6"/><path d="m16.5 8.7 3.2 1.9c1 .6 1 2.2 0 2.8l-3.2 1.9-2.9-3.3Z" fill="currentColor" opacity=".85"/></symbol>
+    <symbol id="i-status" viewBox="0 0 66 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="4.5" y="6" width="3" height="6" rx=".8"/><rect x="9" y="4" width="3" height="8" rx=".8"/><rect x="13.5" y="2" width="3" height="10" rx=".8"/><path d="M28 11.6 25.6 8.9a3.6 3.6 0 0 1 4.8 0Z"/></g><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M23.3 6.4a7 7 0 0 1 9.4 0"/><path d="M21 3.8a10.4 10.4 0 0 1 14 0"/><rect x="40" y="1.6" width="21.5" height="9" rx="2.6"/></g><rect x="42" y="3.6" width="15" height="5" rx="1.3" fill="currentColor"/><rect x="62.8" y="4.6" width="1.6" height="3" rx=".8" fill="currentColor"/></symbol>
+    <symbol id="body" viewBox="0 0 100 210">
+      <circle cx="50" cy="15" r="10.5" fill="var(--m-head, #2b2b30)"/>
+      <rect x="45" y="24" width="10" height="9" rx="3" fill="var(--m-neck, #2b2b30)"/>
+      <ellipse cx="31" cy="41" rx="9" ry="8" fill="var(--m-sh, #2b2b30)"/>
+      <ellipse cx="69" cy="41" rx="9" ry="8" fill="var(--m-sh, #2b2b30)"/>
+      <path d="M37 35h12v18c-5 2-10 1-13-2-1-6-1-11 1-16Z" fill="var(--m-chest, #2b2b30)"/>
+      <path d="M63 35H51v18c5 2 10 1 13-2 1-6 1-11-1-16Z" fill="var(--m-chest, #2b2b30)"/>
+      <g fill="var(--m-abs, #2b2b30)"><rect x="42" y="57" width="7" height="8" rx="2.5"/><rect x="51" y="57" width="7" height="8" rx="2.5"/><rect x="42" y="67" width="7" height="8" rx="2.5"/><rect x="51" y="67" width="7" height="8" rx="2.5"/><rect x="42.5" y="77" width="6.5" height="9" rx="2.5"/><rect x="51" y="77" width="6.5" height="9" rx="2.5"/></g>
+      <path d="M36 56c2 8 3 18 4 30l-3-1c-2-9-3-19-1-29Z" fill="var(--m-obl, #2b2b30)"/>
+      <path d="M64 56c-2 8-3 18-4 30l3-1c2-9 3-19 1-29Z" fill="var(--m-obl, #2b2b30)"/>
+      <rect x="20" y="48" width="11" height="26" rx="5.5" fill="var(--m-arms, #2b2b30)"/>
+      <rect x="69" y="48" width="11" height="26" rx="5.5" fill="var(--m-arms, #2b2b30)"/>
+      <rect x="17" y="77" width="9" height="28" rx="4.5" fill="var(--m-fore, #2b2b30)" transform="rotate(6 21 91)"/>
+      <rect x="74" y="77" width="9" height="28" rx="4.5" fill="var(--m-fore, #2b2b30)" transform="rotate(-6 79 91)"/>
+      <path d="M38 89h24l2 10H36Z" fill="var(--m-hip, #2b2b30)"/>
+      <rect x="36" y="101" width="13" height="46" rx="6.5" fill="var(--m-quads, #2b2b30)"/>
+      <rect x="51" y="101" width="13" height="46" rx="6.5" fill="var(--m-quads, #2b2b30)"/>
+      <rect x="37.5" y="152" width="10" height="40" rx="5" fill="var(--m-calves, #2b2b30)"/>
+      <rect x="52.5" y="152" width="10" height="40" rx="5" fill="var(--m-calves, #2b2b30)"/>
+      <rect x="36" y="194" width="12" height="7" rx="3.5" fill="var(--m-feet, #2b2b30)"/>
+      <rect x="52" y="194" width="12" height="7" rx="3.5" fill="var(--m-feet, #2b2b30)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ================= PRELOADER ================= -->
+<div class="loader" aria-hidden="true">
+  <div class="loader__center">
+    <svg class="loader__ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="loader__track"/><circle cx="60" cy="60" r="52" class="loader__val"/></svg>
+    <div class="loader__num"><span class="js-load">000</span></div>
+  </div>
+  <div class="loader__brand">FITRAHO <i></i> AI FITNESS ECOSYSTEM</div>
+</div>
+
+<div class="cursor is-hidden" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"><span></span></div></div>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="header__in">
+    <a href="#top" class="logo" aria-label="FitRaho home"><span class="logo__word">FitRaho</span><svg class="logo__ring"><use href="#ring"/></svg></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#top" class="nav__a is-active">Home</a>
+      <a href="#who" class="nav__a">Gym Owners</a>
+      <a href="#who" class="nav__a">Trainers</a>
+      <a href="#workouts" class="nav__a">Members</a>
+      <a href="#coach" class="nav__a">AI Coach</a>
+      <a href="#reviews" class="nav__a">Blog</a>
+    </nav>
+    <a href="#download" class="btn btn--dark btn--sm header__cta" data-magnetic><span>Download app</span></a>
+    <button class="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+<div class="mnav" aria-hidden="true">
+  <nav>
+    <a href="#top">Home</a><a href="#who">Gym Owners</a><a href="#who">Trainers</a><a href="#workouts">Members</a><a href="#coach">AI Coach</a><a href="#reviews">Blog</a>
+  </nav>
+  <a href="#download" class="btn btn--lime">Download app <svg class="btn__arr"><use href="#i-arrow-r"/></svg></a>
+</div>
+
+<main id="top">
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow"><svg><use href="#ring"/></svg><span>AI-POWERED FITNESS ECOSYSTEM</span></p>
+      <h1 class="hero__title">
+        <span class="ln"><span>ONE APP.</span></span>
+        <span class="ln"><span>YOUR ENTIRE</span></span>
+        <span class="ln"><span>FITNESS</span></span>
+        <span class="ln"><span><em class="hero__grey">JOURNEY</em>.</span></span>
+      </h1>
+      <p class="hero__p">FitRaho connects gyms, trainers and members with AI workout plans, AI diet plans and progress you can actually see.</p>
+      <div class="hero__btns">
+        <a href="#download" class="btn btn--dark" data-magnetic><span>Download app</span><svg class="btn__arr"><use href="#i-arrow-r"/></svg></a>
+        <a href="#steps" class="btn btn--line" data-magnetic><span>See how it works</span></a>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__panel">
+        <div class="hero__grid-bg" aria-hidden="true"></div>
+        <div class="hero__glow" aria-hidden="true"></div>
+      </div>
+      <div class="hero__stage" data-cursor="Try it">
+        <div class="iphone hero__phone">
+          <div class="iphone__screen">
+            <i class="iphone__island"></i>
+            <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+            <div class="hero__screens">
+              <!-- HOME -->
+              <div class="scr scr--home is-on" data-screen="home">
+                <div class="hm-top">
+                  <span class="hm-ava">A</span>
+                  <div class="hm-hi"><small>Good morning</small><b>Ahmed</b></div>
+                  <span class="ui-ic"><svg><use href="#i-search"/></svg></span>
+                  <span class="ui-ic"><svg><use href="#i-bell"/></svg><i></i></span>
+                </div>
+                <div class="ui-card hm-cal">
+                  <div class="hm-ring">
+                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" class="hm-ring__track"/><circle cx="50" cy="50" r="40" class="hm-ring__val" pathLength="100"/></svg>
+                    <div><b class="js-hm-kcal">0</b><small>of 2,100 kcal</small></div>
+                  </div>
+                  <div class="hm-macros">
+                    <div class="mac"><div><span>Protein</span><em>92 / 160 g</em></div><i><b style="--v:.575"></b></i></div>
+                    <div class="mac mac--w"><div><span>Carbs</span><em>180 / 250 g</em></div><i><b style="--v:.72"></b></i></div>
+                    <div class="mac mac--o"><div><span>Fat</span><em>32 / 62 g</em></div><i><b style="--v:.52"></b></i></div>
+                  </div>
+                </div>
+                <div class="ui-row"><b>Today's workout</b><small>Wed</small></div>
+                <div class="hm-wo">
+                  <small>AI PLAN · INTERMEDIATE</small>
+                  <b>Leg day</b>
+                  <span>8 exercises · 55 min</span>
+                  <span class="hm-wo__play"><svg><use href="#i-play"/></svg></span>
+                  <i class="hm-wo__bar"><b></b></i>
+                  <small class="hm-wo__done">3 of 8 done</small>
+                </div>
+                <div class="ui-row"><b>Meals</b><small>See all</small></div>
+                <div class="hm-meal js-breakfast"><span class="hm-meal__ic"><svg><use href="#i-utensils"/></svg></span><div><b>Breakfast</b><small>Oatmeal, banana, whey · 480 kcal</small></div><span class="hm-meal__ck"><svg><use href="#i-check"/></svg></span></div>
+                <div class="hm-meal"><span class="hm-meal__ic"><svg><use href="#i-utensils"/></svg></span><div><b>Lunch</b><small>Chicken rice bowl · 620 kcal</small></div><span class="hm-meal__time">1:00 PM</span></div>
+              </div>
+            </div>
+            <nav class="tb tb--hero" aria-label="Demo app tabs"><button class="is-on" data-go="home"><svg><use href="#i-home"/></svg>Home</button><button data-go="meals"><svg><use href="#i-utensils"/></svg>Meals</button><button data-go="workout"><svg><use href="#i-dumbbell"/></svg>Workout</button><button data-go="progress"><svg><use href="#i-chart"/></svg>Progress</button><button data-go="coach"><svg><use href="#i-sparkles"/></svg>Coach</button></nav>
+          </div>
+        </div>
+        <div class="chip chip--kcal"><small>Calories today</small><b><span class="js-chip-kcal">0</span> kcal</b></div>
+        <div class="chip chip--coach"><small>AI Coach</small><b class="js-coach-chip">Plan updated</b><i class="chip__ping"></i></div>
+        <div class="hero__hint"><span></span>Tap the tabs — it's live</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b class="js-count" data-to="105">0</b><span>Gyms listed</span></div>
+      <div class="stat"><b class="js-count" data-to="7">0</b><span>Cities across Pakistan</span></div>
+      <div class="stat"><b class="js-count" data-to="21869">0</b><span>Member reviews</span></div>
+      <div class="stat"><b class="js-count" data-to="4.7" data-dec="1">0</b><span>Average gym rating</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHO IT'S FOR ================= -->
+<section class="sec who" id="who">
+  <div class="wrap">
+    <div class="who__head">
+      <div>
+        <p class="eyebrow"><svg><use href="#ring"/></svg><span>WHO IT'S FOR</span></p>
+        <h2 class="h2" data-lines>BUILT FOR EVERY<br>SIDE OF FITNESS</h2>
+      </div>
+      <p class="who__lead" data-fade>One connected app for the people who run gyms, the coaches who train in them, and the members who show up.</p>
+    </div>
+    <div class="who__grid">
+      <article class="who-card">
+        <div class="who-card__img"><img src="assets/img/for-members.webp" alt="Member training in a dark gym" loading="lazy"><span class="who-card__go"><svg><use href="#i-arrow-r"/></svg></span><span class="who-card__tag">Members</span></div>
+        <small>For members</small>
+        <h3>Know your progress</h3>
+        <p>AI workout and diet plans, a photo calorie counter and weekly progress in one view.</p>
+      </article>
+      <article class="who-card">
+        <div class="who-card__img"><img src="assets/img/for-trainers.webp" alt="Trainer coaching clients with barbells" loading="lazy"><span class="who-card__go"><svg><use href="#i-arrow-r"/></svg></span><span class="who-card__tag">Trainers</span></div>
+        <small>For trainers</small>
+        <h3>Every client, one place</h3>
+        <p>Assign plans, track check-ins and see who needs a nudge — without chasing on WhatsApp.</p>
+      </article>
+      <article class="who-card">
+        <div class="who-card__img"><img src="assets/img/for-owners.webp" alt="Modern gym interior" loading="lazy"><span class="who-card__go"><svg><use href="#i-arrow-r"/></svg></span><span class="who-card__tag">Gym owners</span></div>
+        <small>For gym owners</small>
+        <h3>Get discovered</h3>
+        <p>A free verified profile, local search visibility, reviews and member access codes.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI WORKOUTS ================= -->
+<section class="sec feat" id="workouts">
+  <div class="wrap feat__grid">
+    <div class="feat__media">
+      <div class="feat__panel"></div>
+      <div class="iphone feat__phone">
+        <div class="iphone__screen">
+          <i class="iphone__island"></i>
+          <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+          <div class="scr scr--workout" data-screen="workout">
+            <div class="ui-head"><span class="ui-ic"><svg><use href="#i-chev-l"/></svg></span><b>Leg day</b><span class="ui-ic"><svg><use href="#i-more"/></svg></span></div>
+            <div class="ui-card wo-sum">
+              <div class="wo-sum__fig">
+                <svg viewBox="0 0 100 210" style="--m-quads:#CBF23D;--m-calves:#7f9a25;--m-hip:#7f9a25"><use href="#body"/></svg>
+                <svg viewBox="0 0 100 210" style="--m-quads:#9fc02e;--m-calves:#CBF23D;--m-hip:#CBF23D"><use href="#body"/></svg>
+              </div>
+              <div class="wo-sum__stats">
+                <div><b>8</b><small>Exercises</small></div><div><b>55m</b><small>Duration</small></div><div><b class="js-wo-done">3/8</b><small>Done</small></div>
+                <span class="wo-tag">Quads + Hams</span><span class="wo-tag wo-tag--d">Intermediate</span>
+              </div>
+            </div>
+            <div class="wo-list">
+              <div class="wo-ex is-done"><span class="wo-ex__ic"><svg><use href="#i-dumbbell"/></svg></span><div><b>Barbell squat</b><small>4 × 8 · 60 kg</small></div><em>Done</em></div>
+              <div class="wo-ex is-done"><span class="wo-ex__ic"><svg><use href="#i-dumbbell"/></svg></span><div><b>Romanian deadlift</b><small>3 × 10 · 50 kg</small></div><em>Done</em></div>
+              <div class="wo-ex is-done"><span class="wo-ex__ic"><svg><use href="#i-dumbbell"/></svg></span><div><b>Leg press</b><small>3 × 12 · 120 kg</small></div><em>Done</em></div>
+              <div class="wo-ex is-now"><span class="wo-ex__ic"><svg><use href="#i-run"/></svg></span><div><b>Walking lunges</b><small>3 × 12 · 16 kg</small></div><em class="js-rest">Rest 0:45</em></div>
+              <div class="wo-ex"><span class="wo-ex__ic"><svg><use href="#i-dumbbell"/></svg></span><div><b>Leg curl</b><small>3 × 12 · 35 kg</small></div><em>Next</em></div>
+            </div>
+            <div class="ui-cta"><svg><use href="#i-play"/></svg>Continue · <span class="js-wo-cont">3 of 8</span></div>
+            <nav class="tb"><button data-go="home"><svg><use href="#i-home"/></svg>Home</button><button data-go="meals"><svg><use href="#i-utensils"/></svg>Meals</button><button class="is-on" data-go="workout"><svg><use href="#i-dumbbell"/></svg>Workout</button><button data-go="progress"><svg><use href="#i-chart"/></svg>Progress</button><button data-go="coach"><svg><use href="#i-sparkles"/></svg>Coach</button></nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feat__copy">
+      <p class="eyebrow"><svg><use href="#ring"/></svg><span>AI WORKOUTS</span></p>
+      <h2 class="h2" data-lines>A PLAN THAT FITS<br>YOUR WEEK</h2>
+      <p class="feat__p" data-fade>Tell FitRaho your goal, level, schedule and equipment. Get a full split with sets, reps, rest and demo videos — and a home version when you can't make it to the gym.</p>
+      <ul class="ticks">
+        <li><i><svg><use href="#i-check"/></svg></i>Plans built around your goal and schedule</li>
+        <li><i><svg><use href="#i-check"/></svg></i>Guided sets with rest timer</li>
+        <li><i><svg><use href="#i-check"/></svg></i>Free exercise video library</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI DIET ================= -->
+<section class="sec feat feat--rev" id="diet">
+  <div class="wrap feat__grid">
+    <div class="feat__copy">
+      <p class="eyebrow"><svg><use href="#ring"/></svg><span>AI DIET</span></p>
+      <h2 class="h2" data-lines>SNAP YOUR PLATE.<br>WE COUNT IT.</h2>
+      <p class="feat__p" data-fade>Photograph daal, roti or karahi and FitRaho logs calories and macros in seconds. Meal plans are built from foods you actually enjoy.</p>
+      <ul class="ticks">
+        <li><i><svg><use href="#i-check"/></svg></i>Photo calorie counter for local food</li>
+        <li><i><svg><use href="#i-check"/></svg></i>Daily meal plan with macros</li>
+        <li><i><svg><use href="#i-check"/></svg></i>Meal check-ins and water tracking</li>
+      </ul>
+    </div>
+    <div class="feat__media">
+      <div class="feat__panel"></div>
+      <div class="iphone feat__phone">
+        <div class="iphone__screen">
+          <i class="iphone__island"></i>
+          <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+          <div class="scr scr--scan" data-screen="meals">
+            <div class="sc-cam"><img src="assets/img/plate-karahi.webp" alt=""><i class="sc-vig"></i></div>
+            <div class="ui-head ui-head--glass"><span class="ui-ic"><svg><use href="#i-chev-l"/></svg></span><b class="sc-title"><i class="sc-rec"></i>AI Scanning</b><span class="ui-ic"><svg><use href="#i-zap"/></svg></span></div>
+            <div class="sc-frame sc-frame--main"><i></i><i></i><i></i><i></i><span class="sc-tag">Beef karahi · <b class="js-conf">94</b>%</span></div>
+            <div class="sc-frame sc-frame--side"><i></i><i></i><i></i><i></i><span class="sc-tag sc-tag--w">Naan · 98%</span></div>
+            <i class="sc-line"></i>
+            <div class="sc-sheet">
+              <i class="sc-grab"></i>
+              <small>ESTIMATED NUTRITION</small>
+              <div class="sc-sheet__row"><b>Beef karahi + naan</b><span><b class="js-scan-kcal">960</b><small>kcal</small></span></div>
+              <div class="sc-macros"><div><small>Protein</small><b>54 g</b></div><div><small>Carbs</small><b>98 g</b></div><div><small>Fat</small><b>38 g</b></div></div>
+              <div class="sc-btns"><span>Adjust</span><span class="sc-log">Log to dinner</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chip chip--scan"><small>Beef karahi + naan</small><b>960 kcal</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRESS ================= -->
+<section class="sec feat" id="progress">
+  <div class="wrap feat__grid">
+    <div class="feat__media">
+      <div class="feat__panel"></div>
+      <div class="iphone feat__phone">
+        <div class="iphone__screen">
+          <i class="iphone__island"></i>
+          <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+          <div class="scr scr--progress" data-screen="progress">
+            <div class="pg-head"><b>Progress</b><span class="ui-ic"><svg><use href="#i-share"/></svg></span></div>
+            <div class="pg-tabs"><span class="pg-tabs__ind"></span><button class="is-on" data-set="0">Weight</button><button data-set="1">Body</button><button data-set="2">Muscle</button><button data-set="3">Photos</button></div>
+            <div class="ui-card pg-chart">
+              <div class="pg-chart__top"><div><small class="js-pg-label">Current weight</small><b><span class="js-pg-val">82.0</span> <em class="js-pg-unit">kg</em></b></div><span class="pg-delta js-pg-delta">−4.6 kg</span></div>
+              <svg viewBox="0 0 240 104" class="pg-svg" preserveAspectRatio="none">
+                <defs><linearGradient id="pgFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CBF23D" stop-opacity=".45"/><stop offset="1" stop-color="#CBF23D" stop-opacity="0"/></linearGradient></defs>
+                <line x1="0" x2="240" y1="26" y2="26" class="pg-grid"/><line x1="0" x2="240" y1="52" y2="52" class="pg-grid"/><line x1="0" x2="240" y1="78" y2="78" class="pg-grid"/>
+                <line x1="0" x2="240" y1="88" y2="88" class="pg-goal"/>
+                <path class="pg-area" fill="url(#pgFill)"/>
+                <path class="pg-line"/>
+                <circle class="pg-dot" r="4.5"/>
+              </svg>
+              <div class="pg-x"><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span></div>
+            </div>
+            <div class="ui-row"><b>Measurements</b><small>+ Log</small></div>
+            <div class="pg-meas">
+              <div><small>Chest</small><b>101 cm</b><em>−2%</em></div>
+              <div><small>Waist</small><b>83 cm</b><em>−4%</em></div>
+              <div><small>Arms</small><b>38 cm</b><em class="up">+1%</em></div>
+              <div><small>Thighs</small><b>56 cm</b><em>−1%</em></div>
+            </div>
+            <nav class="tb"><button data-go="home"><svg><use href="#i-home"/></svg>Home</button><button data-go="meals"><svg><use href="#i-utensils"/></svg>Meals</button><button data-go="workout"><svg><use href="#i-dumbbell"/></svg>Workout</button><button class="is-on" data-go="progress"><svg><use href="#i-chart"/></svg>Progress</button><button data-go="coach"><svg><use href="#i-sparkles"/></svg>Coach</button></nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feat__copy">
+      <p class="eyebrow"><svg><use href="#ring"/></svg><span>PROGRESS</span></p>
+      <h2 class="h2" data-lines>DON'T JUST FEEL<br>PROGRESS. SEE IT.</h2>
+      <p class="feat__p" data-fade>Weight, body measurements, muscle balance and progress photos — with a projected finish date based on your real pace.</p>
+      <ul class="ticks">
+        <li><i><svg><use href="#i-check"/></svg></i>Weight trend and measurements</li>
+        <li><i><svg><use href="#i-check"/></svg></i>Muscle heat map</li>
+        <li><i><svg><use href="#i-check"/></svg></i>Before and after photo gallery</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI COACH ================= -->
+<section class="sec coach" id="coach">
+  <div class="wrap">
+    <div class="coach__panel" data-dark>
+      <div class="coach__spot" aria-hidden="true"></div>
+      <div class="coach__grid">
+        <div class="coach__copy">
+          <p class="eyebrow eyebrow--dark"><svg><use href="#ring"/></svg><span>AI COACH</span></p>
+          <h2 class="h2 h2--light" data-lines>ASK <em>FITRAHO</em></h2>
+          <p class="coach__p" data-fade>A coach in your pocket that already knows your goals, workouts, food preferences and recent progress — so every answer is about you.</p>
+          <div class="prompts">
+            <button class="prompt" data-q="0"><span>“What workout do I have today?”</span><svg><use href="#i-arrow-r"/></svg></button>
+            <button class="prompt" data-q="1"><span>“Give me an alternative to bench press.”</span><svg><use href="#i-arrow-r"/></svg></button>
+            <button class="prompt" data-q="2"><span>“How did I perform this week?”</span><svg><use href="#i-arrow-r"/></svg></button>
+          </div>
+        </div>
+        <div class="coach__media">
+          <div class="iphone coach__phone">
+            <div class="iphone__screen">
+              <i class="iphone__island"></i>
+              <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+              <div class="scr scr--chat" data-screen="coach">
+                <div class="ch-head"><span class="ch-ava"><svg><use href="#i-sparkles"/></svg></span><div><b>FitRaho AI</b><small>Knows your goals, workouts &amp; progress</small></div><span class="ui-ic"><svg><use href="#i-more"/></svg></span></div>
+                <div class="ch-body"><div class="ch-msgs">
+                  <div class="msg msg--ai">Hey Ahmed 👋 Ask me anything about your training, food or progress.</div>
+                </div></div>
+                <div class="ch-quick"><span>Meal swap ideas</span><span>Form tips</span><span>Rest day plan</span></div>
+                <div class="ch-input"><span>Ask FitRaho…</span><svg class="ch-mic"><use href="#i-mic"/></svg><span class="ch-send"><svg><use href="#i-send"/></svg></span></div>
+                <nav class="tb"><button data-go="home"><svg><use href="#i-home"/></svg>Home</button><button data-go="meals"><svg><use href="#i-utensils"/></svg>Meals</button><button data-go="workout"><svg><use href="#i-dumbbell"/></svg>Workout</button><button data-go="progress"><svg><use href="#i-chart"/></svg>Progress</button><button class="is-on" data-go="coach"><svg><use href="#i-sparkles"/></svg>Coach</button></nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOUR STEPS ================= -->
+<section class="sec steps" id="steps">
+  <div class="wrap">
+    <div class="steps__head">
+      <p class="eyebrow eyebrow--center"><svg><use href="#ring"/></svg><span>GETTING STARTED</span></p>
+      <h2 class="h2" data-lines>FOUR SIMPLE STEPS</h2>
+    </div>
+    <div class="steps__rail" aria-hidden="true"><i></i><span class="steps__pip"></span><span class="steps__pip"></span><span class="steps__pip"></span><span class="steps__pip"></span></div>
+    <div class="steps__grid">
+      <article class="step">
+        <div class="step__box">
+          <div class="iphone step__phone">
+            <div class="iphone__screen">
+              <i class="iphone__island"></i>
+              <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+              <div class="scr scr--rings">
+                <div class="rg-wrap">
+                  <svg viewBox="0 0 120 120" class="rg-svg">
+                    <circle cx="60" cy="60" r="48" class="rg-t"/><circle cx="60" cy="60" r="48" class="rg rg--1" pathLength="100"/>
+                    <circle cx="60" cy="60" r="38" class="rg-t"/><circle cx="60" cy="60" r="38" class="rg rg--2" pathLength="100"/>
+                    <circle cx="60" cy="60" r="28" class="rg-t"/><circle cx="60" cy="60" r="28" class="rg rg--3" pathLength="100"/>
+                  </svg>
+                  <span class="rg-core"><svg><use href="#i-flame"/></svg></span>
+                  <span class="rg-chip rg-chip--a">1,420 kcal</span>
+                  <span class="rg-chip rg-chip--b">Protein 92g</span>
+                </div>
+                <small class="rg-kick">Welcome →</small>
+                <b class="rg-title">Set goals.<br><em>Crush them.</em></b>
+              </div>
+            </div>
+          </div>
+        </div>
+        <small class="step__n">01</small>
+        <h3>Download the app</h3>
+        <p>Free on Google Play and the App Store.</p>
+      </article>
+      <article class="step">
+        <div class="step__box">
+          <div class="iphone step__phone">
+            <div class="iphone__screen">
+              <i class="iphone__island"></i>
+              <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+              <div class="scr scr--goal">
+                <div class="gl-top"><span class="ui-ic"><svg><use href="#i-chev-l"/></svg></span><i class="gl-bar"><b></b></i><small>2/5</small></div>
+                <b class="gl-title">WHAT'S YOUR<br>MAIN GOAL?</b>
+                <small class="gl-sub">We'll build your plan around it.</small>
+                <div class="gl-opts">
+                  <div class="gl-opt"><span><svg><use href="#i-flame"/></svg></span><div><b>Lose fat</b><small>Burn &amp; get lean</small></div></div>
+                  <div class="gl-opt gl-opt--pick"><span><svg><use href="#i-dumbbell"/></svg></span><div><b>Build muscle</b><small>Gain size &amp; shape</small></div><i class="gl-ck"><svg><use href="#i-check"/></svg></i></div>
+                  <div class="gl-opt"><span><svg><use href="#i-target"/></svg></span><div><b>Get stronger</b><small>Lift heavier</small></div></div>
+                  <div class="gl-opt"><span><svg><use href="#i-run"/></svg></span><div><b>Stay active</b><small>Feel great daily</small></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <small class="step__n">02</small>
+        <h3>Set your goals</h3>
+        <p>Goal, level, schedule and food preferences.</p>
+      </article>
+      <article class="step">
+        <div class="step__box">
+          <div class="iphone step__phone">
+            <div class="iphone__screen">
+              <i class="iphone__island"></i>
+              <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+              <div class="scr scr--timer">
+                <div class="tm-top"><span class="ui-ic"><svg><use href="#i-chev-l"/></svg></span><small>Set 3 of 4</small><span class="ui-ic"><svg><use href="#i-more"/></svg></span></div>
+                <b class="tm-title">BARBELL<br>BACK SQUAT</b>
+                <small class="tm-meta">8 reps · 60 kg · RPE 8</small>
+                <div class="tm-ring">
+                  <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="tm-t"/><circle cx="60" cy="60" r="50" class="tm-v" pathLength="100"/></svg>
+                  <div><b class="js-timer">1:14</b><small>Rest</small></div>
+                </div>
+                <div class="tm-ctrl"><span>−15s</span><span class="tm-pause"><svg><use href="#i-pause"/></svg></span><span>+15s</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <small class="step__n">03</small>
+        <h3>Start training</h3>
+        <p>Follow your AI plan set by set.</p>
+      </article>
+      <article class="step">
+        <div class="step__box">
+          <div class="iphone step__phone">
+            <div class="iphone__screen">
+              <i class="iphone__island"></i>
+              <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+              <div class="scr scr--map">
+                <small class="mp-kick">This week</small>
+                <b class="mp-title">MUSCLE MAP</b>
+                <div class="mp-tog"><span class="is-on">Front</span><span>Back</span></div>
+                <div class="mp-body">
+                  <svg viewBox="0 0 100 210" class="mp-svg" style="--m-chest:#CBF23D;--m-quads:#CBF23D;--m-sh:#8fae27;--m-arms:#8fae27;--m-abs:#5c7419"><use href="#body"/></svg>
+                  <i class="mp-glow mp-glow--1"></i><i class="mp-glow mp-glow--2"></i>
+                </div>
+                <div class="mp-legend"><span><i></i>Trained</span><span><i class="dim"></i>Recovering</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <small class="step__n">04</small>
+        <h3>Track and repeat</h3>
+        <p>Watch your body and strength change.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section class="sec reviews" id="reviews">
+  <div class="wrap">
+    <div class="reviews__head">
+      <div>
+        <p class="eyebrow"><svg><use href="#ring"/></svg><span>REVIEWS</span></p>
+        <h2 class="h2" data-lines>TRUSTED BY MEMBERS</h2>
+      </div>
+      <div class="reviews__nav">
+        <button class="rnav rnav--prev" aria-label="Previous reviews"><svg><use href="#i-arrow-l"/></svg></button>
+        <button class="rnav rnav--next" aria-label="Next reviews" data-magnetic><svg><use href="#i-arrow-r"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="reviews__viewport" data-cursor="Drag">
+    <div class="reviews__track">
+      <article class="review"><div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><p>“Clean equipment and the trainers actually check your form. Easy to book a trial.”</p><div class="who"><img src="assets/img/avatar-04.webp" alt="" loading="lazy"><div><b>Ayesha K.</b><small>Gym member · Lahore</small></div></div></article>
+      <article class="review"><div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><p>“Great machines and timings. Gets busy after 7pm but staff manage it well.”</p><div class="who"><img src="assets/img/avatar-02.webp" alt="" loading="lazy"><div><b>Hamza R.</b><small>Gym member · Karachi</small></div></div></article>
+      <article class="review"><div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><p>“My clients' plans and check-ins live in one place now. I stopped chasing people on WhatsApp.”</p><div class="who"><img src="assets/img/avatar-06.webp" alt="" loading="lazy"><div><b>Hassan Shah</b><small>Trainer · Islamabad</small></div></div></article>
+      <article class="review"><div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><p>“The photo calorie counter knows desi food. Logging karahi and roti finally takes seconds.”</p><div class="who"><img src="assets/img/avatar-01.webp" alt="" loading="lazy"><div><b>Mehwish A.</b><small>Member · Lahore</small></div></div></article>
+      <article class="review"><div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><p>“We got 40+ trial requests in the first month from our verified profile.”</p><div class="who"><img src="assets/img/avatar-03.webp" alt="" loading="lazy"><div><b>Usman T.</b><small>Gym owner · Faisalabad</small></div></div></article>
+      <article class="review"><div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg class="dim"><use href="#i-star"/></svg></div><p>“The AI plan adapts when I miss a day. Feels like a real coach in my pocket.”</p><div class="who"><img src="assets/img/avatar-05.webp" alt="" loading="lazy"><div><b>Bilal M.</b><small>Member · Rawalpindi</small></div></div></article>
+    </div>
+  </div>
+  <div class="wrap"><div class="reviews__bar"><i></i></div></div>
+</section>
+
+<!-- ================= RIBBONS ================= -->
+<div class="ribbons" aria-hidden="true">
+  <div class="ribbon ribbon--a"><div class="ribbon__track"><span>AI WORKOUTS</span><b>✦</b><span>AI DIET</span><b>✦</b><span>PROGRESS</span><b>✦</b><span>AI COACH</span><b>✦</b><span>GYM DISCOVERY</span><b>✦</b></div></div>
+  <div class="ribbon ribbon--b"><div class="ribbon__track"><span>TRAIN SMARTER</span><b>✦</b><span>EAT BETTER</span><b>✦</b><span>SEE PROGRESS</span><b>✦</b><span>STAY CONSISTENT</span><b>✦</b></div></div>
+</div>
+
+<!-- ================= CTA ================= -->
+<section class="sec cta" id="download">
+  <div class="wrap">
+    <div class="cta__panel">
+      <div class="cta__copy">
+        <h2 class="h2 cta__title" data-lines>READY TO<br>TRAIN SMARTER?</h2>
+        <p class="cta__p" data-fade>Your gym, your trainer and your AI coach — in one app.</p>
+        <div class="stores" data-fade>
+          <a href="#" class="store" data-magnetic aria-label="Get it on Google Play"><svg><use href="#i-gplay"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a>
+          <a href="#" class="store" data-magnetic aria-label="Download on the App Store"><svg><use href="#i-apple"/></svg><span><small>Download on the</small><b>App Store</b></span></a>
+        </div>
+      </div>
+      <div class="cta__media">
+        <div class="iphone cta__phone">
+          <div class="iphone__screen">
+            <i class="iphone__island"></i>
+            <div class="st"><span>9:41</span><svg><use href="#i-status"/></svg></div>
+            <div class="scr scr--dash">
+              <div class="ds-top"><div><small>Iron Temple · Lahore</small><b>DASHBOARD</b></div><span class="ui-ic"><svg><use href="#i-bell"/></svg></span></div>
+              <div class="ds-rev">
+                <div class="ds-rev__top"><small>Revenue · October</small><span>+12%</span></div>
+                <b>PKR <span class="js-rev">1.84</span>M</b>
+                <div class="ds-bars"><i style="--h:38%"></i><i style="--h:52%"></i><i style="--h:44%"></i><i style="--h:60%"></i><i style="--h:56%"></i><i style="--h:70%"></i><i style="--h:64%"></i><i style="--h:76%"></i><i style="--h:68%"></i><i style="--h:82%"></i><i style="--h:74%"></i><i class="hi" style="--h:96%"></i></div>
+              </div>
+              <div class="ds-tiles"><div><span><svg><use href="#i-users"/></svg></span><b class="js-members">412</b><small>Active members</small></div><div><span><svg><use href="#i-door"/></svg></span><b class="js-checkins">108</b><small>Check-ins today</small></div></div>
+              <div class="ds-list">
+                <div class="ui-row"><b>Memberships due</b><small>See all</small></div>
+                <div class="ds-row"><span class="ds-av">AR</span><div><b>Ali Raza</b><small>Monthly · due today</small></div><em>6,500</em></div>
+                <div class="ds-row"><span class="ds-av ds-av--d">SM</span><div><b>Sana Malik</b><small>Quarterly · 2 days</small></div><em>17,000</em></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="#top" class="logo logo--sm"><span class="logo__word">FitRaho</span></a>
+        <p>An AI-powered fitness ecosystem connecting gyms, trainers and members.</p>
+      </div>
+      <div class="footer__cols">
+        <div><h4>Product</h4><a href="#who">Gym Owners</a><a href="#who">Trainers</a><a href="#workouts">Members</a><a href="#coach">AI Coach</a></div>
+        <div><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Contact</a></div>
+        <div><h4>Follow</h4><a href="#">Instagram</a><a href="#">Facebook</a><a href="#">LinkedIn</a><a href="#">YouTube</a></div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FitRaho. All rights reserved. · <a href="mailto:support@fitraho.pk">support@fitraho.pk</a></span>
+      <span>Made for Pakistan's fitness community</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../../vendor/gsap/gsap.min.js"></script>
+<script src="../../vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="../../vendor/gsap/CustomEase.min.js"></script>
+<script src="../../vendor/gsap/ScrambleTextPlugin.min.js"></script>
+<script src="../../vendor/gsap/Draggable.min.js"></script>
+<script src="../../vendor/gsap/InertiaPlugin.min.js"></script>
+<script src="../../vendor/gsap/DrawSVGPlugin.min.js"></script>
+<script src="../../vendor/lenis/lenis.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
