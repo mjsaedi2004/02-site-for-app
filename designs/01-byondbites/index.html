@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Byondbites — Your Everyday Wellness Ecosystem</title>
-  <meta name="description" content="Discover what you can cook with ingredients you already have. Recipes, nutrition, meal planning and wellness tools in one app.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arzino — Your Everyday Exchange Ecosystem</title>
+  <meta name="description" content="Live buy and sell prices for pound, dollar, euro and more. Convert instantly, set price alerts and exchange securely in one app.">
   <meta name="theme-color" content="#0B6A4E">
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/pt-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../vendor/lenis/lenis.css">
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -3 52 52'%3E%3Crect x='-4' y='-3' width='52' height='52' rx='12' fill='%230E7A59'/%3E%3Cpath fill='%23fff' d='M4 8a4.5 4.5 0 0 1 9 0V42H8.5A4.5 4.5 0 0 1 4 37.5Z M11 30a12 12 0 1 1 24 0a12 12 0 1 1-24 0Z M17.5 30a5.5 5.5 0 1 0 11 0a5.5 5.5 0 1 0-11 0Z'/%3E%3Cpath fill='%235FE0B8' d='M27.5 13.5c0-6 4.2-9.8 11-9.8 0 6.4-4.4 9.8-11 9.8Z'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -3 52 52'%3E%3Crect x='-4' y='-3' width='52' height='52' rx='12' fill='%230E7A59'/%3E%3Cpath fill='%23fff' d='M28 20.75a4.25 4.25 0 0 1 8.5 0V37.25a4.25 4.25 0 0 1-8.5 0Z M7.5 29a12.5 12.5 0 1 1 25 0a12.5 12.5 0 1 1-25 0Z M14.4 29a5.6 5.6 0 1 0 11.2 0a5.6 5.6 0 1 0-11.2 0Z'/%3E%3Ccircle cx='36' cy='8.5' r='5.5' fill='%235FE0B8'/%3E%3C/svg%3E">
 </head>
 <body class="is-loading">
 
@@ -19,50 +18,43 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="logo-mark" viewBox="0 0 44 46">
-      <path d="M4 8a4.5 4.5 0 0 1 9 0V42H8.5A4.5 4.5 0 0 1 4 37.5Z M11 30a12 12 0 1 1 24 0a12 12 0 1 1-24 0Z M17.5 30a5.5 5.5 0 1 0 11 0a5.5 5.5 0 1 0-11 0Z" fill="currentColor" fill-rule="nonzero"/>
-      <path d="M27.5 13.5c0-6 4.2-9.8 11-9.8 0 6.4-4.4 9.8-11 9.8Z" fill="var(--leaf, #5FE0B8)"/>
+      <path d="M28 20.75a4.25 4.25 0 0 1 8.5 0V37.25a4.25 4.25 0 0 1-8.5 0Z M7.5 29a12.5 12.5 0 1 1 25 0a12.5 12.5 0 1 1-25 0Z M14.4 29a5.6 5.6 0 1 0 11.2 0a5.6 5.6 0 1 0-11.2 0Z" fill="currentColor" fill-rule="nonzero"/>
+      <circle cx="36" cy="8.5" r="5.5" fill="var(--leaf, #5FE0B8)"/>
     </symbol>
-    <symbol id="i-utensils" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></g></symbol>
-    <symbol id="i-heart-pulse" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></g></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></g></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></g></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></g></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></g></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></g></symbol>
     <symbol id="i-arrow-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></g></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></symbol>
     <symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></g></symbol>
-    <symbol id="i-scan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></g></symbol>
-    <symbol id="i-chef" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5a1.5 1.5 0 0 1 2.3-1.27l10.2 6.9a2.2 2.2 0 0 1 0 3.74l-10.2 6.9A1.5 1.5 0 0 1 7 19.5Z" fill="currentColor"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></g></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M14 8.5h2.6V5H14c-2.7 0-4.4 1.8-4.4 4.6V12H7.2v3.5h2.4V22h3.6v-6.5h2.7l.6-3.5h-3.3V9.9c0-.9.4-1.4.8-1.4Z" fill="currentColor"/></symbol>
+    <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M21.6 4.2 2.9 11.4c-1.1.4-1.1 1.9.1 2.2l4.6 1.4 1.8 5.5c.3.9 1.4 1.1 2 .5l2.6-2.4 4.8 3.6c.8.6 1.9.1 2.1-.8l3-15.3c.2-1.2-.9-2.1-2.3-1.9ZM9.4 15.1l-.5 3.5-1.3-4.2 10.3-7.8Z" fill="currentColor"/></symbol>
     <symbol id="i-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8Zm-1.1 16.2h1.7L7.4 4.7H5.6Z" fill="currentColor"/></symbol>
     <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3Zm6.5 0h3.8v1.6h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.52 4.77 5.8V21h-4v-5.1c0-1.22-.02-2.8-1.75-2.8-1.75 0-2.02 1.33-2.02 2.7V21H9.5Z" fill="currentColor"/></symbol>
-    <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></g></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20a10 10 0 0010-10 25.9 25.9 0 00-1.04-7.281 1 1 0 00-1.755-.325C15.833 5.5 13 5.5 9.8 6.1A7 7 0 0011 20"/><path d="M2 21a5 5 0 012.911-4.544C7.613 15.212 8.351 15.24 11 13"/></g></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></g></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></g></symbol>
-    <symbol id="i-salad" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.496 12a2.5 2.5 0 00.399-2.214A2 2 0 0020.32 6.5 2 2 0 0019 3a2 2 0 00-1.5.68 2 2 0 00-3.287.424 2.5 2.5 0 00-3.189 2.06A3 3 0 0012 12l4-4"/><path d="M4 12a1 1 0 00-.99 1.133A9 9 0 0012 21a9 9 0 008.99-7.867A1 1 0 0020 12z"/><path d="M7 21h10"/><path d="M9.85 6.907A3.5 3.5 0 005.05 12"/></g></symbol>
-    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></g></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g></symbol>
     <symbol id="i-sparkles" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/></g></symbol>
     <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></g></symbol>
-    <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3.5" width="18" height="17.5" rx="2"/><path d="M3 9h18"/></g></symbol>
-    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" fill="currentColor"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17l-5.6 3 1.1-6.3L2.9 9.3l6.3-.9Z" fill="currentColor"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-quote" viewBox="0 0 32 24"><path d="M0 24V14.4C0 6.6 4 1.8 11.4 0l1.4 3.2C8.7 4.6 6.6 7.4 6.4 11.2H12V24Zm19.2 0V14.4C19.2 6.6 23.2 1.8 30.6 0L32 3.2c-4.1 1.4-6.2 4.2-6.4 8H31.2V24Z" fill="currentColor"/></symbol>
-    <symbol id="i-droplets" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></g></symbol>
-    <symbol id="i-timer" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4"/><path d="M12 14l3-3"/><circle cx="12" cy="14" r="8"/></g></symbol>
-    <symbol id="i-cart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></g></symbol>
     <symbol id="i-grid" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2.4"/><rect x="13" y="3" width="8" height="8" rx="2.4"/><rect x="3" y="13" width="8" height="8" rx="2.4"/><rect x="13" y="13" width="8" height="8" rx="2.4"/></g></symbol>
     <symbol id="i-apple" viewBox="0 0 24 24"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.97.9-3.76 2.28-1.61 2.79-.41 6.91 1.15 9.17.77 1.1 1.68 2.34 2.87 2.3 1.16-.05 1.59-.74 2.99-.74 1.39 0 1.79.74 3 .72 1.24-.02 2.03-1.12 2.78-2.23.88-1.28 1.24-2.53 1.26-2.59-.03-.01-2.42-.93-2.45-3.69zM14.1 5.86c.63-.77 1.06-1.83.94-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.28z" fill="currentColor"/></symbol>
     <symbol id="i-gplay" viewBox="0 0 24 24"><path d="M3.6 1.8 13.3 11.5 3.6 21.2c-.3-.2-.5-.6-.5-1.1V2.9c0-.5.2-.9.5-1.1Z" fill="#00C3FF"/><path d="M3.6 1.8c.4-.2 1-.1 1.6.3l11 6.4-2.9 2.9Z" fill="#00E676"/><path d="m3.6 21.2 9.7-9.7 2.9 2.9-11 6.4c-.6.3-1.2.5-1.6.4Z" fill="#FF3D57"/><path d="m16.2 8.6 3.3 1.9c1 .6 1 1.5 0 2.1l-3.3 1.9-2.9-2.9Z" fill="#FFD400"/></symbol>
-    <symbol id="i-leafart" viewBox="0 0 120 220"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M60 215C58 150 62 80 60 5"/><path d="M60 40c-18-8-30-22-34-36 18 2 30 14 34 36Z" fill="currentColor" fill-opacity=".35"/><path d="M60 62c20-8 34-22 38-40-20 4-34 18-38 40Z" fill="currentColor" fill-opacity=".35"/><path d="M60 96c-22-8-38-24-44-44 22 4 38 20 44 44Z" fill="currentColor" fill-opacity=".35"/><path d="M60 120c24-8 40-26 46-48-24 6-40 24-46 48Z" fill="currentColor" fill-opacity=".35"/><path d="M60 156c-24-8-42-28-48-52 24 6 42 26 48 52Z" fill="currentColor" fill-opacity=".35"/><path d="M60 180c22-8 38-26 44-50-22 6-38 26-44 50Z" fill="currentColor" fill-opacity=".35"/></g></symbol>
+    <symbol id="i-coinart" viewBox="0 0 120 220"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="60" cy="186" rx="44" ry="14" fill="currentColor" fill-opacity=".3"/><path d="M16 186v-16c0 8 20 14 44 14s44-6 44-14v16"/><ellipse cx="60" cy="152" rx="44" ry="14" fill="currentColor" fill-opacity=".25"/><path d="M16 152v-16c0 8 20 14 44 14s44-6 44-14v16"/><ellipse cx="60" cy="118" rx="44" ry="14" fill="currentColor" fill-opacity=".2"/><path d="M14 92 42 64l22 18 42-48"/><path d="M84 34h22v22"/></g></symbol>
   </defs>
 </svg>
 
@@ -70,28 +62,28 @@
 <div class="preloader" aria-hidden="true">
   <div class="preloader__inner">
     <svg class="preloader__mark" viewBox="0 0 44 46"><use href="#logo-mark"/></svg>
-    <div class="preloader__word"><span>B</span><span>y</span><span>o</span><span>n</span><span>d</span><span>b</span><span>i</span><span>t</span><span>e</span><span>s</span></div>
+    <div class="preloader__word"><span>A</span><span>r</span><span>z</span><span>i</span><span>n</span><span>o</span></div>
     <div class="preloader__bar"><i></i></div>
     <div class="preloader__count"><span class="js-count">0</span>%</div>
   </div>
 </div>
 
-<!-- ================= CURSOR ================= -->
 <div class="cursor is-hidden" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"><span class="cursor__label"></span></div></div>
 <div class="scroll-progress" aria-hidden="true"><i></i></div>
+<div class="draft-badge" role="note"><i></i><span class="draft-badge__long">Design preview — app name, rates, figures &amp; reviews are sample content</span><span class="draft-badge__short">Design preview · sample content</span></div>
 
 <!-- ================= HEADER ================= -->
 <header class="header" id="top">
   <div class="header__bar">
-    <a href="#home" class="logo" aria-label="Byondbites home">
+    <a href="#home" class="logo" aria-label="Arzino home">
       <svg class="logo__mark" viewBox="0 0 44 46"><use href="#logo-mark"/></svg>
-      <span class="logo__word">Byondbites</span>
+      <span class="logo__word">Arzino</span>
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#home" class="nav__link is-active">Home</a>
-      <a href="#recipes" class="nav__link">Byondbites</a>
-      <a href="#features" class="nav__link">Byondhealth</a>
-      <a href="#bmi" class="nav__link">BMI Calculator</a>
+      <a href="#rates" class="nav__link">Live Rates</a>
+      <a href="#converter" class="nav__link">Converter</a>
+      <a href="#market" class="nav__link">Alerts</a>
       <a href="#story" class="nav__link">Story</a>
       <a href="#contact" class="nav__link">Contact</a>
       <div class="lang">
@@ -100,7 +92,7 @@
           <button role="menuitem" class="is-active"><span>EN</span> English</button>
           <button role="menuitem"><span>FA</span> فارسی</button>
           <button role="menuitem"><span>AR</span> العربية</button>
-          <button role="menuitem"><span>UR</span> اردو</button>
+          <button role="menuitem"><span>TR</span> Türkçe</button>
         </div>
       </div>
       <span class="nav__pill" aria-hidden="true"></span>
@@ -113,7 +105,7 @@
 <div class="mmenu" aria-hidden="true">
   <div class="mmenu__bg"></div>
   <nav class="mmenu__nav">
-    <a href="#home">Home</a><a href="#recipes">Byondbites</a><a href="#features">Byondhealth</a><a href="#bmi">BMI Calculator</a><a href="#story">Story</a><a href="#contact">Contact</a>
+    <a href="#home">Home</a><a href="#rates">Live Rates</a><a href="#converter">Converter</a><a href="#market">Alerts</a><a href="#story">Story</a><a href="#contact">Contact</a>
   </nav>
   <a href="#download" class="btn btn--white mmenu__cta">Download App</a>
 </div>
@@ -164,8 +156,8 @@
 
   <div class="hero__inner">
     <div class="hero__copy">
-      <h1 class="hero__title"><span class="hero__line-wrap">Your Everyday Wellness</span> <span class="hero__line-wrap">Ecosystem</span></h1>
-      <p class="hero__sub">Discover what you can cook with ingredients you already have</p>
+      <h1 class="hero__title"><span class="hero__line-wrap">Your Everyday Exchange</span> <span class="hero__line-wrap">Ecosystem</span></h1>
+      <p class="hero__sub">Live prices for pound, dollar and euro — convert and exchange in seconds</p>
       <div class="hero__btns">
         <a href="#download" class="btn btn--white" data-magnetic><span>Download App</span></a>
         <button class="btn btn--outline-light js-video" data-magnetic><span>Watch Video</span></button>
@@ -174,18 +166,17 @@
 
     <div class="hero__cards">
       <article class="eco-card eco-card--l" data-tilt>
-        <div class="eco-card__head"><span class="eco-card__ic"><svg><use href="#i-utensils"/></svg></span><h3>ByondBites</h3></div>
-        <p>Discover recipes, track nutrition, plan meals, and cook smarter with the ingredients you already have.</p>
-        <a href="#recipes" class="eco-card__link">Explore ByondBites <svg><use href="#i-arrow-right"/></svg></a>
+        <div class="eco-card__head"><span class="eco-card__ic"><svg><use href="#i-chart"/></svg></span><h3>Live Rates</h3></div>
+        <p>Track live buy and sell prices for pound, dollar, euro and 30+ currencies in real time.</p>
+        <a href="#rates" class="eco-card__link">Explore Live Rates <svg><use href="#i-arrow-right"/></svg></a>
       </article>
       <article class="eco-card eco-card--r" data-tilt>
-        <div class="eco-card__head"><span class="eco-card__ic"><svg><use href="#i-heart-pulse"/></svg></span><h3>ByondHealth</h3></div>
-        <p>Calculate BMI, calories, and wellness goals to build healthier habits every day.</p>
-        <a href="#bmi" class="eco-card__link">Explore ByondHealth <svg><use href="#i-arrow-right"/></svg></a>
+        <div class="eco-card__head"><span class="eco-card__ic"><svg><use href="#i-swap"/></svg></span><h3>Smart Exchange</h3></div>
+        <p>Convert instantly, set price alerts and exchange at the best rate every day.</p>
+        <a href="#converter" class="eco-card__link">Explore Converter <svg><use href="#i-arrow-right"/></svg></a>
       </article>
     </div>
     <div class="hero__rect-end" aria-hidden="true"></div>
-
   </div>
 
   <!-- Phones -->
@@ -196,28 +187,33 @@
           <div class="scr scr--home">
             <div class="scr__status"><span>9:41</span><span class="scr__si"><i></i><i></i><b></b></span></div>
             <div class="ah">
-              <span class="ah__logo"><svg viewBox="0 0 44 46"><use href="#logo-mark"/></svg><b>Byondbites</b></span>
+              <span class="ah__logo"><svg viewBox="0 0 44 46"><use href="#logo-mark"/></svg><b>Arzino</b></span>
               <span class="ah__icons"><span class="ah__ic"><svg><use href="#i-bell"/></svg><i></i></span><span class="ah__avatar"><img src="assets/img/person-01.webp" alt=""></span></span>
             </div>
-            <div class="feat">
+            <div class="feat feat--fx">
               <div class="feat__txt">
-                <span class="feat__tag">Chef's pick</span>
-                <b>Cook smarter, <em>eat better</em></b>
-                <small>Ideas from what's already in your fridge</small>
+                <span class="feat__tag"><i class="live-dot"></i>Live · GBP</span>
+                <b><span class="js-hero-gbp">131,900</span> <em>Toman</em></b>
+                <small><span class="up">▲ 1.24%</span> today · updated 3s ago</small>
               </div>
-              <div class="feat__img"><img src="assets/img/bowl-salmon.webp" alt=""></div>
+              <div class="feat__img"><img src="assets/img/flags/gb.svg" alt=""></div>
+              <svg class="feat__spark" viewBox="0 0 120 30" preserveAspectRatio="none"><path d="M0 26 C12 24 18 27 28 21 S44 22 52 16 S68 18 76 12 S92 13 100 7 S114 6 120 3"/></svg>
             </div>
-            <div class="srch"><svg><use href="#i-search"/></svg><span class="srch__txt js-type" data-words="Search recipes…|avocado, eggs, spinach|high-protein dinner|15-minute lunch"></span><i class="srch__caret"></i></div>
-            <div class="sec-h"><b>Trending Recipes</b><small>See all</small></div>
+            <div class="srch"><svg><use href="#i-search"/></svg><span class="srch__txt js-type" data-words="Search currencies…|GBP to Toman|best dollar rate today|EUR price alert"></span><i class="srch__caret"></i></div>
+            <div class="sec-h"><b>Live rates</b><small>See all</small></div>
             <div class="trend"><div class="trend__track">
-              <div class="tcard"><img src="assets/img/bowl-rainbow.webp" alt=""><b>Rainbow Bowl</b><small>320 kcal · 15m</small></div>
-              <div class="tcard"><img src="assets/img/bowl-ramen.webp" alt=""><b>Shrimp Ramen</b><small>480 kcal · 25m</small></div>
-              <div class="tcard"><img src="assets/img/pan-pasta.webp" alt=""><b>Garlic Pasta</b><small>540 kcal · 20m</small></div>
-              <div class="tcard"><img src="assets/img/bowl-avocado.webp" alt=""><b>Quinoa Bowl</b><small>390 kcal · 10m</small></div>
+              <div class="tcard"><img src="assets/img/flags/us.svg" alt=""><b>USD</b><small>98,950</small><em class="up">+0.62%</em></div>
+              <div class="tcard"><img src="assets/img/flags/eu.svg" alt=""><b>EUR</b><small>114,900</small><em class="up">+0.48%</em></div>
+              <div class="tcard"><img src="assets/img/flags/ae.svg" alt=""><b>AED</b><small>26,950</small><em class="up">+0.55%</em></div>
+              <div class="tcard"><img src="assets/img/flags/tr.svg" alt=""><b>TRY</b><small>2,410</small><em class="down">−0.31%</em></div>
+              <div class="tcard"><img src="assets/img/flags/us.svg" alt=""><b>USD</b><small>98,950</small><em class="up">+0.62%</em></div>
+              <div class="tcard"><img src="assets/img/flags/eu.svg" alt=""><b>EUR</b><small>114,900</small><em class="up">+0.48%</em></div>
+              <div class="tcard"><img src="assets/img/flags/ae.svg" alt=""><b>AED</b><small>26,950</small><em class="up">+0.55%</em></div>
+              <div class="tcard"><img src="assets/img/flags/tr.svg" alt=""><b>TRY</b><small>2,410</small><em class="down">−0.31%</em></div>
             </div></div>
-            <div class="sec-h"><b>From your pantry</b><small>6 items</small></div>
-            <div class="pantry"><span>🥑</span><span>🥚</span><span>🍅</span><span>🥬</span><span>🧄</span><span>🍋</span></div>
-            <nav class="tabbar"><span class="is-on"><svg><use href="#i-home"/></svg></span><span><svg><use href="#i-salad"/></svg></span><span class="tabbar__scan"><svg><use href="#i-scan"/></svg></span><span><svg><use href="#i-calendar"/></svg></span><span><svg><use href="#i-user"/></svg></span></nav>
+            <div class="sec-h"><b>Your alerts</b><small>3 active</small></div>
+            <div class="pantry pantry--alerts"><span>USD ≥ 99k</span><span>GBP ≤ 130k</span><span>EUR ±1%</span></div>
+            <nav class="tabbar"><span class="is-on"><svg><use href="#i-home"/></svg></span><span><svg><use href="#i-chart"/></svg></span><span class="tabbar__scan"><svg><use href="#i-swap"/></svg></span><span><svg><use href="#i-bell"/></svg></span><span><svg><use href="#i-user"/></svg></span></nav>
           </div>
         </div>
       </div>
@@ -225,20 +221,29 @@
         <div class="phone__screen">
           <div class="scr scr--cal">
             <div class="scr__status"><span>9:41</span><span class="scr__si"><i></i><i></i><b></b></span></div>
-            <div class="cal__head"><em>Track Your Calories</em><small>Understand your nutrition to reach your goals</small></div>
-            <div class="cal__hero"><img src="assets/img/bowl-green.webp" alt=""><span class="cal__pill"><svg><use href="#i-flame"/></svg> 1,284 kcal today</span></div>
+            <div class="cal__head"><em>Track The Market</em><small>Understand price moves before you exchange</small></div>
+            <div class="cal__hero cal__hero--chart">
+              <svg viewBox="0 0 200 84" preserveAspectRatio="none" class="cal__chart">
+                <defs><linearGradient id="calFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22D3A0" stop-opacity=".45"/><stop offset="1" stop-color="#22D3A0" stop-opacity="0"/></linearGradient></defs>
+                <path class="cal__area" d="M0 70 C20 66 30 72 46 60 S70 62 84 50 S108 54 122 40 S146 44 160 30 S184 26 200 14 V84 H0Z" fill="url(#calFill)"/>
+                <path class="cal__line" d="M0 70 C20 66 30 72 46 60 S70 62 84 50 S108 54 122 40 S146 44 160 30 S184 26 200 14"/>
+                <circle cx="200" cy="14" r="4" class="cal__dot"/>
+              </svg>
+              <span class="cal__label">GBP / Toman · 1W</span>
+              <span class="cal__pill"><svg><use href="#i-trend"/></svg> +1.24% today</span>
+            </div>
             <div class="gauge">
               <svg viewBox="0 0 140 80" class="gauge__svg">
                 <defs><linearGradient id="gaugeGrad" x1="0" x2="1"><stop offset="0" stop-color="#FF5A5F"/><stop offset=".5" stop-color="#FFC24B"/><stop offset="1" stop-color="#22D3A0"/></linearGradient></defs>
                 <path class="gauge__track" d="M14 72a56 56 0 0 1 112 0"/>
                 <path class="gauge__val" d="M14 72a56 56 0 0 1 112 0"/>
               </svg>
-              <div class="gauge__num"><b><span class="js-gauge-num">0</span><sup>%</sup></b><small>Health Score</small></div>
+              <div class="gauge__num"><b><span class="js-gauge-num">0</span><sup>%</sup></b><small>Rate Score · vs 30 days</small></div>
             </div>
-            <div class="cal__btns"><span><svg><use href="#i-heart-pulse"/></svg>BMI Calculator</span><span><svg><use href="#i-calendar"/></svg>Diet Planner</span></div>
-            <div class="bmi-row"><span class="bmi-row__k">BMI</span><b class="js-bmi-num">0.0</b><span class="chip-amber">Overweight</span></div>
-            <div class="macro-row"><span><i style="--w:72%"></i>Protein</span><span><i style="--w:54%"></i>Carbs</span><span><i style="--w:38%"></i>Fat</span></div>
-            <nav class="tabbar"><span class="is-on"><svg><use href="#i-home"/></svg></span><span><svg><use href="#i-salad"/></svg></span><span class="tabbar__scan"><svg><use href="#i-scan"/></svg></span><span><svg><use href="#i-calendar"/></svg></span><span><svg><use href="#i-user"/></svg></span></nav>
+            <div class="cal__btns"><span><svg><use href="#i-swap"/></svg>Converter</span><span><svg><use href="#i-bell"/></svg>Price Alerts</span></div>
+            <div class="bmi-row"><span class="bmi-row__k">USD</span><b class="js-bmi-num">0</b><span class="chip-amber chip-up">+0.62%</span></div>
+            <div class="macro-row"><span><i style="--w:72%"></i>GBP</span><span><i style="--w:54%"></i>USD</span><span><i style="--w:38%"></i>EUR</span></div>
+            <nav class="tabbar"><span><svg><use href="#i-home"/></svg></span><span class="is-on"><svg><use href="#i-chart"/></svg></span><span class="tabbar__scan"><svg><use href="#i-swap"/></svg></span><span><svg><use href="#i-bell"/></svg></span><span><svg><use href="#i-user"/></svg></span></nav>
           </div>
         </div>
       </div>
@@ -247,72 +252,72 @@
   </div>
 
   <div class="hero__bottom">
-      <div class="hero__story">
-        <p class="hero__story-txt">Your ingredients already have a story to tell. We help you discover it one delicious meal at a time.</p>
-        <a href="#how" class="btn btn--mint" data-magnetic><svg class="btn__ic"><use href="#i-camera"/></svg><span>Scan Your Pantry</span></a>
-      </div>
-      <div class="hero__video">
-        <button class="vcard js-video" aria-label="Watch video">
-          <img src="assets/img/video-poster.webp" alt="A Byondbites user talking about the app" width="360" height="410">
-          <span class="vcard__shade"></span>
-          <span class="vcard__cap">You need to hear this</span>
-          <span class="vcard__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        </button>
-        <button class="btn btn--watch js-video" data-magnetic><span class="btn--watch__ic"><svg><use href="#i-play"/></svg></span><span>WATCH VIDEO</span></button>
-      </div>
+    <div class="hero__story">
+      <p class="hero__story-txt">Every currency already has a story to tell.<br>We help you read it — one smart exchange at a time.</p>
+      <a href="#rates" class="btn btn--mint" data-magnetic><span>Check Live Rates</span></a>
     </div>
+    <div class="hero__video">
+      <button class="vcard js-video" aria-label="Watch video">
+        <img src="assets/img/video-poster.webp" alt="An Arzino user talking about the app" width="360" height="410">
+        <span class="vcard__shade"></span>
+        <span class="vcard__cap">You need to hear this</span>
+        <span class="vcard__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
+      <button class="btn btn--watch js-video" data-magnetic><span class="btn--watch__ic"><svg><use href="#i-play"/></svg></span><span>WATCH VIDEO</span></button>
+    </div>
+  </div>
 </section>
 
-<!-- ================= RECIPES ================= -->
-<section class="section recipes" id="recipes">
+<!-- ================= LIVE RATES ================= -->
+<section class="section recipes" id="rates">
   <div class="container">
     <header class="sec-head">
-      <h2 class="sec-title" data-split>Recipes</h2>
-      <p class="sec-sub" data-reveal>Curated recipes that turn everyday ingredients into effortless, nourishing meals.</p>
+      <h2 class="sec-title" data-split>Live Rates</h2>
+      <p class="sec-sub" data-reveal>Real-time buy and sell prices for the currencies you care about — refreshed every few seconds.</p>
     </header>
-    <div class="chips" role="tablist" aria-label="Recipe categories" data-reveal>
+    <div class="chips" role="tablist" aria-label="Currency groups" data-reveal>
       <span class="chips__ind" aria-hidden="true"></span>
-      <button class="chip is-active chip--all" role="tab" aria-selected="true" data-cat="all"><svg><use href="#i-grid"/></svg><span>All</span></button>
-      <button class="chip" role="tab" aria-selected="false" data-cat="appetizers">Appetizers</button>
-      <button class="chip" role="tab" aria-selected="false" data-cat="breakfast">Breakfast</button>
-      <button class="chip" role="tab" aria-selected="false" data-cat="dinner">Dinner</button>
-      <button class="chip" role="tab" aria-selected="false" data-cat="healthy">Healthy</button>
-      <button class="chip" role="tab" aria-selected="false" data-cat="lunch">Lunch</button>
+      <button class="chip is-active chip--all" role="tab" aria-selected="true" data-cat="all">All</button>
+      <button class="chip" role="tab" aria-selected="false" data-cat="popular">Popular</button>
+      <button class="chip" role="tab" aria-selected="false" data-cat="europe">Europe</button>
+      <button class="chip" role="tab" aria-selected="false" data-cat="mideast">Middle East &amp; Asia</button>
+      <button class="chip" role="tab" aria-selected="false" data-cat="americas">Americas &amp; Pacific</button>
     </div>
   </div>
   <div class="carousel" data-cursor="Drag">
-    <button class="carousel__arrow carousel__arrow--prev" aria-label="Previous recipe" data-magnetic><svg><use href="#i-chev-left"/></svg></button>
+    <button class="carousel__arrow carousel__arrow--prev" aria-label="Previous currency" data-magnetic><svg><use href="#i-chev-left"/></svg></button>
     <div class="carousel__stage"></div>
-    <button class="carousel__arrow carousel__arrow--next" aria-label="Next recipe" data-magnetic><svg><use href="#i-chev-right"/></svg></button>
+    <button class="carousel__arrow carousel__arrow--next" aria-label="Next currency" data-magnetic><svg><use href="#i-chev-right"/></svg></button>
   </div>
   <div class="dots" aria-hidden="true"></div>
 </section>
 
-<!-- ================= KNOW YOUR MEAL ================= -->
-<section class="section meal" id="meal">
+<!-- ================= KNOW YOUR RATE ================= -->
+<section class="section meal" id="market">
   <div class="container">
     <header class="sec-head">
-      <h2 class="sec-title" data-split>Know Your Meal, <span class="hl">Cook It Better</span></h2>
-      <p class="sec-sub" data-reveal>See the ingredients, nutrition details, and step-by-step directions to make every recipe simple, healthy, and easy to follow.</p>
+      <h2 class="sec-title" data-split>Know Your Rate, <span class="hl">Exchange It Better</span></h2>
+      <p class="sec-sub" data-reveal>See live prices, price history and smart alerts for every currency, so you always exchange at the right moment.</p>
     </header>
   </div>
   <div class="meal__grid">
     <div class="meal__copy">
-      <h3 class="meal__title" aria-live="polite"><span class="meal__t1">Smart</span><span class="meal__t2">Ingredients</span></h3>
-      <p class="meal__desc"><span class="meal__dash"></span><span class="meal__desc-txt">Turn every ingredient with exact quantities so you know what you need before you start cooking.</span></p>
+      <h3 class="meal__title" aria-live="polite"><span class="meal__t1">Live</span><span class="meal__t2">Prices</span></h3>
+      <p class="meal__desc"><span class="meal__dash"></span><span class="meal__desc-txt">Buy and sell prices from trusted desks, updated every few seconds so you never trade on an old number.</span></p>
     </div>
 
     <div class="meal__phones">
       <div class="phone phone--light meal__phone meal__phone--back" aria-hidden="true">
         <div class="phone__screen">
           <div class="scr scr--cook">
-            <div class="scr__status scr__status--dark"><span>9:41</span><span class="scr__si"><i></i><i></i><b></b></span></div>
-            <div class="cook__img"><img class="js-meal-img2" src="assets/img/bowl-beef-salad.webp" alt=""></div>
+            <div class="scr__status"><span>9:41</span><span class="scr__si"><i></i><i></i><b></b></span></div>
+            <div class="cook__img"><img class="js-meal-img2" src="assets/img/city-london.webp" alt=""></div>
             <div class="cook__card">
-              <small>Cooking mode</small>
-              <b>Step <span class="js-cook-step">2</span> of 4</b>
+              <small>Rate locked</small>
+              <b class="js-cook-amt">£500 → 65.6M T</b>
               <div class="cook__timer"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="25"/><circle class="cook__timer-val" cx="30" cy="30" r="25"/></svg><span class="js-cook-time">04:59</span></div>
-              <span class="cook__btn">Next step</span>
+              <span class="cook__step">Order step <span class="js-cook-step">2</span> of 3</span>
+              <span class="cook__btn">Confirm exchange</span>
             </div>
           </div>
         </div>
@@ -320,15 +325,17 @@
       <div class="phone phone--light meal__phone meal__phone--front">
         <div class="phone__screen">
           <div class="scr scr--recipe">
-            <div class="rec__img">
-              <img class="js-meal-img" src="assets/img/bowl-beef-salad.webp" alt="">
+            <div class="rec__img rec__img--fx">
+              <svg class="rec__spark" viewBox="0 0 200 80" preserveAspectRatio="none"><path class="js-spark-area" fill="rgba(255,255,255,.16)"/><path class="js-spark" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2"/></svg>
+              <img class="rec__coin js-meal-img" src="assets/img/flags/gb.svg" alt="">
+              <div class="rec__price"><small>Sell now</small><b class="js-meal-price">131,900</b><em>Toman</em></div>
               <span class="rec__btn rec__btn--l"><svg><use href="#i-chev-left"/></svg></span>
-              <span class="rec__btn rec__btn--r"><svg><use href="#i-heart"/></svg></span>
+              <span class="rec__btn rec__btn--r"><svg><use href="#i-star"/></svg></span>
             </div>
             <div class="rec__body">
-              <h4 class="js-meal-name">Taco Beef Salad Bowl</h4>
-              <div class="rec__meta"><span><svg><use href="#i-clock"/></svg><em class="js-meal-time">15-30 min</em></span><span><svg><use href="#i-flame"/></svg><em class="js-meal-kcal">420 kcal</em></span><span><svg><use href="#i-user"/></svg>2 serv.</span></div>
-              <div class="rec__seg"><span class="rec__seg-ind"></span><button data-tab="0" class="is-on">Ingredients</button><button data-tab="1">Nutrition</button><button data-tab="2">Directions</button></div>
+              <h4 class="js-meal-name">British Pound · GBP</h4>
+              <div class="rec__meta"><span><svg><use href="#i-clock"/></svg><em class="js-meal-time">Updated 3s ago</em></span><span><svg><use href="#i-trend"/></svg><em class="js-meal-kcal">+1.24% today</em></span><span><svg><use href="#i-wallet"/></svg>Toman</span></div>
+              <div class="rec__seg"><span class="rec__seg-ind"></span><button data-tab="0" class="is-on">Prices</button><button data-tab="1">Alerts</button><button data-tab="2">Convert</button></div>
               <div class="rec__panes">
                 <div class="rec__pane is-on" data-pane="0"></div>
                 <div class="rec__pane" data-pane="1"></div>
@@ -340,96 +347,100 @@
       </div>
     </div>
 
-    <div class="meal__tabs" role="tablist" aria-label="Recipe details">
+    <div class="meal__tabs" role="tablist" aria-label="Currency tools">
       <span class="meal__tabs-ind" aria-hidden="true"></span>
       <button class="mtab is-active" role="tab" aria-selected="true" data-tab="0">
-        <span class="mtab__img"><img src="assets/img/bowl-rainbow.webp" alt=""><svg class="mtab__ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30"/></svg></span>
-        <span class="mtab__label">Ingredients</span>
+        <span class="mtab__img"><img src="assets/img/flags/gb.svg" alt=""><svg class="mtab__ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30"/></svg></span>
+        <span class="mtab__label">Live Prices</span>
       </button>
       <button class="mtab" role="tab" aria-selected="false" data-tab="1">
-        <span class="mtab__img"><img src="assets/img/plate-eggs.webp" alt=""><svg class="mtab__ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30"/></svg></span>
-        <span class="mtab__label">Nutritions</span>
+        <span class="mtab__img mtab__img--plate"><svg class="mtab__icon"><use href="#i-bell"/></svg><svg class="mtab__ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30"/></svg></span>
+        <span class="mtab__label">Alerts</span>
       </button>
       <button class="mtab" role="tab" aria-selected="false" data-tab="2">
-        <span class="mtab__img mtab__img--plate"><svg viewBox="0 0 64 64" class="mtab__plate"><circle cx="32" cy="32" r="22" fill="#fff" stroke="#E2E6E4" stroke-width="2"/><circle cx="32" cy="32" r="14" fill="none" stroke="#EEF1F0" stroke-width="2"/><path d="M12 14v14M8 14v8a4 4 0 0 0 8 0v-8M52 14c-4 2-5 7-5 12h5v20" fill="none" stroke="#9AA3A0" stroke-width="2.4" stroke-linecap="round"/></svg><svg class="mtab__ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30"/></svg></span>
-        <span class="mtab__label">Directions</span>
+        <span class="mtab__img mtab__img--plate"><svg class="mtab__icon"><use href="#i-swap"/></svg><svg class="mtab__ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30"/></svg></span>
+        <span class="mtab__label">Converter</span>
       </button>
     </div>
   </div>
 </section>
 
-<!-- ================= BMI CALCULATOR ================= -->
-<section class="section bmi" id="bmi">
+<!-- ================= CURRENCY CALCULATOR ================= -->
+<section class="section bmi" id="converter">
   <div class="container">
     <header class="sec-head">
-      <h2 class="sec-title" data-split>Free BMI &amp; <span class="hl">Calorie Calculator</span></h2>
-      <p class="sec-sub" data-reveal>Calculate your BMI, daily calories, and macros to understand your body's needs and start eating smarter.</p>
+      <h2 class="sec-title" data-split>Free Currency &amp; <span class="hl">Fee Calculator</span></h2>
+      <p class="sec-sub" data-reveal>Convert any amount, compare fees and see exactly what you'll receive before you exchange.</p>
     </header>
     <div class="calc" data-reveal>
       <form class="calc__form" novalidate>
         <div class="field">
-          <label for="age">Age</label>
-          <div class="field__box"><input id="age" name="age" type="number" inputmode="numeric" min="14" max="99" value="28" required><span class="field__unit">yrs</span></div>
+          <label for="amount">Amount</label>
+          <div class="field__box"><input id="amount" name="amount" type="number" inputmode="decimal" min="1" max="100000000" value="500" required><span class="field__unit js-amt-unit">GBP</span></div>
         </div>
         <div class="field">
-          <span class="field__label" id="genderLbl">Gender</span>
-          <div class="seg" role="radiogroup" aria-labelledby="genderLbl">
+          <span class="field__label" id="modeLbl">Service</span>
+          <div class="seg" role="radiogroup" aria-labelledby="modeLbl">
             <span class="seg__ind" aria-hidden="true"></span>
-            <button type="button" class="seg__opt is-on" role="radio" aria-checked="true" data-v="female">Female</button>
-            <button type="button" class="seg__opt" role="radio" aria-checked="false" data-v="male">Male</button>
+            <button type="button" class="seg__opt is-on" role="radio" aria-checked="true" data-v="exchange">Exchange</button>
+            <button type="button" class="seg__opt" role="radio" aria-checked="false" data-v="transfer">Transfer</button>
           </div>
         </div>
         <div class="field">
-          <label for="weight">Weight (kg)</label>
-          <div class="field__box"><input id="weight" name="weight" type="number" inputmode="decimal" min="30" max="250" value="68" required><span class="field__unit">kg</span></div>
+          <span class="field__label" id="fromLbl">From</span>
+          <div class="select select--from" data-value="GBP">
+            <button type="button" class="select__btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="fromLbl"><span class="select__val">GBP — British Pound</span><svg><use href="#i-chev-down"/></svg></button>
+            <ul class="select__list" role="listbox"></ul>
+          </div>
         </div>
         <div class="field">
-          <label for="height">Height (cm)</label>
-          <div class="field__box"><input id="height" name="height" type="number" inputmode="numeric" min="120" max="230" value="170" required><span class="field__unit">cm</span></div>
+          <span class="field__label" id="toLbl">To</span>
+          <div class="select select--to" data-value="IRT">
+            <button type="button" class="select__btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="toLbl"><span class="select__val">IRT — Toman</span><svg><use href="#i-chev-down"/></svg></button>
+            <ul class="select__list" role="listbox"></ul>
+          </div>
         </div>
         <div class="field field--full">
-          <span class="field__label" id="actLbl">Activity level</span>
-          <div class="select" data-value="1.55">
-            <button type="button" class="select__btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="actLbl"><span class="select__val">Moderate — exercise 3-5 days/week</span><svg><use href="#i-chev-down"/></svg></button>
+          <span class="field__label" id="feeLbl">Delivery</span>
+          <div class="select select--fee" data-value="0">
+            <button type="button" class="select__btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="feeLbl"><span class="select__val">Arzino wallet — no fee</span><svg><use href="#i-chev-down"/></svg></button>
             <ul class="select__list" role="listbox">
-              <li role="option" data-v="1.2">Sedentary — little or no exercise</li>
-              <li role="option" data-v="1.375">Light — exercise 1-3 days/week</li>
-              <li role="option" data-v="1.55" class="is-on" aria-selected="true">Moderate — exercise 3-5 days/week</li>
-              <li role="option" data-v="1.725">Active — exercise 6-7 days/week</li>
-              <li role="option" data-v="1.9">Very active — physical job or 2x/day</li>
+              <li role="option" data-v="0" class="is-on" aria-selected="true">Arzino wallet — no fee</li>
+              <li role="option" data-v="0.0025">Bank transfer — 0.25% fee</li>
+              <li role="option" data-v="0.006">Cash pickup — 0.6% fee</li>
             </ul>
           </div>
         </div>
-        <button type="submit" class="btn btn--mint btn--block calc__submit" data-magnetic><span>Calculate my Result</span><svg class="btn__ic btn__ic--r"><use href="#i-arrow-right"/></svg></button>
+        <button type="submit" class="btn btn--mint btn--block calc__submit" data-magnetic><span>Calculate my Exchange</span><svg class="btn__ic btn__ic--r"><use href="#i-arrow-right"/></svg></button>
       </form>
 
       <div class="calc__result" aria-live="polite">
         <div class="calc__empty">
-          <span class="calc__empty-ic"><svg><use href="#i-heart-pulse"/></svg><i></i><i></i></span>
-          <b>Your results will appear here</b>
-          <p>Enter your details and click Calculate to see BMI, daily calories, and macro breakdown.</p>
+          <span class="calc__empty-ic"><svg><use href="#i-swap"/></svg><i></i><i></i></span>
+          <b>Your exchange summary will appear here</b>
+          <p>Enter an amount and click Calculate to see the rate, the fee and exactly what you receive.</p>
         </div>
         <div class="calc__out" hidden>
           <div class="res-gauge">
             <svg viewBox="0 0 220 124" class="res-gauge__svg">
-              <path d="M18 112a92 92 0 0 1 46.4-79.9" class="res-seg res-seg--1"/>
-              <path d="M69.6 29.6a92 92 0 0 1 80.8 0" class="res-seg res-seg--2"/>
-              <path d="M155.6 32.1A92 92 0 0 1 188.6 66" class="res-seg res-seg--3"/>
-              <path d="M191.2 71.5A92 92 0 0 1 202 112" class="res-seg res-seg--4"/>
+              <path d="M18 112a92 92 0 0 1 46.4-79.9" class="res-seg res-seg--4"/>
+              <path d="M69.6 29.6a92 92 0 0 1 80.8 0" class="res-seg res-seg--3"/>
+              <path d="M155.6 32.1A92 92 0 0 1 188.6 66" class="res-seg res-seg--2"/>
+              <path d="M191.2 71.5A92 92 0 0 1 202 112" class="res-seg res-seg--2b"/>
               <g class="res-needle"><path d="M110 112 106 108 110 34 114 108Z"/><circle cx="110" cy="112" r="9"/><circle cx="110" cy="112" r="3.5" fill="#fff"/></g>
             </svg>
-            <div class="res-gauge__val"><small>Your BMI</small><b class="js-bmi">0.0</b><span class="res-badge js-bmi-cat">Normal</span></div>
+            <div class="res-gauge__val"><small>Today's rate</small><b class="js-rate">0</b><span class="res-badge js-rate-cat">Great rate</span></div>
           </div>
           <div class="res-kcal">
-            <div><small>Daily calories</small><b><span class="js-kcal">0</span><em>kcal</em></b><p class="js-kcal-note">to maintain your current weight</p></div>
-            <div class="res-kcal__alt"><span><small>Lose</small><b class="js-lose">0</b></span><span><small>Gain</small><b class="js-gain">0</b></span></div>
+            <div><small>You receive</small><b><span class="js-recv">0</span><em class="js-recv-unit">Toman</em></b><p class="js-recv-note">at today's live rate</p></div>
+            <div class="res-kcal__alt"><span><small>Fee</small><b class="js-fee">0</b></span><span><small>vs bank</small><b class="js-save">0</b></span></div>
           </div>
           <div class="res-macros">
-            <div class="res-macro"><span>Protein</span><b><span class="js-p">0</span> g</b><i><em class="js-pb"></em></i></div>
-            <div class="res-macro"><span>Carbs</span><b><span class="js-c">0</span> g</b><i><em class="js-cb"></em></i></div>
-            <div class="res-macro"><span>Fat</span><b><span class="js-f">0</span> g</b><i><em class="js-fb"></em></i></div>
+            <div class="res-macro"><span>Our rate</span><b class="js-r1">0</b><i><em class="js-r1b"></em></i></div>
+            <div class="res-macro"><span>Mid-market</span><b class="js-r2">0</b><i><em class="js-r2b"></em></i></div>
+            <div class="res-macro"><span>Avg. bank</span><b class="js-r3">0</b><i><em class="js-r3b"></em></i></div>
           </div>
-          <div class="res-foot"><span><svg><use href="#i-droplets"/></svg> Water: <b class="js-water">0</b> L/day</span><button type="button" class="res-reset"><svg><use href="#i-arrow-up"/></svg> Edit details</button></div>
+          <div class="res-foot"><span><svg><use href="#i-lock"/></svg> <span class="js-lock">Rate locked for 5 min</span></span><button type="button" class="res-reset"><svg><use href="#i-arrow-up"/></svg> Edit details</button></div>
         </div>
       </div>
     </div>
@@ -441,7 +452,7 @@
   <div class="container">
     <header class="sec-head">
       <h2 class="sec-title" data-split>How to <span class="hl">Use</span></h2>
-      <p class="sec-sub" data-reveal>Start with a quick scan, get smart recipe ideas, and cook healthier meals with ease.</p>
+      <p class="sec-sub" data-reveal>Pick a currency, compare live prices and exchange securely — all in under a minute.</p>
     </header>
     <div class="steps">
       <svg class="steps__svg" aria-hidden="true">
@@ -450,19 +461,19 @@
         <circle class="steps__dot" r="5"/>
       </svg>
       <div class="step">
-        <div class="step__ic"><span class="step__n">1</span><span class="step__core"><svg><use href="#i-camera"/></svg><i class="step__flash"></i></span></div>
-        <h3>Snap</h3>
-        <p>Take a quick photo of your fridge, pantry, or ingredients.</p>
+        <div class="step__ic"><span class="step__n">1</span><span class="step__core"><svg><use href="#i-search"/></svg><i class="step__flash"></i></span></div>
+        <h3>Choose</h3>
+        <p>Pick the currency you need from 30+ live markets.</p>
       </div>
       <div class="step">
-        <div class="step__ic"><span class="step__n">2</span><span class="step__core"><svg><use href="#i-scan"/></svg><i class="step__scan"></i></span></div>
-        <h3>Scan</h3>
-        <p>Let AI detect what you have and suggest recipe ideas instantly.</p>
+        <div class="step__ic"><span class="step__n">2</span><span class="step__core"><svg><use href="#i-chart"/></svg><i class="step__scan"></i></span></div>
+        <h3>Compare</h3>
+        <p>Check live buy and sell prices and set an alert in a tap.</p>
       </div>
       <div class="step">
-        <div class="step__ic"><span class="step__n">3</span><span class="step__core"><svg><use href="#i-chef"/></svg><i class="step__steam"><b></b><b></b><b></b></i></span></div>
-        <h3>Cook</h3>
-        <p>Follow simple directions and turn your ingredients into healthy meals.</p>
+        <div class="step__ic"><span class="step__n">3</span><span class="step__core"><svg><use href="#i-swap"/></svg><i class="step__steam"><b></b><b></b><b></b></i></span></div>
+        <h3>Exchange</h3>
+        <p>Lock your rate and exchange securely in seconds.</p>
       </div>
     </div>
   </div>
@@ -472,40 +483,40 @@
 <section class="section features" id="features">
   <div class="container">
     <header class="sec-head">
-      <h2 class="sec-title" data-split>Features In <span class="hl">Byond</span></h2>
-      <p class="sec-sub" data-reveal>Discover the tools that make cooking smarter, healthier, and easier every day.</p>
+      <h2 class="sec-title" data-split>Features In <span class="hl">Arzino</span></h2>
+      <p class="sec-sub" data-reveal>Discover the tools that make exchanging money clearer, faster and fairer every day.</p>
     </header>
     <div class="feats">
       <article class="feat-item feat-item--1">
         <div class="feat-item__num"><span>0</span><span>1</span></div>
-        <div class="feat-item__body"><h3>Nutrition Tracking</h3><p>Track calories, macros, and nutrients in a simple view to make every meal count.</p></div>
+        <div class="feat-item__body"><h3>Live Rate Tracking</h3><p>Follow buy and sell prices for 30+ currencies, refreshed every few seconds.</p></div>
         <i class="feat-item__line"><b></b></i>
       </article>
       <article class="feat-item feat-item--2">
         <div class="feat-item__num"><span>0</span><span>2</span></div>
-        <div class="feat-item__body"><h3>Meal Planning</h3><p>Plan your week with smart meal ideas based on your goals, time, and taste.</p></div>
+        <div class="feat-item__body"><h3>Price Alerts</h3><p>Set your target and get notified the moment the market reaches it.</p></div>
         <i class="feat-item__line"><b></b></i>
       </article>
       <article class="feat-item feat-item--3">
         <div class="feat-item__num"><span>0</span><span>3</span></div>
-        <div class="feat-item__body"><h3>Instant Food Ideas</h3><p>Get recipe suggestions in seconds from the ingredients already in your kitchen.</p></div>
+        <div class="feat-item__body"><h3>Instant Converter</h3><p>Convert any amount between currencies and Toman with fees shown upfront.</p></div>
         <i class="feat-item__line"><b></b></i>
       </article>
       <article class="feat-item feat-item--4">
         <div class="feat-item__num"><span>0</span><span>4</span></div>
-        <div class="feat-item__body"><h3>Family Meal Sharing</h3><p>Share meal plans, recipes, and grocery lists with your family to cook together.</p></div>
+        <div class="feat-item__body"><h3>Secure Exchange</h3><p>Lock your rate and exchange with verified desks and bank-level security.</p></div>
         <i class="feat-item__line"><b></b></i>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ================= WHY BYOND ================= -->
+<!-- ================= WHY ================= -->
 <section class="section why" id="why">
   <div class="container">
     <header class="sec-head">
-      <h2 class="sec-title" data-split>Why <span class="hl">Byond</span></h2>
-      <p class="sec-sub" data-reveal>Because it turns everyday ingredients into smarter meals, healthier choices, and less food waste.</p>
+      <h2 class="sec-title" data-split>Why <span class="hl">Arzino</span></h2>
+      <p class="sec-sub" data-reveal>Because the right rate at the right moment saves real money — every single time you exchange.</p>
     </header>
   </div>
   <div class="why__wrap">
@@ -513,26 +524,26 @@
     <div class="why__cards">
       <article class="why-card why-card--1" data-tilt>
         <span class="why-card__glare"></span>
-        <svg class="why-card__leaf"><use href="#i-leafart"/></svg>
+        <svg class="why-card__leaf"><use href="#i-coinart"/></svg>
         <span class="why-card__num">01</span>
-        <h3>Smart Recipe Discovery</h3>
-        <p>Find recipes that match what's already in your kitchen, in seconds.</p>
+        <h3>Real-Time Accuracy</h3>
+        <p>Prices refresh every few seconds from trusted exchange desks.</p>
         <a href="#download" class="why-card__link">Download App</a>
       </article>
       <article class="why-card why-card--2" data-tilt>
         <span class="why-card__glare"></span>
-        <svg class="why-card__leaf"><use href="#i-leafart"/></svg>
+        <svg class="why-card__leaf"><use href="#i-coinart"/></svg>
         <span class="why-card__num">02</span>
-        <h3>Healthier Food Choices</h3>
-        <p>Clear nutrition insights help you choose meals that fit your goals.</p>
+        <h3>Transparent Fees</h3>
+        <p>See the rate, the fee and what you receive before you confirm.</p>
         <a href="#download" class="why-card__link">Download App</a>
       </article>
       <article class="why-card why-card--3" data-tilt>
         <span class="why-card__glare"></span>
-        <svg class="why-card__leaf"><use href="#i-leafart"/></svg>
+        <svg class="why-card__leaf"><use href="#i-coinart"/></svg>
         <span class="why-card__num">03</span>
-        <h3>Easy Meal Planning</h3>
-        <p>Organize your weekly meals and shop smarter with zero stress.</p>
+        <h3>Bank-Level Security</h3>
+        <p>Verified accounts, encrypted data and a locked rate on every order.</p>
         <a href="#download" class="why-card__link">Download App</a>
       </article>
     </div>
@@ -544,35 +555,39 @@
   <div class="container">
     <header class="sec-head">
       <h2 class="sec-title" data-split>Our <span class="hl">Story</span></h2>
-      <p class="sec-sub" data-reveal>Built to make everyday wellness simple through smarter cooking, better nutrition, and real health habits.</p>
+      <p class="sec-sub" data-reveal>Built to make every exchange simple, transparent and fair — wherever your money needs to go.</p>
     </header>
   </div>
   <div class="constellation">
     <svg class="constellation__svg" aria-hidden="true"></svg>
     <div class="constellation__tiles">
-      <figure class="tile" style="--x:6;--y:8;--d:.6"><img src="assets/img/story-01.webp" alt="Couple cooking together" loading="lazy"></figure>
-      <figure class="tile" style="--x:21;--y:18;--d:1.2"><img src="assets/img/story-03.webp" alt="Chopping fresh vegetables" loading="lazy"></figure>
-      <figure class="tile" style="--x:33;--y:5;--d:.8"><img src="assets/img/story-15.webp" alt="Happy user" loading="lazy"></figure>
-      <figure class="tile" style="--x:49;--y:3;--d:1.4"><img src="assets/img/story-04.webp" alt="Ingredients on a board" loading="lazy"></figure>
-      <figure class="tile" style="--x:65;--y:9;--d:.7"><img src="assets/img/story-02.webp" alt="Cooking dinner" loading="lazy"></figure>
-      <figure class="tile" style="--x:79;--y:16;--d:1.1"><img src="assets/img/story-08.webp" alt="Healthy bowls" loading="lazy"></figure>
-      <figure class="tile" style="--x:92;--y:5;--d:.9"><img src="assets/img/story-12.webp" alt="Steak in a pan" loading="lazy"></figure>
-      <figure class="tile" style="--x:3;--y:40;--d:1.3"><img src="assets/img/story-06.webp" alt="Chicken skillet" loading="lazy"></figure>
-      <figure class="tile" style="--x:18;--y:48;--d:.7"><img src="assets/img/story-16.webp" alt="Smiling user" loading="lazy"></figure>
-      <figure class="tile" style="--x:80;--y:44;--d:1.2"><img src="assets/img/story-05.webp" alt="Salad bowl" loading="lazy"></figure>
-      <figure class="tile" style="--x:95;--y:36;--d:.6"><img src="assets/img/story-07.webp" alt="Chef portrait" loading="lazy"></figure>
-      <figure class="tile" style="--x:8;--y:76;--d:1"><img src="assets/img/story-09.webp" alt="Citrus slices" loading="lazy"></figure>
-      <figure class="tile" style="--x:24;--y:88;--d:1.4"><img src="assets/img/story-13.webp" alt="Colourful groceries" loading="lazy"></figure>
-      <figure class="tile" style="--x:37;--y:74;--d:.8"><img src="assets/img/story-11.webp" alt="Grocery bags" loading="lazy"></figure>
-      <figure class="tile" style="--x:64;--y:80;--d:1.1"><img src="assets/img/story-14.webp" alt="Bright kitchen" loading="lazy"></figure>
-      <figure class="tile" style="--x:78;--y:90;--d:.7"><img src="assets/img/story-10.webp" alt="Orange pot" loading="lazy"></figure>
-      <figure class="tile" style="--x:93;--y:74;--d:1.3"><img src="assets/img/cook-pan.webp" alt="Cooking in a pan" loading="lazy"></figure>
+      <figure class="tile" style="--x:6.3;--y:9.5;--d:0.6"><img src="assets/img/story-01.webp" alt="London from above" loading="lazy"></figure>
+      <figure class="tile" style="--x:22.7;--y:9.5;--d:1.2"><img src="assets/img/story-02.webp" alt="Banknotes from many countries" loading="lazy"></figure>
+      <figure class="tile" style="--x:32.9;--y:9.5;--d:0.8"><img src="assets/img/story-08.webp" alt="Friends checking their phones" loading="lazy"></figure>
+      <figure class="tile" style="--x:51.3;--y:6;--d:1.4"><img src="assets/img/story-03.webp" alt="Times Square, New York" loading="lazy"></figure>
+      <figure class="tile" style="--x:67;--y:9.5;--d:0.7"><img src="assets/img/story-04.webp" alt="Coins with a growing plant" loading="lazy"></figure>
+      <figure class="tile" style="--x:82.9;--y:9.5;--d:1.1"><img src="assets/img/story-05.webp" alt="Paris at dusk" loading="lazy"></figure>
+      <figure class="tile" style="--x:96.4;--y:9.5;--d:0.9"><img src="assets/img/story-06.webp" alt="Stacks of coins" loading="lazy"></figure>
+      <figure class="tile" style="--x:4.2;--y:40.8;--d:1.3"><img src="assets/img/story-07.webp" alt="Dubai coastline" loading="lazy"></figure>
+      <figure class="tile" style="--x:26;--y:40.8;--d:0.7"><img src="assets/img/story-13.webp" alt="Traveller at the airport" loading="lazy"></figure>
+      <figure class="tile" style="--x:74.4;--y:40.8;--d:1.2"><img src="assets/img/story-09.webp" alt="Istanbul's Blue Mosque" loading="lazy"></figure>
+      <figure class="tile" style="--x:96.4;--y:40.8;--d:0.6"><img src="assets/img/story-10.webp" alt="Coins stacked by hand" loading="lazy"></figure>
+      <figure class="tile" style="--x:7.6;--y:67.2;--d:1"><img src="assets/img/story-11.webp" alt="Tokyo at night" loading="lazy"></figure>
+      <figure class="tile" style="--x:21.1;--y:67.2;--d:1.4"><img src="assets/img/story-12.webp" alt="Euro banknotes" loading="lazy"></figure>
+      <figure class="tile" style="--x:31.8;--y:67.2;--d:0.8"><img src="assets/img/story-14.webp" alt="Counting dollar bills" loading="lazy"></figure>
+      <figure class="tile" style="--x:68.7;--y:67.2;--d:1.1"><img src="assets/img/story-16.webp" alt="Checking rates on a phone and laptop" loading="lazy"></figure>
+      <figure class="tile" style="--x:83;--y:67.2;--d:0.7"><img src="assets/img/story-15.webp" alt="Sydney Opera House at night" loading="lazy"></figure>
+      <figure class="tile" style="--x:94.3;--y:67.2;--d:1.3"><img src="assets/img/story-17.webp" alt="Gold bars" loading="lazy"></figure>
+      <figure class="tile" style="--x:11.6;--y:90.8;--d:0.9"><img src="assets/img/story-01.webp" alt="" aria-hidden="true" loading="lazy"></figure>
+      <figure class="tile" style="--x:25.6;--y:90.8;--d:1.2"><img src="assets/img/story-05.webp" alt="" aria-hidden="true" loading="lazy"></figure>
+      <figure class="tile" style="--x:41.7;--y:92;--d:0.6"><img src="assets/img/story-10.webp" alt="" aria-hidden="true" loading="lazy"></figure>
+      <figure class="tile" style="--x:58.3;--y:92;--d:1"><img src="assets/img/story-15.webp" alt="" aria-hidden="true" loading="lazy"></figure>
+      <figure class="tile" style="--x:74.6;--y:90.8;--d:1.4"><img src="assets/img/story-03.webp" alt="" aria-hidden="true" loading="lazy"></figure>
+      <figure class="tile" style="--x:90.2;--y:90.8;--d:0.8"><img src="assets/img/story-13.webp" alt="" aria-hidden="true" loading="lazy"></figure>
     </div>
     <article class="story-card">
-      <span class="story-card__tag"><svg><use href="#i-leaf"/></svg> <span class="js-chapter">Chapter 01</span></span>
       <div class="story-card__text"></div>
       <div class="story-card__nav">
-        <div class="story-card__dots"><i class="is-on"></i><i></i><i></i></div>
         <div>
           <button class="sbtn sbtn--prev" aria-label="Previous chapter"><svg><use href="#i-chev-left"/></svg></button>
           <button class="sbtn sbtn--next" aria-label="Next chapter"><svg><use href="#i-chev-right"/></svg></button>
@@ -587,12 +602,12 @@
   <div class="container">
     <header class="sec-head">
       <h2 class="sec-title" data-split>Our <span class="hl">Testimonials</span></h2>
-      <p class="sec-sub" data-reveal>See how our users are making cooking, nutrition, and everyday wellness simpler with Byond.</p>
+      <p class="sec-sub" data-reveal>See how people use Arzino to track the market, exchange smarter and save on every transfer.</p>
     </header>
     <div class="testi__grid" data-reveal>
       <div class="testi__stack" aria-hidden="true"></div>
       <article class="testi__card">
-        <h3 class="testi__title">Trusted by People Building Healthier Everyday Habits</h3>
+        <h3 class="testi__title">Trusted by People Who Exchange Every Day</h3>
         <div class="testi__quote">
           <svg class="testi__q"><use href="#i-quote"/></svg>
           <blockquote class="testi__text"></blockquote>
@@ -614,28 +629,28 @@
   <div class="container container--narrow">
     <header class="sec-head">
       <h2 class="sec-title" data-split>Frequently asked <span class="hl">Questions</span></h2>
-      <p class="sec-sub" data-reveal>Find quick answers about Byond Wellness, ByondBites, health tools, and how everything works.</p>
+      <p class="sec-sub" data-reveal>Quick answers about live rates, alerts, fees and how exchanging with Arzino works.</p>
     </header>
     <div class="faq__list">
       <div class="qa is-open" data-reveal>
-        <button class="qa__q" aria-expanded="true"><span>What is Byond Wellness?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
-        <div class="qa__a"><p>Byond Wellness is a smart wellness ecosystem that brings food, nutrition, meal planning, and health tools together to help users make better everyday choices.</p></div>
+        <button class="qa__q" aria-expanded="true"><span>What is Arzino?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
+        <div class="qa__a"><p>Arzino is a currency exchange app that brings live buy and sell prices, a transparent converter, price alerts and secure exchange together in one place.</p></div>
       </div>
       <div class="qa" data-reveal>
-        <button class="qa__q" aria-expanded="false"><span>How does ByondBites suggest recipes?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
-        <div class="qa__a"><p>Snap or select the ingredients you already have. ByondBites matches them against thousands of recipes and ranks ideas by what you can cook right now, your goals and your taste.</p></div>
+        <button class="qa__q" aria-expanded="false"><span>Where do the live rates come from?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
+        <div class="qa__a"><p>Prices are collected from trusted exchange desks and market data providers and refreshed every few seconds, so the number you see is always current.</p></div>
       </div>
       <div class="qa" data-reveal>
-        <button class="qa__q" aria-expanded="false"><span>Can I track calories and nutrition in the app?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
-        <div class="qa__a"><p>Yes. Every recipe includes calories, macros and key nutrients, and you can log meals to see your daily totals at a glance.</p></div>
+        <button class="qa__q" aria-expanded="false"><span>Can I get notified when a rate changes?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
+        <div class="qa__a"><p>Yes. Set a target price or a percentage move for any currency and Arzino notifies you the moment it happens.</p></div>
       </div>
       <div class="qa" data-reveal>
-        <button class="qa__q" aria-expanded="false"><span>What does the BMI &amp; Calorie Calculator show?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
-        <div class="qa__a"><p>It estimates your BMI, your daily calorie needs based on your activity level, and a balanced macro split for protein, carbs and fat — plus a daily water target.</p></div>
+        <button class="qa__q" aria-expanded="false"><span>What does the currency calculator show?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
+        <div class="qa__a"><p>It converts any amount, shows the exact fee, compares the result with a typical bank rate and shows how today's rate sits against the last 30 days.</p></div>
       </div>
       <div class="qa" data-reveal>
-        <button class="qa__q" aria-expanded="false"><span>Is ByondBites useful for family meal planning?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
-        <div class="qa__a"><p>Absolutely. Create shared weekly plans, scale servings for the whole family and sync one grocery list across everyone's phones.</p></div>
+        <button class="qa__q" aria-expanded="false"><span>Is my money and data safe?</span><i class="qa__ic"><svg><use href="#i-chev-down"/></svg></i></button>
+        <div class="qa__a"><p>Accounts are verified, data is encrypted and every order locks its rate before you confirm — nothing changes after you tap exchange.</p></div>
       </div>
     </div>
   </div>
@@ -646,8 +661,8 @@
   <div class="cta__wall" aria-hidden="true"></div>
   <div class="cta__spot" aria-hidden="true"></div>
   <div class="cta__inner">
-    <h2 class="cta__title" data-split>Start Your Smarter <br>Wellness Journey</h2>
-    <p class="cta__sub" data-reveal>Download ByondBites and discover recipes, nutrition, and wellness tools made for everyday life.</p>
+    <h2 class="cta__title" data-split>Start Your Smarter <br>Exchange Journey</h2>
+    <p class="cta__sub" data-reveal>Download Arzino for live rates, instant conversion and smart alerts on every currency you use.</p>
     <div class="stores" data-reveal>
       <a href="#" class="store" data-magnetic aria-label="Get it on Google Play"><svg class="store__ic"><use href="#i-gplay"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a>
       <a href="#" class="store" data-magnetic aria-label="Download on the App Store"><svg class="store__ic store__ic--apple"><use href="#i-apple"/></svg><span><small>Download on the</small><b>App Store</b></span></a>
@@ -662,16 +677,16 @@
       <aside class="contact__card" data-reveal>
         <h3>Contact Us</h3>
         <ul>
-          <li><span><svg><use href="#i-mail"/></svg></span><a href="mailto:hello@byondwellness.com">hello@byondwellness.com</a></li>
-          <li><span><svg><use href="#i-phone"/></svg></span><a href="tel:+15552489601">+1 (555) 248-9601</a></li>
-          <li><span><svg><use href="#i-facebook"/></svg></span><a href="#">facebook.com/byondwellness</a></li>
-          <li><span><svg><use href="#i-instagram"/></svg></span><a href="#">instagram.com/byondwellness</a></li>
+          <li><span><svg><use href="#i-mail"/></svg></span><span class="contact__txt">hello@arzino.example</span></li>
+          <li><span><svg><use href="#i-phone"/></svg></span><span class="contact__txt">+44 20 7946 0321</span></li>
+          <li><span><svg><use href="#i-telegram"/></svg></span><span class="contact__txt">Telegram support · 24/7</span></li>
+          <li><span><svg><use href="#i-instagram"/></svg></span><span class="contact__txt">Instagram · daily rate updates</span></li>
         </ul>
-        <svg class="contact__leaf" aria-hidden="true"><use href="#i-leafart"/></svg>
+        <svg class="contact__leaf" aria-hidden="true"><use href="#i-coinart"/></svg>
       </aside>
       <div class="contact__form-card" data-reveal>
         <h2 class="contact__title" data-split>Get in Touch</h2>
-        <p class="contact__sub">Have questions or ideas? Reach out to us and let's make everyday wellness smarter together.</p>
+        <p class="contact__sub">Questions about rates, alerts or business accounts? Reach out and our team will get back to you.</p>
         <form class="cform" novalidate>
           <label class="cfield"><input type="text" name="name" placeholder=" " required><span>Your Name</span></label>
           <label class="cfield"><input type="email" name="email" placeholder=" " required><span>Your Email</span></label>
@@ -690,26 +705,24 @@
   <div class="container">
     <div class="footer__top">
       <div class="footer__brand">
-        <a href="#home" class="logo logo--footer" aria-label="Byondbites home"><svg class="logo__mark" viewBox="0 0 44 46"><use href="#logo-mark"/></svg><span class="logo__word">Byondbites</span></a>
-        <p>Your everyday wellness ecosystem bringing smart cooking, nutrition, and health tools together in one clean experience.</p>
+        <a href="#home" class="logo logo--footer" aria-label="Arzino home"><svg class="logo__mark" viewBox="0 0 44 46"><use href="#logo-mark"/></svg><span class="logo__word">Arzino</span></a>
+        <p>Your everyday exchange ecosystem bringing live rates, smart alerts and secure exchange together in one clean experience.</p>
         <div class="socials">
           <a href="#" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg><use href="#i-facebook"/></svg></a>
+          <a href="#" aria-label="Telegram"><svg><use href="#i-telegram"/></svg></a>
           <a href="#" aria-label="X"><svg><use href="#i-x"/></svg></a>
           <a href="#" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
         </div>
       </div>
       <div class="footer__cols">
-        <div><h4>Ecosystem</h4><a href="#recipes">ByondBites</a><a href="#features">ByondHealth</a><a href="#bmi">BMI Calculator</a></div>
+        <div><h4>Ecosystem</h4><a href="#rates">Live Rates</a><a href="#converter">Converter</a><a href="#market">Price Alerts</a></div>
         <div><h4>Pages</h4><a href="#">Trust &amp; safety</a><a href="#">Legal</a><a href="#">Support</a></div>
         <div><h4>Get The App</h4><a href="#download">Download on iOS</a><a href="#download">Get on Android</a></div>
       </div>
     </div>
-    <div class="footer__word" aria-hidden="true"><span>Byondbites</span></div>
     <div class="footer__bottom">
-      <span>© 2026 Byond Wellness. All rights reserved.</span>
-      <span>Powered by <b>Byondbites</b></span>
-      <button class="to-top" aria-label="Back to top"><svg><use href="#i-arrow-up"/></svg></button>
+      <span>© 2026 Arzino. All rights reserved.</span>
+      <span>Design preview · Rates and reviews shown are illustrative</span>
     </div>
   </div>
 </footer>
@@ -722,15 +735,15 @@
     <div class="vmodal__media">
       <img src="assets/img/video-poster.webp" alt="" class="vmodal__poster">
       <div class="vmodal__reel">
-        <div class="vmodal__slide is-on"><img src="assets/img/bowl-salmon.webp" alt=""><span>Snap your fridge</span></div>
-        <div class="vmodal__slide"><img src="assets/img/bowl-rainbow.webp" alt=""><span>Get instant recipe ideas</span></div>
-        <div class="vmodal__slide"><img src="assets/img/pan-pasta.webp" alt=""><span>Cook it, step by step</span></div>
-        <div class="vmodal__slide"><img src="assets/img/bowl-avocado.webp" alt=""><span>Track every nutrient</span></div>
+        <div class="vmodal__slide is-on"><img src="assets/img/city-london.webp" alt=""><span>Check live prices</span></div>
+        <div class="vmodal__slide"><img src="assets/img/city-dubai.webp" alt=""><span>Set a price alert</span></div>
+        <div class="vmodal__slide"><img src="assets/img/city-istanbul.webp" alt=""><span>Convert in seconds</span></div>
+        <div class="vmodal__slide"><img src="assets/img/city-toronto.webp" alt=""><span>Exchange securely</span></div>
       </div>
       <div class="vmodal__ui">
         <button class="vmodal__play" aria-label="Pause"><svg><use href="#i-play"/></svg></button>
         <div class="vmodal__bar"><i></i></div>
-        <span class="vmodal__time">0:00 / 0:24</span>
+        <span class="vmodal__time">0:00 / 0:16</span>
       </div>
     </div>
   </div>

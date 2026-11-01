@@ -82,7 +82,7 @@
     $('.burger').addEventListener('click', () => (document.body.classList.contains('menu-open') ? closeMenu() : openMenu()));
 
     const links = $$('.nav__a');
-    [['top', 0], ['who', 1], ['workouts', 3], ['coach', 4], ['reviews', 5]].forEach(([id, i]) => {
+    [['top', 0], ['rates', 1], ['scan', 2], ['charts', 3], ['coach', 4], ['reviews', 5]].forEach(([id, i]) => {
       const el = id === 'top' ? $('.hero') : document.getElementById(id);
       if (!el) return;
       ScrollTrigger.create({ trigger: el, start: 'top 40%', end: 'bottom 40%', onToggle: (s) => { if (s.isActive) links.forEach((l, k) => l.classList.toggle('is-active', k === i)); } });
@@ -121,7 +121,7 @@
     document.addEventListener('pointerleave', () => cur.classList.add('is-hidden'));
     document.addEventListener('pointerover', (e) => {
       const t = e.target;
-      cur.classList.toggle('is-dark', !!t.closest('[data-dark], .mnav, .ribbon--b'));
+      cur.classList.toggle('is-dark', !!t.closest('[data-dark], .mnav'));
       const inter = t.closest('a, button');
       const lab = t.closest('[data-cursor]');
       if (inter) { cur.classList.add('is-hover'); cur.classList.remove('is-label'); }
@@ -143,105 +143,119 @@
      Screen animations (shared by section phones + hero clones)
   --------------------------------------------------------- */
   let homeChipDone = false;
+  const fmt = (v, d = 0) => Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  function flash(el, up) {
+    el.classList.remove('flash-up', 'flash-down');
+    void el.offsetWidth;
+    el.classList.add(up ? 'flash-up' : 'flash-down');
+  }
   const Screens = {
     home(root) {
       const tl = gsap.timeline();
-      const ring = $('.hm-ring__val', root), kcal = $('.js-hm-kcal', root), breakfast = $('.js-breakfast', root);
+      const ring = $('.hm-ring__val', root), val = $('.js-hm-kcal', root), alertRow = $('.js-breakfast', root);
       const chipK = $('.js-chip-kcal');
-      const o = { v: 0 };
+      const inHero = !!root.closest('.hero');
+      const o = { v: 0, p: 0 };
+      let alive = true;
       const paint = () => {
-        const v = Math.round(o.v);
-        kcal.textContent = v.toLocaleString('en-US');
-        if (chipK && !homeChipDone && root.closest('.hero')) chipK.textContent = v.toLocaleString('en-US');
-        ring.style.strokeDashoffset = 100 - (o.v / 2100) * 100;
+        val.textContent = fmt(Math.round(o.v));
+        if (chipK && inHero && !homeChipDone) chipK.textContent = fmt(Math.round(o.v));
+        ring.style.strokeDashoffset = 100 - o.p;
       };
-      breakfast.classList.remove('is-ck');
+      alertRow.classList.remove('is-ck');
       tl.fromTo($$('.mac i b', root), { scaleX: 0 }, { scaleX: 1, duration: 1.4, stagger: 0.12 }, 0)
         .fromTo($('.hm-wo__bar b', root), { scaleX: 0 }, { scaleX: 1, duration: 1.4 }, 0.2)
-        .to(o, { v: 940, duration: 1.6, ease: 'power3.out', onUpdate: paint }, 0)
-        .add(() => breakfast.classList.add('is-ck'), 1.9)
-        .fromTo(breakfast, { scale: 1 }, { scale: 1.03, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.inOut' }, 1.9)
-        .to(o, { v: 1420, duration: 1.4, ease: 'power3.out', onUpdate: paint }, 2.15)
-        .add(() => { if (root.closest('.hero')) homeChipDone = true; });
-      return () => { tl.progress(1); tl.kill(); };
+        .to(o, { v: 131900, p: 79, duration: 2, ease: 'power3.out', onUpdate: paint }, 0)
+        .add(() => alertRow.classList.add('is-ck'), 2.2)
+        .fromTo(alertRow, { scale: 1 }, { scale: 1.03, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.inOut' }, 2.2)
+        .add(() => { if (inHero) homeChipDone = true; });
+      const tick = () => {
+        if (!alive) return;
+        const d = Math.round((Math.random() - 0.45) * 70);
+        o.v = clamp(o.v + d, 131500, 132400);
+        val.textContent = fmt(o.v);
+        flash(val, d >= 0);
+        if (inHero && chipK) chipK.textContent = fmt(o.v);
+        gsap.delayedCall(2.4, tick);
+      };
+      if (!reduce) gsap.delayedCall(3.4, tick);
+      return () => { alive = false; tl.progress(1); tl.kill(); };
     },
-    workout(root) {
-      const rest = $('.js-rest', root), done = $('.js-wo-done', root), cont = $('.js-wo-cont', root);
-      const rows = $$('.wo-ex', root);
-      let alive = true;
-      const tl = gsap.timeline();
-      tl.fromTo(rows, { opacity: 0, x: 18 }, { opacity: 1, x: 0, duration: 0.6, stagger: 0.07 })
-        .fromTo($$('.wo-sum__fig svg', root), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, 0);
+    rates(root) {
+      const rows = $$('.wo-ex', root), cont = $('.js-wo-cont', root);
+      let alive = true, now = rows.findIndex((r) => r.classList.contains('is-now'));
+      if (now < 0) now = 0;
+      gsap.fromTo(rows, { opacity: 0, x: 18 }, { opacity: 1, x: 0, duration: 0.6, stagger: 0.07 });
+      gsap.fromTo($$('.wo-coins img', root), { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.8, stagger: 0.1, ease: 'back.out(2)' });
+      const state = rows.map((r) => ({ r, sell: +r.dataset.sell, buy: +r.dataset.buy, chg: +r.dataset.chg }));
+      const tick = () => {
+        if (!alive) return;
+        const st = state[Math.floor(Math.random() * state.length)];
+        const step = Math.max(1, Math.round(st.sell * 0.0004));
+        const d = (Math.random() < 0.55 ? 1 : -1) * step * (1 + Math.floor(Math.random() * 3));
+        st.sell += d; st.buy += d; st.chg += (d / st.sell) * 100;
+        const se = $('.js-sell', st.r), be = $('.js-buy', st.r), em = $('em', st.r);
+        se.textContent = fmt(st.sell); be.textContent = fmt(st.buy);
+        em.textContent = `${st.chg >= 0 ? '▲' : '▼'} ${Math.abs(st.chg).toFixed(2)}%`;
+        em.className = st.chg >= 0 ? 'up' : 'down';
+        flash(se, d >= 0);
+        gsap.delayedCall(1.1, tick);
+      };
       const cycle = () => {
         if (!alive) return;
-        const o = { s: 45 };
-        gsap.to(o, {
-          s: 0, duration: reduce ? 0 : 6, ease: 'none',
-          onUpdate: () => { rest.textContent = `Rest 0:${String(Math.ceil(o.s)).padStart(2, '0')}`; },
-          onComplete: () => {
-            if (!alive) return;
-            // lunges done -> leg curl now
-            rows[3].classList.remove('is-now'); rows[3].classList.add('is-done'); rows[3].querySelector('em').textContent = 'Done';
-            rows[4].classList.add('is-now'); rows[4].querySelector('em').textContent = 'Now';
-            done.textContent = '4/8'; cont.textContent = '4 of 8';
-            gsap.fromTo(rows[4], { scale: 0.97 }, { scale: 1, duration: 0.6, ease: 'back.out(2)' });
-            gsap.delayedCall(2.6, () => {
-              if (!alive) return;
-              rows[4].classList.remove('is-now'); rows[4].querySelector('em').textContent = 'Next';
-              rows[3].classList.remove('is-done'); rows[3].classList.add('is-now');
-              done.textContent = '3/8'; cont.textContent = '3 of 8';
-              cycle();
-            });
-          }
-        });
+        rows[now].classList.remove('is-now');
+        now = (now + 1) % rows.length;
+        rows[now].classList.add('is-now');
+        cont.textContent = rows[now].dataset.code;
+        gsap.fromTo(rows[now], { scale: 0.97 }, { scale: 1, duration: 0.6, ease: 'back.out(2)' });
+        gsap.delayedCall(3.2, cycle);
       };
-      rows[3].querySelector('em').classList.add('js-rest');
-      cycle();
-      return () => { alive = false; tl.kill(); gsap.killTweensOf(rows); };
+      if (!reduce) { gsap.delayedCall(1, tick); gsap.delayedCall(3.2, cycle); }
+      return () => { alive = false; };
     },
-    meals(root) {
+    convert(root) {
       const main = $('.sc-frame--main', root), side = $('.sc-frame--side', root), line = $('.sc-line', root), sheet = $('.sc-sheet', root);
-      const conf = $('.js-conf', root), kcal = $('.js-scan-kcal', root);
+      const conf = $('.js-conf', root), out = $('.js-scan-kcal', root);
       const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.2 });
       tl.set([main, side], { opacity: 0 })
         .set(sheet, { yPercent: 105 })
         .fromTo(main, { scale: 1.35, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: 'expo.out' }, 0.2)
-        .fromTo(line, { top: '22%', opacity: 1 }, { top: '48%', duration: 1.1, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0.3)
-        .add(() => counter(conf, 94, { dur: 1.4 }), 0.6)
+        .fromTo(line, { top: '20%', opacity: 1 }, { top: '48%', duration: 1.1, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0.3)
+        .add(() => { conf.textContent = '0'; counter(conf, 96, { dur: 1.4 }); }, 0.6)
         .to(line, { opacity: 0, duration: 0.3 }, 2.6)
         .fromTo(side, { scale: 1.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: 'expo.out' }, 1.6)
         .to(sheet, { yPercent: 0, duration: 0.9, ease: 'expo.out' }, 2.5)
-        .add(() => counter(kcal, 960, { dur: 1.2 }), 2.7)
+        .add(() => { out.textContent = '0'; counter(out, 3278688, { dur: 1.2 }); }, 2.7)
         .fromTo($$('.sc-macros div', root), { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 }, 2.8)
         .to({}, { duration: 3.4 })
         .to([main, side, sheet], { opacity: 0, duration: 0.4 });
       if (reduce) tl.progress(0.85).pause();
       return () => tl.kill();
     },
-    progress(root) {
+    charts(root) {
       return Progress.mount(root);
     },
-    coach() { return () => {}; }
+    ai() { return () => {}; }
   };
 
-  /* Progress chart (dataset morphing) */
+  /* Timeframe chart (dataset morphing) */
   const Progress = (() => {
     const sets = [
-      { label: 'Current weight', unit: 'kg', delta: '−4.6 kg', dec: 1, v: [86.6, 86.2, 85.5, 85.7, 84.9, 84.3, 84.0, 83.4, 83.0, 82.5, 82.0] },
-      { label: 'Body fat', unit: '%', delta: '−4.4%', dec: 1, v: [24.2, 23.9, 23.5, 23.2, 22.6, 22.1, 21.7, 21.2, 20.6, 20.2, 19.8] },
-      { label: 'Muscle mass', unit: 'kg', delta: '+2.3 kg', dec: 1, v: [33.8, 33.9, 34.1, 34.0, 34.4, 34.7, 34.9, 35.2, 35.5, 35.8, 36.1] },
-      { label: 'Workouts / week', unit: '', delta: '+4', dec: 0, v: [3, 3, 4, 3, 4, 5, 4, 5, 6, 6, 7] }
+      { label: 'GBP · Toman · today', delta: '+1.24%', xl: ['9:00', '11:00', '13:00', '15:00', 'Now'], v: [130280, 130100, 130450, 130900, 130700, 131200, 131050, 131500, 131300, 131700, 131900] },
+      { label: 'GBP · Toman · this week', delta: '+2.49%', xl: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], v: [128700, 129100, 128900, 129600, 129400, 130100, 129800, 130500, 130280, 131000, 131900] },
+      { label: 'GBP · Toman · this month', delta: '+4.35%', xl: ['W1', 'W2', 'W3', 'W4', 'Now'], v: [126400, 126900, 126500, 127400, 127100, 128000, 128700, 128300, 129600, 130280, 131900] },
+      { label: 'GBP · Toman · this year', delta: '+17.3%', xl: ['Dec', 'Mar', 'Jun', 'Sep', 'Now'], v: [112400, 114800, 113900, 117200, 119500, 118700, 121900, 124600, 123800, 127900, 131900] }
     ];
-    const norm = (arr) => { const mn = Math.min(...arr), mx = Math.max(...arr), pad = (mx - mn) * 0.15 || 1; return arr.map((v) => 12 + ((mx + pad - v) / (mx - mn + pad * 2)) * 72); };
+    const norm = (arr) => { const mn = Math.min(...arr), mx = Math.max(...arr), pad = (mx - mn) * 0.15 || 1; return arr.map((v) => 14 + ((mx + pad - v) / (mx - mn + pad * 2)) * 72); };
     function mount(root) {
       const line = $('.pg-line', root), area = $('.pg-area', root), dot = $('.pg-dot', root);
-      const label = $('.js-pg-label', root), val = $('.js-pg-val', root), unit = $('.js-pg-unit', root), delta = $('.js-pg-delta', root);
+      const label = $('.js-pg-label', root), val = $('.js-pg-val', root), delta = $('.js-pg-delta', root);
+      const xl = $$('.js-pg-x span', root);
       const ind = $('.pg-tabs__ind', root), btns = $$('.pg-tabs button', root);
       let cur = norm(sets[0].v), idx = 0, auto = null, alive = true;
       const xs = cur.map((_, i) => 6 + (i * 228) / (cur.length - 1));
       const render = (ys) => {
-        const pts = ys.map((y, i) => ({ x: xs[i], y }));
-        const d = catmull(pts);
+        const d = catmull(ys.map((y, i) => ({ x: xs[i], y })));
         line.setAttribute('d', d);
         area.setAttribute('d', `${d}L${xs[xs.length - 1]},104L${xs[0]},104Z`);
         dot.setAttribute('cx', xs[xs.length - 1]);
@@ -252,18 +266,18 @@
         gsap.fromTo(line, { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.6, ease: 'power2.inOut' });
         gsap.fromTo(area, { opacity: 0 }, { opacity: 1, duration: 1.2, delay: 0.6 });
         gsap.fromTo(dot, { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.6, delay: 1.4, ease: 'back.out(3)' });
-        const s = sets[idx], o = { v: s.v[0] };
-        gsap.to(o, { v: s.v[s.v.length - 1], duration: 1.6, ease: 'power2.inOut', onUpdate: () => { val.textContent = o.v.toFixed(s.dec); } });
+        const st = sets[idx], o = { v: st.v[0] };
+        gsap.to(o, { v: st.v[st.v.length - 1], duration: 1.6, ease: 'power2.inOut', onUpdate: () => { val.textContent = fmt(o.v); } });
       };
       const setTab = (i, user) => {
         if (i === idx && !user) return;
         idx = i;
         btns.forEach((b, k) => b.classList.toggle('is-on', k === i));
         ind.style.transform = `translateX(${i * 100}%)`;
-        const s = sets[i], from = cur.slice(), to = norm(s.v), o = { t: 0 };
-        label.textContent = s.label; unit.textContent = s.unit; delta.textContent = s.delta;
-        const v0 = parseFloat(val.textContent) || 0, vo = { v: v0 };
-        gsap.to(vo, { v: s.v[s.v.length - 1], duration: 0.9, ease: 'power3.inOut', onUpdate: () => { val.textContent = vo.v.toFixed(s.dec); } });
+        const st = sets[i], from = cur.slice(), to = norm(st.v), o = { t: 0 };
+        label.textContent = st.label; delta.textContent = st.delta;
+        xl.forEach((x, k) => { x.textContent = st.xl[k]; });
+        gsap.fromTo(xl, { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.03 });
         gsap.to(o, { t: 1, duration: 0.9, ease: 'power3.inOut', onUpdate: () => { cur = from.map((y, k) => lerp(y, to[k], o.t)); render(cur); } });
         gsap.fromTo(delta, { y: -6, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
       };
@@ -287,7 +301,7 @@
       trigger: trigger || scr, start: 'top 85%', end: 'bottom 15%',
       onToggle: (s) => {
         if (s.isActive && !stop) stop = Screens[type](scr);
-        else if (!s.isActive && stop && type !== 'progress') { stop(); stop = null; }
+        else if (!s.isActive && stop && type !== 'charts') { stop(); stop = null; }
       }
     });
   }
@@ -299,12 +313,12 @@
     const wrap = $('.hero__screens');
     const home = $('.scr--home', wrap);
     const phone = $('.hero__phone');
-    const order = ['home', 'meals', 'workout', 'progress', 'coach'];
+    const order = ['home', 'rates', 'convert', 'charts', 'ai'];
     const src = {
-      meals: () => $('#diet .scr--scan'),
-      workout: () => $('#workouts .scr--workout'),
-      progress: () => $('#progress .scr--progress'),
-      coach: () => $('#coach .scr--chat')
+      rates: () => $('#rates .scr--workout'),
+      convert: () => $('#scan .scr--scan'),
+      charts: () => $('#charts .scr--progress'),
+      ai: () => $('#coach .scr--chat')
     };
     let current = 'home';
     let stop = null;
@@ -320,9 +334,9 @@
       if (name === 'home') el = home;
       else {
         el = src[name]().cloneNode(true);
-        if (name === 'coach') {
+        if (name === 'ai') {
           const msgs = $('.ch-msgs', el);
-          msgs.innerHTML = '<div class="msg msg--ai">Hey Ahmed 👋 Ready for <b>Leg day</b>? Ask me anything.</div><div class="msg msg--me">Any swap for leg press?</div><div class="msg msg--ai">Try <b>Hack squat 3 × 12</b> — same quad focus, less lower-back load.</div>';
+          msgs.innerHTML = '<div class="msg msg--ai">Hi Sara 👋 Your <b>GBP alert</b> is just 0.45% away.</div><div class="msg msg--me">Convert $200 to Toman</div><div class="msg msg--ai">$200 is about <b>19,690,000 T</b> at today\'s live rate.</div>';
           gsap.set(msgs, { clearProps: 'transform' });
         }
       }
@@ -338,13 +352,11 @@
       });
       current = name;
       stop = Screens[name](el);
-      hideHint();
     }
-    function hideHint() { gsap.to('.hero__hint', { opacity: 0, y: 10, duration: 0.4, onComplete: () => { const h = $('.hero__hint'); if (h) h.style.display = 'none'; } }); }
 
     function coachChip() {
       const el = $('.js-coach-chip');
-      const msgs = ['Plan updated', 'Protein goal hit', 'Rest day tomorrow', 'New PR: 80 kg squat'];
+      const msgs = ['Alert: USD hit target', 'Pound up 1.24% today', 'EUR alert set · 114k', 'Rate locked · 5 min'];
       let i = 0;
       const next = () => {
         i = (i + 1) % msgs.length;
@@ -421,9 +433,10 @@
 
   function initStats() {
     $$('.js-count').forEach((el) => {
-      const to = parseFloat(el.dataset.to), dec = parseInt(el.dataset.dec || '0', 10);
-      if (reduce) { el.textContent = to.toLocaleString('en-US', { minimumFractionDigits: dec }); return; }
-      ScrollTrigger.create({ trigger: el, start: 'top 95%', once: true, onEnter: () => counter(el, to, { dur: 2.2, dec }) });
+      const to = parseFloat(el.dataset.to), dec = parseInt(el.dataset.dec || '0', 10), suf = el.dataset.suffix || '';
+      const paint = (v) => { el.textContent = fmt(v, dec) + suf; };
+      if (reduce) { paint(to); return; }
+      ScrollTrigger.create({ trigger: el, start: 'top 95%', once: true, onEnter: () => { const o = { v: 0 }; gsap.to(o, { v: to, duration: 2.2, ease: 'power3.out', onUpdate: () => paint(o.v) }); } });
     });
   }
 
@@ -466,19 +479,19 @@
     const prompts = $$('.prompt');
     const QA = [
       {
-        q: 'What workout do I have today?',
-        a: 'Today is <b>Leg day</b> — 8 exercises, about 55 min. You left off at walking lunges.',
-        extra: '<div class="msg-table"><div><span>Barbell squat</span><span>4 × 8</span></div><div><span>Romanian deadlift</span><span>3 × 10</span></div><div><span>Walking lunges</span><span>3 × 12</span></div></div><span class="msg-btn"><svg><use href="#i-play"/></svg>Start workout</span>'
+        q: "What's the pound rate right now?",
+        a: 'The pound is <b>131,900 T</b> to buy and <b>131,200 T</b> to sell — up <b>1.24%</b> today.',
+        extra: '<div class="msg-table"><div><span>Day high</span><span>132,400</span></div><div><span>Day low</span><span>129,850</span></div><div><span>7-day average</span><span>130,620</span></div></div><span class="msg-btn"><svg><use href="#i-bell"/></svg>Set an alert</span>'
       },
       {
-        q: 'Give me an alternative to bench press.',
-        a: 'Try <b>Incline Dumbbell Press 4 × 8</b> — same chest focus, easier on your shoulders.',
-        extra: '<span class="msg-btn"><svg><use href="#i-check"/></svg>Swap exercise</span>'
+        q: 'How much is £500 in Toman?',
+        a: '£500 is <b>65,600,000 T</b> at today\'s live rate — with no fee to your Arzino wallet.',
+        extra: '<span class="msg-btn"><svg><use href="#i-swap"/></svg>Exchange now</span>'
       },
       {
-        q: 'How did I perform this week?',
-        a: 'Strong week! <b>4 of 5</b> workouts done, squat up <b>+5 kg</b> and protein goal hit 6 of 7 days.',
-        extra: '<div class="msg-bars"><i style="--h:60%"></i><i style="--h:82%"></i><i class="off" style="--h:18%"></i><i style="--h:90%"></i><i style="--h:72%"></i><i style="--h:100%"></i><i class="off" style="--h:24%"></i></div>'
+        q: 'How did the dollar move this week?',
+        a: 'The dollar rose <b>+0.62%</b> this week, peaking on Thursday. Volatility stayed <b>low</b>.',
+        extra: '<div class="msg-bars"><i style="--h:48%"></i><i style="--h:56%"></i><i style="--h:52%"></i><i style="--h:100%"></i><i style="--h:74%"></i><i class="off" style="--h:22%"></i><i class="off" style="--h:18%"></i></div>'
       }
     ];
     let busy = false;
@@ -572,14 +585,9 @@
   --------------------------------------------------------- */
   function initSteps() {
     const steps = $$('.step');
-    const pips = $$('.steps__pip');
     if (!reduce) {
       gsap.from(steps, { y: 70, opacity: 0, duration: 1.2, stagger: 0.12, scrollTrigger: { trigger: '.steps__grid', start: 'top 85%', once: true } });
       gsap.from($$('.step__phone'), { yPercent: 40, duration: 1.6, stagger: 0.12, scrollTrigger: { trigger: '.steps__grid', start: 'top 85%', once: true }, clearProps: 'transform' });
-      gsap.to('.steps__rail > i', {
-        scaleX: 1, ease: 'none',
-        scrollTrigger: { trigger: '.steps__grid', start: 'top 80%', end: 'bottom 60%', scrub: true, onUpdate: (s) => pips.forEach((p, i) => p.classList.toggle('is-on', s.progress >= i * 0.25 + 0.08)) }
-      });
     }
     // 01 rings
     const rings = $$('.scr--rings .rg');
@@ -592,7 +600,7 @@
     // 02 goal picker cycles
     const opts = $$('.scr--goal .gl-opt');
     const ck = $('.scr--goal .gl-ck');
-    let pick = 1;
+    let pick = 0;
     const cycleGoal = () => {
       if (reduce) return;
       gsap.delayedCall(2.2, () => {
@@ -605,18 +613,24 @@
       });
     };
     ScrollTrigger.create({ trigger: steps[1], start: 'top 85%', once: true, onEnter: cycleGoal });
-    // 03 rest timer
-    const tEl = $('.js-timer'), tRing = $('.scr--timer .tm-v');
+    // 03 alert approaching its target
+    const tEl = $('.js-timer'), tLbl = $('.js-timer-lbl'), tRing = $('.scr--timer .tm-v'), meta = $('.js-tm-meta');
     const runTimer = () => {
       if (reduce) return;
-      const o = { s: 74 };
-      gsap.timeline({ repeat: -1, repeatDelay: 0.6 })
-        .fromTo(o, { s: 74 }, { s: 0, duration: 12, ease: 'none', onUpdate: () => { const s = Math.ceil(o.s); tEl.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; } }, 0)
-        .fromTo(tRing, { strokeDashoffset: 38 }, { strokeDashoffset: 100, duration: 12, ease: 'none' }, 0);
+      const o = { p: 0.45 };
+      gsap.timeline({ repeat: -1, repeatDelay: 1.4 })
+        .add(() => { tLbl.textContent = 'to target'; })
+        .fromTo(o, { p: 0.45 }, { p: 0, duration: 7, ease: 'power1.inOut', onUpdate: () => { tEl.textContent = `${o.p.toFixed(2)}%`; meta.textContent = `Now ${fmt(Math.round(132500 * (1 - o.p / 100)))} · sell price`; } }, 0)
+        .fromTo(tRing, { strokeDashoffset: 62 }, { strokeDashoffset: 0, duration: 7, ease: 'power1.inOut' }, 0)
+        .add(() => { tEl.textContent = 'Sent'; tLbl.textContent = 'alert delivered'; })
+        .fromTo('.scr--timer .tm-ring', { scale: 1 }, { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1 });
     };
     ScrollTrigger.create({ trigger: steps[2], start: 'top 85%', once: true, onEnter: runTimer });
     // 04 muscle glow
-    if (!reduce) gsap.to('.mp-glow', { scale: 1.5, opacity: 0.35, duration: 1.4, yoyo: true, repeat: -1, ease: 'sine.inOut', stagger: 0.5 });
+    if (!reduce) {
+      gsap.to('.mp-glow', { scale: 1.5, opacity: 0.35, duration: 1.4, yoyo: true, repeat: -1, ease: 'sine.inOut', stagger: 0.5 });
+      gsap.fromTo('.mp-check', { scale: 0.92 }, { scale: 1.04, duration: 1.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    }
   }
 
   /* ---------------------------------------------------------
@@ -625,7 +639,6 @@
   const Reviews = (() => {
     const vp = $('.reviews__viewport');
     const track = $('.reviews__track');
-    const bar = $('.reviews__bar i');
     const prev = $('.rnav--prev'), next = $('.rnav--next');
     let drag = null, minX = 0, snaps = [];
     function measure() {
@@ -635,16 +648,12 @@
       const cards = $$('.review', track), base = cards[0].offsetLeft;
       snaps = cards.map((c) => Math.max(minX, -(c.offsetLeft - base)));
       snaps = snaps.filter((v, i, a) => i === 0 || Math.abs(v - a[i - 1]) > 2);
-      const w = clamp(inner / track.scrollWidth, 0.1, 1);
-      bar.style.width = `${w * 100}%`;
       if (drag) { drag.applyBounds({ minX, maxX: 0 }); }
       update();
     }
     function update() {
       const x = gsap.getProperty(track, 'x');
       const p = minX ? clamp(x / minX, 0, 1) : 0;
-      const w = parseFloat(bar.style.width) || 30;
-      bar.style.left = `${p * (100 - w)}%`;
       prev.classList.toggle('is-off', p < 0.02);
       next.classList.toggle('is-off', p > 0.98);
     }
@@ -672,36 +681,6 @@
   })();
 
   /* ---------------------------------------------------------
-     Ribbons — marquee reacting to scroll velocity
-  --------------------------------------------------------- */
-  function initRibbons() {
-    const tracks = $$('.ribbon__track');
-    tracks.forEach((t) => { t.innerHTML += t.innerHTML; });
-    if (reduce) return;
-    const state = tracks.map((t, i) => ({ t, x: 0, dir: i === 0 ? -1 : 1, w: 0 }));
-    const measure = () => state.forEach((s) => { s.w = s.t.scrollWidth / 2; });
-    measure();
-    window.addEventListener('resize', measure);
-    let boost = 0;
-    let visible = false;
-    ScrollTrigger.create({ trigger: '.ribbons', start: 'top bottom', end: 'bottom top', onToggle: (s) => { visible = s.isActive; } });
-    gsap.ticker.add((time, dt) => {
-      if (!visible) return;
-      const v = lenis ? lenis.velocity : 0;
-      boost += (clamp(Math.abs(v) * 0.9, 0, 26) - boost) * 0.08;
-      const sign = lenis && lenis.direction < 0 ? -1 : 1;
-      state.forEach((s) => {
-        s.x += s.dir * (1.1 + boost) * sign * (dt / 16.67);
-        if (s.x <= -s.w) s.x += s.w;
-        if (s.x > 0) s.x -= s.w;
-        s.t.style.transform = `translate3d(${s.x.toFixed(2)}px,0,0)`;
-      });
-    });
-    gsap.fromTo('.ribbon--a', { rotation: -6 }, { rotation: -2, ease: 'none', scrollTrigger: { trigger: '.ribbons', start: 'top bottom', end: 'bottom top', scrub: true } });
-    gsap.fromTo('.ribbon--b', { rotation: 6 }, { rotation: 2, ease: 'none', scrollTrigger: { trigger: '.ribbons', start: 'top bottom', end: 'bottom top', scrub: true } });
-  }
-
-  /* ---------------------------------------------------------
      CTA
   --------------------------------------------------------- */
   function initCta() {
@@ -709,9 +688,9 @@
     ScrollTrigger.create({
       trigger: '.cta__panel', start: 'top 75%', once: true,
       onEnter: () => {
-        counter($('.js-rev'), 1.84, { dec: 2, dur: 2 });
-        counter($('.js-members'), 412, { dur: 2 });
-        counter($('.js-checkins'), 108, { dur: 2 });
+        counter($('.js-rev'), 142.6, { dec: 1, dur: 2 });
+        counter($('.js-members'), 1240, { dur: 2 });
+        counter($('.js-checkins'), 860, { dur: 2 });
         if (!reduce) gsap.from('.ds-bars i', { scaleY: 0, duration: 1, stagger: 0.05, ease: 'back.out(1.6)', delay: 0.3 });
       }
     });
@@ -759,22 +738,21 @@
     gsap.set(['.header__in > *', '.hero .eyebrow', '.hero__p', '.hero__btns > *', '.stat'], { opacity: 0, y: 22 });
     gsap.set('.hero__panel', { clipPath: 'inset(45% 40% 45% 40% round 28px)' });
     gsap.set('.hero__phone', { y: 200, rotationX: 30, opacity: 0, transformPerspective: 1400 });
-    gsap.set('.chip, .hero__hint', { scale: 0.6, opacity: 0 });
+    gsap.set('.chip', { scale: 0.6, opacity: 0 });
     $('.hero__grey').textContent = '';
     document.body.classList.remove('is-loading');
-    const tl = gsap.timeline({ onComplete: () => { lenis && lenis.start(); ScrollTrigger.refresh(); } });
+    const tl = gsap.timeline({ onComplete: () => { lenis && lenis.start(); ScrollTrigger.refresh(); gsap.delayedCall(6, () => $('.draft-badge').classList.add('is-mini')); } });
     tl.fromTo('.loader', { clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)', duration: 1.1, ease: 'inout' }, 0)
       .set('.loader', { display: 'none' })
       .to('.header__in > *', { opacity: 1, y: 0, duration: 0.9, stagger: 0.06, clearProps: 'transform' }, 0.45)
       .to('.hero .eyebrow', { opacity: 1, y: 0, duration: 0.9 }, 0.55)
       .to('.hero__title .ln > span', { yPercent: 0, duration: 1.25, stagger: 0.1 }, 0.6)
-      .to('.hero__grey', { duration: 1.4, scrambleText: { text: 'JOURNEY', chars: 'upperCase', speed: 0.45, revealDelay: 0.2 } }, 0.95)
+      .to('.hero__grey', { duration: 1.4, scrambleText: { text: 'DESK', chars: 'upperCase', speed: 0.45, revealDelay: 0.2 } }, 0.95)
       .to('.hero__p', { opacity: 1, y: 0, duration: 1 }, 1.0)
       .to('.hero__btns > *', { opacity: 1, y: 0, duration: 1, stagger: 0.08, clearProps: 'transform' }, 1.1)
       .to('.hero__panel', { clipPath: 'inset(0% 0% 0% 0% round 28px)', duration: 1.4, ease: 'inout' }, 0.55)
       .to('.hero__phone', { y: 0, rotationX: 0, opacity: 1, duration: 1.7, ease: 'expo.out' }, 0.95)
       .to('.chip', { scale: 1, opacity: 1, duration: 1, stagger: 0.15, ease: 'back.out(1.8)' }, 1.7)
-      .to('.hero__hint', { scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.8)' }, 3.2)
       .to('.stat', { opacity: 1, y: 0, duration: 1, stagger: 0.08 }, 1.4)
       .add(() => Hero.start(), 1.8);
     return tl;
@@ -806,7 +784,6 @@
     Coach.init();
     initSteps();
     Reviews.init();
-    initRibbons();
     initCta();
     initFooter();
     document.fonts.ready.then(() => {
@@ -815,6 +792,7 @@
       if (reduce) {
         document.body.classList.remove('is-loading');
         $('.loader').style.display = 'none';
+        $('.draft-badge').classList.add('is-mini');
         Hero.start();
         return;
       }

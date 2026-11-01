@@ -121,6 +121,37 @@
     walk(tpl);
     return tpl.innerHTML;
   }
+  const FLAG = (f) => `assets/img/flags/${f}.svg`;
+  const fmt = (v, d = 0) => Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmtShort = (v) => (Math.abs(v) >= 1e6 ? `${(v / 1e6).toFixed(Math.abs(v) >= 1e8 ? 0 : 1)}M` : Math.abs(v) >= 1e4 ? `${Math.round(v / 1e3)}k` : fmt(v, Math.abs(v) < 100 ? 2 : 0));
+  const fmtRate = (v) => (v >= 100 ? fmt(v) : v >= 1 ? fmt(v, 4) : fmt(v, 6));
+  const chgTxt = (c) => `${c >= 0 ? '▲' : '▼'} ${Math.abs(c).toFixed(2)}%`;
+  // smooth, deterministic 30-day series that passes through the history anchors
+  function seriesFor(c, n = 24) {
+    const [today, yday, d7, d30] = c.hist;
+    const anchors = [[0, d30], [0.72, d7], [0.94, yday], [1, today]];
+    let seed = c.code.charCodeAt(0) * 31 + c.code.charCodeAt(1) * 7 + c.code.charCodeAt(2);
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280 - 0.5; };
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      const t = i / (n - 1);
+      let k = 0;
+      while (k < anchors.length - 2 && t > anchors[k + 1][0]) k++;
+      const [t0, v0] = anchors[k], [t1, v1] = anchors[k + 1];
+      const base = v0 + (v1 - v0) * ((t - t0) / ((t1 - t0) || 1));
+      out.push(i === 0 || i === n - 1 ? base : base + rnd() * Math.abs(today - d30) * 0.35);
+    }
+    return out;
+  }
+  function sparkPath(vals, w, h, pad = 4) {
+    const mn = Math.min(...vals), mx = Math.max(...vals);
+    return catmull(vals.map((v, i) => ({ x: (i / (vals.length - 1)) * w, y: pad + (1 - (v - mn) / ((mx - mn) || 1)) * (h - pad * 2) })));
+  }
+  function flash(el, up) {
+    el.classList.remove('flash-up', 'flash-down');
+    void el.offsetWidth;
+    el.classList.add(up ? 'flash-up' : 'flash-down');
+  }
   function onVisible(el, cb, opts = {}) {
     return ScrollTrigger.create({ trigger: el, start: opts.start || 'top bottom', end: opts.end || 'bottom top', onToggle: (self) => cb(self.isActive) });
   }
@@ -138,12 +169,12 @@
     const W = hero.clientWidth;
     let H = hero.clientHeight;
     const desktop = isDesktop();
-    const inset = clamp(W * 0.018, 10, 28);
+    const insetX = clamp(W * 0.042, 12, 60), insetY = clamp(W * 0.021, 10, 30);
     const marker = $('.hero__rect-end');
     let h1 = offY(marker, hero);
     if (desktop) {
       const cards = $('.hero__cards');
-      h1 = Math.max(h1, offY(cards, hero) + cards.offsetHeight + 46);
+      h1 = Math.max(h1, offY(cards, hero) + cards.offsetHeight + 72);
     }
     const phones = $$('.hero__phone');
     let fb = H;
@@ -152,12 +183,13 @@
       const bottom = $('.hero__bottom');
       bottom.style.marginTop = '0px';
       const base = offY(bottom, hero);
-      bottom.style.marginTop = `${Math.max(40, Math.round(h1 + 105 - base))}px`;
+      bottom.style.marginTop = `${Math.max(40, Math.round(h1 + 85 - base))}px`;
       H = hero.clientHeight;
       fb = H;
+      // phones (rotated ±24°) rise ~2.16×their width above the rig, which sits 94px up
       const btns = $('.hero__btns');
       const btnBottom = offY(btns, hero) + btns.offsetHeight;
-      const phoneW = clamp((H - 6 - btnBottom - 46) / 2.36, 160, 236);
+      const phoneW = clamp((H - 94 - btnBottom - 89) / 2.16, 150, 200);
       phones.forEach((p) => p.style.setProperty('--pw', `${phoneW.toFixed(1)}px`));
     } else {
       $('.hero__bottom').style.marginTop = '';
@@ -165,11 +197,12 @@
       const ph = $('.hero__phones');
       fb = offY(ph, hero) + ph.offsetHeight;
     }
-    const pw = W - inset * 2;
+    const pw = W - insetX * 2;
+    const fw = Math.min(pw, 1320); // funnel keeps its 1440px proportions on wider screens
     heroShape.geo = {
-      W, H, inset, h1, fb, cx: W / 2,
-      topHalf: desktop ? pw * 0.26 : Math.min(pw * 0.49, 360),
-      botHalf: desktop ? pw * 0.115 : Math.min(pw * 0.3, 220),
+      W, H, insetX, insetY, h1, fb, cx: W / 2,
+      topHalf: desktop ? fw * 0.303 : Math.min(pw * 0.49, 360),
+      botHalf: desktop ? fw * 0.12 : Math.min(pw * 0.3, 220),
       r: desktop ? 30 : 22, rj: desktop ? 48 : 34, rb: desktop ? 34 : 24
     };
     heroSvg.setAttribute('viewBox', `0 0 ${W} ${H}`);
@@ -182,8 +215,7 @@
     if (!g) return;
     const e = heroShape.t;
     const vh = Math.min(window.innerHeight, g.H);
-    const ins = g.inset * e;
-    const top = ins, left = ins, right = g.W - ins;
+    const top = g.insetY * e, left = g.insetX * e, right = g.W - g.insetX * e;
     const h1 = lerp(vh, g.h1, e);
     const fb = lerp(vh, g.fb, e);
     heroClip.setAttribute('d', roundedPath([
@@ -246,7 +278,7 @@
     nav.addEventListener('mouseleave', () => gsap.to(navPill, { opacity: 0, duration: 0.35 }));
 
     // active link by section
-    const map = { home: 0, recipes: 1, meal: 1, features: 2, why: 2, bmi: 3, how: 3, story: 4, testimonials: 4, faq: 5, download: 5, contact: 5 };
+    const map = { home: 0, rates: 1, market: 3, converter: 2, how: 2, features: 1, why: 1, story: 4, testimonials: 4, faq: 5, download: 5, contact: 5 };
     const links = $$('.nav > .nav__link');
     Object.keys(map).forEach((id) => {
       const sec = document.getElementById(id);
@@ -372,11 +404,23 @@
     run();
   }
   function heroScreens() {
-    const val = $('.gauge__val');
-    gsap.fromTo(val, { drawSVG: '0%' }, { drawSVG: '69%', duration: 2.2, ease: 'power3.out' });
-    counter($('.js-gauge-num'), 69, { dur: 2.2 });
-    counter($('.js-bmi-num'), 25.7, { dur: 2.2, dec: 1 });
+    gsap.fromTo('.gauge__val', { drawSVG: '0%' }, { drawSVG: '72%', duration: 2.2, ease: 'power3.out' });
+    counter($('.js-gauge-num'), 72, { dur: 2.2 });
+    counter($('.js-bmi-num'), 98950, { dur: 2.2 });
+    gsap.fromTo('.cal__line', { drawSVG: '0%' }, { drawSVG: '100%', duration: 2, ease: 'power2.inOut' });
+    gsap.fromTo('.cal__area', { opacity: 0 }, { opacity: 1, duration: 1.4, delay: 0.8 });
+    gsap.fromTo('.cal__dot', { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.6, delay: 1.8, ease: 'back.out(3)' });
+    gsap.fromTo('.feat__spark path', { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.8, ease: 'power2.inOut' });
     typeLoop($('.js-type'));
+    if (reduce) return;
+    const el = $('.js-hero-gbp');
+    let v = 131900;
+    setInterval(() => {
+      const d = Math.round((Math.random() - 0.45) * 80);
+      v = clamp(v + d, 131500, 132400);
+      el.textContent = fmt(v);
+      flash(el, d >= 0);
+    }, 2600);
   }
 
   /* ---------------------------------------------------------
@@ -491,6 +535,7 @@
         ScrollTrigger.refresh();
         buildHeroLines(true);
         heroScreens();
+        gsap.delayedCall(6, () => $('.draft-badge').classList.add('is-mini'));
       }
     });
     tl.to(heroShape, { t: 1, duration: 1.6, ease: 'inout', onUpdate: renderHero }, 0)
@@ -498,8 +543,8 @@
       .to(heroSplit.lines, { yPercent: 0, duration: 1.2, stagger: 0.12 }, 0.85)
       .to(subWords.words, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.9, stagger: 0.025 }, 1.1)
       .to('.hero__btns > *', { opacity: 1, y: 0, duration: 1, stagger: 0.1, clearProps: 'transform' }, 1.25)
-      .to('.hero__phone--l', { y: 0, rotation: -17, opacity: 1, duration: 1.6, ease: 'expo.out' }, 1.0)
-      .to('.hero__phone--r', { y: 0, rotation: 17, opacity: 1, duration: 1.6, ease: 'expo.out' }, 1.12)
+      .to('.hero__phone--l', { y: 0, rotation: () => (isDesktop() ? -24 : -16), opacity: 1, duration: 1.6, ease: 'expo.out' }, 1.0)
+      .to('.hero__phone--r', { y: 0, rotation: () => (isDesktop() ? 24 : 16), opacity: 1, duration: 1.6, ease: 'expo.out' }, 1.12)
       .to('.hero__phones-shadow', { opacity: 1, scale: 1, duration: 1.4 }, 1.3)
       .to('.eco-card', { opacity: 1, y: 0, scale: 1, rotationX: 0, duration: 1.3, stagger: 0.14, ease: 'back.out(1.2)' }, 1.45)
       .to(storySplit.lines, { yPercent: 0, duration: 1.1, stagger: 0.08 }, 1.6)
@@ -553,22 +598,22 @@
     let hovering = false;
     let dragging = false;
 
-    const spacing = () => (window.innerWidth < 720 ? 250 : window.innerWidth < 1100 ? 300 : 340);
+    const spacing = () => (window.innerWidth < 720 ? 250 : window.innerWidth < 1100 ? 300 : Math.min(407, window.innerWidth * 0.283));
     const nList = () => cards.length;
     const activeIdx = () => { const n = nList(); return ((Math.round(pos.v) % n) + n) % n; };
 
     function build(items) {
       list = items;
-      stage.innerHTML = items.map((r) => `
-        <article class="rcard" data-id="${r.id}">
-          <div class="rcard__plate"><img src="${IMG(r.img)}" alt="${r.title}" draggable="false" loading="lazy"></div>
-          <h3>${r.title}</h3>
-          <p>${r.desc}</p>
-          <div class="rcard__meta"><span class="rcard__time"><svg><use href="#i-clock"/></svg>${r.time}</span><span class="rcard__kcal">${r.kcal} kcal</span></div>
-          <a href="#meal" class="rcard__link" data-id="${r.id}">View Recipe <svg><use href="#i-arrow-right"/></svg></a>
+      stage.innerHTML = items.map((c) => `
+        <article class="rcard" data-id="${c.id}">
+          <div class="rcard__plate"><img src="${FLAG(c.flag)}" alt="${c.name} flag" draggable="false"></div>
+          <h3>${c.name}</h3>
+          <p>Buy <b class="js-buy">${fmt(c.buy)}</b> · Sell <b class="js-sell">${fmt(c.sell)}</b> Toman. ${c.desc}</p>
+          <div class="rcard__meta"><span class="rcard__time"><svg><use href="#i-clock"/></svg><span>Updated <span class="js-ago">${2 + (c.code.charCodeAt(1) % 6)}</span>s ago</span></span><span class="rcard__chg ${c.chg >= 0 ? 'is-up' : 'is-down'}">${chgTxt(c.chg)}</span></div>
+          <a href="#market" class="rcard__link" data-id="${c.id}">View Chart</a>
         </article>`).join('');
       cards = $$('.rcard', stage);
-      dotsWrap.innerHTML = items.map((_, i) => `<button aria-label="Go to recipe ${i + 1}" data-i="${i}"></button>`).join('');
+      dotsWrap.innerHTML = items.map((_, i) => `<button aria-label="Go to currency ${i + 1}" data-i="${i}"></button>`).join('');
       pos.v = 0; target = 0;
       layout();
     }
@@ -582,9 +627,10 @@
         o = ((o % n) + n) % n;
         if (o > n / 2) o -= n;
         const a = Math.abs(o);
-        const x = Math.sign(o) * (a <= 1 ? a * sp : sp + (a - 1) * sp * 0.78);
-        const s = a <= 1 ? lerp(1, 0.84, a) : lerp(0.84, 0.7, Math.min(a - 1, 1));
-        const y = a <= 1 ? lerp(-28, 26, a) : 26 + (a - 1) * 24;
+        // neighbours sit at 81% scale with their bottoms aligned to the active card (as in the reference)
+        const x = Math.sign(o) * (a <= 1 ? a * sp : sp + (a - 1) * sp * 0.72);
+        const s = a <= 1 ? lerp(1, 0.81, a) : lerp(0.81, 0.68, Math.min(a - 1, 1));
+        const y = (1 - s) * c.offsetHeight * 0.5;
         const edge = clamp((n / 2 - a) / 0.5, 0, 1);
         const op = Math.min(a <= 1.15 ? 1 : clamp(1 - (a - 1.15) / 0.55, 0, 1), edge);
         gsap.set(c, { x, y, scale: s, zIndex: Math.round(100 - a * 10), opacity: op, visibility: op < 0.02 ? 'hidden' : 'visible' });
@@ -624,7 +670,7 @@
     function filter(cat, chip) {
       chips.forEach((c) => { const on = c === chip; c.classList.toggle('is-active', on); c.setAttribute('aria-selected', on); });
       moveInd(chip);
-      const items = cat === 'all' ? D.recipes.slice() : D.recipes.filter((r) => r.cats.includes(cat));
+      const items = cat === 'all' ? D.currencies.slice() : D.currencies.filter((c) => c.cats.includes(cat));
       const old = cards;
       gsap.to(old, {
         opacity: 0, y: '+=40', scale: '-=0.08', duration: 0.35, stagger: 0.03, ease: 'power2.in',
@@ -635,6 +681,29 @@
           gsap.from(vis.map((c) => c.firstElementChild), { rotation: '-=120', scale: 0.6, duration: 1.1, stagger: 0.06, ease: 'back.out(1.4)' });
         }
       });
+    }
+
+    // live price ticks + "updated Xs ago" counters while the section is visible
+    function liveTicker() {
+      if (reduce) return;
+      setInterval(() => {
+        if (!inView) return;
+        cards.forEach((c) => { const a = $('.js-ago', c); if (a) a.textContent = +a.textContent + 1; });
+      }, 1000);
+      setInterval(() => {
+        if (!inView || !cards.length) return;
+        const vis = cards.filter((c) => +gsap.getProperty(c, 'opacity') > 0.5);
+        const card = vis[Math.floor(Math.random() * vis.length)];
+        if (!card) return;
+        const cur = D.currencies.find((x) => x.id === card.dataset.id);
+        const step = Math.max(1, Math.round(cur.sell * 0.0004));
+        const d = (Math.random() < 0.55 ? 1 : -1) * step * (1 + Math.floor(Math.random() * 3));
+        const sell = $('.js-sell', card), buy = $('.js-buy', card);
+        sell.textContent = fmt(cur.sell + d);
+        buy.textContent = fmt(cur.buy + d);
+        flash(sell, d >= 0); flash(buy, d >= 0);
+        $('.js-ago', card).textContent = '0';
+      }, 1700);
     }
 
     function initDrag() {
@@ -672,8 +741,9 @@
     }
 
     function init() {
-      build(D.recipes.slice());
+      build(D.currencies.slice());
       requestAnimationFrame(() => moveInd(chips[0], true));
+      liveTicker();
       $('.carousel__arrow--next').addEventListener('click', next);
       $('.carousel__arrow--prev').addEventListener('click', prev);
       dotsWrap.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) goIndex(+b.dataset.i); });
@@ -683,9 +753,9 @@
         if (!link) return;
         e.preventDefault();
         e.stopPropagation();
-        const r = D.recipes.find((x) => x.id === link.dataset.id);
-        if (r) Meal.setRecipe(r, true);
-        scrollToTarget('#meal', -40);
+        const c = D.currencies.find((x) => x.id === link.dataset.id);
+        if (c) Meal.setRecipe(c, true);
+        scrollToTarget('#market', -40);
       });
       const carousel = $('.carousel');
       carousel.addEventListener('mouseenter', () => { hovering = true; });
@@ -725,53 +795,56 @@
     const panes = $$('.rec__pane');
     const t1 = $('.meal__t1'), t2 = $('.meal__t2'), desc = $('.meal__desc-txt');
     let idx = 0;
-    let recipe = D.recipes[0];
+    let recipe = D.currencies[0];
     let autoTl = null;
     let inView = false;
     let paused = false;
 
     function renderPanes() {
-      const r = recipe;
-      panes[0].innerHTML = r.ing.map(([n, q], i) => `<div class="ing-row${i < 3 ? ' will-ck' : ''}"><span class="ing-row__ck"><svg><use href="#i-check"/></svg></span><b>${n}</b><em>${q}</em></div>`).join('')
-        + `<div class="rec__cta"><svg><use href="#i-cart"/></svg>Add missing to list</div>`;
-      const tot = r.nut.p * 4 + r.nut.c * 4 + r.nut.f * 9;
-      const pP = (r.nut.p * 4) / tot, pC = (r.nut.c * 4) / tot;
-      const C = 2 * Math.PI * 28;
-      panes[1].innerHTML = `
-        <div class="nut">
-          <div class="nut__ring"><svg viewBox="0 0 70 70"><circle cx="35" cy="35" r="28" stroke="#eef3f1"/>
-            <circle class="nr nr-p" cx="35" cy="35" r="28" stroke="#1dcb98" stroke-dasharray="${C * pP - 3} ${C}" stroke-dashoffset="0"/>
-            <circle class="nr nr-c" cx="35" cy="35" r="28" stroke="#ffb547" stroke-dasharray="${C * pC - 3} ${C}" stroke-dashoffset="${-C * pP}"/>
-            <circle class="nr nr-f" cx="35" cy="35" r="28" stroke="#ff7a7f" stroke-dasharray="${C * (1 - pP - pC) - 3} ${C}" stroke-dashoffset="${-C * (pP + pC)}"/></svg>
-            <div><b class="js-nut-kcal">${r.kcal}</b><small>kcal</small></div></div>
-          <div class="nut__list">
-            ${[['Protein', r.nut.p, '#1dcb98', 60], ['Carbs', r.nut.c, '#ffb547', 90], ['Fat', r.nut.f, '#ff7a7f', 45], ['Fiber', r.nut.fi, '#78b83a', 20]].map(([k, v, col, max]) => `
-              <div class="nut__item"><div><span>${k}</span><b>${v} g</b></div><i><em style="background:${col};width:${Math.min(100, (v / max) * 100)}%"></em></i></div>`).join('')}
-          </div>
-        </div>
-        <div class="nut__tip"><svg><use href="#i-sparkles"/></svg>High in protein · fits your daily goal</div>`;
-      panes[2].innerHTML = r.steps.map(([s, t], i) => `<div class="dir-row"><span class="dir-row__n">${i + 1}</span><p>${s}</p><em>${t}</em></div>`).join('')
-        + `<div class="rec__cta"><svg><use href="#i-chef"/></svg>Start cooking</div>`;
+      const c = recipe;
+      const [today, yday, d7, d30] = c.hist;
+      const pct = (a, b) => ((a - b) / b) * 100;
+      const rows = [['Sell now', c.sell, null], ['Buy now', c.buy, null], ['Yesterday', yday, pct(today, yday)], ['7 days ago', d7, pct(today, d7)], ['30 days ago', d30, pct(today, d30)]];
+      panes[0].innerHTML = rows.map(([k, v, p]) => `<div class="px-row"><span>${k}</span><b data-v="${v}">${fmt(v)}</b>${p === null ? '<em class="px-live"><i></i>live</em>' : `<em class="${p >= 0 ? 'up' : 'down'}">${p >= 0 ? '+' : '−'}${Math.abs(p).toFixed(2)}%</em>`}</div>`).join('')
+        + `<div class="rec__cta"><svg><use href="#i-swap"/></svg>Exchange ${c.code}</div>`;
+      panes[1].innerHTML = c.alerts.map(([label, on]) => `<div class="al-row${on ? ' will-on' : ''}"><span class="al-row__ic"><svg><use href="#i-bell"/></svg></span><b>${label}</b><i class="tog"></i></div>`).join('')
+        + `<div class="al-note"><svg><use href="#i-sparkles"/></svg>You're notified the moment it happens</div>`
+        + `<div class="rec__cta rec__cta--ghost"><svg><use href="#i-plus"/></svg>New alert</div>`;
+      panes[2].innerHTML = `
+        <div class="cv-box"><small>You exchange</small><div class="cv-amt"><img src="${FLAG(c.flag)}" alt=""><b>${c.sym}500</b><span>${c.code}</span></div></div>
+        <div class="cv-swap"><svg><use href="#i-swap"/></svg></div>
+        <div class="cv-box cv-box--to"><small>You receive</small><div class="cv-amt"><span class="cv-t">T</span><b class="js-cv">${fmt(500 * c.buy)}</b><span>Toman</span></div></div>
+        <div class="cv-rate">1 ${c.code} = ${fmt(c.buy)} T · no fee to wallet</div>
+        <div class="rec__cta"><svg><use href="#i-lock"/></svg>Lock rate &amp; exchange</div>`;
     }
 
     function animatePane(i) {
       const p = panes[i];
-      if (reduce) { $$('.will-ck', p).forEach((r) => r.classList.add('is-ck')); return; }
+      if (reduce) { $$('.will-on', p).forEach((r) => r.classList.add('is-on')); return; }
       if (i === 0) {
-        const rows = $$('.ing-row', p);
-        gsap.fromTo(rows, { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.6, stagger: 0.06 });
-        rows.forEach((r) => r.classList.remove('is-ck'));
-        $$('.will-ck', p).forEach((r, k) => gsap.delayedCall(0.6 + k * 0.35, () => r.classList.add('is-ck')));
+        gsap.fromTo($$('.px-row', p), { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.6, stagger: 0.07 });
+        $$('.px-row b', p).forEach((b, k) => { b.textContent = '0'; counter(b, +b.dataset.v, { dur: 1.2, delay: 0.1 + k * 0.06 }); });
         gsap.fromTo($('.rec__cta', p), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.4 });
       } else if (i === 1) {
-        const rings = $$('.nr', p);
-        gsap.fromTo(rings, { opacity: 0, rotation: -90, svgOrigin: '35 35' }, { opacity: 1, rotation: 0, svgOrigin: '35 35', duration: 1.2, stagger: 0.12 });
-        counter($('.js-nut-kcal', p), recipe.kcal, { dur: 1.2 }).vars.onStart = null;
-        gsap.fromTo($$('.nut__item i em', p), { scaleX: 0 }, { scaleX: 1, duration: 1.1, stagger: 0.1, delay: 0.2 });
-        gsap.fromTo($$('.nut__item, .nut__tip', p), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 });
+        const rows = $$('.al-row', p);
+        rows.forEach((r) => r.classList.remove('is-on'));
+        gsap.fromTo(rows, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 });
+        $$('.will-on', p).forEach((r, k) => gsap.delayedCall(0.5 + k * 0.35, () => r.classList.add('is-on')));
+        gsap.fromTo($$('.al-note, .rec__cta', p), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, delay: 0.5 });
       } else {
-        gsap.fromTo($$('.dir-row, .rec__cta', p), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 });
+        gsap.fromTo($$('.cv-box, .cv-swap, .cv-rate, .rec__cta', p), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 });
+        gsap.fromTo($('.cv-swap', p), { rotation: -180 }, { rotation: 0, duration: 1, ease: 'back.out(1.6)' });
+        const cv = $('.js-cv', p);
+        cv.textContent = '0';
+        counter(cv, 500 * recipe.buy, { dur: 1.4, delay: 0.3 });
       }
+    }
+
+    function drawSpark() {
+      const d = sparkPath(seriesFor(recipe, 20), 200, 80, 12);
+      $('.js-spark').setAttribute('d', d);
+      $('.js-spark-area').setAttribute('d', `${d}L200,80L0,80Z`);
+      if (!reduce) gsap.fromTo('.js-spark', { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.4, ease: 'power2.inOut' });
     }
 
     function moveInd(instant) {
@@ -826,23 +899,27 @@
       if (!inView || paused) autoTl.pause();
     }
 
-    function setRecipe(r, fromCarousel) {
-      recipe = r;
-      const img = $('.js-meal-img'), img2 = $('.js-meal-img2');
+    function setRecipe(c, fromCarousel) {
+      recipe = c;
+      const coin = $('.js-meal-img'), city = $('.js-meal-img2');
       const swap = () => {
-        img.src = IMG(r.img); img2.src = IMG(r.img);
-        $('.js-meal-name').textContent = r.title;
-        $('.js-meal-time').textContent = r.time.replace(' mins', ' min');
-        $('.js-meal-kcal').textContent = `${r.kcal} kcal`;
+        coin.src = FLAG(c.flag); coin.alt = c.name;
+        city.src = IMG(`city-${c.city}`);
+        $('.js-meal-name').textContent = `${c.name} · ${c.code}`;
+        $('.js-meal-price').textContent = fmt(c.sell);
+        $('.js-meal-kcal').textContent = `${c.chg >= 0 ? '+' : '−'}${Math.abs(c.chg).toFixed(2)}% today`;
+        $('.js-cook-amt').textContent = `${c.sym}500 → ${fmtShort(500 * c.buy)} T`;
+        $('.mtab__img img').src = FLAG(c.flag);
+        drawSpark();
         renderPanes();
         setTab(fromCarousel ? 0 : idx, { instant: false });
       };
       if (reduce) { swap(); return; }
       gsap.timeline()
-        .to([img, '.js-meal-name'], { opacity: 0, duration: 0.25 })
+        .to([coin, '.js-meal-name', '.rec__price'], { opacity: 0, duration: 0.25 })
         .add(swap)
-        .fromTo(img, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1.05, duration: 1.1, ease: 'soft' })
-        .to('.js-meal-name', { opacity: 1, duration: 0.5 }, '<');
+        .fromTo(coin, { opacity: 0, scale: 0.4, rotation: -180 }, { opacity: 1, scale: 1, rotation: 0, duration: 1.1, ease: 'back.out(1.5)' })
+        .to(['.js-meal-name', '.rec__price'], { opacity: 1, duration: 0.5 }, '<');
     }
 
     function cookTimer() {
@@ -852,7 +929,7 @@
       let step = 2;
       const loop = () => {
         const o = { s: 299 };
-        gsap.timeline({ onComplete: () => { step = step % 4 + 1; stepEl.textContent = step; loop(); } })
+        gsap.timeline({ onComplete: () => { step = step % 3 + 1; stepEl.textContent = step; loop(); } })
           .fromTo(ring, { strokeDashoffset: 0 }, { strokeDashoffset: C, duration: 8, ease: 'none' }, 0)
           .to(o, { s: 0, duration: 8, ease: 'none', onUpdate: () => { const s = Math.round(o.s); time.textContent = `0${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; } }, 0);
       };
@@ -861,6 +938,7 @@
 
     function init() {
       renderPanes();
+      drawSpark();
       setTab(0, { instant: true });
       tabs.forEach((t, i) => t.addEventListener('click', () => setTab(i, { user: true })));
       segBtns.forEach((b, i) => b.addEventListener('click', () => setTab(i, { user: true })));
@@ -869,11 +947,11 @@
       zone.addEventListener('mouseleave', () => { paused = false; if (inView) autoTl && autoTl.resume(); });
       onVisible($('.meal'), (v) => { inView = v; if (!autoTl) return; v && !paused ? autoTl.resume() : autoTl.pause(); }, { start: 'top 70%', end: 'bottom 30%' });
       cookTimer();
-      gsap.set('.meal__phone--front', { x: 0, y: 0, xPercent: -36, yPercent: -50, rotation: 4 });
-      gsap.set('.meal__phone--back', { x: 0, y: 0, xPercent: -80, yPercent: -47, rotation: -10, scale: 0.9 });
+      gsap.set('.meal__phone--front', { x: 35, y: 0, xPercent: -50, yPercent: 0, rotation: 0 });
+      gsap.set('.meal__phone--back', { x: 12, y: 0, xPercent: -50, yPercent: 0, rotation: 28, scale: 0.92 });
       if (!reduce) {
-        gsap.from('.meal__phone--front', { y: 160, rotation: 14, opacity: 0, duration: 1.5, scrollTrigger: { trigger: '.meal__grid', start: 'top 80%', once: true } });
-        gsap.from('.meal__phone--back', { y: 200, rotation: -24, opacity: 0, duration: 1.6, delay: 0.12, scrollTrigger: { trigger: '.meal__grid', start: 'top 80%', once: true } });
+        gsap.from('.meal__phone--front', { y: 160, rotation: -8, opacity: 0, duration: 1.5, scrollTrigger: { trigger: '.meal__grid', start: 'top 80%', once: true } });
+        gsap.from('.meal__phone--back', { y: 200, rotation: 48, opacity: 0, duration: 1.6, delay: 0.12, scrollTrigger: { trigger: '.meal__grid', start: 'top 80%', once: true } });
         gsap.from('.meal__tabs', { x: 220, opacity: 0, duration: 1.3, scrollTrigger: { trigger: '.meal__grid', start: 'top 75%', once: true } });
         gsap.from('.mtab__img', { scale: 0, rotation: -120, duration: 1.2, stagger: 0.12, delay: 0.25, ease: 'back.out(1.6)', scrollTrigger: { trigger: '.meal__grid', start: 'top 75%', once: true } });
         gsap.from([t1, t2], { yPercent: 105, duration: 1.2, stagger: 0.1, scrollTrigger: { trigger: '.meal__grid', start: 'top 75%', once: true } });
@@ -890,111 +968,140 @@
   const Calc = (() => {
     const form = $('.calc__form');
     const seg = $('.seg');
-    const select = $('.select');
+    const selects = $$('.select', form);
     const out = $('.calc__out'), empty = $('.calc__empty');
-    let gender = 'female';
-    let calculated = false;
     const needle = $('.res-needle');
+    const TOMAN = { code: 'IRT', name: 'Toman', buy: 1, sell: 1, chg: 0, sym: '' };
+    const all = [TOMAN, ...D.currencies];
+    const byCode = (code) => all.find((c) => c.code === code);
+    const val = (sel) => $(sel, form).dataset.value;
+    let service = 'exchange';
+    let calculated = false;
 
-    function bmiAngle(b) {
-      const segs = [[15, 180], [18.5, 118], [25, 62], [30, 30], [40, 0]];
-      if (b <= 15) return 180;
-      if (b >= 40) return 0;
-      for (let i = 0; i < segs.length - 1; i++) {
-        const [b0, a0] = segs[i], [b1, a1] = segs[i + 1];
-        if (b <= b1) return lerp(a0, a1, (b - b0) / (b1 - b0));
-      }
-      return 0;
+    function fillLists() {
+      const li = (c, on) => `<li role="option" data-v="${c.code}"${on ? ' class="is-on" aria-selected="true"' : ''}>${c.code} — ${c.name}</li>`;
+      $('.select--from .select__list', form).innerHTML = all.map((c) => li(c, c.code === 'GBP')).join('');
+      $('.select--to .select__list', form).innerHTML = all.map((c) => li(c, c.code === 'IRT')).join('');
+      $$('.select__list', form).forEach((l) => l.setAttribute('data-lenis-prevent', ''));
     }
-    function read() {
-      const v = (id) => parseFloat($(`#${id}`).value);
-      return { age: v('age'), w: v('weight'), h: v('height'), act: parseFloat(select.dataset.value), gender };
+    function setSelect(el, v) {
+      el.dataset.value = v;
+      $$('li', el).forEach((x) => {
+        const on = x.dataset.v === v;
+        x.classList.toggle('is-on', on);
+        if (on) { x.setAttribute('aria-selected', 'true'); $('.select__val', el).textContent = x.textContent; } else x.removeAttribute('aria-selected');
+      });
+    }
+    function choose(el, v) {
+      const isFrom = el.classList.contains('select--from'), isTo = el.classList.contains('select--to');
+      if (isFrom || isTo) {
+        const other = $(isFrom ? '.select--to' : '.select--from', form);
+        if (other.dataset.value === v) setSelect(other, el.dataset.value);
+      }
+      setSelect(el, v);
+      const f = val('.select--from');
+      $('.js-amt-unit').textContent = f === 'IRT' ? 'T' : f;
+      if (calculated) calculate(false);
     }
     function validate() {
-      let ok = true;
-      [['age', 14, 99], ['weight', 30, 250], ['height', 120, 230]].forEach(([id, min, max]) => {
-        const inp = $(`#${id}`), box = inp.parentElement, val = parseFloat(inp.value);
-        const bad = !(val >= min && val <= max);
-        box.classList.toggle('is-err', bad);
-        if (bad) { ok = false; gsap.fromTo(box, { x: -8 }, { x: 0, duration: 0.6, ease: 'elastic.out(1, .3)' }); }
-      });
-      return ok;
+      const inp = $('#amount'), box = inp.parentElement, v = parseFloat(inp.value);
+      const bad = !(v >= 1 && v <= 100000000);
+      box.classList.toggle('is-err', bad);
+      if (bad) gsap.fromTo(box, { x: -8 }, { x: 0, duration: 0.6, ease: 'elastic.out(1, .3)' });
+      return !bad;
     }
-    function compute(d) {
-      const m = d.h / 100;
-      const bmi = d.w / (m * m);
-      const bmr = 10 * d.w + 6.25 * d.h - 5 * d.age + (d.gender === 'male' ? 5 : -161);
-      const tdee = bmr * d.act;
-      return {
-        bmi, tdee,
-        cat: bmi < 18.5 ? ['under', 'Underweight'] : bmi < 25 ? ['normal', 'Healthy weight'] : bmi < 30 ? ['over', 'Overweight'] : ['obese', 'Obese'],
-        lose: tdee - 500, gain: tdee + 300,
-        p: (tdee * 0.3) / 4, c: (tdee * 0.4) / 4, f: (tdee * 0.3) / 9,
-        water: d.w * 0.033
-      };
+    function compute() {
+      const amt = parseFloat($('#amount').value);
+      const from = byCode(val('.select--from')), to = byCode(val('.select--to'));
+      const fee = parseFloat(val('.select--fee')) + (service === 'transfer' ? 0.005 : 0);
+      const ourRate = from.buy / to.sell;
+      const mid = ((from.buy + from.sell) / 2) / ((to.buy + to.sell) / 2);
+      const bankRate = (from.buy * 0.985) / (to.sell * 1.015);
+      const gross = amt * ourRate;
+      const feeAmt = gross * fee;
+      const recv = gross - feeAmt;
+      const bankRecv = amt * bankRate * 0.99;
+      const range = (c) => { const s = seriesFor(c, 24); return [Math.min(...s), Math.max(...s)]; };
+      let score;
+      if (from.code !== 'IRT' && to.code === 'IRT') { const [mn, mx] = range(from); score = (from.sell - mn) / ((mx - mn) || 1); }
+      else if (from.code === 'IRT' && to.code !== 'IRT') { const [mn, mx] = range(to); score = 1 - (to.sell - mn) / ((mx - mn) || 1); }
+      else score = 0.5 + (from.chg - to.chg) / 4;
+      return { amt, from, to, fee, feeAmt, recv, bankRecv, save: recv - bankRecv, ourRate, mid, bankRate, score: clamp(score, 0.05, 0.95) };
     }
     function show(r, first) {
-      const badge = $('.js-bmi-cat');
-      badge.textContent = r.cat[1];
-      badge.dataset.cat = r.cat[0];
+      const unit = r.to.code === 'IRT' ? 'T' : r.to.code;
+      const dec = r.to.code === 'IRT' ? 0 : 2;
+      const badge = $('.js-rate-cat');
+      const cat = r.score >= 0.66 ? ['good', 'Great rate'] : r.score >= 0.33 ? ['mid', 'Average rate'] : ['low', 'Below average'];
+      badge.textContent = cat[1];
+      badge.dataset.cat = cat[0];
+      $('.js-recv-unit').textContent = r.to.code === 'IRT' ? 'Toman' : r.to.code;
+      const inv = r.ourRate < 1;
+      const fromUnit = r.from.code === 'IRT' ? 'T' : r.from.code;
+      const rateTxt = inv ? `${fmtRate(1 / r.ourRate)} ${fromUnit} per 1 ${r.to.code}` : `${fmtRate(r.ourRate)} ${unit} per 1 ${r.from.code === 'IRT' ? 'Toman' : r.from.code}`;
+      $('.js-recv-note').textContent = `at ${rateTxt} · ${service === 'transfer' ? 'arrives in 1 business day' : 'instant to wallet'}`;
+      $('.js-lock').textContent = service === 'transfer' ? 'Rate locked for 30 min' : 'Rate locked for 5 min';
       if (first && !reduce) {
         gsap.timeline()
           .to(empty, { opacity: 0, scale: 0.92, duration: 0.4, ease: 'power3.in', onComplete: () => { empty.style.display = 'none'; } })
           .add(() => { out.hidden = false; })
           .fromTo(out.children, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.09 });
       } else { empty.style.display = 'none'; out.hidden = false; }
-      gsap.to(needle, { rotation: 90 - bmiAngle(r.bmi), svgOrigin: '110 112', duration: reduce ? 0 : 1.8, ease: 'elastic.out(1, .55)', delay: first ? 0.45 : 0 });
+      gsap.to(needle, { rotation: r.score * 180 - 90, svgOrigin: '110 112', duration: reduce ? 0 : 1.8, ease: 'elastic.out(1, .55)', delay: first ? 0.45 : 0 });
       const dl = first ? 0.4 : 0;
-      counter($('.js-bmi'), r.bmi, { dec: 1, delay: dl });
-      counter($('.js-kcal'), r.tdee, { delay: dl });
-      counter($('.js-lose'), r.lose, { delay: dl });
-      counter($('.js-gain'), r.gain, { delay: dl });
-      counter($('.js-p'), r.p, { delay: dl });
-      counter($('.js-c'), r.c, { delay: dl });
-      counter($('.js-f'), r.f, { delay: dl });
-      counter($('.js-water'), r.water, { dec: 1, delay: dl });
-      gsap.to('.js-pb', { scaleX: clamp(r.p / 220, 0.08, 1), duration: 1.2, delay: dl + 0.1 });
-      gsap.to('.js-cb', { scaleX: clamp(r.c / 320, 0.08, 1), duration: 1.2, delay: dl + 0.2 });
-      gsap.to('.js-fb', { scaleX: clamp(r.f / 110, 0.08, 1), duration: 1.2, delay: dl + 0.3 });
+      const setNum = (el, v, d) => { el.textContent = '0'; counter(el, v, { dec: d, delay: dl }); };
+      const shown = inv ? 1 / r.ourRate : r.ourRate;
+      setNum($('.js-rate'), shown, shown >= 100 ? 0 : 4);
+      setNum($('.js-recv'), r.recv, dec);
+      $('.js-fee').textContent = r.feeAmt ? fmtShort(r.feeAmt) : '0';
+      $('.js-save').textContent = `+${fmtShort(Math.max(0, r.save))}`;
+      const rates = (inv ? [1 / r.ourRate, 1 / r.mid, 1 / r.bankRate] : [r.ourRate, r.mid, r.bankRate]);
+      const mn = Math.min(...rates), mx = Math.max(...rates);
+      [['.js-r1', '.js-r1b'], ['.js-r2', '.js-r2b'], ['.js-r3', '.js-r3b']].forEach(([t, b], k) => {
+        $(t).textContent = fmtRate(rates[k]);
+        gsap.to(b, { scaleX: 0.45 + 0.55 * ((rates[k] - mn) / ((mx - mn) || 1)), duration: 1.2, delay: dl + 0.1 * k });
+      });
     }
     function calculate(first) {
       if (!validate()) return;
-      show(compute(read()), first);
+      show(compute(), first);
       calculated = true;
     }
     function init() {
+      fillLists();
       gsap.set(needle, { rotation: -90, svgOrigin: '110 112' });
       $$('.seg__opt', seg).forEach((b) => b.addEventListener('click', () => {
-        gender = b.dataset.v;
+        service = b.dataset.v;
         $$('.seg__opt', seg).forEach((x) => { const on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-checked', on); });
-        seg.classList.toggle('is-male', gender === 'male');
+        seg.classList.toggle('is-alt', service === 'transfer');
         if (calculated) calculate(false);
       }));
-      const btn = $('.select__btn', select), listEl = $('.select__list', select);
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const open = !select.classList.contains('is-open');
-        select.classList.toggle('is-open', open);
-        btn.setAttribute('aria-expanded', open);
-        if (open) gsap.fromTo($$('li', listEl), { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.03 });
+      selects.forEach((el) => {
+        const btn = $('.select__btn', el), list = $('.select__list', el);
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = !el.classList.contains('is-open');
+          selects.forEach((o) => { o.classList.remove('is-open'); $('.select__btn', o).setAttribute('aria-expanded', 'false'); });
+          el.classList.toggle('is-open', open);
+          btn.setAttribute('aria-expanded', open);
+          if (open && !reduce) gsap.fromTo($$('li', list), { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.02 });
+        });
+        list.addEventListener('click', (e) => {
+          const li = e.target.closest('li');
+          if (!li) return;
+          choose(el, li.dataset.v);
+          el.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
       });
-      $$('li', listEl).forEach((li) => li.addEventListener('click', () => {
-        $$('li', listEl).forEach((x) => { x.classList.remove('is-on'); x.removeAttribute('aria-selected'); });
-        li.classList.add('is-on'); li.setAttribute('aria-selected', 'true');
-        select.dataset.value = li.dataset.v;
-        $('.select__val', select).textContent = li.textContent;
-        select.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-        if (calculated) calculate(false);
-      }));
-      document.addEventListener('click', (e) => { if (!select.contains(e.target)) select.classList.remove('is-open'); });
+      document.addEventListener('click', (e) => selects.forEach((el) => { if (!el.contains(e.target)) el.classList.remove('is-open'); }));
       let deb;
-      $$('input', form).forEach((inp) => inp.addEventListener('input', () => {
-        inp.parentElement.classList.remove('is-err');
+      $('#amount').addEventListener('input', (e) => {
+        e.target.parentElement.classList.remove('is-err');
         if (!calculated) return;
         clearTimeout(deb);
         deb = setTimeout(() => calculate(false), 350);
-      }));
+      });
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         const sub = $('.calc__submit');
@@ -1004,7 +1111,7 @@
       });
       $('.res-reset').addEventListener('click', () => {
         if (!isDesktop()) scrollToTarget(form, -110);
-        setTimeout(() => $('#weight').focus({ preventScroll: true }), 400);
+        setTimeout(() => $('#amount').focus({ preventScroll: true }), 400);
       });
     }
     return { init };
@@ -1136,11 +1243,10 @@
     let chapter = 0;
     let chapTimer = null;
     let mobile = false;
+    // one long S-curve that passes behind the card, as in the reference
     const chains = [
-      ['edgeL', 11, 7, 8, 'cardL'],
-      ['cardR', 9, 5, 6, 'edgeTR'],
-      ['cardB', 14, 15, 16, 'edgeR'],
-      [0, 1, 2, 3, 4]
+      ['edgeL', 17, 12, 'cardL'],
+      ['cardR', 14, 9, 5, 'edgeTR']
     ];
 
     function measure() {
@@ -1161,9 +1267,9 @@
       const r = card.getBoundingClientRect(), p = wrap.getBoundingClientRect();
       cr.x = r.left - p.left; cr.y = r.top - p.top;
       switch (key) {
-        case 'edgeL': return { x: -30, y: ch * 0.62 };
+        case 'edgeL': return { x: -30, y: ch * 0.86 };
         case 'edgeR': return { x: cw + 30, y: ch * 0.98 };
-        case 'edgeTR': return { x: cw + 30, y: ch * 0.12 };
+        case 'edgeTR': return { x: cw + 30, y: ch * 0.04 };
         case 'cardL': return { x: cr.x, y: cr.y + cr.h * 0.7 };
         case 'cardR': return { x: cr.x + cr.w, y: cr.y + cr.h * 0.3 };
         case 'cardB': return { x: cr.x + cr.w * 0.8, y: cr.y + cr.h };
@@ -1195,8 +1301,6 @@
 
     function setChapter(i, first) {
       chapter = (i + D.story.length) % D.story.length;
-      $('.js-chapter').textContent = `Chapter 0${chapter + 1}`;
-      $$('.story-card__dots i').forEach((d, k) => d.classList.toggle('is-on', k === chapter));
       const render = () => {
         textEl.innerHTML = wrapWords(D.story[chapter], 'sw');
         if (!reduce) gsap.fromTo($$('.sw', textEl), { opacity: 0, y: 10, filter: 'blur(5px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, stagger: 0.012 });
@@ -1302,7 +1406,7 @@
       const t = T[idx];
       const render = () => {
         textEl.innerHTML = wrapWords(`“${t.text}”`, 'tw');
-        nameEl.textContent = t.name; locEl.textContent = t.loc; dateEl.textContent = t.date;
+        nameEl.textContent = t.name; locEl.textContent = t.loc; dateEl.textContent = `Sample testimonial · ${t.date}`;
         if (!reduce) {
           gsap.fromTo($$('.tw', textEl), { opacity: 0, y: 12, filter: 'blur(6px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, stagger: 0.014 });
           gsap.fromTo([nameEl, locEl, dateEl], { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.7, stagger: 0.07 });
@@ -1421,12 +1525,8 @@
       msg.style.color = '';
       gsap.timeline()
         .to('.cform__lbl', { opacity: 0, y: -10, duration: 0.25 })
-        .to(check, { strokeDashoffset: 0, duration: 0.5, ease: 'power2.out' })
-        .add(() => { msg.textContent = "Thanks! We'll get back to you within 24 hours."; })
-        .to({}, { duration: 2.2 })
-        .add(() => { form.reset(); })
-        .to(check, { strokeDashoffset: 24, duration: 0.3 })
-        .to('.cform__lbl', { opacity: 1, y: 0, duration: 0.3 });
+        .add(() => { msg.textContent = "Preview only — this form isn't connected yet, so nothing was sent."; })
+        .to('.cform__lbl', { opacity: 1, y: 0, duration: 0.3 }, '+=0.15');
       gsap.fromTo(btn, { scale: 0.94 }, { scale: 1, duration: 0.8, ease: 'elastic.out(1, .4)' });
     });
     $$('.cfield input, .cfield textarea', form).forEach((i) => i.addEventListener('input', () => i.parentElement.classList.remove('is-err')));
@@ -1436,13 +1536,7 @@
      Footer
   --------------------------------------------------------- */
   function initFooter() {
-    $('.to-top').addEventListener('click', () => scrollToTarget(0, 0));
     if (reduce) return;
-    const word = SplitText.create('.footer__word span', { type: 'chars' });
-    gsap.from(word.chars, {
-      yPercent: 100, opacity: 0, stagger: 0.04, ease: 'none',
-      scrollTrigger: { trigger: '.footer', start: 'top 90%', end: 'bottom bottom', scrub: 1 }
-    });
     gsap.from('.footer__top > *', { y: 40, opacity: 0, duration: 1.1, stagger: 0.12, scrollTrigger: { trigger: '.footer', start: 'top 85%', once: true } });
   }
 
@@ -1516,6 +1610,10 @@
       computeHeroGeo();
       renderHero();
       if (!wChanged) return;
+      if (!reduce && !document.body.classList.contains('is-loading')) {
+        gsap.set('.hero__phone--l', { rotation: isDesktop() ? -24 : -16 });
+        gsap.set('.hero__phone--r', { rotation: isDesktop() ? 24 : 16 });
+      }
       Recipes.layout();
       Recipes.moveInd();
       Meal.moveInd();
@@ -1563,7 +1661,8 @@
         computeHeroGeo();
         renderHero();
         buildHeroLines(false);
-        $('.js-type').textContent = 'Search recipes…';
+        $('.js-type').textContent = 'Search currencies…';
+        $('.draft-badge').classList.add('is-mini');
         return;
       }
       runPreloader().then(() => {
