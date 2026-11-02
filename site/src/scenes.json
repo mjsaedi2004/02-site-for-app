@@ -1,0 +1,34 @@
+{
+  "_doc": "Shared by site.js (live phone) and tools/posters.js (still images). Each slot is a dock for the phone; each scene is a list of commands sent to the app demo. 'base' returns the app to the rates tab in its normal state. Themes follow the story: dusk -> dark -> light -> dusk. 'lang' maps the page language to the language the app shows in that slot: the phone shows English for most of the story; the 'lang' step briefly shows the other language.",
+  "slots": [
+    {"id": "hero", "theme": "dusk", "scene": "live", "lang": {"fa": "fa", "en": "en"}},
+    {"id": "why", "theme": "dusk", "scene": "ranked", "lang": {"fa": "fa", "en": "en"}},
+    {"id": "how", "theme": "dusk", "steps": ["amount", "list", "contact"], "lang": {"fa": "fa", "en": "en"}},
+    {"id": "dark", "theme": "dark", "scene": "live", "lang": {"fa": "en", "en": "en"}},
+    {"id": "features", "theme": "dark", "steps": ["f-rates", "f-offices", "f-chart", "f-alerts"], "lang": {"fa": "en", "en": "en"}},
+    {"id": "light", "theme": "light", "scene": "live", "lang": {"fa": "en", "en": "en"}},
+    {"id": "honest", "theme": "light", "steps": ["sunday", "expired", "offline", "lang"], "lang": {"fa": "en", "en": "en"}},
+    {"id": "trust", "theme": "dusk", "scene": "about", "lang": {"fa": "en", "en": "en"}},
+    {"id": "offices", "theme": "dusk", "scene": "office-page", "lang": {"fa": "en", "en": "en"}},
+    {"id": "faq", "theme": "dusk", "scene": "faq", "lang": {"fa": "en", "en": "en"}},
+    {"id": "get", "theme": "dusk", "scene": "live", "lang": {"fa": "en", "en": "en"}}
+  ],
+  "scenes": {
+    "live": [["base"], ["loop", "tick", 5200]],
+    "ranked": [["base"], ["amount", "1000"], ["wait", 500], ["scroll", "#pageRates", 360]],
+    "amount": [["base"], ["typeAmount", "1000"]],
+    "list": [["base"], ["amount", "1000"], ["wait", 400], ["scroll", "#pageRates", 640]],
+    "contact": [["base"], ["office", "pars"], ["wait", 1100], ["officeFull"]],
+    "f-rates": [["base"], ["click", "#dirRecv"], ["wait", 1500], ["click", "#dirSend"], ["wait", 600], ["click", "#typeBtn"]],
+    "f-offices": [["base"], ["tab", "offices"], ["wait", 1000], ["office", "kian"]],
+    "f-chart": [["base"], ["tab", "chart"], ["wait", 900], ["click", "#chRange [data-v=\"365\"]"], ["wait", 1100], ["click", "#chEdu"]],
+    "f-alerts": [["base"], ["tab", "me"], ["wait", 700], ["click", "#meSeg [data-v=\"alerts\"]"], ["wait", 800], ["click", "#alNew"]],
+    "sunday": [["base"], ["view", "h7"]],
+    "expired": [["base"], ["scrollEnd", "#pageRates"]],
+    "offline": [["base"], ["view", "h5"]],
+    "lang": [["otherLang"]],
+    "about": [["base"], ["settings", "about"]],
+    "office-page": [["base"], ["office", "aria"], ["wait", 1100], ["officeFull"]],
+    "faq": [["base"], ["settings", "faq"]]
+  }
+}

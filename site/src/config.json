@@ -1,0 +1,33 @@
+{
+  "siteUrl": "https://netrate.app",
+  "siteUrlNote": "Placeholder until the server and domain are confirmed (see site/TODO.md).",
+  "langs": {
+    "fa": { "dir": "rtl", "htmlLang": "fa", "hreflang": "fa", "path": "/" },
+    "en": { "dir": "ltr", "htmlLang": "en-GB", "hreflang": "en-GB", "path": "/en/" }
+  },
+  "xDefault": "en",
+  "defaultTheme": "dusk",
+  "stores": {
+    "comingSoon": true,
+    "appStore": "#",
+    "googlePlay": "#",
+    "direct": "#"
+  },
+  "officesContact": "#",
+  "telegram": "https://t.me/Mohammad_s203",
+  "legalReady": false,
+  "legalSlugs": {
+    "terms": { "fa": "ghavanin", "en": "terms" },
+    "privacy": { "fa": "harim-khosousi", "en": "privacy" },
+    "disclaimer": { "fa": "salb-masouliat", "en": "disclaimer" },
+    "cookies": { "fa": "cookie", "en": "cookies" },
+    "deletion": { "fa": "hazf-hesab", "en": "delete-account" }
+  },
+  "app": {
+    "src": "app/netrate-demo.html#phone",
+    "keys": { "view": "netrate-v2-view", "theme": "netrate-v2-theme-choice", "lang": "netrate-v2-lang" },
+    "hideCss": "#pick,#demo,#demoBack,#fab{display:none!important}",
+    "width": 390,
+    "height": 844
+  }
+}

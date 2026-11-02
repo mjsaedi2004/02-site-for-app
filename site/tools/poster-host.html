@@ -1,0 +1,21 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>poster host</title>
+<style>html,body{margin:0;background:#000}iframe{display:block;width:390px;height:844px;border:0}</style></head>
+<body>
+<iframe id="app" title="app" data-src="../app/netrate-demo.html#phone"></iframe>
+<script src="../src/js/bridge.js"></script>
+<script>
+  // used by tools/posters.js: setup(lang, theme) then play(sceneName)
+  let bridge = null, CFG = null, SCENES = null;
+  async function setup(lang, theme) {
+    CFG = CFG || await (await fetch('../src/config.json')).json();
+    SCENES = SCENES || await (await fetch('../src/scenes.json')).json();
+    const f = document.getElementById('app');
+    bridge = NetRateBridge(f, { app: CFG.app, lang, theme, instant: true });
+    await bridge.load();
+    return true;
+  }
+  async function play(name, lang) { await bridge.run(SCENES.scenes[name], lang); return true; }
+  async function liveRun(name) { return true; }
+</script>
+</body></html>

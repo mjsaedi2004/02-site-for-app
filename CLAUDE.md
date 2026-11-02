@@ -1,14 +1,18 @@
 # Project instructions — 02-site-for-app
 
-The owner (writes in **Persian** — reply in Persian) is building a **landing site that introduces a mobile app**:
-a **currency exchange / pricing app** (pound, dollar, euro … against Toman). The real app name is not known
-yet — use the placeholder brand **“Arzino”** and keep every rate/review clearly illustrative.
-They send reference designs in batches (rated ~6/10). Each reference is rebuilt as a complete,
-much stronger site (target 9–10/10: professional polish, strong motion graphics and interactions).
-Later the owner and Claude combine the best parts, step by step, into one final site.
-The owner does not run things locally — they view the designs as **claude.ai artifacts** (see below).
+The owner (**Mohammad**, writes in **Persian** — reply in Persian) builds landing sites for a mobile app.
+Two tracks live in this repo:
 
-## Hard rules
+1. **NetRate site (main track, `site/`)** — the real landing site for **«نت‌ریت» / NetRate**, an app Mohammad
+   builds for a client: UK exchange-office rates for pound → Toman, side by side. Built from the **app's own
+   design** (`site/app/netrate-demo.html` is the source of truth) and Mohammad's brief. See “NetRate site” below.
+2. **Reference rebuilds (`designs/`)** — earlier exercises: reference designs rebuilt for a placeholder
+   exchange app **“Arzino”** (illustrative content). Rules for them are in “Hard rules” below.
+
+The owner does not run things locally — he views every site as a **claude.ai artifact** (he calls it “local”).
+Keep earlier artifacts alive; a new site gets a new artifact.
+
+## Hard rules (reference rebuilds in `designs/`)
 - **Never mix designs.** Each design lives only in `designs/NN-name/` with its own `index.html`,
   `assets/css`, `assets/js`, `assets/img`, `assets/fonts`. No design imports another design's files.
 - Only libraries are shared: `vendor/` (GSAP, Lenis). No design code in `vendor/`.
@@ -24,6 +28,64 @@ The owner does not run things locally — they view the designs as **claude.ai a
 - When a new design is added: next number (`03-...`), update `DESIGNS.md` (registry = project memory),
   the hub `index.html` card (+ preview in `hub/`), and publish it as an artifact.
 - Merging happens only when the owner asks; the merged site goes in its own folder (e.g. `designs/final/`).
+
+## NetRate site (`site/`)
+
+Online: https://claude.ai/artifact/NETRATE_ARTIFACT (private to the owner until he shares it).
+Workflow (from the repo root):
+`python3 -I site/tools/sync_from_app.py` (tokens, fonts, icons, brand mark from the app) →
+`node site/tools/posters.js` (90 stills: app language × theme × scene, 2x) → `node site/tools/brand_assets.js`
+(favicons, OG images) → `python3 -I site/tools/build.py` (→ `site/public/`, fa at `/`, en at `/en/`) →
+`python3 -I site/tools/build_artifact.py` (→ `dist/netrate/`, then publish: `file_path` = `dist/netrate/index.html`,
+`root` = `dist/netrate`, `files` = every other file there). Open items for later: `site/TODO.md`.
+Source: `site/src/page.html` (template), `src/i18n/{fa,en}.json` (all copy, key by key), `src/config.json`
+(placeholders: store links, contact, siteUrl, legalReady), `src/scenes.json` (which app screen each section shows).
+
+**Brief — hard rules (never break):**
+- NetRate is **not an exchange office and never moves money**: no text/button/image implying it (no “send money”,
+  “convert currency”), no money/flag/circular-arrows icons. Everywhere “به‌زودی / Coming soon” instead of download.
+- No competitor names, rate predictions, ranking/store-approval promises, unjustified “first/only/best”,
+  fake stats/users/testimonials/ratings, regulator names/logos, or the client's name.
+- Every number shows its age (even demos); app data is labelled «نمونهٔ نمایشی / Demo data».
+- Colour only for direction (up blue, down coral, never green, never “good”); gold only for the purchasable
+  Featured spot; nothing marks “best”.
+- Type: Vazirmatn variable, big numbers thin, text ≥ 14 px; Persian digits with ASCII comma (۹۲,۹۰۰), decimal «٫»,
+  percent «٪», numbers isolated (`unicode-bidi: isolate`), no «·» next to Persian digits, «تومان» never «ریال».
+- Icons: the app's line icons only; brand mark taken from the app (never redrawn); no emoji.
+- Motion: iOS-like springs, small motions < 480 ms, digit roll only on changed digits, respect `prefers-reduced-motion`.
+- Logical CSS properties only; touch targets ≥ 44 px; AA contrast in all three themes (dusk / white / black).
+- Glossary: «ارسال به ایران / Send to Iran», «دریافت از ایران / Receive from Iran», «تومان / Toman»,
+  «بیشترین مبلغ دریافتی / Highest payout», «جایگاه ویژه / Featured».
+- Legal sentences verbatim: «نت‌ریت صرافی نیست و پول جابه‌جا نمی‌کند.» / «NetRate is not an exchange office and never
+  moves money.» and «نرخ‌ها را خود صرافی‌ها اعلام می‌کنند و فقط برای اطلاع‌اند؛ برای نرخ قطعی، پیش از معامله با صرافی تماس بگیر.»
+- Offices section: no prices, no free/paid, no ranking or sales promises, one contact button. Widget: description and
+  placeholder only. No cookies or third-party trackers. Language in the URL, theme only in localStorage.
+- SEO: hreflang fa / en-GB / x-default→en, canonical per page, title ≤ 60, description 110–160,
+  JSON-LD only Organization, WebSite, FAQPage. Code, comments and file names in English; copy only in i18n files.
+- Footer signature `DESIGNED & DEVELOPED BY — M.S` + Telegram icon → https://t.me/Mohammad_s203.
+- The app is a black box: use only its public hooks; if the app needs a change, tell Mohammad.
+
+**Owner's decisions:** the app inside the site is not touchable, only smoothly animated; placeholder links until he
+sends store / direct-download links; start on dusk, the page turns black/white with a strong animation when the
+phone (moving between sections) shows the black/white app; all numbers are samples; legal pages later (TODO);
+use the app's **English states a lot**, not only Persian (`scenes.json` → per-slot `lang`).
+
+**How it works:** one fixed `.phone-layer` (live app in a same-origin iframe, driven by `src/js/bridge.js` through
+`window.__netrate` / `__v2theme` / demo controls) springs between `[data-slot]` places; stage sections pin it
+(desktop beside the steps, phones above them). Scenes are keyed by slot + scene. A language switch reloads the
+app behind a still (`.phone__cover`) of the next scene. The page theme follows the slot's theme with a circular
+wash from the phone. Reduced motion / save-data / slow network → no iframe: stills per step, instant themes.
+`window.__nrState()` exposes state for QA.
+
+**Pitfalls already hit (NetRate):**
+- Two slots can share a scene name with different app languages → key pending scenes by `slot|scene`.
+- Only the newest scene may lift the cover (token); an older run finishing later must not reveal a reloading app.
+- A no-op relaunch (`setLang` to the current language) never fires `load` → check the language first, race a timeout.
+- The settings sheet keeps its stack until its close animation ends; `base()` closes it, waits, then navigates.
+- Stills over/under the iframe must be exactly 390 × 844 (a generic `.phone__screen img` rule made them 874 tall
+  → 3.5 % ghosting during the cross-fade).
+- The app's dusk accent fails AA for small text on the page ground → site uses `--accent-text` (deepened mix).
+- Playwright refuses to click `aria-disabled` links → `{ force: true }` in tests.
 
 ## Tech conventions
 - Static HTML/CSS/JS, no build step for the repo. Classic `<script>` tags so `index.html` also works from `file://`.
@@ -56,6 +118,9 @@ The owner does not run things locally — they view the designs as **claude.ai a
   (both private to the owner until they share them).
 
 ## QA routine (before every push)
+NetRate: the same spirit with `site/tools/qa/` (see its README) — look (4 viewports), livetest, static,
+overflow, contrast (3 themes), targets, interact, and `hostsim.py` for the artifact build. Numbered steps below
+are for the reference rebuilds.
 1. `python3 -m http.server 8080` from the repo root.
 2. Reference fidelity: `node tools/qa/fullpage.js <url> /tmp/x.png` then
    `python3 -I tools/qa/ref_sheet.py references/NN/full-page.webp <site box> /tmp/x.png /tmp/cmp` and compare

@@ -8,6 +8,28 @@ The real name is not known yet — every design uses the placeholder brand **“
 figures and reviews are illustrative and labelled as samples (“Sample testimonial”, “Sample review”,
 “Design preview · Rates and reviews shown are illustrative”).
 
+## NetRate — the real site (built from the app, not from a reference)
+
+The main track since the owner's brief: the landing site for **«نت‌ریت» / NetRate** (UK exchange-office rates,
+pound → Toman). Lives in `site/` (own build, see `CLAUDE.md` → “NetRate site”), online at
+https://claude.ai/artifact/NETRATE_ARTIFACT. Open items: `site/TODO.md`.
+
+- **Identity = the app's:** tokens, three themes (dusk default · white · black), Vazirmatn variable, line icons,
+  brand mark and living background are extracted from `site/app/netrate-demo.html` by `sync_from_app.py`.
+- **Story:** the live app (not touchable) rides one phone between sections; the page takes the phone's theme with a
+  circular wash — dusk → black (“three themes” moment, features) → white (daylight moment, honesty) → dusk.
+- **Sections:** hero (app headline, stores “به‌زودی”, legal line) · why (scattered messages fall into an ordered list) ·
+  how, three steps (pinned phone) · black moment · features (rates, offices, chart, alerts — English app) ·
+  white moment · honesty (Sunday summary, expired rates, offline bar, two languages) · widget (placeholder) ·
+  trust (legal statement card + 6 facts, app's About screen) · for offices (4 tiles, one contact button) ·
+  FAQ (app's questions + 1) · coming soon · footer (legal placeholders, both legal sentences, signature + Telegram).
+- **App language per section:** Persian page → Persian app in hero/why/how, English app from the black moment on
+  (owner: use the English states a lot); English page → English app everywhere except the two-languages step.
+- **Fallbacks:** stills (posters) before the app loads, under reduced motion / save-data / slow network, and behind
+  every language relaunch. No libraries; ~100 KB HTML per page (CSS inline), 27 KB JS.
+
+---
+
 | # | Reference | Direction | Folder | References | Online (claude.ai artifact) | Status |
 |---|---|---|---|---|---|---|
 | 01 | Byondbites | Green panel + funnel hero, mint accents | `designs/01-byondbites/` | `references/01-byondbites/` | https://claude.ai/artifact/8heoX6NtmifHRNWoSK7Zfb | v3 |

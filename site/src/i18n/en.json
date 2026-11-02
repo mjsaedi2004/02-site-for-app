@@ -1,0 +1,289 @@
+{
+  "meta": {
+    "title": "NetRate | UK exchange office rates, side by side",
+    "description": "See which UK exchange office gives the most toman for your pound today, fee included, with the age of every rate and no sign-up. NetRate never moves money.",
+    "ogAlt": "NetRate: UK exchange office rates, side by side",
+    "locale": "en_GB",
+    "siteName": "NetRate"
+  },
+  "brand": "NetRate",
+  "tagline": "UK exchange office rates, side by side",
+  "skip": "Skip to content",
+  "nav": {
+    "label": "Page sections",
+    "how": "How it works",
+    "features": "Features",
+    "trust": "Trust",
+    "offices": "For offices",
+    "faq": "FAQ",
+    "soon": "Coming soon"
+  },
+  "theme": {
+    "label": "Theme",
+    "auto": "Auto, follows the scroll",
+    "dusk": "Dusk",
+    "light": "White",
+    "dark": "Black"
+  },
+  "langSwitch": {
+    "label": "فارسی",
+    "aria": "Persian version"
+  },
+  "demoTag": "Demo data",
+  "phoneAlt": "The NetRate app with demo data",
+  "stores": {
+    "soon": "Coming soon",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "direct": "Direct download",
+    "aria": "Coming soon; not released yet"
+  },
+  "hero": {
+    "eyebrow": "UK market, pound to toman",
+    "title": "See which office gives the most toman for your pound today",
+    "lead": "UK exchange office rates, side by side; fee included, with the age of every rate, no sign-up.",
+    "legal": "NetRate is not an exchange office and never moves money."
+  },
+  "why": {
+    "eyebrow": "Why NetRate",
+    "title": "Rates are scattered, and you can't tell how old they are",
+    "body": "Today you dig through scattered messages to find a rate: one number each, no time, nothing to compare it with. NetRate puts every office's rate side by side, in the order of the money you actually get, and shows how many minutes ago each rate was posted.",
+    "before": "Scattered messages",
+    "after": "Side by side, in order",
+    "when": "When?",
+    "ages": [
+      "4 min ago",
+      "8 min ago",
+      "12 min ago",
+      "21 min ago"
+    ],
+    "points": [
+      "Compared on the effective rate, fee included; not the rate an office advertises.",
+      "Every rate shows its age, and old rates fade.",
+      "The rank is just a number; no office gets a special frame or colour."
+    ]
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "title": "In three steps",
+    "steps": [
+      {
+        "title": "Type your amount and currency",
+        "body": "Say 1,000 pounds. Pick the rate type and the direction too: Send to Iran or Receive from Iran."
+      },
+      {
+        "title": "See the offices in order",
+        "body": "The list is ordered by Highest payout, and every rate shows how many minutes ago it was posted."
+      },
+      {
+        "title": "Contact the office directly",
+        "body": "Call, message or get directions; the deal is directly between you and the office, and NetRate never moves money."
+      }
+    ]
+  },
+  "dark": {
+    "word": "Black",
+    "title": "Three themes, all complete",
+    "body": "NetRate changes with you: warm, cream Dusk, true Black for the night and White for the day. Just now, as you scrolled, the page went dark with the phone."
+  },
+  "features": {
+    "eyebrow": "Features",
+    "title": "Everything you need to decide",
+    "items": [
+      {
+        "icon": "i-trending",
+        "title": "Rates",
+        "body": "Switch the direction, pick the rate type (cash, bank transfer, official invoice) and the currency. It always compares the effective rate, fee included.",
+        "chips": [
+          "Pound",
+          "Tether",
+          "Euro",
+          "Dollar",
+          "Gold",
+          "Silver",
+          "Lira",
+          "Dirham"
+        ]
+      },
+      {
+        "icon": "i-storefront",
+        "title": "Offices",
+        "body": "Search, pick your city and show only offices that are “Open now” or “Verified”. Every office page has its branches, chart, opening hours and reviews."
+      },
+      {
+        "icon": "i-chartline",
+        "title": "A complete chart",
+        "body": "From a week to a year, up to five offices side by side, on the Persian or Gregorian calendar. Learning mode explains what the chart says. NetRate doesn't predict rates."
+      },
+      {
+        "icon": "i-bell",
+        "title": "Rate alerts",
+        "body": "Say what to watch (the market's highest rate, the average or one office) and when to tell you. The whole alert is written as one sentence under the form, and each alert tells you at most once a day."
+      }
+    ],
+    "note": "No account needed to see rates, the list, the chart or search; an account is only for alerts, saved offices and reviews."
+  },
+  "light": {
+    "word": "White",
+    "title": "For daylight",
+    "body": "A clean, high-contrast White theme. All three themes are in the app and the choice is yours; here too, you can fix the theme from the top of the page."
+  },
+  "honest": {
+    "eyebrow": "Honesty",
+    "title": "It tells you the truth, even when there's no news",
+    "items": [
+      {
+        "icon": "i-calendar",
+        "title": "Sundays, the week in summary",
+        "body": "Most UK offices are closed on Sundays. The app doesn't go empty: it shows last week's summary, and the offices that are open come to the top."
+      },
+      {
+        "icon": "i-clock",
+        "title": "Expired rates fade, with a label",
+        "body": "A rate that wasn't updated today fades, gets an “Expired” label and is never counted in the order or the average. No number comes without its age."
+      },
+      {
+        "icon": "i-wifioff",
+        "title": "Offline, still in the know",
+        "body": "When you lose your connection, a bar at the top tells you how many minutes ago the last rates were posted."
+      },
+      {
+        "icon": "i-globe",
+        "title": "English and Persian",
+        "body": "The app is complete in two languages, each with its own numerals and reading direction."
+      }
+    ]
+  },
+  "widget": {
+    "eyebrow": "Coming soon",
+    "title": "Home screen and lock screen widgets",
+    "body": "See the rate without opening the app: home screen widgets on iPhone and Android, and a lock screen widget on iPhone. The design is still in progress.",
+    "slot": "Widget design, coming soon"
+  },
+  "trust": {
+    "eyebrow": "Trust",
+    "title": "Why you can trust NetRate",
+    "statement": "NetRate is not an exchange office and never moves money.",
+    "statementBody": "The offices post the rates themselves, for information only; for a firm rate, contact the office before you deal.",
+    "items": [
+      {
+        "icon": "i-clock",
+        "title": "Every rate shows its age",
+        "body": "The offices post their own rates, and you see how many minutes ago each one was posted."
+      },
+      {
+        "icon": "i-verified",
+        "title": "One “Verified” badge",
+        "body": "Vouched for by two verified offices, or checked by company number and AML. The badge can't be bought."
+      },
+      {
+        "icon": "i-message",
+        "title": "Reviews are moderated",
+        "body": "Every review is checked before it's published."
+      },
+      {
+        "icon": "i-eye",
+        "title": "No account needed",
+        "body": "Seeing rates, the list, the chart and search needs no account."
+      },
+      {
+        "icon": "i-mappin",
+        "title": "We don't ask for your location",
+        "body": "You pick your city yourself."
+      },
+      {
+        "icon": "i-trash",
+        "title": "Account deletion has a public address",
+        "body": "Whenever you want, your account and its data are deleted."
+      }
+    ]
+  },
+  "offices": {
+    "eyebrow": "For exchange offices",
+    "title": "Post your rate every day from a simple panel",
+    "body": "The NetRate web panel works well on a phone, and you get a reminder to post your rate. Your rate appears just like the office on this phone.",
+    "items": [
+      {
+        "icon": "i-penline",
+        "title": "Post your rate, with reminders",
+        "body": "Every day from your phone or computer, in seconds."
+      },
+      {
+        "icon": "i-layers",
+        "title": "A rate card with your logo",
+        "body": "Turn that rate into a polished card, as an image or text, for your channel and social media."
+      },
+      {
+        "icon": "i-star",
+        "title": "Daily Featured spot",
+        "body": "Limited and bought day by day, always clearly labelled “Featured”."
+      },
+      {
+        "icon": "i-chartline",
+        "title": "Reports and stats",
+        "body": "Weekly and monthly reports and full statistics."
+      }
+    ],
+    "cta": "Contact us",
+    "ctaSoon": "Contact details coming soon"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Questions people often ask",
+    "items": [
+      {
+        "q": "Is NetRate an exchange office?",
+        "a": "No. NetRate is not an exchange office and never moves any money. It only puts the rates the offices themselves post side by side; the deal is directly between you and the office."
+      },
+      {
+        "q": "Is my money safe?",
+        "a": "Your money never reaches us, so its safety depends on the office you deal with. The “Verified” badge, user ratings and “Always up to date” on each office's page are there for exactly that; look at them before you deal."
+      },
+      {
+        "q": "Why do offices' rates differ?",
+        "a": "Each office has its own rate and fee, and its cash, bank transfer and official invoice rates differ too. That's why, once you type an amount, the order is by the money you get after the fee."
+      },
+      {
+        "q": "What is an official invoice?",
+        "a": "The rate an office gives for a transfer with its official invoice, for when you need formal proof of payment. It usually differs a little from cash and bank transfer."
+      },
+      {
+        "q": "What does an expired rate mean?",
+        "a": "A rate the office hasn't updated today. It stays for one day, faded and labelled, then goes; it's never counted in the order or the average."
+      },
+      {
+        "q": "How does an office become “Verified”?",
+        "a": "In one of two equal ways: two active verified offices vouch for it, or it gives its company number and AML number and our team checks them. The badge can't be bought and has only one level."
+      },
+      {
+        "q": "Why are there so few rates on Sunday?",
+        "a": "Most UK offices are closed on Sundays. That day you see last week's summary, and the offices that are open come to the top of the list."
+      },
+      {
+        "q": "Do I need an account to see rates?",
+        "a": "No. Rates, the office list, the chart and search all work without an account. You only need one for rate alerts, saved offices and writing reviews."
+      }
+    ]
+  },
+  "get": {
+    "title": "Coming soon to your phone",
+    "body": "NetRate is on its way to iPhone and Android.",
+    "markets": "The UK market for now; more markets soon."
+  },
+  "footer": {
+    "legalTitle": "Legal",
+    "legal": {
+      "terms": "Terms of use",
+      "privacy": "Privacy",
+      "disclaimer": "Disclaimer",
+      "cookies": "Cookies",
+      "deletion": "Delete account"
+    },
+    "line1": "NetRate is not an exchange office and never moves money.",
+    "line2": "The offices post the rates themselves, for information only; for a firm rate, contact the office before you deal.",
+    "demo": "The app on this page runs on demo data; office names, rates and addresses are made up.",
+    "signature": "DESIGNED & DEVELOPED BY — M.S",
+    "telegram": "The maker on Telegram",
+    "legalSoon": "Legal pages coming soon"
+  }
+}

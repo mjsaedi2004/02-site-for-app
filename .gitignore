@@ -3,3 +3,7 @@ Thumbs.db
 node_modules/
 *.log
 dist/
+
+# NetRate site: generated output and raw poster captures
+site/public/
+site/assets/img/scenes/**/*.png
