@@ -48,6 +48,7 @@
         if (m) m.setAttribute('content', DATA.themeColor[theme]);
         if (bridge) bridge.theme(theme);
         if (!LIVE) swapStaticPosters();
+        else if (!appReady && activeSlot && posterEl) posterEl.src = posterUrl(activeSlot.appLang, theme, pendingScene || activeSlot.scene);
       });
       paintPicker();
     },
@@ -241,11 +242,14 @@
   }
   function wake() { if (!rafId) rafId = requestAnimationFrame(tick); }
 
+  // stills use the theme the section is heading to (the page may still be mid-wash)
+  function stillTheme(slot) { return Theme.mode === 'lock' ? Theme.current : slot.theme; }
+
   function queueScene(slot, scene) {
     pendingScene = scene;
     pendingKey = slot.id + '|' + scene;
     clearTimeout(sceneTimer);
-    if (!appReady) { posterEl.src = posterUrl(slot.appLang, Theme.current, scene); return; }
+    if (!appReady) { posterEl.src = posterUrl(slot.appLang, stillTheme(slot), scene); return; }
     sceneTimer = setTimeout(function () { playScene(slot, scene); }, activeScene ? 420 : 0);
   }
 
@@ -258,7 +262,7 @@
     // only the newest scene may lift the cover (an older one can finish while a newer relaunch runs)
     var lift = function () { if (token === coverToken) coverEl.classList.remove('is-on'); };
     if (needsRelaunch || covered) {   // hide the app's reload behind the still of the next scene
-      coverEl.src = posterUrl(slot.appLang, Theme.current, scene);
+      coverEl.src = posterUrl(slot.appLang, stillTheme(slot), scene);
       coverEl.classList.add('is-on');
     }
     bridge.run(DATA.scenes[scene], slot.appLang).then(function (finished) {
@@ -275,7 +279,7 @@
     layerEl.querySelector('.demo-tag').remove();
     document.body.appendChild(tagEl);
     var first = slots[0];
-    posterEl.src = posterUrl(first.appLang, Theme.current, first.scene);
+    posterEl.src = posterUrl(first.appLang, stillTheme(first), first.scene);
     window.addEventListener('scroll', wake, { passive: true });
     window.addEventListener('resize', function () { placed = false; wake(); });
     tick(performance.now());
@@ -289,7 +293,11 @@
         var slot = activeSlot || slots[0];
         playScene(slot, pendingScene || slot.scene);
         setTimeout(function () { frameEl.classList.add('is-on'); }, 700);
-      }).catch(function () { /* stays on posters */ });
+      }).catch(function () {      // the app cannot be driven here: keep the moving stills, free the frame
+        bridge = null;
+        frameEl.removeAttribute('src');
+        frameEl.remove();
+      });
     };
     var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 1200); };
     if (document.readyState === 'complete') idle(go, { timeout: 2500 });

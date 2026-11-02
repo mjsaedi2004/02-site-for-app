@@ -49,6 +49,12 @@
       try { return !!(a && a.isReady && a.isReady()); } catch (e) { return false; }
     }
 
+    // a page that cannot reach the frame's document (another origin, a sandbox) can never drive the app
+    var loaded = false;
+    function blocked() {
+      try { var w = frame.contentWindow; if (w) void w.document.documentElement; return false; } catch (e) { return true; }
+    }
+
     // resolves when the app (re)loads and reports ready; also used after a language relaunch
     function waitReady(timeout) {
       timeout = timeout || 12000;
@@ -57,6 +63,7 @@
         (function poll() {
           injectCss();
           if (isReady()) { injectCss(); resolve(true); return; }
+          if (loaded && blocked()) { reject(new Error('app frame not reachable')); return; }
           if (Date.now() - t0 > timeout) { reject(new Error('app not ready')); return; }
           setTimeout(poll, 60);
         })();
@@ -64,6 +71,7 @@
     }
 
     frame.addEventListener('load', function () {
+      loaded = true;
       injectCss();
       loadWaiters.splice(0).forEach(function (fn) { fn(); });
     });
