@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /* Demo data for the NetRate design variants, taken from the app's own engine (site/app/netrate-demo.html):
-   currencies, rate types and the live demo offices with their rates, fees and ages, plus each currency's
-   market summary. Writes site/variants/byondbites/src/data/demo.json and checks the variant's calculator
-   (src/js/calc.js) against the engine for every currency, direction, rate type and a range of amounts.
+   currencies, rate types and the live demo offices with their rates, fees and ages, each currency's market
+   summary, the pound's 30-day market average with its dates and today's change. Writes src/data/demo.json for
+   every variant that has a calculator (src/js/calc.js) and checks that calculator against the engine for every
+   currency, direction, rate type and a range of amounts.
 
      node site/tools/demo_data.js
 */
@@ -12,7 +13,9 @@ const path = require('path');
 const vm = require('vm');
 
 const SITE = path.resolve(__dirname, '..');
-const VAR = path.join(SITE, 'variants', 'byondbites', 'src');
+const VARIANTS = fs.readdirSync(path.join(SITE, 'variants'))
+  .map((v) => path.join(SITE, 'variants', v, 'src'))
+  .filter((d) => fs.existsSync(path.join(d, 'js', 'calc.js')));
 const html = fs.readFileSync(path.join(SITE, 'app', 'netrate-demo.html'), 'utf8');
 
 function block(startText, endText) {
@@ -52,9 +55,12 @@ const data = {
   type: Object.fromEntries(Object.entries(N.TYPE).map(([k, t]) => [k, { send: t.send, recv: t.recv, name: { fa: t.fa, en: EN.types[k] } }])),
   ex: N.EX.filter((e) => !e.st).map((e) => ({
     id: e.id, name: { fa: e.n, en: EN.offices[e.id] }, city: { fa: e.city, en: EN.cities[e.city] },
+    initial: { fa: e.i, en: EN.short[e.id].charAt(0) },
     send: e.send, spr: e.spr, fee: e.fee, mins: e.mins, types: e.types, verified: !!e.ver
   })),
-  rel: { fa: { now: REL.fa.now, mins: REL.fa.mins, hours: REL.fa.hours }, en: { now: REL.en.now, mins: REL.en.mins, hours: REL.en.hours } },
+  rel: Object.fromEntries(['fa', 'en'].map((l) => [l, { now: REL[l].now, mins: REL[l].mins, hours: REL[l].hours, yesterday: REL[l].yesterday, days: REL[l].days }])),
+  expired: N.EX.filter((e) => e.st === 'expired').map((e) => ({ id: e.id, name: { fa: e.n, en: EN.offices[e.id] }, city: { fa: e.city, en: EN.cities[e.city] },
+    initial: { fa: e.i, en: EN.short[e.id].charAt(0) }, send: e.send, mins: e.mins }))[0],
   market: {}
 };
 
@@ -65,28 +71,48 @@ N.CUR.forEach((c) => {
   data.market[c.k] = { best: E.rateOf(top), bestId: top.id, mins: top.mins, avg: st.avg, n: st.n, higherIsBetter: E.higherIsBetter() };
 });
 
+/* the pound's market average over the last 30 days (Sundays empty), with each day's date, and today's change */
+const DOW = N.dayInfo(0).dow;
+data.series = N.marketSeries(30, DOW).map((m, i) => {
+  const d = N.dayInfo(29 - i);
+  return { avg: m ? m.avg : null, g: d.g, j: d.j, dow: d.dow };
+});
+Object.assign(S, { cur: 'gbp', dir: 'send', type: 'cash', amount: 0 });
+const today = E.stats();
+const prev = data.series.slice(0, -1).reverse().find((x) => x.avg);
+data.today = { avg: today.avg, hi: today.hi, lo: today.lo, n: today.n, prevAvg: prev.avg, pct: (today.avg - prev.avg) / prev.avg * 100,
+  date: N.dayInfo(0) };
+
 /* the calculator's starting state: 1,000 pounds, Send to Iran, cash */
 Object.assign(S, { cur: 'gbp', dir: 'send', type: 'cash', amount: 1000 });
 const start = E.ranked();
 data.preset = { cur: 'gbp', dir: 'send', type: 'cash', amount: 1000, total: start.length,
-  rows: start.slice(0, 3).map((e) => ({ id: e.id, value: E.resultOf(e, 1000), fee: E.feeFor(e, 1000) })) };
+  rows: start.slice(0, 3).map((e) => ({ id: e.id, value: E.resultOf(e, 1000), fee: E.feeFor(e, 1000) })),
+  last: { id: start[start.length - 1].id, value: E.resultOf(start[start.length - 1], 1000) } };
 
-/* the calculator must order and price exactly like the engine */
-const calcCtx = vm.createContext({ window: {} });
-vm.runInContext(fs.readFileSync(path.join(VAR, 'js', 'calc.js'), 'utf8'), calcCtx);
-const calc = calcCtx.window.NetRateCalc(data);
-let cases = 0;
-for (const c of N.CUR) for (const dir of ['send', 'recv']) for (const type of Object.keys(N.TYPE))
-  for (const amount of [0, 1, 100, 250, 500, 999, 1000, 1001, 2500, 10000, 123456]) {
-    Object.assign(S, { cur: c.k, dir, type, amount });
-    const want = E.ranked().map((e) => [e.id, amount ? E.resultOf(e, amount) : E.rateOf(e)]);
-    const got = calc.ranked({ cur: c.k, dir, type, amount }).map((r) => [r.ex.id, r.value]);
-    const same = want.length === got.length && want.every((w, i) => w[0] === got[i][0] && Math.abs(w[1] - got[i][1]) < 1e-6);
-    if (!same) { console.error('calc.js differs from the app engine:', { cur: c.k, dir, type, amount }, want.slice(0, 3), got.slice(0, 3)); process.exit(1); }
-    cases++;
-  }
+/* one office's page, as the app shows it (Aria, the highest rate today) */
+const aria = N.byId('aria'), prof = N.profile('aria');
+data.office = { id: 'aria', rating: N.ratingMean(aria), reviews: N.reviewCount(aria), branches: aria.br, since: prof.since,
+  hours: prof.hours[1], verified: !!aria.ver, types: aria.types };
 
-fs.mkdirSync(path.join(VAR, 'data'), { recursive: true });
-fs.writeFileSync(path.join(VAR, 'data', 'demo.json'), JSON.stringify(data, null, 1) + '\n');
-console.log(`demo.json: ${data.cur.length} currencies, ${data.ex.length} live offices; calc.js matches the engine in ${cases} cases`);
-Object.entries(data.market).forEach(([k, m]) => console.log(' ', k, m.bestId, m.best.toFixed(2), 'avg', m.avg.toFixed(2), 'n', m.n, m.mins + 'm'));
+/* every variant's calculator must order and price exactly like the engine */
+for (const VAR of VARIANTS) {
+  const calcCtx = vm.createContext({ window: {} });
+  vm.runInContext(fs.readFileSync(path.join(VAR, 'js', 'calc.js'), 'utf8'), calcCtx);
+  const calc = calcCtx.window.NetRateCalc(data);
+  let cases = 0;
+  for (const c of N.CUR) for (const dir of ['send', 'recv']) for (const type of Object.keys(N.TYPE))
+    for (const amount of [0, 1, 100, 250, 500, 999, 1000, 1001, 2500, 10000, 123456]) {
+      Object.assign(S, { cur: c.k, dir, type, amount });
+      const want = E.ranked().map((e) => [e.id, amount ? E.resultOf(e, amount) : E.rateOf(e)]);
+      const got = calc.ranked({ cur: c.k, dir, type, amount }).map((r) => [r.ex.id, r.value]);
+      const same = want.length === got.length && want.every((w, i) => w[0] === got[i][0] && Math.abs(w[1] - got[i][1]) < 1e-6);
+      if (!same) { console.error(VAR, 'calc.js differs from the app engine:', { cur: c.k, dir, type, amount }, want.slice(0, 3), got.slice(0, 3)); process.exit(1); }
+      cases++;
+    }
+  fs.mkdirSync(path.join(VAR, 'data'), { recursive: true });
+  fs.writeFileSync(path.join(VAR, 'data', 'demo.json'), JSON.stringify(data, null, 1) + '\n');
+  console.log(`${path.relative(SITE, VAR)}/data/demo.json: ${data.cur.length} currencies, ${data.ex.length} live offices; calc.js matches the engine in ${cases} cases`);
+}
+console.log('today', data.today.avg.toFixed(2), 'prev', data.today.prevAvg.toFixed(2), 'pct', data.today.pct.toFixed(3), 'dow', DOW,
+  'series', data.series.filter((x) => x.avg).length, 'days with data', JSON.stringify(data.series[0].j), '->', JSON.stringify(data.series[29].j));

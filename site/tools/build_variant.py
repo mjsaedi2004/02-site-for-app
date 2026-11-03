@@ -18,6 +18,10 @@ Template syntax (no text lives in the template):
   {{icon:NAME}}      an icon from the app's sprite (NAME may be .key); {{icon:NAME:CLASSES}} adds classes
   {{use:APPLANG:a,b}} ships more stills (all themes) that the script shows on demand; renders nothing
   {{tile:SCENE:THEME:APPLANG:CLASSES}}  a small crop of a still (top of the screen), made at build time
+  {{device:SCENE1,SCENE2:APPLANG:CLASSES}}  a phone holding one or more screens, each in the app's black and white
+                     theme (CSS shows the one matching the site's theme; the script switches screens)
+Optional per variant: src/vendor.txt (library files copied from the repo's vendor/ into assets/vendor/) and
+src/view.py (extend(view, t, lang, demo, helpers) adds variant-specific formatted data to "demoView").
 A variant with src/data/demo.json (the app engine's demo data, from tools/demo_data.js) also gets "demoView"
 (formatted market cards and the calculator's starting rows) for its template, and the raw data in its page data.
   {{stores}} {{legalLinks}} {{officesCta}} and the head values (canonical, css, jsonld …)
@@ -73,8 +77,9 @@ class Page:
             return scope[-1]["index"]
         if key == "@n":
             return num(scope[-1]["index"] + 1, self.lang)
-        if key == "@nn":
-            return num(f'{scope[-1]["index"] + 1:02d}', self.lang)
+        if key == "@nn":                                       # 01, 02 … (Persian keeps plain digits: ۱, ۲ …)
+            n = scope[-1]["index"] + 1
+            return num(n, self.lang) if self.lang == "fa" else f"{n:02d}"
         if key in self.extra:
             return self.extra[key]
         return lookup(self.t, key)
@@ -99,6 +104,27 @@ class Page:
                 f'<div class="phone__screen"><img class="phone__still" src="{self.still(scene, tone, app_lang)}" '
                 f'alt="{esc(self.t["phoneAlt"])}" width="390" height="844" {load} decoding="async"></div>'
                 f'<span class="phone__island" aria-hidden="true"></span>{cap}</figure>')
+
+    def device(self, spec, scope):
+        scenes, app_lang, classes = (spec.split(":") + ["", "", ""])[:3]
+        if scenes.startswith("."):
+            scenes = self.value(scenes, scope)
+        app_lang = self.lang if app_lang in ("", "page") else app_lang
+        flags = classes.split()
+        eager = "eager" in flags
+        cls = " ".join(c for c in flags if c != "eager")
+        shots = []
+        for i, scene in enumerate(scenes.split(",")):
+            for th in ("dark", "light"):
+                self.stills.add((app_lang, th, scene))
+            first = 'loading="eager" fetchpriority="high"' if eager and i == 0 else 'loading="lazy"'
+            shots.append(
+                f'<div class="shot{" is-on" if i == 0 else ""}" data-scene="{scene}" '
+                f'style="--td:{top_color(app_lang, "dark", scene)};--tl:{top_color(app_lang, "light", scene)}">'
+                f'<img class="shot__img shot__img--dark" src="{self.still(scene, "dark", app_lang)}" alt="" width="390" height="844" {first} decoding="async">'
+                f'<img class="shot__img shot__img--light" src="{self.still(scene, "light", app_lang)}" alt="" width="390" height="844" loading="lazy" decoding="async"></div>')
+        return (f'<figure class="device {cls}" data-applang="{app_lang}" role="img" aria-label="{esc(self.t["phoneAlt"])}">'
+                f'<div class="device__screen">{"".join(shots)}</div><span class="device__island" aria-hidden="true"></span></figure>')
 
     def tile(self, spec, scope):
         scene, theme, app_lang, classes = (spec.split(":") + ["", "", "", ""])[:4]
@@ -147,6 +173,7 @@ class Page:
         s = re.sub(r"\{\{phone:([^}]+)\}\}", lambda m: self.phone(m.group(1), scope), s)
         s = re.sub(r"\{\{use:(\w+):([\w,\-]+)\}\}", lambda m: self.use(m.group(1), m.group(2)), s)
         s = re.sub(r"\{\{tile:([^}]+)\}\}", lambda m: self.tile(m.group(1), scope), s)
+        s = re.sub(r"\{\{device:([^}]+)\}\}", lambda m: self.device(m.group(1), scope), s)
         s = re.sub(r"\{\{icon:([\w.\-]+)(?::([\w\- ]+))?\}\}", lambda m: self.icon(m.group(1), scope, m.group(2)), s)
         s = re.sub(r"\{\{\{([\w.@]+)\}\}\}", lambda m: str(self.value(m.group(1), scope)), s)
         return re.sub(r"\{\{([\w.@]+)\}\}", lambda m: self.text(m.group(1), scope), s)
@@ -180,7 +207,11 @@ def rel(mins, lang, demo):
         return r["now"]
     if mins < 60:
         return r["mins"].replace("{n}", num(mins, lang))
-    return r["hours"].replace("{n}", num(mins // 60, lang))
+    if mins < 1440 or "days" not in r:
+        return r["hours"].replace("{n}", num(mins // 60, lang))
+    if mins < 2880:
+        return r["yesterday"]
+    return r["days"].replace("{n}", num(mins // 1440, lang))
 
 
 def demo_view(t, lang, demo):
@@ -315,6 +346,17 @@ def main():
         (out / "assets/js" / f.name).write_text(code, encoding="utf-8")
         js += code
     demo = json.loads((src / "data/demo.json").read_text(encoding="utf-8")) if (src / "data/demo.json").exists() else None
+    if (src / "vendor.txt").exists():                           # libraries, unmodified, from the repo's vendor/
+        for rel_path in (src / "vendor.txt").read_text(encoding="utf-8").split():
+            target = out / "assets/vendor" / rel_path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(SITE.parent / "vendor" / rel_path, target)
+    hook = None
+    if (src / "view.py").exists():
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(f"view_{name}", src / "view.py")
+        hook = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(hook)
 
     css = min_css((SITE / "src/css/tokens.css").read_text(encoding="utf-8") + "\n" + (src / "css/site.css").read_text(encoding="utf-8"))
     sprite = (SITE / "src/partials/sprite.svg").read_text(encoding="utf-8").strip()
@@ -325,6 +367,8 @@ def main():
         t = json.loads((src / "i18n" / f"{lang}.json").read_text(encoding="utf-8"))
         if demo:
             t["demoView"] = demo_view(t, lang, demo)
+            if hook:
+                hook.extend(t["demoView"], t, lang, demo, {"fmt": fmt, "num": num, "rel": rel, "esc": esc})
         other = "en" if lang == "fa" else "fa"
         base = "" if lang == "fa" else "../"
         preloads = "\n".join('<link rel="preload" href="{0}assets/fonts/vazirmatn-{1}.woff2" as="font" type="font/woff2" crossorigin>'
@@ -367,11 +411,11 @@ def main():
             print(f"  ! {lang}: title must be <= 60 and description 110-160 characters")
 
     for app_lang, theme, scene in sorted(stills):              # only the stills this variant shows (all three themes)
-        rel = Path("assets/img/scenes") / app_lang / theme / f"{scene}.webp"
-        if not (SITE / rel).exists():
-            sys.exit(f"missing still: {rel} (render it with tools/posters.js)")
-        (out / rel).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(SITE / rel, out / rel)
+        still_path = Path("assets/img/scenes") / app_lang / theme / f"{scene}.webp"
+        if not (SITE / still_path).exists():
+            sys.exit(f"missing still: {still_path} (render it with tools/posters.js)")
+        (out / still_path).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(SITE / still_path, out / still_path)
 
     if tiles:
         from PIL import Image
