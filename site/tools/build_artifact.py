@@ -6,6 +6,10 @@ Run after build.py (and from the repo root):
     python3 -I site/tools/build.py
     python3 -I site/tools/build_artifact.py
 
+A design variant (site/variants/<name>, built by build_variant.py) goes to dist/netrate-<name>/:
+
+    python3 -I site/tools/build_artifact.py fitraho
+
 Differences from site/public (the real, deployable site):
   * index.html (Persian) becomes a fragment: the artifact host wraps the page in its own
     doctype/html/head/body, so a boot script restores <html lang, dir, data-theme, class>
@@ -19,11 +23,15 @@ Differences from site/public (the real, deployable site):
 import base64
 import re
 import shutil
+import sys
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent
-PUBLIC = SITE / "public"
-OUT = SITE.parent / "dist" / "netrate"
+VARIANT = sys.argv[1] if len(sys.argv) > 1 else None
+PUBLIC = SITE / "variants" / VARIANT / "public" if VARIANT else SITE / "public"
+OUT = SITE.parent / "dist" / (f"netrate-{VARIANT}" if VARIANT else "netrate")
+# the artifact's name in the gallery and the browser tab (the real site keeps its SEO title)
+NAMES = {"fitraho": "NetRate FitRaho", "byondbites": "NetRate Byondbites"}
 FONTS = ("vazirmatn-arabic.woff2", "vazirmatn-latin.woff2")
 
 
@@ -67,13 +75,17 @@ def main():
 
     fa = common((OUT / "index.html").read_text(encoding="utf-8"), "")
     fa = fa.replace('href="en/"', 'href="en/index.html"')
+    if VARIANT in NAMES:
+        fa = re.sub(r"<title>.*?</title>", f"<title>{NAMES[VARIANT]}</title>", fa, count=1)
     (OUT / "index.html").write_text(fragment(fa), encoding="utf-8")
 
     en = common((OUT / "en/index.html").read_text(encoding="utf-8"), "../")
     en = en.replace('href="../"', 'href="../index.html"')
     (OUT / "en/index.html").write_text(en, encoding="utf-8")
 
-    # the app: same file, but its two embedded fonts come from the shared font files
+    # the app (v1 only): same file, but its two embedded fonts come from the shared font files
+    if not (OUT / "app/netrate-demo.html").exists():
+        return report()
     app = (OUT / "app/netrate-demo.html").read_text(encoding="utf-8")
     faces = re.findall(r"url\(data:font/woff2;base64,([A-Za-z0-9+/=]+)\)", app)
     assert len(faces) == 2, "expected the app's two embedded fonts"
@@ -82,12 +94,15 @@ def main():
         name = next(n for n in FONTS if (PUBLIC / "assets/fonts" / n).read_bytes() == raw)
         app = app.replace(f"url(data:font/woff2;base64,{b64})", f"url(../assets/fonts/{name})")
     (OUT / "app/netrate-demo.html").write_text(app, encoding="utf-8")
+    report()
 
+
+def report():
     for p in (OUT / "index.html", OUT / "en/index.html"):
         text = p.read_text(encoding="utf-8")
         assert "netrate.app" not in text.split("<script id=\"nr-data\"", 1)[0], f"{p}: real-domain URL left"
     files = sorted(p for p in OUT.rglob("*") if p.is_file())
-    print(f"dist/netrate: {len(files)} files, {sum(p.stat().st_size for p in files) / 1024:.0f} KB")
+    print(f"{OUT.relative_to(SITE.parent)}: {len(files)} files, {sum(p.stat().st_size for p in files) / 1024:.0f} KB")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="{{htmlLang}}" dir="{{dir}}" data-theme="dusk" data-theme-mode="auto" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{meta.title}}</title>
+<meta name="description" content="{{meta.description}}">
+<link rel="canonical" href="{{canonical}}">
+<link rel="alternate" hreflang="fa" href="{{urlFa}}">
+<link rel="alternate" hreflang="en-GB" href="{{urlEn}}">
+<link rel="alternate" hreflang="x-default" href="{{urlEn}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{meta.siteName}}">
+<meta property="og:title" content="{{meta.title}}">
+<meta property="og:description" content="{{meta.description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="{{ogImage}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{meta.ogAlt}}">
+<meta property="og:locale" content="{{meta.locale}}">
+<meta property="og:locale:alternate" content="{{otherLocale}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{meta.title}}">
+<meta name="twitter:description" content="{{meta.description}}">
+<meta name="twitter:image" content="{{ogImage}}">
+<meta name="theme-color" content="#E7E1DC">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="{{base}}assets/img/icon.svg" type="image/svg+xml">
+<link rel="icon" href="{{base}}assets/img/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{{base}}assets/img/apple-touch-icon.png">
+{{fontPreloads}}
+<script>
+/* theme before first paint: a chosen theme is kept in localStorage; otherwise the page follows the sections (starts on dusk) */
+(function () {
+  var d = document.documentElement, t = null;
+  try { t = localStorage.getItem('netrate-site-theme'); } catch (e) {}
+  if (t === 'dark' || t === 'light' || t === 'dusk') { d.setAttribute('data-theme', t); d.setAttribute('data-theme-mode', 'lock'); }
+  d.className = d.className.replace('no-js', 'js');
+})();
+</script>
+<style>{{css}}</style>
+<script type="application/ld+json">{{jsonld}}</script>
+</head>
+<body>
+<a class="skip" href="#main">{{skip}}</a>
+{{sprite}}
+
+<header class="bar" id="bar">
+  <div class="bar__in">
+    <a class="brand" href="#top" aria-label="{{brand}}">
+      <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#brand-mark"/></svg>
+      <span class="brand__name">{{brand}}</span>
+    </a>
+    <nav class="nav" aria-label="{{nav.label}}">
+      <a href="#features">{{nav.features}}</a>
+      <a href="#steps">{{nav.steps}}</a>
+      <a href="#trust">{{nav.trust}}</a>
+      <a href="#offices">{{nav.offices}}</a>
+      <a href="#faq">{{nav.faq}}</a>
+    </nav>
+    <div class="bar__tools">
+      <div class="themes" role="radiogroup" aria-label="{{theme.label}}">
+        <span class="themes__thumb" aria-hidden="true"></span>
+        <button type="button" role="radio" aria-checked="true" data-theme-pick="auto" aria-label="{{theme.auto}}" title="{{theme.auto}}">{{icon:i-layers}}</button>
+        <button type="button" role="radio" aria-checked="false" data-theme-pick="dusk" aria-label="{{theme.dusk}}" title="{{theme.dusk}}"><i class="sw sw--dusk"></i></button>
+        <button type="button" role="radio" aria-checked="false" data-theme-pick="light" aria-label="{{theme.light}}" title="{{theme.light}}"><i class="sw sw--light"></i></button>
+        <button type="button" role="radio" aria-checked="false" data-theme-pick="dark" aria-label="{{theme.dark}}" title="{{theme.dark}}"><i class="sw sw--dark"></i></button>
+      </div>
+      <a class="lang" href="{{otherHref}}" hreflang="{{otherHtmlLang}}" lang="{{otherHtmlLang}}" aria-label="{{langSwitch.aria}}">{{icon:i-globe}}<span>{{langSwitch.label}}</span></a>
+      <a class="btn btn--primary btn--sm bar__cta" href="#get">{{nav.soon}}</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="{{nav.menu}}" data-open="{{nav.menu}}" data-close="{{nav.close}}"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav class="menu__nav" aria-label="{{nav.label}}">
+    <a href="#features">{{nav.features}}</a>
+    <a href="#steps">{{nav.steps}}</a>
+    <a href="#trust">{{nav.trust}}</a>
+    <a href="#offices">{{nav.offices}}</a>
+    <a href="#faq">{{nav.faq}}</a>
+  </nav>
+  <div class="menu__tools">
+    <div class="themes" role="radiogroup" aria-label="{{theme.label}}">
+      <span class="themes__thumb" aria-hidden="true"></span>
+      <button type="button" role="radio" aria-checked="true" data-theme-pick="auto" aria-label="{{theme.auto}}" title="{{theme.auto}}">{{icon:i-layers}}</button>
+      <button type="button" role="radio" aria-checked="false" data-theme-pick="dusk" aria-label="{{theme.dusk}}" title="{{theme.dusk}}"><i class="sw sw--dusk"></i></button>
+      <button type="button" role="radio" aria-checked="false" data-theme-pick="light" aria-label="{{theme.light}}" title="{{theme.light}}"><i class="sw sw--light"></i></button>
+      <button type="button" role="radio" aria-checked="false" data-theme-pick="dark" aria-label="{{theme.dark}}" title="{{theme.dark}}"><i class="sw sw--dark"></i></button>
+    </div>
+    <a class="lang lang--full" href="{{otherHref}}" hreflang="{{otherHtmlLang}}" lang="{{otherHtmlLang}}">{{icon:i-globe}}<span>{{langSwitch.label}}</span></a>
+  </div>
+  <a class="btn btn--primary menu__cta" href="#get">{{nav.soon}}</a>
+</div>
+
+<main id="main">
+
+  <!-- HERO: copy beside a warm panel holding the app -->
+  <section class="hero" id="top" data-tone="dusk">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow" data-rise>{{hero.eyebrow}}</p>
+        <h1 class="hero__title" data-rise>{{hero.title}} <span class="soft">{{hero.titleSoft}}</span></h1>
+        <p class="hero__lead" data-rise>{{hero.lead}}</p>
+        <div class="hero__btns" data-rise>
+          <a class="btn btn--primary" href="#get">{{icon:i-smartphone}}<span>{{hero.primary}}</span></a>
+          <a class="btn btn--line" href="#steps"><span>{{hero.secondary}}</span>{{icon:i-arrowfwd:ic--fwd}}</a>
+        </div>
+        <p class="hero__legal" data-rise>{{icon:i-info}}<span>{{hero.legal}}</span></p>
+      </div>
+      <div class="hero__visual" data-rise>
+        <div class="hero__panel" aria-hidden="true"><i class="hero__lines"></i><i class="hero__glow"></i></div>
+        {{phone:live:dusk:page:hero__phone eager}}
+        <span class="demo-tag demo-tag--corner">{{demoTag}}</span>
+        <div class="chip chip--top">
+          <small>{{hero.chipTop.label}}</small>
+          <b><bdi class="num">{{hero.chipTop.value}}</bdi> <span>{{hero.chipTop.unit}}</span></b>
+          <span class="chip__age">{{icon:i-clock}}<bdi>{{hero.chipTop.age}}</bdi></span>
+        </div>
+        <div class="chip chip--fee">
+          <span class="chip__ic">{{icon:i-percent}}</span>
+          <span><small>{{hero.chipFee.label}}</small><b>{{hero.chipFee.value}}</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <ul class="facts">
+        {{#each facts}}<li class="fact" data-rise><b class="num">{{.n}}</b><span>{{.label}}</span></li>{{/each}}
+      </ul>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="sec who" id="who" data-tone="dusk">
+    <div class="wrap">
+      <div class="who__head">
+        <div>
+          <p class="eyebrow" data-rise>{{who.eyebrow}}</p>
+          <h2 class="h2" data-rise>{{who.title}}</h2>
+        </div>
+        <p class="who__lead" data-rise>{{who.lead}}</p>
+      </div>
+      <div class="who__grid">
+        {{#each who.items}}<article class="who-card" data-rise>
+          <div class="who-card__img"><img src="{{base}}assets/img/variant/{{.img}}" alt="{{.alt}}" width="900" height="900" loading="lazy" decoding="async"></div>
+          <p class="who-card__label">{{.label}}</p>
+          <h3>{{.title}}</h3>
+          <p class="who-card__body">{{.body}}</p>
+        </article>{{/each}}
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES: three alternating rows, each a phone in a warm panel -->
+  <div id="features">
+    <section class="sec feat" data-tone="dusk" aria-labelledby="feat-rates">
+      <div class="wrap feat__grid">
+        <div class="feat__media" data-rise><div class="feat__panel" aria-hidden="true"></div>{{phone:list:dusk:page:feat__phone}}<span class="demo-tag demo-tag--corner">{{demoTag}}</span></div>
+        <div class="feat__copy">
+          <p class="eyebrow" data-rise>{{feats.rates.eyebrow}}</p>
+          <h2 class="h2" id="feat-rates" data-rise>{{feats.rates.title}}</h2>
+          <p class="feat__p" data-rise>{{feats.rates.body}}</p>
+          <ul class="ticks">{{#each feats.rates.ticks}}<li data-rise><i>{{icon:i-check}}</i><span>{{.}}</span></li>{{/each}}</ul>
+        </div>
+      </div>
+    </section>
+    <section class="sec feat feat--rev" data-tone="dusk" aria-labelledby="feat-offices">
+      <div class="wrap feat__grid">
+        <div class="feat__copy">
+          <p class="eyebrow" data-rise>{{feats.offices.eyebrow}}</p>
+          <h2 class="h2" id="feat-offices" data-rise>{{feats.offices.title}}</h2>
+          <p class="feat__p" data-rise>{{feats.offices.body}}</p>
+          <ul class="ticks">{{#each feats.offices.ticks}}<li data-rise><i>{{icon:i-check}}</i><span>{{.}}</span></li>{{/each}}</ul>
+        </div>
+        <div class="feat__media" data-rise><div class="feat__panel" aria-hidden="true"></div>{{phone:f-offices:dusk:en:feat__phone}}<span class="demo-tag demo-tag--corner">{{demoTag}}</span></div>
+      </div>
+    </section>
+    <section class="sec feat" data-tone="dusk" aria-labelledby="feat-chart">
+      <div class="wrap feat__grid">
+        <div class="feat__media" data-rise><div class="feat__panel" aria-hidden="true"></div>{{phone:f-chart:dusk:en:feat__phone}}<span class="demo-tag demo-tag--corner">{{demoTag}}</span></div>
+        <div class="feat__copy">
+          <p class="eyebrow" data-rise>{{feats.chart.eyebrow}}</p>
+          <h2 class="h2" id="feat-chart" data-rise>{{feats.chart.title}}</h2>
+          <p class="feat__p" data-rise>{{feats.chart.body}}</p>
+          <ul class="ticks">{{#each feats.chart.ticks}}<li data-rise><i>{{icon:i-check}}</i><span>{{.}}</span></li>{{/each}}</ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- HONESTY: the dark panel; each case shows its screen on the phone -->
+  <section class="sec honest" id="honest" data-tone="dark">
+    <div class="wrap">
+      <div class="honest__panel" data-rise>
+        <div class="honest__grid">
+          <div class="honest__copy">
+            <p class="eyebrow eyebrow--ink">{{honest.eyebrow}}</p>
+            <h2 class="h2 h2--ink">{{honest.title}}</h2>
+            <p class="honest__p">{{honest.body}}</p>
+            <div class="cases" role="group" aria-label="{{honest.eyebrow}}">
+              {{#each honest.items}}<button class="case" type="button" aria-pressed="false" data-scene="{{.scene}}">
+                <span class="case__ic">{{icon:.icon}}</span>
+                <span class="case__text"><b>{{.title}}</b><span class="case__body"><span>{{.body}}</span></span></span>
+              </button>{{/each}}
+            </div>
+            <p class="honest__tag">{{icon:i-info}}<span>{{steps.note}}</span></p>
+          </div>
+          <div class="honest__media">{{phone:sunday:dark:en:honest__phone}}{{use:en:expired,offline}}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="sec steps" id="steps" data-tone="light">
+    <div class="wrap">
+      <div class="steps__head">
+        <p class="eyebrow" data-rise>{{steps.eyebrow}}</p>
+        <h2 class="h2" data-rise>{{steps.title}}</h2>
+      </div>
+      <ol class="steps__grid">
+        {{#each steps.items}}<li class="step" data-rise>
+          <div class="step__box">{{phone:.scene:light:page:step__phone}}</div>
+          <span class="step__n num">{{@n}}</span>
+          <h3>{{.title}}</h3>
+          <p>{{.body}}</p>
+        </li>{{/each}}
+      </ol>
+      <p class="steps__note" data-rise>{{icon:i-info}}<span>{{steps.note}}</span></p>
+    </div>
+  </section>
+
+  <!-- TRUST: six facts in a slider -->
+  <section class="sec trust" id="trust" data-tone="light">
+    <div class="wrap">
+      <div class="trust__head">
+        <div>
+          <p class="eyebrow" data-rise>{{trust.eyebrow}}</p>
+          <h2 class="h2" data-rise>{{trust.title}}</h2>
+          <p class="trust__lead" data-rise><b>{{trust.statement}}</b> {{trust.statementBody}}</p>
+        </div>
+        <div class="trust__nav" data-rise>
+          <button class="rnav" type="button" data-dir="-1" aria-label="{{trust.prev}}">{{icon:i-arrowfwd:ic--back}}</button>
+          <button class="rnav rnav--next" type="button" data-dir="1" aria-label="{{trust.next}}">{{icon:i-arrowfwd:ic--fwd}}</button>
+        </div>
+      </div>
+      <ul class="trust__track" data-rise>
+        {{#each trust.items}}<li class="tcard">
+          <span class="tcard__ic">{{icon:.icon}}</span>
+          <h3>{{.title}}</h3>
+          <p>{{.body}}</p>
+        </li>{{/each}}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOR OFFICES -->
+  <section class="sec offices" id="offices" data-tone="dusk">
+    <div class="wrap">
+      <div class="offices__panel" data-rise>
+        <div class="offices__copy">
+          <p class="eyebrow">{{offices.eyebrow}}</p>
+          <h2 class="h2">{{offices.title}}</h2>
+          <p class="offices__p">{{offices.body}}</p>
+          {{officesCta}}
+        </div>
+        <ul class="offices__grid">
+          {{#each offices.items}}<li class="otile otile--{{@index}}">
+            <span class="otile__ic">{{icon:.icon}}</span>
+            <h3>{{.title}}</h3>
+            <p>{{.body}}</p>
+          </li>{{/each}}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec faq" id="faq" data-tone="dusk">
+    <div class="wrap faq__grid">
+      <div class="faq__head">
+        <p class="eyebrow" data-rise>{{faq.eyebrow}}</p>
+        <h2 class="h2" data-rise>{{faq.title}}</h2>
+        <p class="faq__body" data-rise>{{faq.body}}</p>
+      </div>
+      <div class="faq__list" data-rise>
+        {{#each faq.items}}<div class="qa">
+          <h3 class="qa__h"><button class="qa__q" type="button" id="qa-q-{{@index}}" aria-expanded="false" aria-controls="qa-{{@index}}"><span>{{.q}}</span><i class="qa__icon" aria-hidden="true"></i></button></h3>
+          <div class="qa__a" id="qa-{{@index}}" role="region" aria-labelledby="qa-q-{{@index}}"><div><p>{{.a}}</p></div></div>
+        </div>{{/each}}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMING SOON -->
+  <section class="sec cta" id="get" data-tone="dusk">
+    <div class="wrap">
+      <div class="cta__panel" data-rise>
+        <div class="cta__copy">
+          <h2 class="h2 cta__title">{{get.title}} <span class="soft">{{get.titleSoft}}</span></h2>
+          <p class="cta__p">{{get.body}}</p>
+          <div class="stores">{{stores}}</div>
+          <p class="cta__markets">{{icon:i-globe}}<span>{{get.markets}}</span></p>
+          <div class="widget">
+            <span class="widget__slot" aria-hidden="true">{{icon:i-grid}}</span>
+            <div><b>{{get.widgetTitle}}</b><p>{{get.widgetBody}}</p></div>
+          </div>
+        </div>
+        <div class="cta__media">{{phone:about:dusk:page:cta__phone}}</div>
+        <span class="demo-tag demo-tag--corner">{{demoTag}}</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" data-tone="dusk">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <a class="brand" href="#top" aria-label="{{nav.home}}">
+          <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#brand-mark"/></svg>
+          <span class="brand__name">{{brand}}</span>
+        </a>
+        <p class="foot__tagline">{{tagline}}</p>
+        <p class="foot__line">{{icon:i-info}}<span>{{footer.line1}}</span></p>
+      </div>
+      <div class="foot__cols">
+        <nav class="foot__col" aria-labelledby="foot-page">
+          <h2 class="foot__h" id="foot-page">{{footer.pageTitle}}</h2>
+          <a href="#features">{{nav.features}}</a>
+          <a href="#steps">{{nav.steps}}</a>
+          <a href="#trust">{{nav.trust}}</a>
+          <a href="#offices">{{nav.offices}}</a>
+          <a href="#faq">{{nav.faq}}</a>
+        </nav>
+        <div class="foot__col">
+          <h2 class="foot__h">{{footer.legalTitle}}</h2>
+          {{legalLinks}}
+        </div>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <div class="foot__notes">
+        <p>{{footer.line2}}</p>
+        <p>{{footer.demo}}</p>
+      </div>
+      <a class="sig" href="{{telegram}}" target="_blank" rel="noopener" dir="ltr"><span>{{footer.signature}}</span>{{icon:i-telegram}}<span class="vh" lang="{{htmlLang}}">{{footer.telegram}}</span></a>
+    </div>
+  </div>
+</footer>
+
+<script id="nr-data" type="application/json">{{pageData}}</script>
+<script src="{{base}}assets/js/site.js"></script>
+</body>
+</html>
