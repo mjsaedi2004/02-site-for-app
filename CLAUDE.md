@@ -31,7 +31,7 @@ Keep earlier artifacts alive; a new site gets a new artifact.
 
 ## NetRate site (`site/`)
 
-Online: https://claude.ai/artifact/NETRATE_ARTIFACT (private to the owner until he shares it).
+Online: https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB (private to the owner until he shares it).
 Workflow (from the repo root):
 `python3 -I site/tools/sync_from_app.py` (tokens, fonts, icons, brand mark from the app) →
 `node site/tools/posters.js` (90 stills: app language × theme × scene, 2x) → `node site/tools/brand_assets.js`
@@ -114,8 +114,10 @@ wash from the phone. Reduced motion / save-data / slow network → no iframe: st
   safe-area offsets for fixed bars.
 - Publish with the Artifact tool: `file_path` = `dist/<design>/index.html`, `root` = `dist/<design>`,
   `files` = every other file in that folder. Re-publishing the same `file_path` keeps the URL.
-  Design 01: https://claude.ai/artifact/8heoX6NtmifHRNWoSK7Zfb · Design 02: https://claude.ai/artifact/4DD5tufpffMfe1jHwy1gWG
-  (both private to the owner until they share them).
+  Design 01: https://claude.ai/artifact/8heoX6NtmifHRNWoSK7Zfb · Design 02: https://claude.ai/artifact/4DD5tufpffMfe1jHwy1gWG ·
+  NetRate: https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB (all private to the owner until he shares them).
+- Publishing a file Claude did not write (the app demo) requires reading the whole file first: when the app changes,
+  read the new `dist/netrate/app/netrate-demo.html` before republishing it.
 
 ## QA routine (before every push)
 NetRate: the same spirit with `site/tools/qa/` (see its README) — look (4 viewports), livetest, static,

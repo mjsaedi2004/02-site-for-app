@@ -12,7 +12,7 @@ figures and reviews are illustrative and labelled as samples (“Sample testimon
 
 The main track since the owner's brief: the landing site for **«نت‌ریت» / NetRate** (UK exchange-office rates,
 pound → Toman). Lives in `site/` (own build, see `CLAUDE.md` → “NetRate site”), online at
-https://claude.ai/artifact/NETRATE_ARTIFACT. Open items: `site/TODO.md`.
+https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB. Open items: `site/TODO.md`.
 
 - **Identity = the app's:** tokens, three themes (dusk default · white · black), Vazirmatn variable, line icons,
   brand mark and living background are extracted from `site/app/netrate-demo.html` by `sync_from_app.py`.
