@@ -11,12 +11,15 @@ app), the Vazirmatn files, the favicons/OG images and the stills of the app (sit
 
 Template syntax (no text lives in the template):
   {{a.b}}            i18n text, escaped          {{{a.b}}}   i18n text as trusted HTML (<b>, <br>)
-  {{#each a.list}} … {{/each}}   loops, nestable; inside: {{.}} {{.key}} {{{.key}}} {{@index}} {{@n}} (1-based, localized)
+  {{#each a.list}} … {{/each}}   loops, nestable; inside: {{.}} {{.key}} {{{.key}}} {{@index}} {{@n}} (1-based, localized) {{@nn}} (01, 02 …)
   {{phone:SCENE:TONE:APPLANG:CLASSES}}   a still of the real app in a phone frame. SCENE may be .key (from the loop);
                      TONE is the app theme shown while the page follows the scroll (dusk / light / dark); APPLANG is
                      page, fa or en; CLASSES are extra classes. The script swaps stills when a theme is locked.
   {{icon:NAME}}      an icon from the app's sprite (NAME may be .key); {{icon:NAME:CLASSES}} adds classes
   {{use:APPLANG:a,b}} ships more stills (all themes) that the script shows on demand; renders nothing
+  {{tile:SCENE:THEME:APPLANG:CLASSES}}  a small crop of a still (top of the screen), made at build time
+A variant with src/data/demo.json (the app engine's demo data, from tools/demo_data.js) also gets "demoView"
+(formatted market cards and the calculator's starting rows) for its template, and the raw data in its page data.
   {{stores}} {{legalLinks}} {{officesCta}} and the head values (canonical, css, jsonld …)
 """
 import html
@@ -30,6 +33,7 @@ SITE = Path(__file__).resolve().parent.parent
 LANGS = ("fa", "en")
 FA_DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
 THEMES = ("dusk", "light", "dark")
+TILE = (240, 300)                       # thumbnail size of a still's top, for collages
 cfg = json.loads((SITE / "src/config.json").read_text(encoding="utf-8"))
 
 
@@ -56,6 +60,7 @@ class Page:
     def __init__(self, t, lang, base, extra):
         self.t, self.lang, self.base, self.extra = t, lang, base, extra
         self.stills = set()
+        self.tiles = set()
 
     # ---- values -------------------------------------------------------------
     def value(self, key, scope):
@@ -68,6 +73,8 @@ class Page:
             return scope[-1]["index"]
         if key == "@n":
             return num(scope[-1]["index"] + 1, self.lang)
+        if key == "@nn":
+            return num(f'{scope[-1]["index"] + 1:02d}', self.lang)
         if key in self.extra:
             return self.extra[key]
         return lookup(self.t, key)
@@ -92,6 +99,21 @@ class Page:
                 f'<div class="phone__screen"><img class="phone__still" src="{self.still(scene, tone, app_lang)}" '
                 f'alt="{esc(self.t["phoneAlt"])}" width="390" height="844" {load} decoding="async"></div>'
                 f'<span class="phone__island" aria-hidden="true"></span>{cap}</figure>')
+
+    def tile(self, spec, scope):
+        scene, theme, app_lang, classes = (spec.split(":") + ["", "", "", ""])[:4]
+        if scene.startswith("."):
+            scene = self.value(scene, scope)
+        if theme.startswith("."):
+            theme = self.value(theme, scope)
+        if app_lang.startswith("."):
+            app_lang = self.value(app_lang, scope)
+        app_lang = self.lang if app_lang in ("", "page") else app_lang
+        theme = theme or "dusk"
+        self.tiles.add((app_lang, theme, scene))
+        cls = ("tile__img " + classes).strip()
+        return (f'<img class="{cls}" src="{self.base}assets/img/tiles/{app_lang}-{theme}-{scene}.webp" alt="" '
+                f'width="{TILE[0]}" height="{TILE[1]}" loading="lazy" decoding="async">')
 
     # ---- rendering ----------------------------------------------------------
     def render(self, tpl, scope=None):
@@ -124,6 +146,7 @@ class Page:
     def render_flat(self, s, scope):
         s = re.sub(r"\{\{phone:([^}]+)\}\}", lambda m: self.phone(m.group(1), scope), s)
         s = re.sub(r"\{\{use:(\w+):([\w,\-]+)\}\}", lambda m: self.use(m.group(1), m.group(2)), s)
+        s = re.sub(r"\{\{tile:([^}]+)\}\}", lambda m: self.tile(m.group(1), scope), s)
         s = re.sub(r"\{\{icon:([\w.\-]+)(?::([\w\- ]+))?\}\}", lambda m: self.icon(m.group(1), scope, m.group(2)), s)
         s = re.sub(r"\{\{\{([\w.@]+)\}\}\}", lambda m: str(self.value(m.group(1), scope)), s)
         return re.sub(r"\{\{([\w.@]+)\}\}", lambda m: self.text(m.group(1), scope), s)
@@ -144,6 +167,55 @@ class Page:
             name = self.value(name, scope)
         cls = "ic" + (" " + classes if classes else "")
         return f'<svg class="{cls}" aria-hidden="true" focusable="false"><use href="#{esc(name)}"/></svg>'
+
+
+def fmt(x, lang, dec=0):
+    s = f"{x:,.{dec}f}"
+    return s.replace(".", "٫").translate(FA_DIGITS) if lang == "fa" else s
+
+
+def rel(mins, lang, demo):
+    r = demo["rel"][lang]
+    if mins < 1:
+        return r["now"]
+    if mins < 60:
+        return r["mins"].replace("{n}", num(mins, lang))
+    return r["hours"].replace("{n}", num(mins // 60, lang))
+
+
+def demo_view(t, lang, demo):
+    """Formatted numbers for the template, from the engine's demo data (the script formats the same way)."""
+    c = t["calc"]
+    ex = {e["id"]: e for e in demo["ex"]}
+    cur = {k["k"]: k for k in demo["cur"]}
+    cards = []
+    for k in demo["cur"]:
+        m, metal = demo["market"][k["k"]], "metal" in k
+        best = ex[m["bestId"]]
+        cards.append({
+            "k": k["k"], "name": k["name"][lang], "kind": "metal" if metal else "cur",
+            "label": t["rates"]["lowest" if metal else "best"],
+            "value": fmt(m["best"], lang, 2 if metal else 0),
+            "unit": c["perGram"] if metal else c["perUnit"].replace("{u}", k["unit"][lang]),
+            "office": best["name"][lang], "age": rel(best["mins"], lang, demo),
+            "avg": t["rates"]["avg"].replace("{n}", num(m["n"], lang)), "avgValue": fmt(m["avg"], lang, 2 if metal else 0),
+        })
+    p = demo["preset"]
+    k = cur[p["cur"]]
+    units = k["units"][lang] if p["amount"] != 1 else k["unit"][lang]
+    rows = []
+    for i, r in enumerate(p["rows"]):
+        e = ex[r["id"]]
+        fee = c["feeNone"] if not r["fee"] else c["fee"].replace("{v}", fmt(r["fee"], lang, 0 if r["fee"] == int(r["fee"]) else 2) + " " + (k["unit"][lang] if r["fee"] == 1 else units))
+        rows.append({"n": num(i + 1, lang), "name": e["name"][lang], "city": e["city"][lang], "value": fmt(r["value"], lang),
+                     "unit": c["toman"], "fee": fee, "age": rel(e["mins"], lang, demo)})
+    return {
+        "cards": cards,
+        "calc": {"amount": fmt(p["amount"], lang), "amountRaw": p["amount"],
+                 "head": c["headGet"].replace("{a}", fmt(p["amount"], lang)).replace("{u}", units),
+                 "rows": rows, "more": c["more"].replace("{n}", num(p["total"] - len(rows), lang))},
+        "currencies": [{"k": k["k"], "name": k["name"][lang], "selected": "selected" if k["k"] == p["cur"] else ""} for k in demo["cur"]],
+    }
 
 
 _tops = {}
@@ -237,16 +309,22 @@ def main():
     if (src / "img").exists():
         shutil.copytree(src / "img", out / "assets/img/variant")
     (out / "assets/js").mkdir()
-    js = (src / "js/site.js").read_text(encoding="utf-8")
-    (out / "assets/js/site.js").write_text(js, encoding="utf-8")
+    js = ""
+    for f in sorted((src / "js").glob("*.js")):
+        code = f.read_text(encoding="utf-8")
+        (out / "assets/js" / f.name).write_text(code, encoding="utf-8")
+        js += code
+    demo = json.loads((src / "data/demo.json").read_text(encoding="utf-8")) if (src / "data/demo.json").exists() else None
 
     css = min_css((SITE / "src/css/tokens.css").read_text(encoding="utf-8") + "\n" + (src / "css/site.css").read_text(encoding="utf-8"))
     sprite = (SITE / "src/partials/sprite.svg").read_text(encoding="utf-8").strip()
     tpl = (src / "page.html").read_text(encoding="utf-8")
-    stills = set()
+    stills, tiles = set(), set()
 
     for lang in LANGS:
         t = json.loads((src / "i18n" / f"{lang}.json").read_text(encoding="utf-8"))
+        if demo:
+            t["demoView"] = demo_view(t, lang, demo)
         other = "en" if lang == "fa" else "fa"
         base = "" if lang == "fa" else "../"
         preloads = "\n".join('<link rel="preload" href="{0}assets/fonts/vazirmatn-{1}.woff2" as="font" type="font/woff2" crossorigin>'
@@ -256,6 +334,9 @@ def main():
             "themeColor": {"dusk": "#E7E1DC", "light": "#F3F3F5", "dark": "#000000"},
             "text": t.get("script", {}),
         }
+        if demo:
+            page_data["demo"] = {k: demo[k] for k in ("cur", "type", "ex", "rel")}
+            page_data["calc"] = t["calc"]
         extra = {
             "base": base, "htmlLang": cfg["langs"][lang]["htmlLang"], "dir": cfg["langs"][lang]["dir"],
             "canonical": page_url(lang), "urlFa": page_url("fa"), "urlEn": page_url("en"),
@@ -276,6 +357,7 @@ def main():
         if left:
             sys.exit(f"{lang}: unresolved template tags: {sorted(set(left))[:8]}")
         stills |= page.stills
+        tiles |= page.tiles
         target = out / ("index.html" if lang == "fa" else "en/index.html")
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(html_out, encoding="utf-8")
@@ -291,6 +373,14 @@ def main():
         (out / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(SITE / rel, out / rel)
 
+    if tiles:
+        from PIL import Image
+        (out / "assets/img/tiles").mkdir(parents=True, exist_ok=True)
+        for app_lang, theme, scene in sorted(tiles):
+            im = Image.open(SITE / "assets/img/scenes" / app_lang / theme / f"{scene}.webp").convert("RGB")
+            crop = im.crop((0, 0, im.width, round(im.width * TILE[1] / TILE[0])))
+            crop.resize(TILE, Image.LANCZOS).save(out / "assets/img/tiles" / f"{app_lang}-{theme}-{scene}.webp", "WEBP", quality=80, method=6)
+
     site = cfg["siteUrl"].rstrip("/")
     (out / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {site}/sitemap.xml\n", encoding="utf-8")
     alts = "".join(f'<xhtml:link rel="alternate" hreflang="{cfg["langs"][l]["hreflang"]}" href="{page_url(l)}"/>' for l in LANGS)
@@ -298,7 +388,7 @@ def main():
     urls = "".join(f"<url><loc>{page_url(l)}</loc>{alts}</url>" for l in LANGS)
     (out / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
                                      f'xmlns:xhtml="http://www.w3.org/1999/xhtml">{urls}</urlset>\n', encoding="utf-8")
-    print(f"{name}: css {len(css) // 1024} KB inline, js {len(js) // 1024} KB, {len(stills)} stills")
+    print(f"{name}: css {len(css) // 1024} KB inline, js {len(js) // 1024} KB, {len(stills)} stills, {len(tiles)} tiles")
 
 
 if __name__ == "__main__":

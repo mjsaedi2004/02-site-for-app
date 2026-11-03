@@ -26,6 +26,17 @@
 - [ ] **اطلاعات شرکت** برای فوتر و `Organization` در JSON-LD (اگر قرار است اسم حقوقی یا نشانی بیاید). اسم کارفرما جایی نیامده.
 - [ ] **تصاویر بخش صرافی‌ها** (پنل وب، کارت نرخ) — فعلاً صفحهٔ صرافی داخل خود اپ نشان داده می‌شود.
 
+## سه نسخهٔ سایت
+
+- **نسخهٔ متحرک (v1)** — `site/src`، همان‌طور که بود نگه داشته شده: https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB
+- **نت‌ریت با قالب FitRaho** — `site/variants/fitraho`: https://claude.ai/artifact/Lu3ihedfAPNkN9XeRfhibk
+- **نت‌ریت با قالب Byondbites** — `site/variants/byondbites`: https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf
+
+تنظیم‌ها (`site/src/config.json`: لینک فروشگاه‌ها، راه تماس صرافی‌ها، دامنه، `legalReady`) برای هر سه مشترک است؛
+متن‌های هر نسخه در پوشهٔ `i18n` خودش است. ساخت نسخه‌ها:
+`python3 -I site/tools/build_variant.py fitraho` و `python3 -I site/tools/build_variant.py byondbites`،
+و برای نسخهٔ آنلاین `python3 -I site/tools/build_artifact.py fitraho` (یا `byondbites`).
+
 ## وقتی نسخهٔ تازهٔ اپ رسید
 
 1. فایل را جای `site/app/netrate-demo.html` بگذار.
@@ -33,6 +44,8 @@
 3. `node site/tools/posters.js` — عکس‌های ثابت هر صحنه (برای قبل از بارگذاری و حالت بدون حرکت).
 4. `node site/tools/brand_assets.js` — آیکون‌ها و تصویر پیش‌نمایش لینک.
 5. `python3 -I site/tools/build.py` و برای نسخهٔ آنلاین `python3 -I site/tools/build_artifact.py`.
+6. `node site/tools/demo_data.js` — دادهٔ نمونهٔ کارت‌ها و ماشین‌حساب نسخهٔ Byondbites از موتور خود اپ
+   (و چک ماشین‌حساب با موتور)؛ بعد دو نسخهٔ دیگر را با `build_variant.py` دوباره بساز.
 
 ## نکته‌هایی برای خود اپ (اپ جعبهٔ سیاه است؛ فقط گزارش)
 

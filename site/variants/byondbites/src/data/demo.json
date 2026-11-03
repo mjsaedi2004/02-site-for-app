@@ -1,0 +1,469 @@
+{
+ "source": "site/app/netrate-demo.html (NetRateEngine), via site/tools/demo_data.js",
+ "cur": [
+  {
+   "k": "gbp",
+   "name": {
+    "fa": "پوند",
+    "en": "Pound"
+   },
+   "unit": {
+    "fa": "پوند",
+    "en": "pound"
+   },
+   "units": {
+    "fa": "پوند",
+    "en": "pounds"
+   },
+   "g": 1
+  },
+  {
+   "k": "usdt",
+   "name": {
+    "fa": "تتر",
+    "en": "Tether"
+   },
+   "unit": {
+    "fa": "تتر",
+    "en": "USDT"
+   },
+   "units": {
+    "fa": "تتر",
+    "en": "USDT"
+   },
+   "g": 0.7905
+  },
+  {
+   "k": "eur",
+   "name": {
+    "fa": "یورو",
+    "en": "Euro"
+   },
+   "unit": {
+    "fa": "یورو",
+    "en": "euro"
+   },
+   "units": {
+    "fa": "یورو",
+    "en": "euros"
+   },
+   "g": 0.8498
+  },
+  {
+   "k": "usd",
+   "name": {
+    "fa": "دلار",
+    "en": "Dollar"
+   },
+   "unit": {
+    "fa": "دلار",
+    "en": "dollar"
+   },
+   "units": {
+    "fa": "دلار",
+    "en": "dollars"
+   },
+   "g": 0.7899
+  },
+  {
+   "k": "gold",
+   "name": {
+    "fa": "طلا",
+    "en": "Gold"
+   },
+   "unit": {
+    "fa": "گرم",
+    "en": "gram"
+   },
+   "units": {
+    "fa": "گرم",
+    "en": "grams"
+   },
+   "metal": 74.2
+  },
+  {
+   "k": "silver",
+   "name": {
+    "fa": "نقره",
+    "en": "Silver"
+   },
+   "unit": {
+    "fa": "گرم",
+    "en": "gram"
+   },
+   "units": {
+    "fa": "گرم",
+    "en": "grams"
+   },
+   "metal": 0.86
+  },
+  {
+   "k": "try",
+   "name": {
+    "fa": "لیر",
+    "en": "Lira"
+   },
+   "unit": {
+    "fa": "لیر",
+    "en": "lira"
+   },
+   "units": {
+    "fa": "لیر",
+    "en": "lira"
+   },
+   "g": 0.02307
+  },
+  {
+   "k": "aed",
+   "name": {
+    "fa": "درهم",
+    "en": "Dirham"
+   },
+   "unit": {
+    "fa": "درهم",
+    "en": "dirham"
+   },
+   "units": {
+    "fa": "درهم",
+    "en": "dirhams"
+   },
+   "g": 0.2151
+  }
+ ],
+ "type": {
+  "cash": {
+   "send": 1,
+   "recv": 1,
+   "name": {
+    "fa": "نقدی",
+    "en": "Cash"
+   }
+  },
+  "bank": {
+   "send": 0.9955,
+   "recv": 1.004,
+   "name": {
+    "fa": "حسابی",
+    "en": "Bank transfer"
+   }
+  },
+  "official": {
+   "send": 0.982,
+   "recv": 1.018,
+   "name": {
+    "fa": "حساب رسمی",
+    "en": "Official invoice"
+   }
+  }
+ },
+ "ex": [
+  {
+   "id": "aria",
+   "name": {
+    "fa": "صرافی آریا",
+    "en": "Aria Exchange"
+   },
+   "city": {
+    "fa": "لندن",
+    "en": "London"
+   },
+   "send": 92900,
+   "spr": 1.42,
+   "fee": {
+    "t": "fixed",
+    "v": 15
+   },
+   "mins": 8,
+   "types": [
+    "cash",
+    "bank"
+   ],
+   "verified": true
+  },
+  {
+   "id": "pars",
+   "name": {
+    "fa": "صرافی پارس",
+    "en": "Pars Exchange"
+   },
+   "city": {
+    "fa": "لندن",
+    "en": "London"
+   },
+   "send": 92850,
+   "spr": 1.46,
+   "fee": {
+    "t": "none"
+   },
+   "mins": 3,
+   "types": [
+    "cash",
+    "bank",
+    "official"
+   ],
+   "verified": true
+  },
+  {
+   "id": "nilo",
+   "name": {
+    "fa": "صرافی نیلو",
+    "en": "Nilo Exchange"
+   },
+   "city": {
+    "fa": "لندن",
+    "en": "London"
+   },
+   "send": 92300,
+   "spr": 1.55,
+   "fee": {
+    "t": "pct",
+    "v": 0.6
+   },
+   "mins": 27,
+   "types": [
+    "cash",
+    "bank"
+   ],
+   "verified": true
+  },
+  {
+   "id": "kian",
+   "name": {
+    "fa": "صرافی کیان",
+    "en": "Kian Exchange"
+   },
+   "city": {
+    "fa": "منچستر",
+    "en": "Manchester"
+   },
+   "send": 91900,
+   "spr": 1.51,
+   "fee": {
+    "t": "tier",
+    "v": 12,
+    "under": 1000
+   },
+   "mins": 12,
+   "types": [
+    "cash",
+    "bank",
+    "official"
+   ],
+   "verified": true
+  },
+  {
+   "id": "sepehr",
+   "name": {
+    "fa": "صرافی سپهر",
+    "en": "Sepehr Exchange"
+   },
+   "city": {
+    "fa": "گلاسکو",
+    "en": "Glasgow"
+   },
+   "send": 91600,
+   "spr": 1.52,
+   "fee": {
+    "t": "fixed",
+    "v": 5
+   },
+   "mins": 140,
+   "types": [
+    "cash",
+    "bank",
+    "official"
+   ],
+   "verified": true
+  },
+  {
+   "id": "ava",
+   "name": {
+    "fa": "صرافی آوا",
+    "en": "Ava Exchange"
+   },
+   "city": {
+    "fa": "منچستر",
+    "en": "Manchester"
+   },
+   "send": 91400,
+   "spr": 1.57,
+   "fee": {
+    "t": "none"
+   },
+   "mins": 45,
+   "types": [
+    "cash",
+    "bank"
+   ],
+   "verified": true
+  },
+  {
+   "id": "royal",
+   "name": {
+    "fa": "صرافی رویال",
+    "en": "Royal Exchange"
+   },
+   "city": {
+    "fa": "بیرمنگام",
+    "en": "Birmingham"
+   },
+   "send": 91150,
+   "spr": 1.48,
+   "fee": {
+    "t": "none"
+   },
+   "mins": 21,
+   "types": [
+    "cash",
+    "bank",
+    "official"
+   ],
+   "verified": true
+  },
+  {
+   "id": "milad",
+   "name": {
+    "fa": "صرافی میلاد",
+    "en": "Milad Exchange"
+   },
+   "city": {
+    "fa": "لندن",
+    "en": "London"
+   },
+   "send": 90900,
+   "spr": 1.6,
+   "fee": {
+    "t": "none"
+   },
+   "mins": 74,
+   "types": [
+    "cash"
+   ],
+   "verified": false
+  },
+  {
+   "id": "dena",
+   "name": {
+    "fa": "صرافی دنا",
+    "en": "Dena Exchange"
+   },
+   "city": {
+    "fa": "لندن",
+    "en": "London"
+   },
+   "send": 90600,
+   "spr": 1.65,
+   "fee": {
+    "t": "none"
+   },
+   "mins": 210,
+   "types": [
+    "cash",
+    "bank"
+   ],
+   "verified": false
+  }
+ ],
+ "rel": {
+  "fa": {
+   "now": "همین الان",
+   "mins": "{n} دقیقه پیش",
+   "hours": "{n} ساعت پیش"
+  },
+  "en": {
+   "now": "just now",
+   "mins": "{n} min ago",
+   "hours": "{n} h ago"
+  }
+ },
+ "market": {
+  "gbp": {
+   "best": 92900,
+   "bestId": "aria",
+   "mins": 8,
+   "avg": 91733.33333333333,
+   "n": 9,
+   "higherIsBetter": true
+  },
+  "usdt": {
+   "best": 73437.45,
+   "bestId": "aria",
+   "mins": 8,
+   "avg": 72515.20000000001,
+   "n": 9,
+   "higherIsBetter": true
+  },
+  "eur": {
+   "best": 78946.42,
+   "bestId": "aria",
+   "mins": 8,
+   "avg": 77954.98666666666,
+   "n": 9,
+   "higherIsBetter": true
+  },
+  "usd": {
+   "best": 73381.71,
+   "bestId": "aria",
+   "mins": 8,
+   "avg": 72460.15999999999,
+   "n": 9,
+   "higherIsBetter": true
+  },
+  "gold": {
+   "best": 74.35582,
+   "bestId": "aria",
+   "mins": 8,
+   "avg": 75.30805333333335,
+   "n": 9,
+   "higherIsBetter": false
+  },
+  "silver": {
+   "best": 0.8618059999999998,
+   "bestId": "aria",
+   "mins": 8,
+   "avg": 0.8728426666666667,
+   "n": 9,
+   "higherIsBetter": false
+  },
+  "try": {
+   "best": 2143.203,
+   "bestId": "aria",
+   "mins": 8,
+   "avg": 2116.288,
+   "n": 9,
+   "higherIsBetter": true
+  },
+  "aed": {
+   "best": 19982.79,
+   "bestId": "aria",
+   "mins": 8,
+   "avg": 19731.84,
+   "n": 9,
+   "higherIsBetter": true
+  }
+ },
+ "preset": {
+  "cur": "gbp",
+  "dir": "send",
+  "type": "cash",
+  "amount": 1000,
+  "total": 9,
+  "rows": [
+   {
+    "id": "pars",
+    "value": 92850000,
+    "fee": 0
+   },
+   {
+    "id": "kian",
+    "value": 91900000,
+    "fee": 0
+   },
+   {
+    "id": "nilo",
+    "value": 91746200,
+    "fee": 6
+   }
+  ]
+ }
+}

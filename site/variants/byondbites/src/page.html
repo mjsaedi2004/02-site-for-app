@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="{{htmlLang}}" dir="{{dir}}" data-theme="dusk" data-theme-mode="auto" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{meta.title}}</title>
+<meta name="description" content="{{meta.description}}">
+<link rel="canonical" href="{{canonical}}">
+<link rel="alternate" hreflang="fa" href="{{urlFa}}">
+<link rel="alternate" hreflang="en-GB" href="{{urlEn}}">
+<link rel="alternate" hreflang="x-default" href="{{urlEn}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{meta.siteName}}">
+<meta property="og:title" content="{{meta.title}}">
+<meta property="og:description" content="{{meta.description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="{{ogImage}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{meta.ogAlt}}">
+<meta property="og:locale" content="{{meta.locale}}">
+<meta property="og:locale:alternate" content="{{otherLocale}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{meta.title}}">
+<meta name="twitter:description" content="{{meta.description}}">
+<meta name="twitter:image" content="{{ogImage}}">
+<meta name="theme-color" content="#E7E1DC">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="{{base}}assets/img/icon.svg" type="image/svg+xml">
+<link rel="icon" href="{{base}}assets/img/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{{base}}assets/img/apple-touch-icon.png">
+{{fontPreloads}}
+<script>
+/* theme before first paint: a chosen theme is kept in localStorage; otherwise the page follows the sections (starts on dusk) */
+(function () {
+  var d = document.documentElement, t = null;
+  try { t = localStorage.getItem('netrate-site-theme'); } catch (e) {}
+  if (t === 'dark' || t === 'light' || t === 'dusk') { d.setAttribute('data-theme', t); d.setAttribute('data-theme-mode', 'lock'); }
+  d.className = d.className.replace('no-js', 'js');
+})();
+</script>
+<style>{{css}}</style>
+<script type="application/ld+json">{{jsonld}}</script>
+</head>
+<body>
+<a class="skip" href="#main">{{skip}}</a>
+{{sprite}}
+
+<header class="bar" id="bar">
+  <div class="bar__in">
+    <a class="brand" href="#top" aria-label="{{brand}}">
+      <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#brand-mark"/></svg>
+      <span class="brand__name">{{brand}}</span>
+    </a>
+    <nav class="nav" aria-label="{{nav.label}}">
+      <a href="#rates">{{nav.rates}}</a>
+      <a href="#calc">{{nav.calc}}</a>
+      <a href="#features">{{nav.features}}</a>
+      <a href="#trust">{{nav.trust}}</a>
+      <a href="#offices">{{nav.offices}}</a>
+      <a href="#faq">{{nav.faq}}</a>
+    </nav>
+    <div class="bar__tools">
+      <div class="themes" role="radiogroup" aria-label="{{theme.label}}">
+        <span class="themes__thumb" aria-hidden="true"></span>
+        <button type="button" role="radio" aria-checked="true" data-theme-pick="auto" aria-label="{{theme.auto}}" title="{{theme.auto}}">{{icon:i-layers}}</button>
+        <button type="button" role="radio" aria-checked="false" data-theme-pick="dusk" aria-label="{{theme.dusk}}" title="{{theme.dusk}}"><i class="sw sw--dusk"></i></button>
+        <button type="button" role="radio" aria-checked="false" data-theme-pick="light" aria-label="{{theme.light}}" title="{{theme.light}}"><i class="sw sw--light"></i></button>
+        <button type="button" role="radio" aria-checked="false" data-theme-pick="dark" aria-label="{{theme.dark}}" title="{{theme.dark}}"><i class="sw sw--dark"></i></button>
+      </div>
+      <a class="lang" href="{{otherHref}}" hreflang="{{otherHtmlLang}}" lang="{{otherHtmlLang}}" aria-label="{{langSwitch.aria}}">{{icon:i-globe}}<span>{{langSwitch.label}}</span></a>
+      <a class="btn btn--ghost btn--sm bar__cta" href="#get">{{nav.soon}}</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="{{nav.menu}}" data-open="{{nav.menu}}" data-close="{{nav.close}}"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav class="menu__nav" aria-label="{{nav.label}}">
+    <a href="#rates">{{nav.rates}}</a>
+    <a href="#calc">{{nav.calc}}</a>
+    <a href="#features">{{nav.features}}</a>
+    <a href="#trust">{{nav.trust}}</a>
+    <a href="#offices">{{nav.offices}}</a>
+    <a href="#faq">{{nav.faq}}</a>
+  </nav>
+  <div class="menu__tools">
+    <div class="themes" role="radiogroup" aria-label="{{theme.label}}">
+      <span class="themes__thumb" aria-hidden="true"></span>
+      <button type="button" role="radio" aria-checked="true" data-theme-pick="auto" aria-label="{{theme.auto}}" title="{{theme.auto}}">{{icon:i-layers}}</button>
+      <button type="button" role="radio" aria-checked="false" data-theme-pick="dusk" aria-label="{{theme.dusk}}" title="{{theme.dusk}}"><i class="sw sw--dusk"></i></button>
+      <button type="button" role="radio" aria-checked="false" data-theme-pick="light" aria-label="{{theme.light}}" title="{{theme.light}}"><i class="sw sw--light"></i></button>
+      <button type="button" role="radio" aria-checked="false" data-theme-pick="dark" aria-label="{{theme.dark}}" title="{{theme.dark}}"><i class="sw sw--dark"></i></button>
+    </div>
+    <a class="lang" href="{{otherHref}}" hreflang="{{otherHtmlLang}}" lang="{{otherHtmlLang}}">{{icon:i-globe}}<span>{{langSwitch.label}}</span></a>
+  </div>
+  <a class="btn btn--primary menu__cta" href="#get">{{nav.soon}}</a>
+</div>
+
+<main id="main">
+
+  <!-- HERO: the dark panel narrows into a funnel that holds two phones -->
+  <section class="hero" id="top" data-tone="dusk">
+    <div class="hero__bg" aria-hidden="true"><i class="hero__glow"></i></div>
+    <div class="hero__inner">
+      <h1 class="hero__title">{{hero.title}} <span class="hi">{{hero.titleHi}}</span></h1>
+      <p class="hero__lead">{{hero.lead}}</p>
+      <div class="hero__btns">
+        <a class="btn btn--paper" href="#get">{{icon:i-smartphone}}<span>{{hero.primary}}</span></a>
+        <a class="btn btn--ghost" href="#how"><span>{{hero.secondary}}</span>{{icon:i-arrowfwd:ic--fwd}}</a>
+      </div>
+    </div>
+    <div class="hero__cards">
+      <a class="eco" href="#calc">
+        <span class="eco__head"><span class="eco__ic">{{icon:i-trending}}</span><b>{{hero.cardSend.title}}</b></span>
+        <span class="eco__body">{{hero.cardSend.body}}</span>
+        <span class="eco__link">{{hero.cardSend.link}}{{icon:i-arrowfwd:ic--fwd}}</span>
+      </a>
+      <a class="eco" href="#rates">
+        <span class="eco__head"><span class="eco__ic">{{icon:i-arrowdown}}</span><b>{{hero.cardRecv.title}}</b></span>
+        <span class="eco__body">{{hero.cardRecv.body}}</span>
+        <span class="eco__link">{{hero.cardRecv.link}}{{icon:i-arrowfwd:ic--fwd}}</span>
+      </a>
+    </div>
+    <div class="hero__phones">
+      {{phone:live:dusk:page:hero__phone hero__phone--a eager}}
+      {{phone:office-page:dusk:en:hero__phone hero__phone--b eager}}
+      <span class="demo-tag hero__tag">{{demoTag}}</span>
+    </div>
+    <div class="hero__bottom">
+      <div class="hero__story">
+        <p>{{hero.story}}</p>
+        <a class="btn btn--primary" href="#rates">{{hero.storyCta}}{{icon:i-arrowfwd:ic--fwd}}</a>
+        <p class="hero__legal">{{icon:i-info}}<span>{{hero.legal}}</span></p>
+      </div>
+      <div class="themecard">
+        <div class="themecard__shots" aria-hidden="true">{{tile:live:dusk:page}}{{tile:live:light:page}}{{tile:live:dark:page}}</div>
+        <p><b>{{hero.themesTitle}}</b><span>{{hero.themesBody}}</span></p>
+        <button class="themecard__btn" type="button" data-theme-next>{{icon:i-layers}}<span>{{hero.themesCta}}</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TODAY'S RATES: a card per currency, from the app's demo market -->
+  <section class="sec rates" id="rates" data-tone="dusk">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{rates.title}} <span class="hi">{{rates.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{rates.sub}}</p>
+      </div>
+      <div class="chips" role="group" aria-label="{{rates.chipsLabel}}" data-rise>
+        <button class="chip" type="button" aria-pressed="true" data-kind="all">{{rates.chips.all}}</button>
+        <button class="chip" type="button" aria-pressed="false" data-kind="cur">{{rates.chips.cur}}</button>
+        <button class="chip" type="button" aria-pressed="false" data-kind="metal">{{rates.chips.metal}}</button>
+      </div>
+    </div>
+    <div class="deck" data-rise>
+      <button class="deck__nav deck__nav--prev" type="button" data-dir="-1" aria-label="{{rates.prev}}">{{icon:i-arrowfwd:ic--back}}</button>
+      <ul class="deck__track">
+        {{#each demoView.cards}}<li class="rcard" data-kind="{{.kind}}" data-cur="{{.k}}">
+          <span class="rcard__plate" aria-hidden="true"><span>{{.name}}</span></span>
+          <h3 class="rcard__name">{{.name}}</h3>
+          <p class="rcard__label">{{.label}}</p>
+          <p class="rcard__value"><bdi class="num">{{.value}}</bdi></p>
+          <p class="rcard__unit">{{.unit}}</p>
+          <p class="rcard__office">{{.office}}</p>
+          <p class="rcard__age">{{icon:i-clock}}<bdi>{{.age}}</bdi></p>
+          <p class="rcard__avg">{{.avg}}: <bdi class="num">{{.avgValue}}</bdi></p>
+          <a class="rcard__btn" href="#calc" data-calc-cur="{{.k}}">{{rates.calc}}{{icon:i-arrowfwd:ic--fwd}}</a>
+        </li>{{/each}}
+      </ul>
+      <button class="deck__nav deck__nav--next" type="button" data-dir="1" aria-label="{{rates.next}}">{{icon:i-arrowfwd:ic--fwd}}</button>
+    </div>
+    <p class="wrap rates__tag" data-rise><span class="demo-tag">{{demoTag}}</span></p>
+  </section>
+
+  <!-- KNOW YOUR RATE: three screens of the app -->
+  <section class="sec know" id="know" data-tone="dusk">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{know.title}} <span class="hi">{{know.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{know.sub}}</p>
+      </div>
+      <div class="know__grid">
+        <div class="know__big" aria-live="polite">{{#each know.items}}<p class="know__word" data-key="{{.key}}">{{.big}}</p>{{/each}}</div>
+        <div class="know__media" data-rise>{{phone:live:dusk:page:know__phone}}{{use:page:f-chart,f-alerts}}<span class="demo-tag know__tag">{{demoTag}}</span></div>
+        <div class="know__tabs" role="group" aria-label="{{know.tabsLabel}}">
+          {{#each know.items}}<button class="pill" type="button" aria-pressed="false" data-key="{{.key}}" data-scene="{{.scene}}">
+            <span class="pill__ic">{{icon:.icon}}</span>
+            <span class="pill__text"><b>{{.title}}</b><span>{{.body}}</span></span>
+          </button>{{/each}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR: the app's ordering rule over its demo offices -->
+  <section class="sec calc" id="calc" data-tone="light">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{calc.title}} <span class="hi">{{calc.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{calc.sub}}</p>
+      </div>
+      <div class="calc__card" data-rise>
+        <form class="calc__form" id="calc-form" novalidate>
+          <div class="field">
+            <label for="calc-amount">{{calc.amount}}</label>
+            <input id="calc-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" value="{{demoView.calc.amount}}" placeholder="{{calc.amountHint}}" dir="ltr">
+          </div>
+          <div class="field">
+            <label for="calc-cur">{{calc.currency}}</label>
+            <span class="select"><select id="calc-cur" name="cur">{{#each demoView.currencies}}<option value="{{.k}}" {{.selected}}>{{.name}}</option>{{/each}}</select>{{icon:i-chevrondown}}</span>
+          </div>
+          <fieldset class="field">
+            <legend>{{calc.direction}}</legend>
+            <div class="seg" data-name="dir">
+              <label><input type="radio" name="dir" value="send" checked><span data-cur-label="send" data-metal-label="{{calc.dir.buy}}" data-cur-text="{{calc.dir.send}}">{{calc.dir.send}}</span></label>
+              <label><input type="radio" name="dir" value="recv"><span data-cur-label="recv" data-metal-label="{{calc.dir.sell}}" data-cur-text="{{calc.dir.recv}}">{{calc.dir.recv}}</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field" id="calc-types">
+            <legend>{{calc.type}}</legend>
+            <div class="seg seg--3" data-name="type">
+              <label><input type="radio" name="type" value="cash" checked><span>{{calc.types.cash}}</span></label>
+              <label><input type="radio" name="type" value="bank"><span>{{calc.types.bank}}</span></label>
+              <label><input type="radio" name="type" value="official"><span>{{calc.types.official}}</span></label>
+            </div>
+            <p class="field__note" id="calc-metal-note" hidden>{{calc.typeMetal}}</p>
+          </fieldset>
+        </form>
+        <div class="calc__out" aria-live="polite">
+          <p class="calc__head" id="calc-head">{{demoView.calc.head}}</p>
+          <ol class="calc__rows" id="calc-rows" aria-label="{{calc.resultsLabel}}">
+            {{#each demoView.calc.rows}}<li class="crow">
+              <span class="crow__n num">{{.n}}</span>
+              <span class="crow__who"><b>{{.name}}</b><small>{{.city}}</small></span>
+              <span class="crow__val"><b class="num">{{.value}}</b><small>{{.unit}}</small></span>
+              <span class="crow__meta"><span>{{.fee}}</span><span class="crow__age">{{icon:i-clock}}<bdi>{{.age}}</bdi></span></span>
+            </li>{{/each}}
+          </ol>
+          <p class="calc__more" id="calc-more">{{demoView.calc.more}}</p>
+          <p class="calc__note"><span class="demo-tag">{{demoTag}}</span><span>{{calc.legal}}</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS: three steps on a wave -->
+  <section class="sec how" id="how" data-tone="light">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{how.title}} <span class="hi">{{how.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{how.sub}}</p>
+      </div>
+      <div class="how__wrap">
+        <svg class="how__wave" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true"><path d="M0 132 C 80 132, 120 110, 200 110 C 330 110, 470 50, 600 50 C 730 50, 870 110, 1000 110 C 1080 110, 1120 132, 1200 132"/></svg>
+        <ol class="how__steps">
+          {{#each how.steps}}<li class="hstep" data-rise>
+            <span class="hstep__ic">{{icon:.icon}}</span>
+            <span class="hstep__n num">{{@n}}</span>
+            <h3>{{.title}}</h3>
+            <p>{{.body}}</p>
+          </li>{{/each}}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES 01-04 -->
+  <section class="sec features" id="features" data-tone="light">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{features.title}} <span class="hi">{{features.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{features.sub}}</p>
+      </div>
+      <ol class="feats">
+        {{#each features.items}}<li class="feat feat--{{@index}}" data-rise>
+          <span class="feat__n num" aria-hidden="true">{{@nn}}</span>
+          <h3>{{.title}}</h3>
+          <p>{{.body}}</p>
+        </li>{{/each}}
+      </ol>
+    </div>
+  </section>
+
+  <!-- WHY: three dark cards -->
+  <section class="sec why" id="why" data-tone="dark">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{why.title}} <span class="hi">{{why.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{why.sub}}</p>
+      </div>
+      <ol class="why__cards">
+        {{#each why.items}}<li class="wcard wcard--{{@index}}" data-rise>
+          <span class="wcard__n num">{{@nn}}</span>
+          <h3>{{.title}}</h3>
+          <p>{{.body}}</p>
+        </li>{{/each}}
+      </ol>
+    </div>
+  </section>
+
+  <!-- HONESTY: the story card among screens of the app -->
+  <section class="sec honest" id="honest" data-tone="dark">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{honest.title}} <span class="hi">{{honest.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{honest.sub}}</p>
+      </div>
+      <div class="constel">
+        <div class="constel__tiles" role="img" aria-label="{{honest.tiles}}">
+          <span class="tile t1">{{tile:list:dusk:page}}</span>
+          <span class="tile t2">{{tile:f-offices:dark:en}}</span>
+          <span class="tile t3" data-scene="sunday">{{tile:sunday:light:en}}</span>
+          <span class="tile t4">{{tile:amount:light:page}}</span>
+          <span class="tile t5">{{tile:f-chart:dusk:en}}</span>
+          <span class="tile t6" data-scene="expired">{{tile:expired:dusk:en}}</span>
+          <span class="tile t7">{{tile:contact:dark:page}}</span>
+          <span class="tile t8">{{tile:ranked:light:en}}</span>
+          <span class="tile t9" data-scene="offline">{{tile:offline:dark:en}}</span>
+          <span class="tile t10">{{tile:office-page:dusk:page}}</span>
+          <span class="tile t11">{{tile:f-alerts:light:en}}</span>
+          <span class="tile t12">{{tile:live:dark:en}}</span>
+        </div>
+        <div class="story" data-rise>
+          {{#each honest.chapters}}<div class="story__ch" data-scene="{{.scene}}" id="story-{{@index}}">
+            <p class="story__n num">{{@n}}</p>
+            <h3>{{.title}}</h3>
+            <p>{{.body}}</p>
+          </div>{{/each}}
+          <div class="story__nav">
+            <button class="rnav" type="button" data-dir="-1" aria-label="{{honest.prev}}">{{icon:i-arrowfwd:ic--back}}</button>
+            <span class="story__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <button class="rnav" type="button" data-dir="1" aria-label="{{honest.next}}">{{icon:i-arrowfwd:ic--fwd}}</button>
+          </div>
+          <span class="demo-tag story__tag">{{demoTag}}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST: the statement and six facts -->
+  <section class="sec trust" id="trust" data-tone="dusk">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{trust.title}} <span class="hi">{{trust.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{trust.sub}}</p>
+      </div>
+      <div class="trust__grid">
+        <div class="trust__stack" aria-hidden="true" data-rise>
+          <span class="tstack tstack--mark"><svg viewBox="0 0 48 48"><use href="#brand-mark"/></svg></span>
+          <span class="tstack tstack--a">{{tile:about:dusk:page}}</span>
+          <span class="tstack tstack--b">{{tile:faq:light:page}}</span>
+        </div>
+        <div class="trust__card" data-rise>
+          <svg class="trust__q" viewBox="0 0 48 48" aria-hidden="true"><use href="#brand-mark"/></svg>
+          <p class="trust__statement">{{trust.statement}}</p>
+          <p class="trust__body">{{trust.statementBody}}</p>
+          <ul class="trust__facts">
+            {{#each trust.items}}<li><span class="trust__ic">{{icon:.icon}}</span><span><b>{{.title}}</b><span>{{.body}}</span></span></li>{{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec faq" id="faq" data-tone="dusk">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2" data-rise>{{faq.title}} <span class="hi">{{faq.titleHi}}</span></h2>
+        <p class="sub" data-rise>{{faq.sub}}</p>
+      </div>
+      <div class="faq__list" data-rise>
+        {{#each faq.items}}<div class="qa">
+          <h3 class="qa__h"><button class="qa__q" type="button" id="qa-q-{{@index}}" aria-expanded="false" aria-controls="qa-{{@index}}"><span>{{.q}}</span><i class="qa__icon" aria-hidden="true"></i></button></h3>
+          <div class="qa__a" id="qa-{{@index}}" role="region" aria-labelledby="qa-q-{{@index}}"><div><p>{{.a}}</p></div></div>
+        </div>{{/each}}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMING SOON: the band -->
+  <section class="get" id="get" data-tone="dusk">
+    <div class="get__band">
+      <div class="get__wall" aria-hidden="true">{{tile:live:dusk:page}}{{tile:list:dark:en}}{{tile:f-chart:light:en}}{{tile:office-page:dark:page}}{{tile:amount:dusk:en}}{{tile:f-offices:light:en}}{{tile:ranked:dark:page}}{{tile:contact:dusk:en}}</div>
+      <div class="wrap get__in">
+        <h2 class="h2 h2--ink">{{get.title}} <span class="hi">{{get.titleHi}}</span></h2>
+        <p class="get__p">{{get.body}}</p>
+        <div class="stores">{{stores}}</div>
+        <p class="get__markets">{{icon:i-globe}}<span>{{get.markets}}</span></p>
+        <div class="widget">
+          <span class="widget__slot" aria-hidden="true">{{icon:i-grid}}</span>
+          <span><b>{{get.widgetTitle}}</b><span>{{get.widgetBody}}</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR OFFICES: the contact card over the panel's four tiles -->
+  <section class="sec offices" id="offices" data-tone="dusk">
+    <div class="wrap">
+      <div class="offices__grid">
+        <div class="offices__card" data-rise>
+          <h2 class="h2 h2--ink">{{offices.title}} <span class="hi">{{offices.titleHi}}</span></h2>
+          <p class="offices__sub">{{offices.sub}}</p>
+          <p class="offices__body"><b>{{offices.cardTitle}}</b> {{offices.cardBody}}</p>
+          {{officesCta}}
+        </div>
+        <ul class="offices__tiles" data-rise>
+          {{#each offices.items}}<li class="otile otile--{{@index}}">
+            <span class="otile__ic">{{icon:.icon}}</span>
+            <h3>{{.title}}</h3>
+            <p>{{.body}}</p>
+          </li>{{/each}}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" data-tone="dusk">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <a class="brand" href="#top" aria-label="{{nav.home}}">
+          <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#brand-mark"/></svg>
+          <span class="brand__name">{{brand}}</span>
+        </a>
+        <p class="foot__tagline">{{tagline}}</p>
+        <p class="foot__line">{{icon:i-info}}<span>{{footer.line1}}</span></p>
+      </div>
+      <div class="foot__cols">
+        <nav class="foot__col" aria-labelledby="foot-page">
+          <h2 class="foot__h" id="foot-page">{{footer.pageTitle}}</h2>
+          <a href="#rates">{{nav.rates}}</a>
+          <a href="#calc">{{nav.calc}}</a>
+          <a href="#features">{{nav.features}}</a>
+          <a href="#trust">{{nav.trust}}</a>
+          <a href="#offices">{{nav.offices}}</a>
+          <a href="#faq">{{nav.faq}}</a>
+        </nav>
+        <div class="foot__col">
+          <h2 class="foot__h">{{footer.legalTitle}}</h2>
+          {{legalLinks}}
+        </div>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <div class="foot__notes">
+        <p>{{footer.line2}}</p>
+        <p>{{footer.demo}}</p>
+      </div>
+      <a class="sig" href="{{telegram}}" target="_blank" rel="noopener" dir="ltr"><span>{{footer.signature}}</span>{{icon:i-telegram}}<span class="vh" lang="{{htmlLang}}">{{footer.telegram}}</span></a>
+    </div>
+  </div>
+</footer>
+
+<script id="nr-data" type="application/json">{{pageData}}</script>
+<script src="{{base}}assets/js/calc.js"></script>
+<script src="{{base}}assets/js/site.js"></script>
+</body>
+</html>

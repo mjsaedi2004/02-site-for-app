@@ -28,6 +28,16 @@ https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB. Open items: `site/TODO.md`.
 - **Fallbacks:** stills (posters) before the app loads, under reduced motion / save-data / slow network, and behind
   every language relaunch. No libraries; ~100 KB HTML per page (CSS inline), 27 KB JS.
 
+### NetRate variants (the reference layouts, upgraded for NetRate)
+
+After v1 the owner asked for less motion, a simpler theme change and his two references. v1 stays frozen; each
+reference layout became its own NetRate site in `site/variants/<name>/` (see `CLAUDE.md` → “NetRate variants”).
+
+| Variant | Layout kept from the reference | NetRate upgrades | Online |
+|---|---|---|---|
+| NetRate × FitRaho | header 88 px, copy beside a 640 px soft panel with the phone and two notes, stats row, three photo cards, three alternating 620 px feature rows, dark panel with prompts → honesty cases, four step cards, card slider → trust facts, closing panel | app stills, three themes with one crossfade, honesty cases switch the screen, offices block + FAQ added for the brief, demo tags | https://claude.ai/artifact/Lu3ihedfAPNkN9XeRfhibk |
+| NetRate × Byondbites | hero panel inset 60/30 with the header inside, funnel (0.303 / 0.12 of 1320 px) holding two tilted phones, two side cards, story + video card → theme card, coverflow deck (312 px cards, 205 px plates), pills + phone, calculator, steps on a wave, staggered 01–04, three raised cards, story among tiles, testimonials → trust, mint FAQ, closing band, contact → offices | dark app card instead of green, the deck and calculator run on the app engine's demo data (`tools/demo_data.js`), app stills and tiles, theme crossfade | https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf |
+
 ---
 
 | # | Reference | Direction | Folder | References | Online (claude.ai artifact) | Status |

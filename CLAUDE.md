@@ -6,6 +6,8 @@ Two tracks live in this repo:
 1. **NetRate site (main track, `site/`)** — the real landing site for **«نت‌ریت» / NetRate**, an app Mohammad
    builds for a client: UK exchange-office rates for pound → Toman, side by side. Built from the **app's own
    design** (`site/app/netrate-demo.html` is the source of truth) and Mohammad's brief. See “NetRate site” below.
+   Three versions: **v1 animated** (`site/src`, frozen on the owner's request) and two **design variants** on his
+   reference layouts (`site/variants/fitraho`, `site/variants/byondbites`) — see “NetRate variants” below.
 2. **Reference rebuilds (`designs/`)** — earlier exercises: reference designs rebuilt for a placeholder
    exchange app **“Arzino”** (illustrative content). Rules for them are in “Hard rules” below.
 
@@ -87,6 +89,34 @@ wash from the phone. Reduced motion / save-data / slow network → no iframe: st
 - The app's dusk accent fails AA for small text on the page ground → site uses `--accent-text` (deepened mix).
 - Playwright refuses to click `aria-disabled` links → `{ force: true }` in tests.
 
+## NetRate variants (`site/variants/<name>/`)
+
+Owner's feedback on v1: too animated, the theme-change wash looked bad, and his two reference designs are better.
+So v1 stays as it is (same link, `site/src` untouched; maybe resumed later), and each reference layout was rebuilt
+for NetRate as its own site. Same brief rules as v1; differences:
+- **The app is still:** real app stills (`site/assets/img/scenes`) in drawn phones; no iframe, no flying phone.
+  Stills swap with a 450 ms crossfade only when the user asks (theme pick, honesty cases, pills).
+- **Theme change = one calm crossfade:** the colour tokens are registered `@property` colours with a 780 ms
+  transition on `:root` (even gradients built from them crossfade). Auto mode follows the section in the middle of the
+  screen (`data-tone`), with a 140 ms debounce and no change while an anchor jump scrolls; a chosen theme locks the
+  page and switches every still. Reduced motion: instant. No wash, ring or grain.
+- **Content at rest:** nothing waits at `opacity: 0`; parts below the fold rise in once (keyframe), parts on screen
+  at load stay still (artifact rule: page complete at rest).
+- **Build:** `python3 -I site/tools/build_variant.py fitraho|byondbites` → `site/variants/<name>/public/`
+  (gitignored), then `python3 -I site/tools/build_artifact.py <name>` → `dist/netrate-<name>/` (artifact name
+  “NetRate FitRaho” / “NetRate Byondbites”). Each variant has its own `src/page.html`, `css/site.css`, `js/*.js`,
+  `i18n/{fa,en}.json`, `img/`; shared are only config, app tokens/icons/mark, fonts, stills. Template tags are listed
+  at the top of `build_variant.py` (`{{phone:…}}`, `{{tile:…}}`, `{{use:…}}`, `{{@nn}}` …).
+- **Byondbites demo data** comes from the app's own engine: `node site/tools/demo_data.js` extracts `NetRateEngine`
+  from the app (via `vm`), writes `src/data/demo.json` (currencies, rate types, live offices, each currency's market)
+  and runs the page calculator (`src/js/calc.js`) against the engine in 528 cases — re-run it when the app changes.
+- Online: FitRaho https://claude.ai/artifact/Lu3ihedfAPNkN9XeRfhibk · Byondbites
+  https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf (private to the owner until he shares them).
+- Pitfalls hit: a demo tag over a phone hides app content on phones → tags sit at panel corners / under phones;
+  RTL rules like `html[dir=rtl] .pill { translate }` outrank `.pill[aria-pressed]` → set a variable instead;
+  scaled side cards shrink their buttons below 44 px → scale less, bigger button; the contrast script can't see the
+  hero panel (a sibling layer) → the header/hero results there are false alarms (text is `--on-ink` on the dark card).
+
 ## Tech conventions
 - Static HTML/CSS/JS, no build step for the repo. Classic `<script>` tags so `index.html` also works from `file://`.
 - GSAP 3.15 (all plugins are free) + Lenis smooth scroll; respect `prefers-reduced-motion`.
@@ -115,7 +145,8 @@ wash from the phone. Reduced motion / save-data / slow network → no iframe: st
 - Publish with the Artifact tool: `file_path` = `dist/<design>/index.html`, `root` = `dist/<design>`,
   `files` = every other file in that folder. Re-publishing the same `file_path` keeps the URL.
   Design 01: https://claude.ai/artifact/8heoX6NtmifHRNWoSK7Zfb · Design 02: https://claude.ai/artifact/4DD5tufpffMfe1jHwy1gWG ·
-  NetRate: https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB (all private to the owner until he shares them).
+  NetRate v1: https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB · NetRate × FitRaho: https://claude.ai/artifact/Lu3ihedfAPNkN9XeRfhibk ·
+  NetRate × Byondbites: https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf (all private to the owner until he shares them).
 - Publishing a file Claude did not write (the app demo) requires reading the whole file first: when the app changes,
   read the new `dist/netrate/app/netrate-demo.html` before republishing it.
 
