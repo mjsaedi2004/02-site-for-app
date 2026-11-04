@@ -815,7 +815,7 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { en.target.classList.toggle('is-offscreen', !en.isIntersecting); });
     }, { rootMargin: '120px 0px' });
-    $$('.hero, .how, .look, .honest, .get, .ticker').forEach(function (el) { io.observe(el); });
+    $$('.hero, .how, .look, .honest, .get, .ticker, .widget').forEach(function (el) { io.observe(el); });
   }
 
 

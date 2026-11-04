@@ -382,7 +382,9 @@
     "eyebrow": "Coming soon",
     "title": "Home screen and lock screen widgets",
     "body": "See the rate without opening the app; a home screen widget on iPhone and Android, and a lock screen widget on iPhone. The design is still in the making.",
-    "slot": "Widget design, coming soon"
+    "slot": "Widget design, coming soon",
+    "home": "Home screen",
+    "lock": "Lock screen"
   },
   "faq": {
     "eyebrow": "FAQ",
