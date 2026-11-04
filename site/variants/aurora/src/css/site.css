@@ -811,3 +811,30 @@ html[dir="rtl"] .qa__a p { padding: 0 68px 20px 18px; }
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-old(root) { z-index: 1; }
 ::view-transition-new(root) { z-index: 2; }
+
+/* ---------- details: cursor light, gradient shimmer, FAQ search, back to top, tilt ---------- */
+.aurora__cursor { inline-size: 520px !important; block-size: 520px !important; inset-block-start: 0 !important; inset-inline-start: 0 !important; margin-block-start: -260px; margin-inline-start: -260px; background: radial-gradient(closest-side, color-mix(in srgb, var(--g2) 16%, transparent), transparent 70%); opacity: 0 !important; transition: opacity .6s; translate: var(--cx, -999px) var(--cy, -999px); }
+.has-cursor .aurora__cursor { opacity: 1 !important; }
+.hero__title .grad { background-size: 220% 100%; animation: shimmer 9s ease-in-out infinite alternate; }
+@keyframes shimmer { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+.fsearch { position: relative; display: flex; align-items: center; gap: 10px; margin-block-end: 6px; padding-inline: 16px; border-radius: var(--r); background: var(--sf1); border: 1px solid var(--ln2); transition: border-color .3s, box-shadow .3s; }
+.fsearch:focus-within { border-color: transparent; box-shadow: 0 0 0 2px var(--tg2); }
+.fsearch .ic { color: var(--tx3); }
+.fsearch input { flex: 1 1 0; inline-size: 0; min-block-size: 54px; border: 0; background: none; outline: none; font-size: 16px; color: var(--tx1); }
+.fsearch input::placeholder { color: var(--tx3); }
+.fsearch__none { padding: 18px; border-radius: var(--r); font-size: 15px; color: var(--tx2); background: var(--glass); border: 1px dashed var(--ln3); }
+.qa[hidden] { display: none; }
+.qa mark { color: inherit; background: color-mix(in srgb, var(--g2) 28%, transparent); border-radius: 4px; padding-inline: 2px; }
+.totop { position: fixed; z-index: 70; inset-block-end: calc(22px + env(safe-area-inset-bottom, 0px)); inset-inline-end: calc(22px + env(safe-area-inset-right, 0px)); display: grid; place-items: center; inline-size: 52px; block-size: 52px; border-radius: 50%; color: var(--tx1); background: var(--glass); border: 1px solid var(--glass-ln); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: var(--shadow); opacity: 0; translate: 0 16px; pointer-events: none; transition: opacity .4s, translate .5s var(--sp-smooth); }
+html[dir="rtl"] .totop { inset-inline-end: calc(22px + env(safe-area-inset-left, 0px)); }
+.totop.is-on { opacity: 1; translate: none; pointer-events: auto; }
+.totop .ic { inline-size: 20px; block-size: 20px; }
+.totop__ring { position: absolute; inset: 3px; inline-size: calc(100% - 6px); block-size: calc(100% - 6px); rotate: -90deg; }
+.totop__ring circle { fill: none; stroke: var(--ln2); stroke-width: 2; }
+.totop__ring .totop__val { stroke: var(--g2); stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--p, 0)); stroke-linecap: round; }
+.tile { transition: transform .6s var(--ease); }
+.tile.is-tilt { transition: transform .15s linear; }
+.rtable__in.is-typing::after { content: ""; display: inline-block; inline-size: 1px; block-size: 1em; margin-inline-start: 2px; vertical-align: -2px; background: var(--tg2); animation: caret .8s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .hero__title .grad { animation: none; } }
+@media (max-width: 640px) { .totop { inline-size: 48px; block-size: 48px; inset-block-end: calc(16px + env(safe-area-inset-bottom, 0px)); } }

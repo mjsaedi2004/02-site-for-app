@@ -45,7 +45,7 @@
 <body>
 <a class="skip" href="#main">{{skip}}</a>
 {{sprite}}
-<div class="aurora" aria-hidden="true"><i class="aurora__a"></i><i class="aurora__b"></i><i class="aurora__c"></i><i class="aurora__grain"></i></div>
+<div class="aurora" aria-hidden="true"><i class="aurora__a"></i><i class="aurora__b"></i><i class="aurora__c"></i><i class="aurora__cursor"></i><i class="aurora__grain"></i></div>
 
 <!-- HEADER: a wide bar at the top that becomes a floating capsule once the page moves -->
 <header class="hdr" id="hdr">
@@ -552,6 +552,12 @@
         <p class="sub" data-reveal>{{faq.body}}</p>
       </header>
       <div class="faq__list">
+        <div class="fsearch" data-reveal>
+          {{icon:i-search}}
+          <label class="vh" for="faq-q">{{faq.search}}</label>
+          <input id="faq-q" type="search" placeholder="{{faq.search}}" autocomplete="off">
+        </div>
+        <p class="fsearch__none" id="faq-none" hidden>{{faq.none}}</p>
         {{#each faq.items}}<div class="qa" data-reveal>
           <h3 class="qa__h"><button class="qa__q" type="button" id="qa-q-{{@index}}" aria-expanded="false" aria-controls="qa-{{@index}}"><span class="qa__n num" aria-hidden="true">{{@nn}}</span><span class="qa__t">{{.q}}</span><i class="qa__icon" aria-hidden="true"></i></button></h3>
           <div class="qa__a" id="qa-{{@index}}" role="region" aria-labelledby="qa-q-{{@index}}"><div><p>{{.a}}</p></div></div>
@@ -619,6 +625,8 @@
   </div>
   <p class="foot__word" aria-hidden="true">{{footer.word}}</p>
 </footer>
+
+<a class="totop" href="#top" aria-label="{{nav.toTop}}"><svg class="totop__ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22"/><circle class="totop__val" cx="24" cy="24" r="22" pathLength="1"/></svg>{{icon:i-arrowup}}</a>
 
 <script id="nr-data" type="application/json">{{pageData}}</script>
 <script src="{{base}}assets/vendor/gsap/gsap.min.js"></script>

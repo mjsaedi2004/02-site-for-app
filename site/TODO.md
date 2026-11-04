@@ -26,11 +26,13 @@
 - [ ] **اطلاعات شرکت** برای فوتر و `Organization` در JSON-LD (اگر قرار است اسم حقوقی یا نشانی بیاید). اسم کارفرما جایی نیامده.
 - [ ] **تصاویر بخش صرافی‌ها** (پنل وب، کارت نرخ) — فعلاً صفحهٔ صرافی داخل خود اپ نشان داده می‌شود.
 
-## سه نسخهٔ سایت
+## نسخه‌های سایت
 
 - **نسخهٔ متحرک (v1)** — `site/src`، همان‌طور که بود نگه داشته شده: https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB
 - **نت‌ریت با قالب FitRaho** — `site/variants/fitraho`: https://claude.ai/artifact/Lu3ihedfAPNkN9XeRfhibk
 - **نت‌ریت با قالب Byondbites** — `site/variants/byondbites`: https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf
+- **نت‌ریت Aurora (جهت فعلی)** — `site/variants/aurora`: https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt
+  (سیاه پیش‌فرض و سفید با دکمه، گرادیان نئونی، هدر کپسولی؛ پلن: `site/variants/aurora/PLAN.md`)
 
 تنظیم‌ها (`site/src/config.json`: لینک فروشگاه‌ها، راه تماس صرافی‌ها، دامنه، `legalReady`) برای هر سه مشترک است؛
 متن‌های هر نسخه در پوشهٔ `i18n` خودش است. ساخت نسخه‌ها:

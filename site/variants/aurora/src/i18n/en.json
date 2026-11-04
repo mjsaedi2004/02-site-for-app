@@ -20,7 +20,8 @@
     "soon": "Coming soon",
     "menu": "Open the menu",
     "close": "Close the menu",
-    "home": "Top of the page"
+    "home": "Top of the page",
+    "toTop": "Back to top"
   },
   "theme": {
     "toLight": "Switch to the white theme",
@@ -414,7 +415,9 @@
         "q": "Do I need an account to see rates?",
         "a": "No. Rates, the office list, the chart and search all work without an account. You only need one for rate alerts, saved offices and writing reviews."
       }
-    ]
+    ],
+    "search": "Search the questions",
+    "none": "No question matches that word."
   },
   "get": {
     "eyebrow": "Coming soon",

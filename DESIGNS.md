@@ -38,6 +38,14 @@ reference layout became its own NetRate site in `site/variants/<name>/` (see `CL
 | NetRate × FitRaho | header 88 px, copy beside a 640 px soft panel with the phone and two notes, stats row, three photo cards, three alternating 620 px feature rows, dark panel with prompts → honesty cases, four step cards, card slider → trust facts, closing panel | app stills, three themes with one crossfade, honesty cases switch the screen, offices block + FAQ added for the brief, demo tags | https://claude.ai/artifact/Lu3ihedfAPNkN9XeRfhibk |
 | NetRate × Byondbites | hero panel inset 60/30 with the header inside, funnel (0.303 / 0.12 of 1320 px) holding two tilted phones, two side cards, story + video card → theme card, coverflow deck (312 px cards, 205 px plates), pills + phone, calculator, steps on a wave, staggered 01–04, three raised cards, story among tiles, testimonials → trust, mint FAQ, closing band, contact → offices | dark app card instead of green, the deck and calculator run on the app engine's demo data (`tools/demo_data.js`), app stills and tiles, theme crossfade | https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf |
 
+### NetRate Aurora (current direction)
+
+Owner's next step after the variants (“both too plain”): a luxury site beyond every earlier version. Black (default)
+and white themes with a circular reveal from the header button, a capsule header, neon ember → magenta → violet,
+glass surfaces, soft-square boxes, rich scroll stories (pinned messages → ordered list, sticky phone steps,
+word-by-word statement), a bento of app parts, the engine-checked calculator, cursor light and tilt.
+Plan and sizes: `site/variants/aurora/PLAN.md`. Online: https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt
+
 ---
 
 | # | Reference | Direction | Folder | References | Online (claude.ai artifact) | Status |

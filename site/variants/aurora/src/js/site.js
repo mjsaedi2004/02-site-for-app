@@ -574,6 +574,118 @@
     G.fromTo(w, { yPercent: 30 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.foot', start: 'top bottom', end: 'bottom bottom', scrub: true } });
   }
 
+
+  /* ------------------------------------------------------------ details */
+  function cursorLight() {
+    if (!fine || reduce) return;
+    var light = $('.aurora__cursor'), x = -999, y = -999, tx = x, ty = y, run = false;
+    function step() {
+      x += (tx - x) * .12; y += (ty - y) * .12;
+      /* the light layer is placed from the inline start: in RTL that is the right edge */
+      light.style.setProperty('--cx', (rtl ? x - innerWidth : x).toFixed(1) + 'px');
+      light.style.setProperty('--cy', y.toFixed(1) + 'px');
+      if (Math.abs(tx - x) + Math.abs(ty - y) > .5) requestAnimationFrame(step); else run = false;
+    }
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse' || (e.clientX === 0 && e.clientY === 0)) return;
+      tx = e.clientX; ty = e.clientY;
+      if (x === -999) { x = tx; y = ty; }
+      root.classList.add('has-cursor');
+      if (!run) { run = true; requestAnimationFrame(step); }
+    }, { passive: true });
+    document.addEventListener('pointerleave', function () { root.classList.remove('has-cursor'); });
+  }
+  function navHover() {
+    var nav = $('.hdr__nav'), glide = $('.hdr__glide');
+    if (!nav || !glide || !fine) return;
+    $$('a', nav).forEach(function (a) {
+      a.addEventListener('pointerenter', function () {
+        var w = a.offsetWidth, L = a.offsetLeft;
+        glide.style.setProperty('--w', w + 'px');
+        glide.style.setProperty('--x', (rtl ? L - (nav.clientWidth - w) : L) + 'px');
+        glide.classList.add('is-on');
+      });
+    });
+    nav.addEventListener('pointerleave', function () { window.dispatchEvent(new Event('resize')); });
+  }
+  function heroScroll() {
+    if (!motion) return;
+    G.to('.hero__stage', { yPercent: -10, scale: .96, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+    G.to('.hero__copy', { yPercent: -6, opacity: .35, ease: 'none', scrollTrigger: { trigger: '.hero', start: '30% top', end: 'bottom top', scrub: true } });
+  }
+  function tilt() {
+    if (!fine || reduce) return;
+    $$('.tile').forEach(function (t) {
+      t.addEventListener('pointermove', function (e) {
+        var r = t.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+        t.classList.add('is-tilt');
+        t.style.transform = 'perspective(1200px) rotateX(' + (-py * 3).toFixed(2) + 'deg) rotateY(' + (px * 3).toFixed(2) + 'deg)';
+      });
+      t.addEventListener('pointerleave', function () { t.classList.remove('is-tilt'); t.style.transform = ''; });
+    });
+  }
+  function faqSearch() {
+    var input = $('#faq-q'), none = $('#faq-none'), items = $$('.qa');
+    if (!input) return;
+    /* Persian and Arabic forms of ye and kaf match, and the zero-width non-joiner is ignored */
+    var norm = function (s) {
+      return s.toLowerCase().replace(/‌/g, '').replace(/ي/g, 'ی').replace(/ك/g, 'ک');
+    };
+    var list = items.map(function (qa) { var t = $('.qa__t', qa); return { qa: qa, t: t, raw: t.textContent, text: norm(qa.textContent) }; });
+    input.addEventListener('input', function () {
+      var q = norm(input.value.trim()), shown = 0;
+      list.forEach(function (x) {
+        var hit = !q || x.text.indexOf(q) >= 0;
+        x.qa.hidden = !hit;
+        if (hit) shown++;
+        x.t.textContent = x.raw;
+        var i = q ? norm(x.raw).indexOf(q) : -1;
+        if (hit && i >= 0 && norm(x.raw).length === x.raw.length) {
+          x.t.textContent = '';
+          x.t.appendChild(document.createTextNode(x.raw.slice(0, i)));
+          var m = document.createElement('mark'); m.textContent = x.raw.slice(i, i + q.length); x.t.appendChild(m);
+          x.t.appendChild(document.createTextNode(x.raw.slice(i + q.length)));
+        }
+      });
+      none.hidden = shown > 0;
+      if (ST) ST.refresh();
+    });
+  }
+  function toTop() {
+    var b = $('.totop');
+    if (!b) return;
+    function on() {
+      var y = window.scrollY, max = root.scrollHeight - innerHeight;
+      b.classList.toggle('is-on', y > innerHeight * 1.2);
+      b.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
+    }
+    window.addEventListener('scroll', on, { passive: true });
+    on();
+  }
+  function panelTyping() {
+    var panel = $('.panel'), cells = $$('.rtable__in'), sw = $('.panel__rem .switch');
+    if (!panel || !cells.length || reduce || !('IntersectionObserver' in window) || inView(panel)) return;
+    var vals = cells.map(function (c) { return c.textContent; });
+    var io = new IntersectionObserver(function (en) {
+      if (!en[0].isIntersecting) return;
+      io.disconnect();
+      /* the office posts today's rates: each field types in, then the reminder switches on */
+      cells.forEach(function (c) { c.textContent = ''; });
+      if (sw) sw.classList.remove('is-on');
+      var i = 0;
+      (function next() {
+        if (i >= cells.length) { if (sw) setTimeout(function () { sw.classList.add('is-on'); }, 200); return; }
+        var c = cells[i], v = vals[i], k = 0;
+        c.classList.add('is-typing');
+        (function type() {
+          c.textContent = v.slice(0, ++k);
+          if (k < v.length) setTimeout(type, 42); else { c.classList.remove('is-typing'); i++; setTimeout(next, 90); }
+        })();
+      })();
+    }, { rootMargin: '0px 0px -25% 0px' });
+    io.observe(panel);
+  }
+
   /* ------------------------------------------------------------ start */
   smooth();
   header();
@@ -594,6 +706,13 @@
   placeholders();
   magnets();
   footerWord();
+  cursorLight();
+  navHover();
+  heroScroll();
+  tilt();
+  faqSearch();
+  toTop();
+  panelTyping();
   if (ST) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
     window.addEventListener('load', function () { ST.refresh(); });

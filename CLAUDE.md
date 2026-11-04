@@ -6,8 +6,9 @@ Two tracks live in this repo:
 1. **NetRate site (main track, `site/`)** — the real landing site for **«نت‌ریت» / NetRate**, an app Mohammad
    builds for a client: UK exchange-office rates for pound → Toman, side by side. Built from the **app's own
    design** (`site/app/netrate-demo.html` is the source of truth) and Mohammad's brief. See “NetRate site” below.
-   Three versions: **v1 animated** (`site/src`, frozen on the owner's request) and two **design variants** on his
-   reference layouts (`site/variants/fitraho`, `site/variants/byondbites`) — see “NetRate variants” below.
+   Four versions: **v1 animated** (`site/src`, frozen on the owner's request), two **design variants** on his
+   reference layouts (`site/variants/fitraho`, `site/variants/byondbites`) and **Aurora** (`site/variants/aurora`,
+   the newest: luxury black/white with neon gradients) — see “NetRate variants” and “NetRate Aurora” below.
 2. **Reference rebuilds (`designs/`)** — earlier exercises: reference designs rebuilt for a placeholder
    exchange app **“Arzino”** (illustrative content). Rules for them are in “Hard rules” below.
 
@@ -117,6 +118,28 @@ for NetRate as its own site. Same brief rules as v1; differences:
   scaled side cards shrink their buttons below 44 px → scale less, bigger button; the contrast script can't see the
   hero panel (a sibling layer) → the header/hero results there are false alarms (text is `--on-ink` on the dark card).
 
+## NetRate Aurora (`site/variants/aurora/`, the current direction)
+
+Owner's feedback on the two variants: both too plain. His brief for Aurora (see `site/variants/aurora/PLAN.md`):
+luxurious, modern, rich (not empty), neon/gradient colour instead of flat backgrounds, many scroll/card/header
+interactions, exact phone sizes on every screen, real mobile responsiveness; **two themes only — black (default) and
+white** — switched by a button with a simple, professional animation (no theme change on scroll); boxes are **soft
+squares** (10/14/18/22 px, never round); a **capsule header** that detaches from the top, follows and shrinks.
+- Identity: night `#06050A` with glass surfaces; neon ember → magenta → violet (`--g1..3`, text-safe `--tg1..3`);
+  no green, no decorative blue (blue = up), gold only for Featured. Tokens are prefixed (`--bg0`, `--tx1`, `--ln1` …)
+  because `tokens.css` (the app's) also defines `--bg`, `--ink`, `--line` under `[data-theme]`.
+- Phones are `{{device:…}}`: each screen ships in the app's black and white theme; CSS shows the one matching the site.
+- Motion: Lenis + GSAP ScrollTrigger/Flip (vendored; in the artifact they load from jsDelivr, so no unread third-party
+  file is published). Theme switch = View Transition circle from the button. Pinned “why” story, sticky phone steps,
+  word-by-word trust statement, chart drawing, ticker that speeds up with scroll, cursor light, tile tilt, typing panel.
+- Data: `view.py` (build hook) formats the engine data — hero cards, why list, 30-day chart path, office card, panel.
+- Build: `node site/tools/demo_data.js` → `python3 -I site/tools/build_variant.py aurora` →
+  `python3 -I site/tools/build_artifact.py aurora` (artifact “NetRate Aurora”): https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt
+- Pitfalls hit: an `<input>`'s intrinsic width widened a `1fr` grid track on phones → `minmax(0, 1fr)` everywhere and
+  `flex: 1 1 0` on the input; Persian “۰۱” reads oddly → `{{@nn}}` gives plain digits in Persian; the footer outline
+  word showed only letter dots when pushed down → keep it in view with a mask; a crowded heredoc in one shell command
+  tripped the safety check → write snippets to the scratchpad and insert them with a short script.
+
 ## Tech conventions
 - Static HTML/CSS/JS, no build step for the repo. Classic `<script>` tags so `index.html` also works from `file://`.
 - GSAP 3.15 (all plugins are free) + Lenis smooth scroll; respect `prefers-reduced-motion`.
@@ -146,7 +169,8 @@ for NetRate as its own site. Same brief rules as v1; differences:
   `files` = every other file in that folder. Re-publishing the same `file_path` keeps the URL.
   Design 01: https://claude.ai/artifact/8heoX6NtmifHRNWoSK7Zfb · Design 02: https://claude.ai/artifact/4DD5tufpffMfe1jHwy1gWG ·
   NetRate v1: https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB · NetRate × FitRaho: https://claude.ai/artifact/Lu3ihedfAPNkN9XeRfhibk ·
-  NetRate × Byondbites: https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf (all private to the owner until he shares them).
+  NetRate × Byondbites: https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf · NetRate Aurora: https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt
+  (all private to the owner until he shares them).
 - Publishing a file Claude did not write (the app demo) requires reading the whole file first: when the app changes,
   read the new `dist/netrate/app/netrate-demo.html` before republishing it.
 
