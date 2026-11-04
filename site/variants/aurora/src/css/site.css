@@ -1129,3 +1129,10 @@ html[dir="rtl"] .widget__stage .halo { translate: 50% -50%; }
 .chart__mark--lo { flex-direction: row; align-items: baseline; gap: 6px; }
 .chart__mark--lo[data-edge="start"] { translate: -10px 9px; }
 .chart__mark--lo[data-edge="end"] { translate: calc(-100% + 10px) 9px; }
+/* very wide screens (≥ 1900 px): a wider container, a taller hero, a larger phone and headline */
+@media (min-width: 1900px) {
+  :root { --wrap: 1380px; }
+  .hero { min-block-size: min(100svh, 1120px); }
+  .hero__stage { --pw: clamp(230px, min(23vw, (100svh - 230px) * .461), 350px); }
+  .hero__title { font-size: clamp(4.7rem, 2.4rem + 2.2vw, 5.6rem); }
+}
