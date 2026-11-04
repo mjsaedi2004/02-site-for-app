@@ -1073,3 +1073,25 @@ html[dir="rtl"] .widget__stage .halo { translate: 50% -50%; }
   .hdr.is-float .hdr__pill, .sheet, .gcard, .facts, .why__stage, .calc__panel, .demo-tag, .badge, .btn--glass, .show__arrow, .totop, .callout, .tile, .tcard, .hot span { background: var(--sf2); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .hdr::before { -webkit-backdrop-filter: none; backdrop-filter: none; background: color-mix(in srgb, var(--bg0) 86%, transparent); }
 }
+/* ---------- the steps' small app parts come alive when their step becomes active ---------- */
+.hstep.is-active .mini__field { animation: mini-field .8s var(--ease); }
+@keyframes mini-field { 30% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--g2) 70%, transparent), 0 0 44px -6px var(--glow2); } }
+.mini__field b { position: relative; }
+.hstep.is-active .mini__field b::after { content: ""; position: absolute; inset-block: 14%; inset-inline-end: -6px; inline-size: 2px; border-radius: 2px; background: var(--g2); animation: caret 1.05s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+.hstep.is-active .mini__seg .is-on { animation: mini-pop .55s var(--sp-bouncy) .15s backwards; }
+.hstep.is-active .mini--rows li { animation: mini-row .6s var(--ease) backwards; }
+.hstep.is-active .mini--rows li:nth-child(2) { animation-delay: .09s; }
+.hstep.is-active .mini--rows li:nth-child(3) { animation-delay: .18s; }
+@keyframes mini-row { from { opacity: 0; translate: 0 12px; } }
+.hstep.is-active .mini--chips span, .hstep.is-active .mini--acts span { animation: mini-pop .55s var(--sp-bouncy) backwards; }
+.hstep.is-active :is(.mini--chips, .mini--acts) span:nth-child(2) { animation-delay: .07s; }
+.hstep.is-active :is(.mini--chips, .mini--acts) span:nth-child(3) { animation-delay: .14s; }
+.hstep.is-active :is(.mini--chips, .mini--acts) span:nth-child(4) { animation-delay: .21s; }
+@keyframes mini-pop { from { opacity: 0; scale: .86; } }
+.mini--acts span:first-child { position: relative; }
+.hstep.is-active .mini--acts span:first-child::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; box-shadow: 0 0 0 0 color-mix(in srgb, var(--g2) 60%, transparent); animation: act-ring 2.2s var(--ease) .6s infinite; pointer-events: none; }
+@keyframes act-ring { 70%, 100% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--g2) 0%, transparent); } }
+@media (prefers-reduced-motion: reduce) {
+  .hstep.is-active :is(.mini__field, .mini__seg .is-on, .mini--rows li, .mini--chips span, .mini--acts span), .hstep.is-active .mini__field b::after, .hstep.is-active .mini--acts span:first-child::after { animation: none; }
+}
