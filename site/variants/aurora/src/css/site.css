@@ -919,3 +919,26 @@ html[dir="rtl"] .callouts--b .callout.is-on { translate: 6px 0; }
   .callouts--a .callout.is-on, .callouts--b .callout.is-on, html[dir="rtl"] .callouts--a .callout.is-on, html[dir="rtl"] .callouts--b .callout.is-on { translate: none; }
 }
 @media (prefers-reduced-motion: reduce) { .hot span::after { animation: none; } }
+
+/* ---------- showroom: app screens passing sideways ---------- */
+.show { position: relative; padding-block: clamp(88px, 10vw, 150px) 40px; overflow-x: clip; }
+.show__pin { display: flex; flex-direction: column; justify-content: center; gap: 34px; }
+.show__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
+.show__head .sub { margin-block-start: 0; max-inline-size: 28em; }
+.show__viewport { overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; }
+.show__viewport::-webkit-scrollbar { display: none; }
+.show__track { display: flex; gap: clamp(20px, 3vw, 44px); inline-size: max-content; padding-inline: max(var(--gut), calc((100vw - var(--wrap)) / 2)); padding-block: 12px 18px; }
+.scard { --pw: clamp(190px, min(18vw, (100svh - 430px) * .461), 250px); scroll-snap-align: center; display: flex; flex-direction: column; inline-size: var(--pw); }
+.device.scard__device { --pw: inherit; transition: translate .6s var(--ease); }
+.scard:hover .scard__device { translate: 0 -8px; }
+.scard__n { margin-block-start: 18px; font-size: 14px; font-weight: var(--w-semi); background: var(--tgrad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--tg2); }
+.scard h3 { margin-block-start: 2px; font-size: 17px; font-weight: 760; line-height: 1.5; }
+.scard p:last-child { margin-block-start: 4px; font-size: 14.5px; line-height: 1.75; color: var(--tx2); }
+.show__foot { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.show__bar { position: relative; flex: 1; block-size: 2px; border-radius: 2px; background: var(--ln2); overflow: hidden; }
+.show__bar i { position: absolute; inset: 0; background: var(--neon); transform: scaleX(var(--p, 0)); transform-origin: left; }
+html[dir="rtl"] .show__bar i { transform-origin: right; }
+.show.is-pinned .show__viewport { overflow: visible; scroll-snap-type: none; }
+.show.is-pinned { padding-block: 0; }
+.show.is-pinned .show__pin { min-block-size: 100svh; padding-block: 84px 24px; gap: 26px; }
+@media (max-width: 980px) { .show__head { flex-direction: column; align-items: flex-start; gap: 12px; } }

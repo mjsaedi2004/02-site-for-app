@@ -510,5 +510,55 @@
       "4",
       "5"
     ]
+  },
+  "show": {
+    "eyebrow": "Showroom",
+    "title": "The app, screen by screen",
+    "sub": "The app's own screens with demo data; scroll and they pass by.",
+    "hint": "Swipe",
+    "items": [
+      {
+        "title": "Today's rates",
+        "body": "The market average, the direction and the offices."
+      },
+      {
+        "title": "Highest payout",
+        "body": "Type an amount and the order counts the fee."
+      },
+      {
+        "title": "Offices",
+        "body": "Search, city, “Open now” and “Verified”."
+      },
+      {
+        "title": "An office's page",
+        "body": "Branches, opening hours and its rate table."
+      },
+      {
+        "title": "Chart",
+        "body": "Up to five offices side by side, no predictions."
+      },
+      {
+        "title": "Rate alerts",
+        "body": "The whole alert in one sentence."
+      },
+      {
+        "title": "Sunday",
+        "body": "The week in summary while the market is closed."
+      },
+      {
+        "title": "About NetRate",
+        "body": "NetRate is not an exchange office and never moves money."
+      }
+    ],
+    "n": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08"
+    ]
   }
 }

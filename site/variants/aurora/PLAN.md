@@ -45,11 +45,17 @@ no pins, no scrubs, final states, instant theme.
    phone (live screen) with neon halo and three glass cards (highest payout + age, market average + date, demo tag).
 2. **Rate ticker** — marquee of the eight currencies (best rate, office, age) from the app engine, demo label.
 3. **Why** — pinned: scattered rate messages without times fall into NetRate's ordered list with ages.
-4. **How it works** — sticky phone; four steps (amount, ranked, office page, contact) switch its screen.
+4. **How it works** — sticky phone; four steps (amount, ranked, office page, contact) switch its screen; each step
+   carries a small piece of the app (amount field, three rows, office chips, contact actions); a neon line fills
+   beside the steps as they pass.
+4b. **A closer look** — the main screen with five numbered spots (direction, market average, amount, the labelled
+   Featured spot with its real rank, the age of a rate) linked to callouts; a slow tour until the visitor takes over.
 5. **Bento features** — rates & currencies (phone crop + chips), ages (mini list with an expired row), 30-day chart
-   (engine series, hover tooltip), office card, alert sentence, the app's three themes, two languages toggle, privacy.
+   (engine series, hover tooltip), office card that flips to its week of opening hours, alert sentence, the app's
+   three themes, two languages toggle, privacy.
+5b. **Showroom** — eight app screens passing sideways while the section is pinned (swipe on phones).
 6. **Calculator** — the app's ordering rule over its demo offices (`calc.js`, checked against the engine),
-   gap between highest and lowest payout.
+   gap between the first and the last office, every office as a dot between the lowest and highest value.
 7. **Honesty** — Sunday / expired / offline cases with the phone.
 8. **Trust** — the legal statement lighting up word by word, six facts.
 9. **For offices** — web-panel mock (rate entry, reminder, rate card), daily Featured spot, one contact button.
@@ -64,3 +70,9 @@ no pins, no scrubs, final states, instant theme.
 - Hero phone: `clamp(230px, min(23vw, (100svh − 230px) × 0.461), 320px)` — never taller than the screen.
 - Showcase phone (sticky): `clamp(240px, (100svh − 200px) × 0.461, 310px)`; phones below 900 px stack per step.
 - Bento: 12-column grid → 6 → 1 column; tiles keep their content at every width.
+
+## Details added after the first publish
+
+Cursor light (desktop), nav hover glide, hero scroll parallax, tile tilt, FAQ search (Persian-aware), back-to-top
+ring, the office panel typing its rates in, phone turn-in at load, line-by-line headline, neon rules between sections,
+language switch crossfade (cross-document View Transition).

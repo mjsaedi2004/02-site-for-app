@@ -752,6 +752,28 @@
     io.observe($('.look__grid'));
   }
 
+
+  /* showroom: on large screens the section pins and the screens pass sideways with the scroll; on phones it swipes */
+  function showroom() {
+    var sec = $('.show'), track = $('.show__track'), vp = $('.show__viewport'), bar = $('.show__bar i');
+    if (!sec || !track) return;
+    function progress(p) { if (bar) bar.style.setProperty('--p', p.toFixed(4)); }
+    vp.addEventListener('scroll', function () {
+      var max = vp.scrollWidth - vp.clientWidth;
+      progress(max > 0 ? Math.abs(vp.scrollLeft) / max : 0);
+    }, { passive: true });
+    if (!motion) return;
+    var mm = G.matchMedia();
+    mm.add('(min-width: 981px) and (min-height: 640px)', function () {
+      sec.classList.add('is-pinned');
+      var dist = function () { return Math.max(0, track.scrollWidth - innerWidth); };
+      var tween = G.to(track, { x: function () { return (rtl ? 1 : -1) * dist(); }, ease: 'none' });
+      var st = ST.create({ trigger: sec, start: 'top top', end: function () { return '+=' + dist(); }, pin: '.show__pin', scrub: .7,
+        animation: tween, invalidateOnRefresh: true, onUpdate: function (self) { progress(self.progress); } });
+      return function () { st.kill(); tween.kill(); G.set(track, { clearProps: 'transform' }); sec.classList.remove('is-pinned'); };
+    });
+  }
+
   /* ------------------------------------------------------------ start */
   smooth();
   header();
@@ -781,6 +803,7 @@
   panelTyping();
   flipCard();
   closerLook();
+  showroom();
   if (ST) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
     window.addEventListener('load', function () { ST.refresh(); });
