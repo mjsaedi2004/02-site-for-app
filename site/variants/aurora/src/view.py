@@ -38,6 +38,12 @@ def smooth(points):
     return d
 
 
+def edge(x):
+    """Which edge a chart label should align to when its point sits near one ('' = centred)."""
+    x = float(x)
+    return "start" if x < 14 else "end" if x > 86 else ""
+
+
 def extend(view, t, lang, demo, H):
     fmt, num, rel = H["fmt"], H["num"], H["rel"]
     pct_sign = "٪" if lang == "fa" else "%"
@@ -93,8 +99,8 @@ def extend(view, t, lang, demo, H):
     view["chart"] = {
         "w": W, "h": Hh, "line": line, "area": area, "points": hover, "sundays": sundays,
         "last": hover[-1], "from": date_short(demo["series"][0], lang, num), "to": date_short(demo["series"][-1], lang, num),
-        "hi": {"value": fmt(vals[i_hi], lang), "date": hover[i_hi]["date"], "x": hover[i_hi]["x"], "y": hover[i_hi]["y"]},
-        "lo": {"value": fmt(vals[i_lo], lang), "date": hover[i_lo]["date"], "x": hover[i_lo]["x"], "y": hover[i_lo]["y"]},
+        "hi": {"value": fmt(vals[i_hi], lang), "date": hover[i_hi]["date"], "x": hover[i_hi]["x"], "y": hover[i_hi]["y"], "edge": edge(hover[i_hi]["x"])},
+        "lo": {"value": fmt(vals[i_lo], lang), "date": hover[i_lo]["date"], "x": hover[i_lo]["x"], "y": hover[i_lo]["y"], "edge": edge(hover[i_lo]["x"])},
     }
 
     o = demo["office"]

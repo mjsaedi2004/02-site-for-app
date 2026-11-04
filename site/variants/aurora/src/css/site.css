@@ -1120,3 +1120,12 @@ html[dir="rtl"] .widget__stage .halo { translate: 50% -50%; }
 .device.peek__device { --pw: 216px; }
 .tile--alert:hover .tile__peek .device { translate: 0 -14px; }
 .tile__peek::after { content: ""; position: absolute; inset: auto 0 0; block-size: 46%; background: linear-gradient(transparent, var(--sf1)); pointer-events: none; z-index: 2; }
+/* chart labels near an edge align to it instead of centring on their point */
+.chart__mark[data-edge="start"] { translate: -10px calc(-100% - 12px); align-items: flex-start; }
+.chart__mark--lo[data-edge="start"] { translate: -10px 12px; }
+.chart__mark[data-edge="end"] { translate: calc(-100% + 10px) calc(-100% - 12px); align-items: flex-end; }
+.chart__mark--lo[data-edge="end"] { translate: calc(-100% + 10px) 12px; }
+/* the low label sits on one line so it stays clear of the dates under the chart */
+.chart__mark--lo { flex-direction: row; align-items: baseline; gap: 6px; }
+.chart__mark--lo[data-edge="start"] { translate: -10px 9px; }
+.chart__mark--lo[data-edge="end"] { translate: calc(-100% + 10px) 9px; }

@@ -339,8 +339,8 @@
               <path class="chart__line" d="{{demoView.chart.line}}" pathLength="1"/>
             </svg>
             <div class="chart__sundays" aria-hidden="true">{{#each demoView.chart.sundays}}<i style="--x:{{.x}}%"></i>{{/each}}</div>
-            <span class="chart__mark chart__mark--hi" style="--x:{{demoView.chart.hi.x}}%;--y:{{demoView.chart.hi.y}}%"><small>{{bento.chart.hi}}</small><bdi class="num">{{demoView.chart.hi.value}}</bdi></span>
-            <span class="chart__mark chart__mark--lo" style="--x:{{demoView.chart.lo.x}}%;--y:{{demoView.chart.lo.y}}%"><small>{{bento.chart.lo}}</small><bdi class="num">{{demoView.chart.lo.value}}</bdi></span>
+            <span class="chart__mark chart__mark--hi" data-edge="{{demoView.chart.hi.edge}}" style="--x:{{demoView.chart.hi.x}}%;--y:{{demoView.chart.hi.y}}%"><small>{{bento.chart.hi}}</small><bdi class="num">{{demoView.chart.hi.value}}</bdi></span>
+            <span class="chart__mark chart__mark--lo" data-edge="{{demoView.chart.lo.edge}}" style="--x:{{demoView.chart.lo.x}}%;--y:{{demoView.chart.lo.y}}%"><small>{{bento.chart.lo}}</small><bdi class="num">{{demoView.chart.lo.value}}</bdi></span>
             <span class="chart__dot" aria-hidden="true" style="--x:{{demoView.chart.last.x}}%;--y:{{demoView.chart.last.y}}%"></span>
             <div class="chart__tip" aria-hidden="true"><small></small><b class="num"></b></div>
             <div class="chart__hits" aria-hidden="true">{{#each demoView.chart.points}}<i style="--x:{{.x}}%" data-y="{{.y}}" data-date="{{.date}}" data-value="{{.value}}"></i>{{/each}}</div>
