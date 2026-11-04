@@ -720,6 +720,38 @@
     });
   }
 
+
+  /* a closer look: spots and callouts light each other up; a slow tour runs until the visitor takes over */
+  function closerLook() {
+    var hots = $$('.hot'), calls = $$('.callout');
+    if (!hots.length) return;
+    var at = -1, timer = 0, manual = false;
+    function on(i) {
+      at = i;
+      hots.forEach(function (h) { h.classList.toggle('is-on', +h.dataset.i === i); h.setAttribute('aria-pressed', +h.dataset.i === i ? 'true' : 'false'); });
+      calls.forEach(function (c) { c.classList.toggle('is-on', +c.dataset.i === i); });
+    }
+    function stop() { manual = true; clearInterval(timer); }
+    hots.forEach(function (h) {
+      h.addEventListener('click', function () { stop(); on(+h.dataset.i); });
+      h.addEventListener('pointerenter', function () { if (fine) { stop(); on(+h.dataset.i); } });
+      h.addEventListener('focus', function () { stop(); on(+h.dataset.i); });
+    });
+    calls.forEach(function (c) {
+      c.addEventListener('pointerenter', function () { if (fine) { stop(); on(+c.dataset.i); } });
+      c.addEventListener('focus', function () { stop(); on(+c.dataset.i); });
+      c.addEventListener('click', function () { stop(); on(+c.dataset.i); });
+    });
+    on(0);
+    if (reduce || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (en) {
+      clearInterval(timer);
+      if (!en[0].isIntersecting || manual) return;
+      timer = setInterval(function () { on((at + 1) % hots.length); }, 2600);
+    }, { threshold: .5 });
+    io.observe($('.look__grid'));
+  }
+
   /* ------------------------------------------------------------ start */
   smooth();
   header();
@@ -748,6 +780,7 @@
   toTop();
   panelTyping();
   flipCard();
+  closerLook();
   if (ST) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
     window.addEventListener('load', function () { ST.refresh(); });

@@ -476,5 +476,39 @@
   ],
   "script": {
     "soon": "Coming soon"
+  },
+  "look": {
+    "eyebrow": "A closer look",
+    "title": "One screen, everything you need to know",
+    "sub": "The app's own main screen, with demo data. Hover or tap a number.",
+    "items": [
+      {
+        "title": "Send to Iran or Receive from Iran",
+        "body": "Switch the direction; the list and the market average follow it."
+      },
+      {
+        "title": "Market average from 9 offices",
+        "body": "With the change since the last working day; blue means up, coral means down."
+      },
+      {
+        "title": "Your amount, fee included",
+        "body": "Type an amount and the order becomes the money you get after the fee."
+      },
+      {
+        "title": "Featured, always labelled",
+        "body": "It can be bought and always carries its label; its real rank is written next to it."
+      },
+      {
+        "title": "The age of every rate",
+        "body": "Every rate says how many minutes ago it was posted; old rates fade."
+      }
+    ],
+    "n": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
   }
 }
