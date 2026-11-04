@@ -93,7 +93,7 @@ data.preset = { cur: 'gbp', dir: 'send', type: 'cash', amount: 1000, total: star
 /* one office's page, as the app shows it (Aria, the highest rate today) */
 const aria = N.byId('aria'), prof = N.profile('aria');
 data.office = { id: 'aria', rating: N.ratingMean(aria), reviews: N.reviewCount(aria), branches: aria.br, since: prof.since,
-  hours: prof.hours[1], verified: !!aria.ver, types: aria.types };
+  hours: prof.hours[1], week: prof.hours, verified: !!aria.ver, types: aria.types };
 
 /* every variant's calculator must order and price exactly like the engine */
 for (const VAR of VARIANTS) {

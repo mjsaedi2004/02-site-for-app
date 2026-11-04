@@ -706,6 +706,20 @@
     io.observe(panel);
   }
 
+
+  function flipCard() {
+    $$('[data-flip]').forEach(function (f) {
+      var open = $('.flip__front .flip__btn', f), back = $('[data-flip-back]', f);
+      function set(on) {
+        f.classList.toggle('is-flipped', on);
+        open.setAttribute('aria-expanded', on ? 'true' : 'false');
+        setTimeout(function () { (on ? back : open).focus({ preventScroll: true }); }, 420);
+      }
+      open.addEventListener('click', function () { set(true); });
+      back.addEventListener('click', function () { set(false); });
+    });
+  }
+
   /* ------------------------------------------------------------ start */
   smooth();
   header();
@@ -733,6 +747,7 @@
   faqSearch();
   toTop();
   panelTyping();
+  flipCard();
   if (ST) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
     window.addEventListener('load', function () { ST.refresh(); });

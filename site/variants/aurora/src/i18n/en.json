@@ -175,7 +175,12 @@
       "branches": "{n} branches",
       "reviews": "{n} reviews",
       "open": "Open until {t}",
-      "today": "Today's rate"
+      "today": "Today's rate",
+      "hoursBtn": "Opening hours",
+      "backBtn": "Back",
+      "closed": "Closed",
+      "hourFmt": "{a}–{b}",
+      "hoursTitle": "Opening hours this week"
     },
     "alert": {
       "title": "Rate alerts",

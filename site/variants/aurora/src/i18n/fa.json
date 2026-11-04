@@ -175,7 +175,12 @@
       "branches": "{n} شعبه",
       "reviews": "{n} نظر",
       "open": "باز تا {t}",
-      "today": "نرخ امروز"
+      "today": "نرخ امروز",
+      "hoursBtn": "ساعت کاری",
+      "backBtn": "برگشت",
+      "closed": "بسته",
+      "hourFmt": "{a} تا {b}",
+      "hoursTitle": "ساعت کاری این هفته"
     },
     "alert": {
       "title": "هشدار نرخ",

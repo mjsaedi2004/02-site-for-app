@@ -108,6 +108,18 @@ def extend(view, t, lang, demo, H):
         "rate": fmt(best["send"], lang), "age": rel(best["mins"], lang, demo),
     }
 
+    # the week's opening hours, in the week order each language uses (Persian starts on Saturday)
+    days = I18N[lang]["days"]
+    order = [6, 0, 1, 2, 3, 4, 5] if lang == "fa" else [1, 2, 3, 4, 5, 6, 0]
+    def hm(m):
+        return num(f"{m // 60}:{m % 60:02d}", lang)
+    week = []
+    for d in order:
+        h = o["week"][d]
+        week.append({"day": days[d], "hours": t["bento"]["office"]["hourFmt"].replace("{a}", hm(h[0])).replace("{b}", hm(h[1])) if h else t["bento"]["office"]["closed"],
+                     "cls": "" if h else "is-closed", "today": "is-today" if d == today["date"]["dow"] else ""})
+    view["office"]["week"] = week
+
     view["alert"] = {"value": fmt(math.ceil((gbp["best"] + 500) / 500) * 500, lang)}
 
     view["langs"] = {

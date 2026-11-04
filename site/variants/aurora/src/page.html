@@ -323,16 +323,26 @@
           <span class="tile__ic">{{icon:i-storefront}}</span>
           <h3>{{bento.office.title}}</h3>
           <p>{{bento.office.body}}</p>
-          <div class="ocard">
-            <div class="ocard__top">
-              <span class="ocard__av">{{demoView.office.initial}}</span>
-              <span class="ocard__who"><b>{{demoView.office.name}}{{icon:i-verified:ocard__badge}}</b><small>{{demoView.office.city}}، {{demoView.office.branches}}</small></span>
+          <div class="flip" data-flip>
+            <div class="flip__inner">
+              <div class="ocard flip__front">
+                <div class="ocard__top">
+                  <span class="ocard__av">{{demoView.office.initial}}</span>
+                  <span class="ocard__who"><b>{{demoView.office.name}}{{icon:i-verified:ocard__badge}}</b><small>{{demoView.office.city}}، {{demoView.office.branches}}</small></span>
+                </div>
+                <div class="ocard__row">
+                  <span class="ocard__star">{{icon:i-starfill}}<bdi class="num">{{demoView.office.rating}}</bdi><small>{{demoView.office.reviews}}</small></span>
+                  <span class="ocard__open"><i aria-hidden="true"></i>{{demoView.office.open}}</span>
+                </div>
+                <div class="ocard__rate"><small>{{bento.office.today}}</small><b class="num">{{demoView.office.rate}}</b><span class="ocard__age">{{icon:i-clock}}<bdi>{{demoView.office.age}}</bdi></span></div>
+                <button class="flip__btn" type="button" aria-expanded="false" aria-controls="ocard-week">{{icon:i-clock}}<span>{{bento.office.hoursBtn}}</span></button>
+              </div>
+              <div class="ocard flip__back" id="ocard-week">
+                <p class="week__h">{{bento.office.hoursTitle}}</p>
+                <ul class="week">{{#each demoView.office.week}}<li class="{{.cls}} {{.today}}"><span>{{.day}}</span><bdi>{{.hours}}</bdi></li>{{/each}}</ul>
+                <button class="flip__btn" type="button" data-flip-back>{{icon:i-arrowfwd:ic--back}}<span>{{bento.office.backBtn}}</span></button>
+              </div>
             </div>
-            <div class="ocard__row">
-              <span class="ocard__star">{{icon:i-starfill}}<bdi class="num">{{demoView.office.rating}}</bdi><small>{{demoView.office.reviews}}</small></span>
-              <span class="ocard__open"><i aria-hidden="true"></i>{{demoView.office.open}}</span>
-            </div>
-            <div class="ocard__rate"><small>{{bento.office.today}}</small><b class="num">{{demoView.office.rate}}</b><span class="ocard__age">{{icon:i-clock}}<bdi>{{demoView.office.age}}</bdi></span></div>
           </div>
         </article>
 
