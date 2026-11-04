@@ -78,11 +78,25 @@
     preload(next).then(function () {
       var r = tgl.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
       var R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-      var vt = document.startViewTransition(function () { applyTheme(next); });
+      var ring = null;
+      var vt = document.startViewTransition(function () {
+        applyTheme(next);
+        /* the ring lives in the new page, so it is drawn inside the growing circle, right at its edge */
+        ring = document.createElement('span');
+        ring.className = 'vt-ring';
+        ring.setAttribute('aria-hidden', 'true');
+        ring.style.setProperty('--vx', x + 'px');
+        ring.style.setProperty('--vy', y + 'px');
+        document.body.appendChild(ring);
+      });
+      var timing = { duration: 700, easing: 'cubic-bezier(.65, 0, .35, 1)' };
       vt.ready.then(function () {
         root.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + R + 'px at ' + x + 'px ' + y + 'px)'] },
-          { duration: 700, easing: 'cubic-bezier(.65, 0, .35, 1)', pseudoElement: '::view-transition-new(root)' });
+          { duration: timing.duration, easing: timing.easing, pseudoElement: '::view-transition-new(root)' });
+        if (ring) ring.animate([{ '--vr': '0px', opacity: 1 }, { '--vr': (R * .62) + 'px', opacity: 1, offset: .62 }, { '--vr': R + 'px', opacity: 0 }],
+          { duration: timing.duration, easing: timing.easing, fill: 'forwards' });
       }).catch(function () {});
+      vt.finished.then(function () { if (ring) ring.remove(); }, function () { if (ring) ring.remove(); });
     });
   }
   if (tgl) {
