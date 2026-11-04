@@ -1068,3 +1068,8 @@ html[dir="rtl"] .widget__stage .halo { translate: 50% -50%; }
 @media (max-width: 640px) {
   .demo-tag, .btn--glass, .badge, .facts, .gcard, .why__stage, .calc__panel, .show__arrow, .wdock { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+/* visitors who ask for less transparency get solid surfaces instead of glass */
+@media (prefers-reduced-transparency: reduce) {
+  .hdr.is-float .hdr__pill, .sheet, .gcard, .facts, .why__stage, .calc__panel, .demo-tag, .badge, .btn--glass, .show__arrow, .totop, .callout, .tile, .tcard, .hot span { background: var(--sf2); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .hdr::before { -webkit-backdrop-filter: none; backdrop-filter: none; background: color-mix(in srgb, var(--bg0) 86%, transparent); }
+}
