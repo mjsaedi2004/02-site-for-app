@@ -1106,3 +1106,10 @@ html[dir="rtl"] .widget__stage .halo { translate: 50% -50%; }
 .tile--themes { display: flex; flex-direction: column; }
 .tile--themes .fan { flex: 1; min-block-size: 216px; }
 .tile--themes .fan__card { inset-block-start: calc(50% - 104px); }
+/* the rates tile on wide screens: a larger phone in the vertical middle; the rate card takes the free height */
+@media (min-width: 1041px) {
+  .tile--rates, html[dir="rtl"] .tile--rates { --tpw: clamp(214px, 17vw, 248px); display: flex; flex-direction: column; padding-inline-end: calc(var(--tpw) + 64px); }
+  .tile--rates .tile__phone { inset-block-start: calc(50% - var(--tpw) * 1.085); }
+  .tile--rates .device.tile__device { --pw: var(--tpw); }
+  .tile--rates .curcard { margin-block-start: auto; }  /* the stat anchors the bottom; title and chips stay on top */
+}
