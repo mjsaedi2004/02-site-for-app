@@ -44,6 +44,10 @@ Owner's next step after the variants (“both too plain”): a luxury site beyon
 and white themes with a circular reveal from the header button, a capsule header, neon ember → magenta → violet,
 glass surfaces, soft-square boxes, rich scroll stories (pinned messages → ordered list, sticky phone steps,
 word-by-word statement), a bento of app parts, the engine-checked calculator, cursor light and tilt.
+Later: a closer look with numbered spots, the office card flipping to its week, a pinned sideways showroom of eight
+screens (fits 1280×720; arrows when it scrolls by itself), the spread of every office's payout, a kinetic word band,
+skeleton home/lock screens for the widget placeholder, a neon ring on the theme reveal, the capsule's edge light,
+phone glass glint, a richer phone menu, entrance variety, its own dark link previews (`tools/og_aurora.js`).
 Plan and sizes: `site/variants/aurora/PLAN.md`. Online: https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt
 
 ---

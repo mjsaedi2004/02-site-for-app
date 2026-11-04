@@ -36,8 +36,9 @@
 
 تنظیم‌ها (`site/src/config.json`: لینک فروشگاه‌ها، راه تماس صرافی‌ها، دامنه، `legalReady`) برای هر سه مشترک است؛
 متن‌های هر نسخه در پوشهٔ `i18n` خودش است. ساخت نسخه‌ها:
-`python3 -I site/tools/build_variant.py fitraho` و `python3 -I site/tools/build_variant.py byondbites`،
-و برای نسخهٔ آنلاین `python3 -I site/tools/build_artifact.py fitraho` (یا `byondbites`).
+`python3 -I site/tools/build_variant.py fitraho`، `byondbites` و `aurora`،
+و برای نسخهٔ آنلاین `python3 -I site/tools/build_artifact.py fitraho` (یا `byondbites` یا `aurora`).
+Aurora تصویر پیش‌نمایش لینک خودش را دارد (تیره و نئونی): `node site/tools/og_aurora.js` → `site/variants/aurora/og/`.
 
 ## وقتی نسخهٔ تازهٔ اپ رسید
 
@@ -46,8 +47,8 @@
 3. `node site/tools/posters.js` — عکس‌های ثابت هر صحنه (برای قبل از بارگذاری و حالت بدون حرکت).
 4. `node site/tools/brand_assets.js` — آیکون‌ها و تصویر پیش‌نمایش لینک.
 5. `python3 -I site/tools/build.py` و برای نسخهٔ آنلاین `python3 -I site/tools/build_artifact.py`.
-6. `node site/tools/demo_data.js` — دادهٔ نمونهٔ کارت‌ها و ماشین‌حساب نسخهٔ Byondbites از موتور خود اپ
-   (و چک ماشین‌حساب با موتور)؛ بعد دو نسخهٔ دیگر را با `build_variant.py` دوباره بساز.
+6. `node site/tools/demo_data.js` — دادهٔ نمونهٔ کارت‌ها و ماشین‌حساب نسخه‌های Byondbites و Aurora از موتور خود اپ
+   (و چک ماشین‌حساب با موتور)؛ بعد `node site/tools/og_aurora.js` و هر سه نسخه را با `build_variant.py` دوباره بساز.
 
 ## نکته‌هایی برای خود اپ (اپ جعبهٔ سیاه است؛ فقط گزارش)
 
