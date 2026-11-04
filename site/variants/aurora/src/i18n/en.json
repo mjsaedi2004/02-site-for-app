@@ -170,10 +170,9 @@
     },
     "office": {
       "title": "Every office, one page",
-      "body": "Branches, opening hours, rating and today's rate, all in one place.",
+      "body": "Branches, opening hours and today's rate, all in one place.",
       "verified": "Verified",
       "branches": "{n} branches",
-      "reviews": "{n} reviews",
       "open": "Open until {t}",
       "today": "Today's rate",
       "hoursBtn": "Opening hours",
@@ -515,7 +514,6 @@
     "eyebrow": "Showroom",
     "title": "The app, screen by screen",
     "sub": "The app's own screens with demo data; scroll and they pass by.",
-    "hint": "Swipe",
     "items": [
       {
         "title": "Today's rates",
@@ -559,6 +557,20 @@
       "06",
       "07",
       "08"
+    ],
+    "prev": "Previous screen",
+    "next": "Next screen"
+  },
+  "band": {
+    "a": [
+      "Rates side by side",
+      "Every rate's age",
+      "Fee included"
+    ],
+    "b": [
+      "No sign-up",
+      "Persian and English",
+      "Three themes"
     ]
   }
 }

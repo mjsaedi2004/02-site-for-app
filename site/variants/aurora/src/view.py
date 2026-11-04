@@ -103,7 +103,6 @@ def extend(view, t, lang, demo, H):
     view["office"] = {
         "initial": best["initial"][lang], "name": best["name"][lang], "city": best["city"][lang],
         "branches": t["bento"]["office"]["branches"].replace("{n}", num(o["branches"], lang)),
-        "rating": fmt(o["rating"], lang, 1), "reviews": t["bento"]["office"]["reviews"].replace("{n}", num(o["reviews"], lang)),
         "open": t["bento"]["office"]["open"].replace("{t}", num(clock, lang)),
         "rate": fmt(best["send"], lang), "age": rel(best["mins"], lang, demo),
     }

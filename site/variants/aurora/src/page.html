@@ -219,7 +219,7 @@
               <p>{{how.steps.2.body}}</p>
               <ul class="hstep__tags">{{#each how.steps.2.tags}}<li>{{.}}</li>{{/each}}</ul>
               <div class="mini mini--chips" aria-hidden="true">
-                <span>{{icon:i-verified}}{{bento.office.verified}}</span><span><i class="mini__dot"></i>{{demoView.office.open}}</span><span>{{icon:i-starfill}}<bdi class="num">{{demoView.office.rating}}</bdi></span><span>{{icon:i-mappin}}{{demoView.office.branches}}</span>
+                <span>{{icon:i-verified}}{{bento.office.verified}}</span><span><i class="mini__dot"></i>{{demoView.office.open}}</span><span>{{icon:i-clock}}<bdi>{{demoView.office.age}}</bdi></span><span>{{icon:i-mappin}}{{demoView.office.branches}}</span>
               </div>
             </div>
             <div class="hstep__phone">{{device:office-page:page:hstep__device}}</div>
@@ -360,7 +360,7 @@
                   <span class="ocard__who"><b>{{demoView.office.name}}{{icon:i-verified:ocard__badge}}</b><small>{{demoView.office.city}}، {{demoView.office.branches}}</small></span>
                 </div>
                 <div class="ocard__row">
-                  <span class="ocard__star">{{icon:i-starfill}}<bdi class="num">{{demoView.office.rating}}</bdi><small>{{demoView.office.reviews}}</small></span>
+                  <span class="ocard__ver">{{icon:i-verified}}{{bento.office.verified}}</span>
                   <span class="ocard__open"><i aria-hidden="true"></i>{{demoView.office.open}}</span>
                 </div>
                 <div class="ocard__rate"><small>{{bento.office.today}}</small><b class="num">{{demoView.office.rate}}</b><span class="ocard__age">{{icon:i-clock}}<bdi>{{demoView.office.age}}</bdi></span></div>
@@ -437,7 +437,7 @@
         </div>
         <div class="show__note"><p class="sub">{{show.sub}}</p><span class="demo-tag">{{demoTag}}</span></div>
       </div>
-      <div class="show__viewport">
+      <div class="show__viewport" id="show-row" role="region" aria-labelledby="show-h" tabindex="0">
         <ol class="show__track">
           <li class="scard">
             {{device:live:page:scard__device}}
@@ -489,7 +489,7 @@
           </li>
         </ol>
       </div>
-      <div class="wrap show__foot"><span class="show__bar" aria-hidden="true"><i></i></span></div>
+      <div class="wrap show__foot"><span class="show__bar" aria-hidden="true"><i></i></span><div class="show__arrows"><button class="show__arrow" type="button" data-step="-1" aria-controls="show-row" aria-label="{{show.prev}}">{{icon:i-back:ic--rtlflip}}</button><button class="show__arrow" type="button" data-step="1" aria-controls="show-row" aria-label="{{show.next}}">{{icon:i-chevron:ic--rtlflip}}</button></div></div>
     </div>
   </section>
 
@@ -600,6 +600,12 @@
       </ul>
     </div>
   </section>
+
+  <!-- KINETIC BAND: the product in a few words, moving with the scroll (decorative; said elsewhere too) -->
+  <div class="band" aria-hidden="true">
+    <div class="band__row band__row--a"><div class="band__track">{{#each band.a}}<span class="band__w">{{.}}</span><i class="band__sep"></i>{{/each}}{{#each band.a}}<span class="band__w">{{.}}</span><i class="band__sep"></i>{{/each}}{{#each band.a}}<span class="band__w">{{.}}</span><i class="band__sep"></i>{{/each}}{{#each band.a}}<span class="band__w">{{.}}</span><i class="band__sep"></i>{{/each}}</div></div>
+    <div class="band__row band__row--b"><div class="band__track">{{#each band.b}}<span class="band__w">{{.}}</span><i class="band__sep"></i>{{/each}}{{#each band.b}}<span class="band__w">{{.}}</span><i class="band__sep"></i>{{/each}}{{#each band.b}}<span class="band__w">{{.}}</span><i class="band__sep"></i>{{/each}}{{#each band.b}}<span class="band__w">{{.}}</span><i class="band__sep"></i>{{/each}}</div></div>
+  </div>
 
   <!-- FOR OFFICES -->
   <section class="sec offices" id="offices">

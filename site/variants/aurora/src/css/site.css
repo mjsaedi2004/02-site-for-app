@@ -426,9 +426,8 @@ html[dir="rtl"] .tile--rates { padding-inline-end: 260px; }
 .ocard__badge { inline-size: 17px; block-size: 17px; color: var(--tg2); }
 .ocard__who small { font-size: 14px; color: var(--tx3); }
 .ocard__row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-block-start: 14px; font-size: 14px; color: var(--tx2); }
-.ocard__star { display: inline-flex; align-items: center; gap: 6px; }
-.ocard__star .ic { inline-size: 16px; block-size: 16px; fill: currentColor; stroke: none; }
-.ocard__star small { color: var(--tx3); }
+.ocard__ver { display: inline-flex; align-items: center; gap: 6px; }
+.ocard__ver .ic { inline-size: 17px; block-size: 17px; }
 .ocard__open { display: inline-flex; align-items: center; gap: 6px; }
 .ocard__open i { inline-size: 7px; block-size: 7px; border-radius: 50%; background: var(--tx1); }
 .ocard__rate { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 0 10px; margin-block-start: 14px; padding-block-start: 12px; border-block-start: 1px solid var(--ln1); }
@@ -967,3 +966,25 @@ html[dir="rtl"] .tgl::after { translate: 50% -4px; }
 .show__note .demo-tag { align-self: flex-end; }
 @media (max-width: 980px) { .show__note .demo-tag { align-self: flex-start; } }
 .show__foot { min-block-size: 2px; }
+/* showroom arrows: shown whenever the row scrolls by itself */
+.show__arrows { display: flex; gap: 10px; flex: none; }
+.show__arrow { display: grid; place-items: center; inline-size: 44px; block-size: 44px; border-radius: var(--r-sm); color: var(--tx1); background: var(--glass); border: 1px solid var(--ln2); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: border-color .3s, background-color .3s, opacity .3s, translate .45s var(--ease); }
+@media (hover: hover) { .show__arrow:not([aria-disabled="true"]):hover { border-color: color-mix(in srgb, var(--g2) 55%, transparent); background: color-mix(in srgb, var(--g2) 10%, var(--glass)); } }
+.show__arrow:not([aria-disabled="true"]):active { translate: 0 1px; }
+.show__arrow[aria-disabled="true"] { opacity: .38; cursor: default; }
+html[dir="rtl"] .ic--rtlflip { transform: scaleX(-1); }
+.show.is-pinned .show__arrows { display: none; }
+.show__viewport:focus-visible { outline: 2px solid var(--g2); outline-offset: -2px; border-radius: var(--r); }
+/* ---------- kinetic band: the product in a few words, moving with the scroll (two rows, opposite ways) ---------- */
+.band { position: relative; display: flex; flex-direction: column; gap: .06em; padding-block: clamp(36px, 6vw, 84px); overflow: clip; font-size: clamp(44px, 7.6vw, 124px); font-weight: 800; line-height: 1.22; letter-spacing: -.01em; user-select: none; }
+:lang(en) .band { letter-spacing: -.035em; line-height: 1.1; }
+.band { -webkit-mask-image: linear-gradient(90deg, transparent, #000 min(14vw, 200px), #000 calc(100% - min(14vw, 200px)), transparent); mask-image: linear-gradient(90deg, transparent, #000 min(14vw, 200px), #000 calc(100% - min(14vw, 200px)), transparent); }
+.band__row { white-space: nowrap; }
+.band__track { display: flex; align-items: center; inline-size: max-content; will-change: transform; }
+.band__w { padding-inline: .1em; color: color-mix(in srgb, var(--tx1) 16%, transparent); transition: color .6s var(--ease); }
+.band__w:nth-of-type(3n + 1) { background: var(--tgrad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--tg2); }
+.band__row--b .band__w:nth-of-type(3n + 1) { background: none; -webkit-text-fill-color: currentColor; color: color-mix(in srgb, var(--tx1) 16%, transparent); }
+.band__row--b .band__w:nth-of-type(3n + 2) { background: var(--tgrad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--tg2); }
+@media (hover: hover) { .band__w:hover { color: var(--tx1); } }
+.band__sep { flex: none; inline-size: .2em; block-size: .2em; margin-inline: .42em; border-radius: .05em; background: var(--neon); rotate: 45deg; box-shadow: 0 0 .5em var(--glow2); }
+.band__row--b .band__track { margin-inline-start: -1.6em; }
