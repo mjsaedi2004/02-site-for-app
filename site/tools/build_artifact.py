@@ -17,6 +17,8 @@ Differences from site/public (the real, deployable site):
   * en/index.html stays a full page (supporting pages are served as they are).
   * the site's two Vazirmatn files are inlined as data: URIs; the app copy loads the same
     files from assets/fonts/ instead of its own embedded copies (identical bytes).
+  * vendored libraries (a variant's assets/vendor/) load from the identical files on jsDelivr, the CDN the
+    artifact host allows, instead of being republished;
   * tags that only matter on the real domain are dropped (canonical, hreflang, Open Graph,
     Twitter, JSON-LD, robots.txt, sitemap.xml) and directory links get an explicit index.html.
 """
@@ -30,8 +32,10 @@ SITE = Path(__file__).resolve().parent.parent
 VARIANT = sys.argv[1] if len(sys.argv) > 1 else None
 PUBLIC = SITE / "variants" / VARIANT / "public" if VARIANT else SITE / "public"
 OUT = SITE.parent / "dist" / (f"netrate-{VARIANT}" if VARIANT else "netrate")
+GSAP = "https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/"
+LENIS = "https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"
 # the artifact's name in the gallery and the browser tab (the real site keeps its SEO title)
-NAMES = {"fitraho": "NetRate FitRaho", "byondbites": "NetRate Byondbites"}
+NAMES = {"fitraho": "NetRate FitRaho", "byondbites": "NetRate Byondbites", "aurora": "NetRate Aurora"}
 FONTS = ("vazirmatn-arabic.woff2", "vazirmatn-latin.woff2")
 
 
@@ -48,6 +52,8 @@ def common(html, prefix):
     html = re.sub(r'\s*<link rel="(canonical|alternate)"[^>]*>', "", html)
     html = re.sub(r'\s*<meta (property="og:|name="twitter:)[^>]*>', "", html)
     html = re.sub(r'\s*<script type="application/ld\+json">.*?</script>', "", html, flags=re.S)
+    html = re.sub(r'src="(?:\.\./)?assets/vendor/gsap/([\w.]+\.js)"', lambda m: f'src="{GSAP}{m.group(1)}"', html)
+    html = re.sub(r'src="(?:\.\./)?assets/vendor/lenis/lenis\.min\.js"', f'src="{LENIS}"', html)
     return html
 
 
@@ -58,9 +64,9 @@ def fragment(html):
     head = re.search(r"<head>(.*?)</head>", html, re.S).group(1)
     body = re.search(r"<body[^>]*>(.*)</body>", html, re.S).group(1)
     head = re.sub(r'\s*<meta (charset|name="viewport"|name="description"|name="theme-color"|name="color-scheme")[^>]*>', "", head)
+    sets = "".join(f"d.setAttribute('{k}', '{attrs[k]}');" for k in ("data-theme", "data-theme-mode") if k in attrs)
     boot = ("<script>(function (d) {"
-            f"d.lang = '{attrs['lang']}'; d.dir = '{attrs['dir']}';"
-            f"d.setAttribute('data-theme', '{attrs['data-theme']}'); d.setAttribute('data-theme-mode', '{attrs['data-theme-mode']}');"
+            f"d.lang = '{attrs['lang']}'; d.dir = '{attrs['dir']}';" + sets +
             "d.classList.add('no-js');"
             "})(document.documentElement);</script>")
     return boot + "\n" + head.strip() + "\n" + body.strip() + "\n"
@@ -72,6 +78,8 @@ def main():
     shutil.copytree(PUBLIC, OUT)
     for junk in ("robots.txt", "sitemap.xml", "assets/img/og-fa.jpg", "assets/img/og-en.jpg"):
         (OUT / junk).unlink(missing_ok=True)
+    if (OUT / "assets/vendor").exists():                      # served from the CDN in the artifact
+        shutil.rmtree(OUT / "assets/vendor")
 
     fa = common((OUT / "index.html").read_text(encoding="utf-8"), "")
     fa = fa.replace('href="en/"', 'href="en/index.html"')

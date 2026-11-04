@@ -279,8 +279,8 @@ html[dir="rtl"] .badge { padding: 6px 12px 6px 14px; }
 .why__stage { --t: 1; position: relative; padding: 26px; border-radius: var(--r-xl); background: var(--glass); border: 1px solid var(--ln1); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
 .why__labels { position: relative; block-size: 26px; margin-block-end: 16px; font-size: 14px; font-weight: var(--w-semi); }
 .why__labels span { position: absolute; inset-inline-start: 0; display: inline-flex; align-items: center; gap: 8px; }
-.why__before { color: var(--tx3); opacity: calc(1 - var(--t)); }
-.why__after { color: var(--tx1); opacity: var(--t); }
+.why__before { color: var(--tx3); opacity: calc(1 - var(--t) * 2); }
+.why__after { color: var(--tx1); opacity: calc(var(--t) * 2 - 1); }
 .why__after::before { content: ""; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--neon); }
 .why__list { display: flex; flex-direction: column; gap: 10px; }
 .msg { --e: 1; display: grid; grid-template-columns: auto auto 1fr auto auto; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--r); background: var(--sf2); border: 1px solid var(--ln1); box-shadow: 0 14px 30px -24px rgba(0, 0, 0, .6); will-change: transform; }
