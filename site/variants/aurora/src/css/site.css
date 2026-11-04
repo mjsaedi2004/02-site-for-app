@@ -448,13 +448,20 @@ html[dir="rtl"] .tile--rates { padding-inline-end: 260px; }
 html[dir="rtl"] .switch.is-on i { translate: -16px 0; }
 /* themes tile */
 .fan { position: relative; block-size: 200px; margin-block-start: 18px; }
-.fan__card { position: absolute; inset-block-start: 6px; inset-inline-start: 50%; inline-size: 116px; aspect-ratio: 4 / 5; margin-inline-start: -58px; border-radius: var(--r); overflow: hidden; border: 1px solid var(--ln2); box-shadow: var(--shadow); transition: rotate .6s var(--sp-bouncy), translate .6s var(--sp-bouncy); }
-.fan__card--1 { rotate: -12deg; translate: -74px 14px; }
-.fan__card--2 { z-index: 1; translate: 0 0; }
-.fan__card--3 { rotate: 12deg; translate: 74px 14px; }
-.tile--themes:hover .fan__card--1 { rotate: -16deg; translate: -96px 18px; }
-.tile--themes:hover .fan__card--3 { rotate: 16deg; translate: 96px 18px; }
-.tile--themes:hover .fan__card--2 { translate: 0 -8px; }
+.fan { block-size: 216px; }
+.fan__card { position: absolute; inset-block-start: 6px; inset-inline-start: 50%; inline-size: 116px; margin-inline-start: -58px; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; transition: rotate .6s var(--sp-bouncy), translate .6s var(--sp-bouncy), z-index 0s .2s; }
+.fan__card > :first-child { display: block; inline-size: 116px; aspect-ratio: 4 / 5; border-radius: var(--r); overflow: hidden; border: 1px solid var(--ln2); box-shadow: var(--shadow); transition: border-color .3s, box-shadow .3s; }
+.fan__card > :first-child img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.fan__name { display: block; margin-block-start: 8px; font-size: 14px; font-weight: var(--w-medium); text-align: center; color: var(--tx3); transition: color .3s, opacity .3s; opacity: 0; }
+.fan__card[data-pos="0"] { rotate: -12deg; translate: -74px 14px; }
+.fan__card[data-pos="1"] { z-index: 1; translate: 0 0; }
+.fan__card[data-pos="2"] { rotate: 12deg; translate: 74px 14px; }
+.fan__card[aria-pressed="true"] > :first-child { border-color: color-mix(in srgb, var(--g2) 60%, transparent); box-shadow: var(--shadow), 0 0 0 1px color-mix(in srgb, var(--g2) 40%, transparent), 0 18px 40px -18px var(--glow2); }
+.fan__card[aria-pressed="true"] .fan__name { opacity: 1; color: var(--tx1); }
+.tile--themes:hover .fan__card[data-pos="0"] { rotate: -16deg; translate: -96px 18px; }
+.tile--themes:hover .fan__card[data-pos="2"] { rotate: 16deg; translate: 96px 18px; }
+.tile--themes:hover .fan__card[data-pos="1"] { translate: 0 -8px; }
+.tile--themes:hover .fan__name { opacity: 1; }
 /* languages tile */
 .langs { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 26px; margin-block-start: 20px; }
 .langs__seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: var(--ln1); border: 1px solid var(--ln2); }
@@ -1095,3 +1102,7 @@ html[dir="rtl"] .widget__stage .halo { translate: 50% -50%; }
 @media (prefers-reduced-motion: reduce) {
   .hstep.is-active :is(.mini__field, .mini__seg .is-on, .mini--rows li, .mini--chips span, .mini--acts span), .hstep.is-active .mini__field b::after, .hstep.is-active .mini--acts span:first-child::after { animation: none; }
 }
+/* the themes tile: the fan fills the tile's free height and sits in its middle */
+.tile--themes { display: flex; flex-direction: column; }
+.tile--themes .fan { flex: 1; min-block-size: 216px; }
+.tile--themes .fan__card { inset-block-start: calc(50% - 104px); }

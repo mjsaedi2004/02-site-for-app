@@ -391,10 +391,10 @@
           <span class="tile__ic">{{icon:i-layers}}</span>
           <h3>{{bento.themes.title}}</h3>
           <p>{{bento.themes.body}}</p>
-          <div class="fan" aria-hidden="true">
-            <span class="fan__card fan__card--1">{{tile:live:dusk:page}}</span>
-            <span class="fan__card fan__card--2">{{tile:live:light:page}}</span>
-            <span class="fan__card fan__card--3">{{tile:live:dark:page}}</span>
+          <div class="fan" role="group" aria-label="{{bento.themes.title}}">
+            <button class="fan__card" type="button" data-pos="0" aria-pressed="false">{{tile:live:dusk:page}}<span class="fan__name">{{bento.themes.names.0}}</span></button>
+            <button class="fan__card" type="button" data-pos="1" aria-pressed="true">{{tile:live:light:page}}<span class="fan__name">{{bento.themes.names.1}}</span></button>
+            <button class="fan__card" type="button" data-pos="2" aria-pressed="false">{{tile:live:dark:page}}<span class="fan__name">{{bento.themes.names.2}}</span></button>
           </div>
         </article>
 

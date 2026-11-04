@@ -851,6 +851,22 @@
     });
   }
 
+
+  /* the app's three themes: the picked card comes to the centre, the centre one takes its place */
+  function themeFan() {
+    var cards = $$('.fan__card');
+    if (cards.length !== 3) return;
+    cards.forEach(function (c) {
+      c.addEventListener('click', function () {
+        if (c.dataset.pos === '1') return;
+        var mid = cards.filter(function (k) { return k.dataset.pos === '1'; })[0];
+        mid.dataset.pos = c.dataset.pos;
+        c.dataset.pos = '1';
+        cards.forEach(function (k) { k.setAttribute('aria-pressed', k === c ? 'true' : 'false'); });
+      });
+    });
+  }
+
   /* ------------------------------------------------------------ start */
   smooth();
   header();
@@ -884,6 +900,7 @@
   restOffscreen();
   band();
   capsuleLight();
+  themeFan();
   if (ST) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
     window.addEventListener('load', function () { ST.refresh(); });
