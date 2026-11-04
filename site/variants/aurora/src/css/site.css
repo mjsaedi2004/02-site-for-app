@@ -318,7 +318,6 @@ html[dir="rtl"] .badge { padding: 6px 12px 6px 14px; }
 .mini__seg .is-on { color: var(--tx1); background: var(--sf3); border: 1px solid var(--ln3); }
 .mini--rows { display: flex; flex-direction: column; gap: 8px; max-inline-size: 460px; }
 .mini--rows li { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 12px; padding: 10px 14px; border-radius: var(--r-sm); background: var(--sf1); border: 1px solid var(--ln1); font-size: 14.5px; }
-.mini--rows li:first-child { border-color: var(--ln3); }
 .mini__n { display: grid; place-items: center; inline-size: 28px; block-size: 28px; border-radius: var(--r-xs); font-size: 14px; color: var(--tx2); background: var(--ln1); }
 .mini--rows b { font-weight: var(--w-semi); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mini__v { font-size: 18px; font-weight: 300; }
