@@ -183,6 +183,8 @@
         <p class="sub" data-reveal>{{how.sub}}</p>
       </header>
       <div class="how__grid">
+        <div class="how__col">
+        <span class="how__track" aria-hidden="true"><i></i></span>
         <ol class="how__steps">
           <li class="hstep" data-scene="{{how.steps.0.scene}}">
             <span class="hstep__n num" aria-hidden="true">{{how.steps.0.n}}</span>
@@ -234,6 +236,7 @@
             <div class="hstep__phone">{{device:contact:page:hstep__device}}</div>
           </li>
         </ol>
+        </div>
         <div class="how__sticky">
           <div class="how__stage">
             <div class="halo halo--sm" aria-hidden="true"><i></i></div>
@@ -440,6 +443,11 @@
           </ol>
           <p class="calc__more" id="calc-more">{{demoView.calc.more}}</p>
           <div class="gap"><span>{{calc.gap}}</span><b><bdi class="num roll" id="calc-gap">{{demoView.calc.gap}}</bdi> <small id="calc-gap-unit">{{calc.toman}}</small></b></div>
+          <div class="spread" aria-hidden="true">
+            <p class="spread__h"><span>{{calc.spread}}</span><span id="calc-n"></span></p>
+            <div class="spread__plot" id="calc-spread"></div>
+            <p class="spread__ends"><bdi id="calc-min"></bdi><bdi id="calc-max"></bdi></p>
+          </div>
           <p class="calc__note"><span class="demo-tag">{{demoTag}}</span><span>{{calc.legal}}</span></p>
         </div>
       </div>

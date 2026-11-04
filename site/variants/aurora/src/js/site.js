@@ -279,6 +279,10 @@
       shots.forEach(function (sh) { sh.classList.toggle('is-on', sh.dataset.scene === scene); });
     }
     activate(0);
+    var fill = $('.how__track i');
+    if (fill && motion) {
+      ST.create({ trigger: '.how__col', start: 'top 55%', end: 'bottom 55%', scrub: .3, onUpdate: function (st) { fill.style.setProperty('--p', st.progress.toFixed(4)); } });
+    } else if (fill) fill.style.setProperty('--p', 1);
     if (!('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) activate(steps.indexOf(en.target)); });
@@ -390,6 +394,7 @@
     var amountEl = $('#calc-amount'), unitEl = $('#calc-unit'), head = $('#calc-head'), list = $('#calc-rows');
     var more = $('#calc-more'), gapEl = $('#calc-gap'), gapUnit = $('#calc-gap-unit'), note = $('#calc-metal-note');
     var typeInputs = $$('#calc-types input');
+    var spread = $('#calc-spread'), spreadMin = $('#calc-min'), spreadMax = $('#calc-max'), spreadN = $('#calc-n');
     var AR = '٠١٢٣٤٥٦٧٨٩';
     function fmt(n, dec) {
       var s = n.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
@@ -480,6 +485,21 @@
       var gap = ranked.length > 1 ? Math.abs(top[0].value - last.value) : 0;
       rollTo(gapEl, fmt(gap, dec));
       gapUnit.textContent = unit;
+      /* every office on one line between the lowest and the highest value (all dots alike: nothing marks "best") */
+      if (spread) {
+        var vals = ranked.map(function (r) { return r.value; });
+        var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), span = hi - lo || 1;
+        var dots = spread.children;
+        while (dots.length < ranked.length) { var d = document.createElement('i'); d.className = 'spread__dot'; spread.appendChild(d); }
+        while (dots.length > ranked.length) spread.lastChild.remove();
+        ranked.slice().sort(function (a, b) { return a.ex.id < b.ex.id ? -1 : 1; }).forEach(function (r, k) {
+          dots[k].style.setProperty('--x', ((r.value - lo) / span * 100).toFixed(2) + '%');
+          dots[k].setAttribute('data-label', r.ex.name[L] + '  ' + fmt(r.value, dec));
+        });
+        spreadMin.textContent = fmt(lo, dec);
+        spreadMax.textContent = fmt(hi, dec);
+        spreadN.textContent = T.spreadNote.replace('{n}', local(ranked.length));
+      }
     }
     /* the server-rendered rows become the first keyed rows */
     list.textContent = '';

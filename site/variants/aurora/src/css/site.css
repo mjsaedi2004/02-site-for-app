@@ -838,3 +838,37 @@ html[dir="rtl"] .totop { inset-inline-end: calc(22px + env(safe-area-inset-left,
 @keyframes caret { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .hero__title .grad { animation: none; } }
 @media (max-width: 640px) { .totop { inline-size: 48px; block-size: 48px; inset-block-end: calc(16px + env(safe-area-inset-bottom, 0px)); } }
+
+/* ---------- polish: language switch crossfade, hero lines, neon rules between sections ---------- */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+.js .hero__title { animation: none; }
+.js .hero__line { display: inline-block; clip-path: inset(0 0 100% 0); animation: line-in 1s var(--ease) forwards; }
+.js .hero__line + .hero__line { animation-delay: .14s; }
+@keyframes line-in { from { clip-path: inset(0 0 100% 0); translate: 0 .35em; } to { clip-path: inset(-10% -4% -18% -4%); translate: none; } }
+.bento::before, .calc::before, .trust::before, .faq::before, .offices::before { content: ""; position: absolute; inset-block-start: 0; inset-inline: max(var(--gut), calc(50% - 460px)); block-size: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--g2) 70%, transparent), color-mix(in srgb, var(--g3) 70%, transparent), transparent); opacity: .55; }
+.hstep { min-block-size: 60svh; }
+@media (prefers-reduced-motion: reduce) { .js .hero__line { clip-path: none; animation: none; } }
+
+/* ---------- more: phone entrance, steps progress line, spread of rates ---------- */
+@keyframes phone-in { from { opacity: 0; transform: perspective(1100px) rotateY(-24deg) rotateX(8deg) translate3d(0, 50px, 0); } }
+html[dir="rtl"] { --phone-turn: 24deg; }
+.js .device.hero__device { animation: phone-in 1.3s var(--ease) .15s both, bob 7s ease-in-out 1.5s infinite alternate; }
+.js .hero__stage { animation: none; }
+.js .halo { animation: in-up 1.4s var(--ease) .3s both; }
+.js .gcard--best { animation: in-up .9s var(--ease) .7s both, bob 6s ease-in-out -2s infinite alternate; }
+.js .gcard--avg { animation: in-up .9s var(--ease) .85s both, bob 8s ease-in-out -4s infinite alternate; }
+.js .hero__demo { animation: in-up .8s var(--ease) 1s both; }
+.how__steps { position: relative; }
+.hstep::before { display: none; }
+.how__track { position: absolute; inset-inline-start: 0; inset-block: 60px; inline-size: 2px; border-radius: 2px; background: var(--ln2); }
+.how__track i { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(var(--g1), var(--g2), var(--g3)); box-shadow: 0 0 16px var(--glow2); transform: scaleY(var(--p, 0)); transform-origin: top; }
+.spread { margin-block-start: 14px; padding: 14px 16px 12px; border-radius: var(--r); background: var(--sf2); border: 1px solid var(--ln1); }
+.spread__h { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--tx3); }
+.spread__plot { position: relative; block-size: 34px; margin-block: 8px 4px; direction: ltr; }
+.spread__plot::before { content: ""; position: absolute; inset-inline: 0; inset-block-start: 50%; block-size: 2px; margin-block-start: -1px; border-radius: 2px; background: linear-gradient(90deg, color-mix(in srgb, var(--g1) 60%, transparent), color-mix(in srgb, var(--g3) 60%, transparent)); opacity: .5; }
+.spread__dot { position: absolute; inset-block-start: 50%; inset-inline-start: var(--x); inline-size: 14px; block-size: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--tx1); border: 3px solid var(--sf2); box-shadow: 0 0 0 1px var(--ln3); transition: inset-inline-start .6s var(--sp-smooth); }
+.spread__dot:hover::after, .spread__dot:focus-visible::after { content: attr(data-label); position: absolute; inset-block-end: calc(100% + 8px); inset-inline-start: 50%; translate: -50% 0; padding: 4px 8px; border-radius: var(--r-xs); font-size: 14px; white-space: nowrap; color: var(--tx1); background: var(--sf3); border: 1px solid var(--ln3); }
+.spread__ends { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--tx2); direction: ltr; }
+@media (prefers-reduced-motion: reduce) { .js .device.hero__device, .js .halo, .js .gcard, .js .hero__demo { animation: none; } }
+@media (max-width: 640px) { .js .gcard--best, .js .gcard--avg { animation: in-up .9s var(--ease) .5s both; } }

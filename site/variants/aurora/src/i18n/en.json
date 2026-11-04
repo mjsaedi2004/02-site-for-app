@@ -264,7 +264,9 @@
     "note": "Demo data; office names and rates are made up.",
     "legal": "The offices post the rates themselves, for information only; for a firm rate, contact the office before you deal.",
     "empty": "Type an amount",
-    "resultsLabel": "The first three offices"
+    "resultsLabel": "The first three offices",
+    "spread": "Spread across all offices",
+    "spreadNote": "{n} offices"
   },
   "honest": {
     "eyebrow": "Honesty",
