@@ -130,15 +130,22 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   because `tokens.css` (the app's) also defines `--bg`, `--ink`, `--line` under `[data-theme]`.
 - Phones are `{{device:…}}`: each screen ships in the app's black and white theme; CSS shows the one matching the site.
 - Motion: Lenis + GSAP ScrollTrigger/Flip (vendored; in the artifact they load from jsDelivr, so no unread third-party
-  file is published). Theme switch = View Transition circle from the button. Pinned “why” story, sticky phone steps,
-  word-by-word trust statement, chart drawing, ticker that speeds up with scroll, cursor light, tile tilt, typing panel.
+  file is published). Theme switch = View Transition circle from the button with a neon ring on its edge. Pinned “why”
+  story, sticky phone steps, closer look (numbered spots), pinned sideways showroom (arrows when not pinned), kinetic
+  word band, word-by-word trust statement, chart drawing, ticker that speeds up with scroll, cursor light, tile tilt,
+  typing panel, capsule edge light, phone glass glint.
 - Data: `view.py` (build hook) formats the engine data — hero cards, why list, 30-day chart path, office card, panel.
 - Build: `node site/tools/demo_data.js` → `python3 -I site/tools/build_variant.py aurora` →
   `python3 -I site/tools/build_artifact.py aurora` (artifact “NetRate Aurora”): https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt
 - Pitfalls hit: an `<input>`'s intrinsic width widened a `1fr` grid track on phones → `minmax(0, 1fr)` everywhere and
   `flex: 1 1 0` on the input; Persian “۰۱” reads oddly → `{{@nn}}` gives plain digits in Persian; the footer outline
   word showed only letter dots when pushed down → keep it in view with a mask; a crowded heredoc in one shell command
-  tripped the safety check → write snippets to the scratchpad and insert them with a short script.
+  tripped the safety check → write snippets to the scratchpad and insert them with a short script; scaling a
+  full-viewport overlay (the theme ring) scales its box too, so the ring stayed in the far corner → animate a registered
+  `@property` length (`--vr`) instead, and never register `--r` (it is the radius token); an element added in the view
+  transition's update callback is part of the live new view, so it is drawn inside the reveal's clip; the pinned showroom
+  must fit short laptops (1280×720) → `--show-chrome` budget under `max-height: 900px`; no rating values in the site's
+  own mock-ups (brief: no fake ratings — the app's stills may show its own demo ratings).
 
 ## Tech conventions
 - Static HTML/CSS/JS, no build step for the repo. Classic `<script>` tags so `index.html` also works from `file://`.
