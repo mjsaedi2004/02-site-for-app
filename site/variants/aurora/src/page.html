@@ -30,6 +30,7 @@
 <link rel="icon" href="{{base}}assets/img/icon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="{{base}}assets/img/apple-touch-icon.png">
 {{fontPreloads}}
+<link rel="preload" as="image" href="{{base}}assets/img/scenes/{{lang}}/dark/live.webp" fetchpriority="high">
 <script>
 /* theme before first paint: black by default, white when the visitor chose it (kept in localStorage only) */
 (function () {
@@ -434,7 +435,7 @@
           <p class="eyebrow">{{show.eyebrow}}</p>
           <h2 class="h2" id="show-h">{{show.title}}</h2>
         </div>
-        <p class="sub">{{show.sub}}</p>
+        <div class="show__note"><p class="sub">{{show.sub}}</p><span class="demo-tag">{{demoTag}}</span></div>
       </div>
       <div class="show__viewport">
         <ol class="show__track">
@@ -488,7 +489,7 @@
           </li>
         </ol>
       </div>
-      <div class="wrap show__foot"><span class="show__bar" aria-hidden="true"><i></i></span><span class="demo-tag">{{demoTag}}</span></div>
+      <div class="wrap show__foot"><span class="show__bar" aria-hidden="true"><i></i></span></div>
     </div>
   </section>
 

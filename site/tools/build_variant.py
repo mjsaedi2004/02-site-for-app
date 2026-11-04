@@ -382,7 +382,7 @@ def main():
             page_data["demo"] = {k: demo[k] for k in ("cur", "type", "ex", "rel")}
             page_data["calc"] = t["calc"]
         extra = {
-            "base": base, "htmlLang": cfg["langs"][lang]["htmlLang"], "dir": cfg["langs"][lang]["dir"],
+            "base": base, "lang": lang, "htmlLang": cfg["langs"][lang]["htmlLang"], "dir": cfg["langs"][lang]["dir"],
             "canonical": page_url(lang), "urlFa": page_url("fa"), "urlEn": page_url("en"),
             "ogImage": cfg["siteUrl"].rstrip("/") + f"/assets/img/og-{lang}.jpg",
             "otherLocale": "en_GB" if lang == "fa" else "fa_IR",

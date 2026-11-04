@@ -928,7 +928,7 @@ html[dir="rtl"] .callouts--b .callout.is-on { translate: 6px 0; }
 .show__viewport { overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; }
 .show__viewport::-webkit-scrollbar { display: none; }
 .show__track { display: flex; gap: clamp(20px, 3vw, 44px); inline-size: max-content; padding-inline: max(var(--gut), calc((100vw - var(--wrap)) / 2)); padding-block: 12px 18px; }
-.scard { --pw: clamp(190px, min(18vw, (100svh - 430px) * .461), 250px); scroll-snap-align: center; display: flex; flex-direction: column; inline-size: var(--pw); }
+.scard { --pw: clamp(190px, min(18vw, (100svh - 430px) * .461), 250px); --show-chrome: 430px; scroll-snap-align: center; display: flex; flex-direction: column; inline-size: var(--pw); }
 .device.scard__device { --pw: inherit; transition: translate .6s var(--ease); }
 .scard:hover .scard__device { translate: 0 -8px; }
 .scard__n { margin-block-start: 18px; font-size: 14px; font-weight: var(--w-semi); background: var(--tgrad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--tg2); }
@@ -949,3 +949,21 @@ html[dir="rtl"] .show__bar i { transform-origin: right; }
 .tgl::after { content: attr(aria-label); position: absolute; inset-block-start: calc(100% + 10px); inset-inline-start: 50%; translate: -50% -4px; padding: 5px 10px; border-radius: var(--r-xs); font-size: 14px; font-weight: var(--w-medium); line-height: 1.5; white-space: nowrap; color: var(--tx1); background: var(--sf3); border: 1px solid var(--ln3); box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity .25s, translate .35s var(--ease); }
 html[dir="rtl"] .tgl::after { translate: 50% -4px; }
 @media (hover: hover) { .tgl:hover::after, .tgl:focus-visible::after { opacity: 1; translate: -50% 0; } html[dir="rtl"] .tgl:hover::after, html[dir="rtl"] .tgl:focus-visible::after { translate: 50% 0; } }
+
+/* ---------- the pinned showroom on short laptop screens: tighter chrome, the phone takes what is left ---------- */
+.show.is-pinned .scard { --pw: clamp(150px, min(18vw, (100svh - var(--show-chrome)) * .461), 250px); }
+@media (max-height: 900px) {
+  .show.is-pinned .show__pin { padding-block: 78px 12px; gap: 16px; }
+  .show.is-pinned .show__head .h2 { font-size: clamp(28px, 2.9vw, 40px); }
+  .show.is-pinned .show__head .eyebrow { margin-block-end: 6px; }
+  .show.is-pinned .show__track { padding-block: 8px 8px; }
+  .show.is-pinned .scard { --show-chrome: 364px; }
+  .show.is-pinned .scard__n { margin-block-start: 12px; }
+  .show.is-pinned .scard p:last-child { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+}
+/* the market-average card leans out of the stage only as far as the page gutter allows */
+@media (min-width: 981px) { .gcard--avg { inset-inline-end: max(-6%, calc((1280px - 100vw) / 2)); } }
+.show__note { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.show__note .demo-tag { align-self: flex-end; }
+@media (max-width: 980px) { .show__note .demo-tag { align-self: flex-start; } }
+.show__foot { min-block-size: 2px; }
