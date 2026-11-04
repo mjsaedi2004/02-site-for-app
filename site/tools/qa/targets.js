@@ -4,7 +4,7 @@ const { chromium } = require('playwright');
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: +w, height: +h } });
   await page.goto(url, { waitUntil: 'load' });
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(1600); // let entrance animations (header drop-in, scale) settle first
   const res = await page.evaluate(() => {
     const out = [];
     document.querySelectorAll('a, button, summary, [role="radio"], input, select').forEach((el) => {
