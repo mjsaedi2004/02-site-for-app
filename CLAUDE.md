@@ -125,15 +125,25 @@ luxurious, modern, rich (not empty), neon/gradient colour instead of flat backgr
 interactions, exact phone sizes on every screen, real mobile responsiveness; **two themes only — black (default) and
 white** — switched by a button with a simple, professional animation (no theme change on scroll); boxes are **soft
 squares** (10/14/18/22 px, never round); a **capsule header** that detaches from the top, follows and shrinks.
-- Identity: night `#06050A` with glass surfaces; neon ember → magenta → violet (`--g1..3`, text-safe `--tg1..3`);
-  no green, no decorative blue (blue = up), gold only for Featured. Tokens are prefixed (`--bg0`, `--tx1`, `--ln1` …)
-  because `tokens.css` (the app's) also defines `--bg`, `--ink`, `--line` under `[data-theme]`.
+- Owner's second round: the neon gradient (ember → magenta → violet) and the backgrounds were “very bad”; wanted
+  attractive, well-known background patterns, clearer section separation and tighter animation. So the identity now
+  comes from the **app's own black and white themes** (monochrome: black/white, silver `--neon` = the app's primary
+  fill, chrome text gradient `--tgrad`; colour only for direction, gold only for Featured). Richness comes from light
+  and patterns: hero light rays + spotlights + floor grid, dot matrix (why, calc, widget), ripple rings (look),
+  graph paper (features), a stage floor (showroom), a lamp (trust), diagonal lines (offices), grids inside the dark
+  panels and the footer, film grain. Sections alternate ground / faint `--band` tint with hairline edges and a light
+  at the middle of each band's top edge. The dark ink panels (honesty, coming soon) always use the black-theme tokens.
+  Tokens are prefixed (`--bg0`, `--tx1`, `--ln1` …) because `tokens.css` (the app's) also defines `--bg`, `--ink`,
+  `--line` under `[data-theme]`; the brand mark follows the app's `--mark-fill`/`--mark-ink` (set them on a dark
+  card to force the black-theme mark — CSS can't reach inside `<use>`).
 - Phones are `{{device:…}}`: each screen ships in the app's black and white theme; CSS shows the one matching the site.
 - Motion: Lenis + GSAP ScrollTrigger/Flip (vendored; in the artifact they load from jsDelivr, so no unread third-party
-  file is published). Theme switch = View Transition circle from the button with a neon ring on its edge. Pinned “why”
+  file is published). Motion is crisp: native wheel scrolling (Lenis only eases anchor jumps), `--ease`
+  `cubic-bezier(.2,.8,.2,1)`, small motions ≤ ~400 ms, scrub lag ≤ .25, no bobbing, no velocity skew, no magnetic
+  buttons. Theme switch = View Transition circle from the button with a silver ring on its edge (560 ms). Pinned “why”
   story, sticky phone steps, closer look (numbered spots), pinned sideways showroom (arrows when not pinned), kinetic
-  word band, word-by-word trust statement, chart drawing, ticker that speeds up with scroll, cursor light, tile tilt,
-  typing panel, capsule edge light, phone glass glint.
+  word band, word-by-word trust statement under the lamp, chart drawing, ticker, cursor light, tile tilt, typing
+  panel, capsule edge light, phone glass glint.
 - Data: `view.py` (build hook) formats the engine data — hero cards, why list, 30-day chart path, office card, panel.
 - Build: `node site/tools/demo_data.js` → (`node site/tools/og_aurora.js` when the hero copy or the app's main screen
   changes: Aurora's own dark link previews in `variants/aurora/og/`) → `python3 -I site/tools/build_variant.py aurora` →

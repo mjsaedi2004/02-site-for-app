@@ -32,7 +32,7 @@
   /* ------------------------------------------------------------ smooth scroll */
   function smooth() {
     if (!motion || !window.Lenis) return;
-    lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1 });
+    lenis = new window.Lenis({ smoothWheel: false, syncTouch: false });
     lenis.on('scroll', ST.update);
     G.ticker.add(function (t) { lenis.raf(t * 1000); });
     G.ticker.lagSmoothing(0);
@@ -41,7 +41,7 @@
   function scrollToHash(hash) {
     var el = hash && hash.length > 1 && document.getElementById(hash.slice(1));
     if (!el) return false;
-    if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.3, easing: function (x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; } });
+    if (lenis) lenis.scrollTo(el, { offset: 0, duration: .9, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
     else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     return true;
   }
@@ -89,7 +89,7 @@
         ring.style.setProperty('--vy', y + 'px');
         document.body.appendChild(ring);
       });
-      var timing = { duration: 700, easing: 'cubic-bezier(.65, 0, .35, 1)' };
+      var timing = { duration: 560, easing: 'cubic-bezier(.6, 0, .3, 1)' };
       vt.ready.then(function () {
         root.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + R + 'px at ' + x + 'px ' + y + 'px)'] },
           { duration: timing.duration, easing: timing.easing, pseudoElement: '::view-transition-new(root)' });
@@ -175,9 +175,9 @@
         raf = 0;
         cards.forEach(function (c) {
           var d = parseFloat(c.dataset.depth || 1);
-          c.style.transform = 'translate3d(' + (px * 26 * d).toFixed(1) + 'px,' + (py * 20 * d).toFixed(1) + 'px,0)';
+          c.style.transform = 'translate3d(' + (px * 14 * d).toFixed(1) + 'px,' + (py * 10 * d).toFixed(1) + 'px,0)';
         });
-        if (dev) dev.style.transform = 'perspective(1100px) rotateY(' + (px * 8).toFixed(2) + 'deg) rotateX(' + (-py * 6).toFixed(2) + 'deg)';
+        if (dev) dev.style.transform = 'perspective(1100px) rotateY(' + (px * 5).toFixed(2) + 'deg) rotateX(' + (-py * 4).toFixed(2) + 'deg)';
       });
     }, { passive: true });
   }
@@ -227,7 +227,7 @@
       words.forEach(function (w) { w.setAttribute('aria-hidden', 'true'); });
       if (inView(h)) return;
       ST.create({ trigger: h, start: 'top bottom', once: true, onEnter: function () {
-        G.fromTo(words, { yPercent: 110 }, { yPercent: 0, duration: .9, ease: 'power3.out', stagger: .045 });
+        G.fromTo(words, { yPercent: 110 }, { yPercent: 0, duration: .6, ease: 'power3.out', stagger: .03 });
       } });
     });
   }
@@ -273,14 +273,14 @@
     set(0);
     var mm = G.matchMedia();
     mm.add('(min-width: 981px) and (min-height: 640px)', function () {
-      var st = ST.create({ trigger: '.why', start: 'top top', end: '+=110%', pin: true, scrub: .6, onUpdate: function (s) { set(s.progress); } });
+      var st = ST.create({ trigger: '.why', start: 'top top', end: '+=110%', pin: true, scrub: .2, onUpdate: function (s) { set(s.progress); } });
       return function () { st.kill(); };
     });
     mm.add('(max-width: 980px), (max-height: 639.98px)', function () {
       var o = { t: 0 };
       set(0);
       var st = ST.create({ trigger: stage, start: 'top 75%', once: true, onEnter: function () {
-        G.to(o, { t: 1, duration: 1.6, ease: 'power2.inOut', onUpdate: function () { set(o.t); } });
+        G.to(o, { t: 1, duration: 1.1, ease: 'power3.inOut', onUpdate: function () { set(o.t); } });
       } });
       return function () { st.kill(); };
     });
@@ -300,7 +300,7 @@
     activate(0);
     var fill = $('.how__track i');
     if (fill && motion) {
-      ST.create({ trigger: '.how__col', start: 'top 55%', end: 'bottom 55%', scrub: .3, onUpdate: function (st) { fill.style.setProperty('--p', st.progress.toFixed(4)); } });
+      ST.create({ trigger: '.how__col', start: 'top 55%', end: 'bottom 55%', scrub: .15, onUpdate: function (st) { fill.style.setProperty('--p', st.progress.toFixed(4)); } });
     } else if (fill) fill.style.setProperty('--p', 1);
     if (!('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function (entries) {
@@ -346,7 +346,7 @@
     if (motion) {
       line.style.strokeDashoffset = '1';
       ST.create({ trigger: box, start: 'top 90%', once: true, onEnter: function () {
-        G.to(line, { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut' });
+        G.to(line, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut' });
       } });
       if (!inView(box)) G.set(line, { strokeDashoffset: 1 }); else line.style.strokeDashoffset = '0';
     }
@@ -494,8 +494,8 @@
         if (!top.some(function (r) { return r.ex.id === li.dataset.id; })) li.remove();
       });
       if (state) {
-        FLIP.from(state, { duration: .6, ease: 'power3.out', simple: true });
-        if (fresh.length) G.fromTo(fresh, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .45, ease: 'power2.out', clearProps: 'transform,opacity' });
+        FLIP.from(state, { duration: .42, ease: 'power3.out', simple: true });
+        if (fresh.length) G.fromTo(fresh, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .32, ease: 'power2.out', clearProps: 'transform,opacity' });
       }
       firstRender = false;
       var rest = ranked.length - 3;
@@ -561,13 +561,13 @@
     var words = splitWords(el, 'w');
     el.setAttribute('aria-label', label);
     words.forEach(function (w) { w.setAttribute('aria-hidden', 'true'); });
-    ST.create({ trigger: el, start: 'top 82%', end: 'bottom 42%', scrub: .4, onUpdate: function (s) {
+    ST.create({ trigger: el, start: 'top 82%', end: 'bottom 42%', scrub: .15, onUpdate: function (s) {
       var p = s.progress * (words.length + 1);
       words.forEach(function (w, i) { w.style.setProperty('--o', clamp(p - i, .4, 1).toFixed(3)); });
     } });
   }
 
-  /* ------------------------------------------------------------ FAQ, placeholders, magnets, footer word */
+  /* ------------------------------------------------------------ FAQ, placeholders, footer word */
   function faq() {
     $$('.qa').forEach(function (qa, i) {
       var b = $('.qa__q', qa);
@@ -594,17 +594,6 @@
           else t.remove();
         }, 1500);
       });
-    });
-  }
-  function magnets() {
-    if (!fine || reduce) return;
-    $$('[data-magnet]').forEach(function (b) {
-      b.addEventListener('pointermove', function (e) {
-        var r = b.getBoundingClientRect();
-        b.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * .18).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height / 2) * .25).toFixed(1) + 'px)';
-      });
-      b.addEventListener('pointerleave', function () { b.style.transform = ''; });
-      b.style.transition = 'transform .5s cubic-bezier(.22, 1, .36, 1), box-shadow .35s';
     });
   }
   function footerWord() {
@@ -658,7 +647,7 @@
       t.addEventListener('pointermove', function (e) {
         var r = t.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
         t.classList.add('is-tilt');
-        t.style.transform = 'perspective(1200px) rotateX(' + (-py * 3).toFixed(2) + 'deg) rotateY(' + (px * 3).toFixed(2) + 'deg)';
+        t.style.transform = 'perspective(1200px) rotateX(' + (-py * 2).toFixed(2) + 'deg) rotateY(' + (px * 2).toFixed(2) + 'deg)';
       });
       t.addEventListener('pointerleave', function () { t.classList.remove('is-tilt'); t.style.transform = ''; });
     });
@@ -804,7 +793,7 @@
       vp.removeAttribute('tabindex');
       var dist = function () { return Math.max(0, track.scrollWidth - innerWidth); };
       var tween = G.to(track, { x: function () { return (rtl ? 1 : -1) * dist(); }, ease: 'none' });
-      var st = ST.create({ trigger: sec, start: 'top top', end: function () { return '+=' + dist(); }, pin: '.show__pin', scrub: .7,
+      var st = ST.create({ trigger: sec, start: 'top top', end: function () { return '+=' + dist(); }, pin: '.show__pin', scrub: .25,
         animation: tween, invalidateOnRefresh: true, onUpdate: function (self) { progress(self.progress); } });
       return function () { st.kill(); tween.kill(); G.set(track, { clearProps: 'transform' }); sec.classList.remove('is-pinned'); vp.setAttribute('tabindex', '0'); ends(); };
     });
@@ -825,19 +814,12 @@
   function band() {
     var el = $('.band');
     if (!el || !motion) return;
-    var dir = rtl ? 1 : -1, rows = $$('.band__row', el);
+    var dir = rtl ? 1 : -1;
     $$('.band__track', el).forEach(function (tr, i) {
       var a = i % 2 ? 18 : 2, b = i % 2 ? 2 : 18;
       G.fromTo(tr, { xPercent: dir * a }, { xPercent: dir * b, ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: .6 } });
+        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: .2 } });
     });
-    var lean = rows.map(function (r) { return G.quickTo(r, 'skewX', { duration: .5, ease: 'power3.out' }); });
-    ST.create({ trigger: el, start: 'top bottom', end: 'bottom top', onUpdate: function (self) {
-      var v = clamp(self.getVelocity() / 260, -7, 7) * (rtl ? -1 : 1);
-      lean.forEach(function (f) { f(v); });
-      clearTimeout(band.t);
-      band.t = setTimeout(function () { lean.forEach(function (f) { f(0); }); }, 140);
-    } });
   }
 
 
@@ -867,6 +849,18 @@
     });
   }
 
+
+  /* the lamp over the trust statement: its line widens and its light comes on when the section comes into view */
+  function lamp() {
+    var sec = $('.trust');
+    if (!sec) return;
+    if (reduce || !('IntersectionObserver' in window)) { sec.classList.add('is-lit'); return; }
+    var io = new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) { sec.classList.add('is-lit'); io.disconnect(); }
+    }, { rootMargin: '0px 0px -25% 0px' });
+    io.observe(sec);
+  }
+
   /* ------------------------------------------------------------ start */
   smooth();
   header();
@@ -885,7 +879,6 @@
   statement();
   faq();
   placeholders();
-  magnets();
   footerWord();
   cursorLight();
   navHover();
@@ -901,6 +894,7 @@
   band();
   capsuleLight();
   themeFan();
+  lamp();
   if (ST) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
     window.addEventListener('load', function () { ST.refresh(); });

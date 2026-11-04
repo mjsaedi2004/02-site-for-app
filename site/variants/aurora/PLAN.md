@@ -88,3 +88,21 @@ their step becomes active, the themes tile as a picker of the app's three themes
 the stat anchoring the bottom), the app's alert screen rising in the alert tile, chart labels kept inside the chart,
 lighter scrolling on phones (no backdrop blur on in-flow parts, the ticker loop resting off screen), solid surfaces for
 reduced transparency, and Aurora's own dark link-preview images (`site/tools/og_aurora.js`).
+
+## Redesign (owner's second round)
+
+Feedback: the neon gradient and the backgrounds were very bad; use attractive, well-known background patterns;
+separate the sections better (or let them flow); some animations felt loose. Changes:
+
+- **Colour = the app's black and white themes.** Monochrome: black `#000` / white, silver primary fill (the app's
+  `--grad`), chrome text gradient, white/black accents; direction colours (blue up, coral down) and Featured gold are
+  the only colours. The brand mark keeps the app's own colours.
+- **Backgrounds = well-known patterns, one per section:** hero light rays fanning from above + a corner spotlight +
+  a second weaker one + the moving floor grid; dot matrix (why, calculator, widget); ripple rings (closer look);
+  graph paper (features); a lit stage floor (showroom); a lamp whose line widens and light comes on (trust); fine
+  diagonal lines (offices); a spotlight and grid inside the dark panels; a grid rising behind the footer wordmark;
+  film grain everywhere. Phones stand in a soft glow with thin rings and one slow ripple.
+- **Sections = alternating bands:** ground / faint tint with hairline edges and a light at the middle of each band's
+  top edge, so each section reads as its own chapter.
+- **Motion = crisp:** native wheel scrolling, decisive easing, shorter durations and distances, low scrub lag, no
+  bobbing, skew or magnetic pull, a shorter theme reveal.

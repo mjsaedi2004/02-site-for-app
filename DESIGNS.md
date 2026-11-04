@@ -41,8 +41,9 @@ reference layout became its own NetRate site in `site/variants/<name>/` (see `CL
 ### NetRate Aurora (current direction)
 
 Owner's next step after the variants (“both too plain”): a luxury site beyond every earlier version. Black (default)
-and white themes with a circular reveal from the header button, a capsule header, neon ember → magenta → violet,
-glass surfaces, soft-square boxes, rich scroll stories (pinned messages → ordered list, sticky phone steps,
+and white themes with a circular reveal from the header button, a capsule header, (second round: the neon gradient
+was dropped for the app's own monochrome black/white identity, with well-known background patterns per section,
+alternating bands and crisper motion), glass surfaces, soft-square boxes, rich scroll stories (pinned messages → ordered list, sticky phone steps,
 word-by-word statement), a bento of app parts, the engine-checked calculator, cursor light and tilt.
 Later: a closer look with numbered spots, the office card flipping to its week, a pinned sideways showroom of eight
 screens (fits 1280×720; arrows when it scrolls by itself), the spread of every office's payout, a kinetic word band,
