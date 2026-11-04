@@ -1002,3 +1002,22 @@ html[dir="rtl"] .ic--rtlflip { transform: scaleX(-1); }
 /* the theme switch's ring: a thin neon line with a soft trail inside, riding the edge of the circular reveal */
 @property --vr { syntax: "<length>"; inherits: false; initial-value: 0px; }
 .vt-ring { position: fixed; inset: 0; z-index: 300; pointer-events: none; background: conic-gradient(from 210deg at var(--vx) var(--vy), var(--g1), var(--g2), var(--g3), var(--g1)); -webkit-mask: radial-gradient(circle at var(--vx) var(--vy), transparent calc(var(--vr) - 26px), rgba(0, 0, 0, .14) calc(var(--vr) - 5px), #000 calc(var(--vr) - 2.5px), #000 calc(var(--vr) - 1px), transparent var(--vr)); mask: radial-gradient(circle at var(--vx) var(--vy), transparent calc(var(--vr) - 26px), rgba(0, 0, 0, .14) calc(var(--vr) - 5px), #000 calc(var(--vr) - 2.5px), #000 calc(var(--vr) - 1px), transparent var(--vr)); }
+/* ---------- mobile menu: scrim, cascading links with a chevron, the current section marked ---------- */
+.hdr::before { content: ""; position: fixed; inset: 0; z-index: -1; background: color-mix(in srgb, var(--bg0) 52%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
+.hdr.is-open::before { opacity: 1; pointer-events: auto; }
+.sheet__nav a { gap: 12px; transition: background-color .3s, color .3s; }
+.sheet__go { margin-inline-start: auto; inline-size: 18px; block-size: 18px; color: var(--tx3); transition: translate .45s var(--ease), color .3s; }
+.sheet__nav a:hover .sheet__go, .sheet__nav a:focus-visible .sheet__go { color: var(--tx1); translate: 4px 0; }
+html[dir="rtl"] .sheet__nav a:hover .sheet__go, html[dir="rtl"] .sheet__nav a:focus-visible .sheet__go { translate: -4px 0; }
+.sheet__nav a[aria-current="true"] > span { background: var(--tgrad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--tg2); }
+.sheet__nav a[aria-current="true"] .sheet__go { color: var(--tg2); }
+.sheet.is-open .sheet__nav a, .sheet.is-open .sheet__foot { animation: sheet-item .55s var(--ease) both; }
+.sheet.is-open .sheet__nav a:nth-child(2) { animation-delay: .035s; }
+.sheet.is-open .sheet__nav a:nth-child(3) { animation-delay: .07s; }
+.sheet.is-open .sheet__nav a:nth-child(4) { animation-delay: .105s; }
+.sheet.is-open .sheet__nav a:nth-child(5) { animation-delay: .14s; }
+.sheet.is-open .sheet__nav a:nth-child(6) { animation-delay: .175s; }
+.sheet.is-open .sheet__foot { animation-delay: .21s; }
+@keyframes sheet-item { from { opacity: 0; translate: 0 10px; } }
+.sheet::before { content: ""; position: absolute; inset-block-start: -1px; inset-inline: 22%; block-size: 1px; background: linear-gradient(90deg, transparent, var(--g2), var(--g3), transparent); opacity: .8; }
+@media (prefers-reduced-motion: reduce) { .sheet.is-open .sheet__nav a, .sheet.is-open .sheet__foot { animation: none; } .hdr::before { transition: none; } }

@@ -118,6 +118,9 @@
     }
     var current = null;
     function place() {
+      $$('.sheet__nav a').forEach(function (l) {
+        if (current && l.getAttribute('href') === '#' + current) l.setAttribute('aria-current', 'true'); else l.removeAttribute('aria-current');
+      });
       if (!glide || !nav) return;
       var a = current && links.filter(function (l) { return l.getAttribute('href') === '#' + current; })[0];
       if (!a || !nav.offsetWidth) { glide.classList.remove('is-on'); return; }
@@ -157,7 +160,7 @@
       burger.addEventListener('click', function () { open(burger.getAttribute('aria-expanded') !== 'true'); });
       $$('a', sheet).forEach(function (a) { a.addEventListener('click', function () { if (a.getAttribute('aria-disabled') !== 'true') open(false); }); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') { open(false); burger.focus(); } });
-      document.addEventListener('click', function (e) { if (hdr.classList.contains('is-open') && !hdr.contains(e.target)) open(false); });
+      document.addEventListener('click', function (e) { if (hdr.classList.contains('is-open') && (e.target === hdr || !hdr.contains(e.target))) open(false); });
     }
   }
 
