@@ -962,7 +962,7 @@ html[dir="rtl"] .tgl::after { translate: 50% -4px; }
 @media (max-width: 980px) { .show__note .demo-tag { align-self: flex-start; } }
 .show__foot { min-block-size: 2px; }
 /* showroom arrows: shown whenever the row scrolls by itself */
-.show__arrows { display: flex; gap: 10px; flex: none; }
+.show__arrows { display: flex; gap: 10px; flex: none; order: -1; } /* at the start edge, away from the back-to-top ring at the end edge */
 .show__arrow { display: grid; place-items: center; inline-size: 44px; block-size: 44px; border-radius: var(--r-sm); color: var(--tx1); background: var(--glass); border: 1px solid var(--ln2); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: border-color .3s, background-color .3s, opacity .3s, translate .45s var(--ease); }
 @media (hover: hover) { .show__arrow:not([aria-disabled="true"]):hover { border-color: color-mix(in srgb, var(--g2) 55%, transparent); background: color-mix(in srgb, var(--g2) 10%, var(--glass)); } }
 .show__arrow:not([aria-disabled="true"]):active { translate: 0 1px; }
