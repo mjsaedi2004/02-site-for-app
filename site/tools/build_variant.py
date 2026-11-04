@@ -336,7 +336,8 @@ def main():
         shutil.copy2(SITE / "assets/img" / icon, out / "assets/img" / icon)
     from PIL import Image
     for og in (SITE / "assets/img").glob("og-*.png"):          # link previews stay under ~300 KB
-        Image.open(og).convert("RGB").save(out / "assets/img" / (og.stem + ".jpg"), "JPEG", quality=86, optimize=True, progressive=True)
+        own = var / "og" / og.name                              # a variant may ship its own (Aurora: tools/og_aurora.js)
+        Image.open(own if own.exists() else og).convert("RGB").save(out / "assets/img" / (og.stem + ".jpg"), "JPEG", quality=86, optimize=True, progressive=True)
     if (src / "img").exists():
         shutil.copytree(src / "img", out / "assets/img/variant")
     (out / "assets/js").mkdir()

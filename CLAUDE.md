@@ -135,7 +135,8 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   word band, word-by-word trust statement, chart drawing, ticker that speeds up with scroll, cursor light, tile tilt,
   typing panel, capsule edge light, phone glass glint.
 - Data: `view.py` (build hook) formats the engine data — hero cards, why list, 30-day chart path, office card, panel.
-- Build: `node site/tools/demo_data.js` → `python3 -I site/tools/build_variant.py aurora` →
+- Build: `node site/tools/demo_data.js` → (`node site/tools/og_aurora.js` when the hero copy or the app's main screen
+  changes: Aurora's own dark link previews in `variants/aurora/og/`) → `python3 -I site/tools/build_variant.py aurora` →
   `python3 -I site/tools/build_artifact.py aurora` (artifact “NetRate Aurora”): https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt
 - Pitfalls hit: an `<input>`'s intrinsic width widened a `1fr` grid track on phones → `minmax(0, 1fr)` everywhere and
   `flex: 1 1 0` on the input; Persian “۰۱” reads oddly → `{{@nn}}` gives plain digits in Persian; the footer outline
