@@ -247,6 +247,8 @@
       clearTimeout(ticker.t);
       ticker.t = setTimeout(function () { boost(1); }, 120);
     } });
+    /* the loop rests while the ticker is off screen */
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { if (en[0].isIntersecting) tween.play(); else tween.pause(); }, { rootMargin: '80px 0px' }).observe(vp);
     vp.addEventListener('pointerenter', function () { G.to(tween, { timeScale: .15, duration: .5 }); });
     vp.addEventListener('pointerleave', function () { G.to(tween, { timeScale: 1, duration: .5 }); });
   }
