@@ -942,3 +942,10 @@ html[dir="rtl"] .show__bar i { transform-origin: right; }
 .show.is-pinned { padding-block: 0; }
 .show.is-pinned .show__pin { min-block-size: 100svh; padding-block: 84px 24px; gap: 26px; }
 @media (max-width: 980px) { .show__head { flex-direction: column; align-items: flex-start; gap: 12px; } }
+
+/* ---------- looping animations rest while their section is off screen ---------- */
+.is-offscreen *, .is-offscreen::before, .is-offscreen::after { animation-play-state: paused !important; }
+/* the theme button names what it does */
+.tgl::after { content: attr(aria-label); position: absolute; inset-block-start: calc(100% + 10px); inset-inline-start: 50%; translate: -50% -4px; padding: 5px 10px; border-radius: var(--r-xs); font-size: 14px; font-weight: var(--w-medium); line-height: 1.5; white-space: nowrap; color: var(--tx1); background: var(--sf3); border: 1px solid var(--ln3); box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity .25s, translate .35s var(--ease); }
+html[dir="rtl"] .tgl::after { translate: 50% -4px; }
+@media (hover: hover) { .tgl:hover::after, .tgl:focus-visible::after { opacity: 1; translate: -50% 0; } html[dir="rtl"] .tgl:hover::after, html[dir="rtl"] .tgl:focus-visible::after { translate: 50% 0; } }

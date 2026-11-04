@@ -774,6 +774,16 @@
     });
   }
 
+
+  /* looping decoration (halo rings, the screen wall, the hero floor, glows) rests while its section is off screen */
+  function restOffscreen() {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { en.target.classList.toggle('is-offscreen', !en.isIntersecting); });
+    }, { rootMargin: '120px 0px' });
+    $$('.hero, .how, .look, .honest, .get, .ticker').forEach(function (el) { io.observe(el); });
+  }
+
   /* ------------------------------------------------------------ start */
   smooth();
   header();
@@ -804,6 +814,7 @@
   flipCard();
   closerLook();
   showroom();
+  restOffscreen();
   if (ST) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
     window.addEventListener('load', function () { ST.refresh(); });
