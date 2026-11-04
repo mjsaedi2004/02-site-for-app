@@ -988,3 +988,14 @@ html[dir="rtl"] .ic--rtlflip { transform: scaleX(-1); }
 @media (hover: hover) { .band__w:hover { color: var(--tx1); } }
 .band__sep { flex: none; inline-size: .2em; block-size: .2em; margin-inline: .42em; border-radius: .05em; background: var(--neon); rotate: 45deg; box-shadow: 0 0 .5em var(--glow2); }
 .band__row--b .band__track { margin-inline-start: -1.6em; }
+/* ---------- header: drops in at load; a neon light runs along the capsule's edge under the pointer ---------- */
+.js .hdr__pill { animation: hdr-in .9s var(--ease) .05s both; }
+@keyframes hdr-in { from { opacity: 0; translate: 0 -22px; scale: .97; } }
+.hdr__pill::before { content: ""; position: absolute; inset: -1.5px; z-index: -1; border-radius: inherit; padding: 1.5px; background: radial-gradient(230px circle at var(--mx, 50%) 50%, var(--g2), color-mix(in srgb, var(--g3) 65%, transparent) 38%, transparent 72%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); opacity: 0; transition: opacity .45s; pointer-events: none; }
+.hdr__pill::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; background: radial-gradient(150px 70px at var(--mx, 50%) 115%, color-mix(in srgb, var(--g2) 26%, transparent), transparent 75%); opacity: 0; transition: opacity .45s; }
+@media (hover: hover) and (pointer: fine) { .hdr.is-float .hdr__pill:hover::before, .hdr.is-float .hdr__pill:hover::after { opacity: 1; } }
+
+/* ---------- phone glass: a faint fixed reflection, and a light sweep across the screen on hover ---------- */
+.device__screen::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none; background: linear-gradient(118deg, rgba(255, 255, 255, .075) 0%, rgba(255, 255, 255, 0) 26%), linear-gradient(105deg, transparent 41%, rgba(255, 255, 255, .05) 45%, rgba(255, 255, 255, .24) 49%, rgba(255, 255, 255, .06) 52%, transparent 57%) no-repeat; background-size: 100% 100%, 260% 100%; background-position: 0 0, 100% 0; }
+@media (hover: hover) and (pointer: fine) { .device:hover .device__screen::after { background-position: 0 0, -6% 0; transition: background-position 1.1s cubic-bezier(.5, 0, .2, 1); } }
+@media (prefers-reduced-motion: reduce) { .js .hdr__pill { animation: none; } .device:hover .device__screen::after { transition: none; } }

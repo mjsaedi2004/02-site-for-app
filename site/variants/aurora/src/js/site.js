@@ -821,6 +821,17 @@
     } });
   }
 
+
+  /* the floating capsule's edge light follows the pointer */
+  function capsuleLight() {
+    var pill = $('.hdr__pill');
+    if (!pill || !fine) return;
+    pill.addEventListener('pointermove', function (e) {
+      var r = pill.getBoundingClientRect();
+      pill.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+    });
+  }
+
   /* ------------------------------------------------------------ start */
   smooth();
   header();
@@ -853,6 +864,7 @@
   showroom();
   restOffscreen();
   band();
+  capsuleLight();
   if (ST) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
     window.addEventListener('load', function () { ST.refresh(); });
