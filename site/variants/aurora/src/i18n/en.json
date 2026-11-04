@@ -425,7 +425,8 @@
       }
     ],
     "search": "Search the questions",
-    "none": "No question matches that word."
+    "none": "No question matches that word.",
+    "glyph": "?"
   },
   "get": {
     "eyebrow": "Coming soon",
