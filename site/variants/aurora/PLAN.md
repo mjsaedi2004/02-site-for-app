@@ -81,3 +81,10 @@ Later: a closer look at the main screen (numbered spots + callouts, slow tour), 
 the pinned sideways showroom (fits 1280×720; previous/next buttons whenever it scrolls by itself), the spread of every
 office's payout, a kinetic band of large words sliding with the scroll, the capsule's edge light under the pointer and
 its drop-in at load, a glass reflection and hover glint on the phones, a neon ring riding the edge of the theme reveal.
+Then: a richer phone menu (blurred scrim, cascading links with chevrons, the current section marked), entrance variety
+(tiles tip up in 3D, office features slide in, panels unveil), skeleton home/lock screens with dashed slots for the
+widget placeholder, an outlined question mark beside the sticky FAQ heading, the steps' small app parts replaying when
+their step becomes active, the themes tile as a picker of the app's three themes, a balanced rates tile (larger phone,
+the stat anchoring the bottom), the app's alert screen rising in the alert tile, chart labels kept inside the chart,
+lighter scrolling on phones (no backdrop blur on in-flow parts, the ticker loop resting off screen), solid surfaces for
+reduced transparency, and Aurora's own dark link-preview images (`site/tools/og_aurora.js`).
