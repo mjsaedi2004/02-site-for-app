@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT.parent / 'dist' / 'studies'
-BUILT = ['01-fintech', '02-violet']          # study folders that are finished and published live
+BUILT = ['01-fintech', '02-violet', '03-bank']          # study folders that are finished and published live
 COPY = ['thumbs', 'refs/compare', 'refs/sheets']
 
 def fragment(html):

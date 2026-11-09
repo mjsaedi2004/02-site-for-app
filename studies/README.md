@@ -15,8 +15,8 @@ Gallery (one artifact, numbered, opens each study in place with Live / Reference
 |---|-----------|------------|--------|--------|
 | 01 | `refs/designs/01.jpg` (Dribbble shot 1200 × 2139) | Fintech homepage: hero with phone, black "Banking easier" panel + 3 cards, App Store 3D phone, footer | `01-fintech/` | built |
 | 02 | `refs/designs/02.mp4` (720 × 540, 30 fps, 30.2 s) | Violet AI landing: animated neon/purple background, kinetic headline with icon pills, floating cards, phone, giant wordmark | `02-violet/` | built |
-| 03 | `refs/designs/03.mp4` (640 × 480, 60 fps, 30 s) | Digital bank: blurred maroon photo gradients, "Banking for future", giant wordmark, FAQ, 3D cards | — | next |
-| 04 | `refs/designs/04.mp4` (720 × 540, 30 fps, 27 s) | Crypto wallet: condensed heavy type, isometric illustrations, stats, sticky phone steps, FAQ, marquee | — | queued |
+| 03 | `refs/designs/03.mp4` (640 × 480, 60 fps, 30 s) | Digital bank: blurred maroon photo gradients, "Banking for future", giant wordmark, FAQ, 3D cards | `03-bank/` | built |
+| 04 | `refs/designs/04.mp4` (720 × 540, 30 fps, 27 s) | Crypto wallet: condensed heavy type, isometric illustrations, stats, sticky phone steps, FAQ, marquee | — | next |
 | 05 | `refs/designs/05.mp4` (640 × 480, 29.97 fps, 15.5 s) | Finance platform: light grey, laptop + phone mockups, tabs with phone, dark CTA | — | queued |
 | 06 | `refs/designs/06.mp4` (640 × 480, 60 fps, 16.5 s) | Investing app: lime panels, hand-drawn arrows, market phones, partners, dark CTA | — | queued |
 
@@ -50,6 +50,19 @@ Also sent with the request (references to use in places later, not studies thems
 5. Gallery: add the study to `STUDIES` in `index.html` (status, thumb, ref), thumbnail with `tools/qa/thumb.js`,
    add the folder to `BUILT` in `tools/build_gallery.py`, run `python3 -I studies/tools/build_gallery.py` and publish
    `dist/studies/index.html` with `root` = `dist/studies` and every listed file (same file path keeps the URL).
+
+## Study 03 notes
+
+- The video shows the page at 640 × 480 with the page area x 30–612, y 34–442 → 1440 × 1009 per screen (header 78).
+  `tools/qa/scenes03.js` captures each section at its reference moment (viewport 1440 × 1009).
+- Brand "Luna" → placeholder "Nula" (same monoline style: the letters are stroked SVG paths, so the header logo and the
+  giant about-section wordmark are drawn by `stroke-dashoffset`). Merchant names are placeholders (Pixel Store, Northwind,
+  Cloud Apps, Studio Pro); people are drawn SVG avatars; photo textures are blurred CSS gradients sampled from the video.
+- Font: Lexend (600 for headlines, 500 for sub-headings).
+- Pitfalls: GSAP `rotation` on an element with a CSS 3D pose replaces the pose (the cards lost their tilt) → the pose
+  stays in CSS and GSAP animates `--sy` / `--sr` variables used inside it; the cards settle to exactly 0 offset when the
+  section reaches the header so the resting layout matches the reference; scaled phones on small screens use `scale`
+  (the inner UI keeps its design pixels).
 
 ## Study 02 notes
 
