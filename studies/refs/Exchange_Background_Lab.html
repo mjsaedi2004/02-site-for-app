@@ -1,0 +1,2487 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Exchange Background Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&family=Unbounded:wght@500..800&family=Vazirmatn:wght@300..800&display=swap">
+<style>
+/* ── lab/lab.css ── */
+/* ==========================================================================
+   Widget Lab · gallery shell for the exchange-app widgets
+   Layout: a compact masthead, then one full-width "stage" per widget:
+   the number and notes on the start side, the live widget on the end side.
+   Palette: night ink with indigo light (dark-first); a pale ledger in light.
+   ========================================================================== */
+:root {
+  color-scheme: dark;
+  --bg: #05060d;
+  --bg-lift: #0d1022;
+  --ink: #eef0ff;
+  --ink-2: #a9aed2;
+  --ink-3: #6f7499;
+  --accent: #8f94ff;
+  --accent-2: #c3b5ff;
+  --accent-wash: rgba(143, 148, 255, .14);
+  --surface: rgba(255, 255, 255, .03);
+  --surface-2: rgba(255, 255, 255, .055);
+  --panel-a: rgba(16, 18, 38, .94);
+  --panel-b: rgba(9, 10, 24, .96);
+  --edge: rgba(255, 255, 255, .085);
+  --edge-2: rgba(255, 255, 255, .17);
+  --aurora-1: rgba(66, 80, 255, .5);
+  --aurora-2: rgba(144, 92, 246, .34);
+  --aurora-3: rgba(30, 190, 255, .17);
+  --grid: rgba(165, 172, 255, .07);
+  --market-line: rgba(150, 156, 255, .38);
+  --market-fill: rgba(91, 97, 246, .12);
+  --spot: rgba(110, 118, 255, .17);
+  --grain: .085;
+  --stage-glow: rgba(86, 96, 255, .3);
+  --stage-dots: rgba(196, 202, 255, .1);
+  --num-a: #ffffff;
+  --num-b: #8f94ff;
+  --focus: #c3c6ff;
+  --w01-tray-a: #2a2d4a;
+  --w01-tray-b: #14162c;
+  --w01-tray-rim: rgba(255, 255, 255, .14);
+  --w01-tray-drop: rgba(0, 0, 0, .5);
+  --w01-floor: rgba(70, 78, 255, .28);
+  --font-fa: "Vazirmatn", Tahoma, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Unbounded", "Outfit", "Vazirmatn", system-ui, sans-serif;
+  --font-latin: "Outfit", "Vazirmatn", system-ui, sans-serif;
+  --max: 1240px;
+  --stage-r: 34px;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #eef0f8;
+    --bg-lift: #f8f9fd;
+    --ink: #12142c;
+    --ink-2: #4a4f74;
+    --ink-3: #7d82a6;
+    --accent: #3a40d6;
+    --accent-2: #7a5cf0;
+    --accent-wash: rgba(58, 64, 214, .1);
+    --surface: rgba(255, 255, 255, .55);
+    --surface-2: rgba(255, 255, 255, .82);
+    --panel-a: rgba(255, 255, 255, .9);
+    --panel-b: rgba(247, 248, 253, .94);
+    --edge: rgba(28, 34, 110, .09);
+    --edge-2: rgba(28, 34, 110, .18);
+    --aurora-1: rgba(120, 134, 255, .36);
+    --aurora-2: rgba(196, 164, 255, .42);
+    --aurora-3: rgba(120, 214, 255, .34);
+    --grid: rgba(40, 50, 150, .07);
+    --market-line: rgba(58, 64, 214, .36);
+    --market-fill: rgba(58, 64, 214, .07);
+    --spot: rgba(120, 132, 255, .16);
+    --grain: .05;
+    --stage-glow: rgba(120, 132, 255, .24);
+    --stage-dots: rgba(40, 50, 150, .09);
+    --num-a: #12142c;
+    --num-b: #3a40d6;
+    --focus: #3a40d6;
+    --w01-tray-a: #ececec;
+    --w01-tray-b: #cecece;
+    --w01-tray-rim: rgba(255, 255, 255, .8);
+    --w01-tray-drop: rgba(20, 24, 70, .2);
+    --w01-floor: rgba(20, 24, 70, .2);
+  }
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eef0f8;
+  --bg-lift: #f8f9fd;
+  --ink: #12142c;
+  --ink-2: #4a4f74;
+  --ink-3: #7d82a6;
+  --accent: #3a40d6;
+  --accent-2: #7a5cf0;
+  --accent-wash: rgba(58, 64, 214, .1);
+  --surface: rgba(255, 255, 255, .55);
+  --surface-2: rgba(255, 255, 255, .82);
+  --panel-a: rgba(255, 255, 255, .9);
+  --panel-b: rgba(247, 248, 253, .94);
+  --edge: rgba(28, 34, 110, .09);
+  --edge-2: rgba(28, 34, 110, .18);
+  --aurora-1: rgba(120, 134, 255, .36);
+  --aurora-2: rgba(196, 164, 255, .42);
+  --aurora-3: rgba(120, 214, 255, .34);
+  --grid: rgba(40, 50, 150, .07);
+  --market-line: rgba(58, 64, 214, .36);
+  --market-fill: rgba(58, 64, 214, .07);
+  --spot: rgba(120, 132, 255, .16);
+  --grain: .05;
+  --stage-glow: rgba(120, 132, 255, .24);
+  --stage-dots: rgba(40, 50, 150, .09);
+  --num-a: #12142c;
+  --num-b: #3a40d6;
+  --focus: #3a40d6;
+  --w01-tray-a: #ececec;
+  --w01-tray-b: #cecece;
+  --w01-tray-rim: rgba(255, 255, 255, .8);
+  --w01-tray-drop: rgba(20, 24, 70, .2);
+  --w01-floor: rgba(20, 24, 70, .2);
+}
+:root[data-theme="dark"] { color-scheme: dark; }
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-fa);
+}
+.lab {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 40px;
+  font-family: var(--font-fa);
+  color: var(--ink);
+  background: var(--bg);
+  isolation: isolate;
+}
+.lab ::selection { background: var(--accent-wash); }
+.lab :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+/* ── background ───────────────────────────────────────────── */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(120% 75% at 50% -12%, var(--bg-lift), var(--bg) 62%);
+}
+.bg-aurora {
+  position: absolute;
+  width: 72vmax;
+  height: 72vmax;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--c), transparent 72%);
+  will-change: transform;
+  animation: lab-drift 40s ease-in-out infinite alternate;
+}
+.bg-aurora.a1 { --c: var(--aurora-1); top: -34vmax; left: -18vmax; }
+.bg-aurora.a2 { --c: var(--aurora-2); top: -26vmax; right: -28vmax; animation-duration: 48s; animation-delay: -14s; }
+.bg-aurora.a3 { --c: var(--aurora-3); top: 38vh; left: 22vw; width: 58vmax; height: 58vmax; animation-duration: 56s; animation-delay: -26s; }
+@keyframes lab-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(7vw, 5vh, 0) scale(1.12); }
+  100% { transform: translate3d(-5vw, 9vh, 0) scale(.94); }
+}
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: 50% 0;
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 22%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 22%, #000 25%, transparent 78%);
+}
+.bg-market { position: absolute; left: 0; right: 0; bottom: 0; height: 42vh; direction: ltr; }
+.bg-market svg { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; will-change: transform; animation: lab-market 110s linear infinite; }
+.bg-market svg.back { height: 82%; opacity: .55; animation-duration: 170s; }
+.bg-market .m-line { fill: none; stroke: var(--market-line); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.bg-market .m-fill { fill: url(#lab-market-fill); }
+.bg-market .m-stop-a { stop-color: var(--market-fill); }
+.bg-market .m-stop-b { stop-color: var(--market-fill); stop-opacity: 0; }
+@keyframes lab-market { to { transform: translate3d(-50%, 0, 0); } }
+.bg-spot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 900px;
+  height: 900px;
+  margin: -450px 0 0 -450px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--spot), transparent);
+  transform: translate3d(50vw, 28vh, 0);
+  will-change: transform;
+}
+.bg-grain {
+  position: absolute;
+  inset: 0;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .55 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* ── masthead ─────────────────────────────────────────────── */
+.top {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-block: 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+.brand-mark { width: 38px; height: 38px; flex: none; }
+.brand-mark .bm-bar { fill: var(--accent); }
+.brand-mark .bm-bar.b2 { fill: var(--accent-2); }
+.brand-mark .bm-line { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.brand-name { display: grid; gap: 2px; line-height: 1.1; }
+.brand-name b { font: 600 15px/1.1 var(--font-display); letter-spacing: .01em; direction: ltr; text-align: start; }
+.brand-name span { font-size: 12.5px; color: var(--ink-3); }
+/* the section switch in the header: widgets | backgrounds */
+.sections {
+  display: inline-flex;
+  padding: 4px;
+  gap: 2px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--surface);
+}
+.sections a {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding-inline: 16px;
+  border-radius: 999px;
+  color: var(--ink-2);
+  font: 600 13.5px/1 var(--font-fa);
+  text-decoration: none;
+  transition: background-color .25s ease, color .25s ease;
+}
+.sections a:hover { color: var(--ink); background: var(--surface-2); }
+.sections a[aria-current="page"] { color: var(--ink); background: var(--accent-wash); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent); }
+@media (max-width: 940px) {
+  .sections { order: 3; width: 100%; justify-content: center; }
+  .sections a { flex: 1; justify-content: center; }
+}
+.tools { display: flex; align-items: center; gap: 8px; }
+.tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding-inline: 14px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font: 500 13.5px/1 var(--font-fa);
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+}
+.tool:hover { color: var(--ink); border-color: var(--edge-2); background: var(--surface-2); }
+.tool:active { transform: scale(.97); }
+.tool svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tool[aria-pressed="true"] { color: var(--ink); background: var(--accent-wash); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.tool .t-moon { display: none; }
+:root[data-theme-now="light"] .tool .t-sun { display: none; }
+:root[data-theme-now="light"] .tool .t-moon { display: block; }
+/* ── intro ────────────────────────────────────────────────── */
+.intro {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-block: clamp(26px, 3.4vw, 40px) clamp(20px, 2.4vw, 28px);
+  display: grid;
+  gap: 12px;
+}
+.eyebrow {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+.eyebrow::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: currentColor; }
+.intro h1 {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(28px, 3.5vw, 46px);
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+}
+.intro h1 .grad {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.lead { margin: 0; max-width: 78ch; color: var(--ink-2); font-size: clamp(14.5px, 1.2vw, 16px); line-height: 1.9; }
+.index { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.index a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 6px 8px 6px 16px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+  text-decoration: none;
+  transition: border-color .25s ease, background-color .25s ease, transform .25s ease;
+}
+.index a:hover { border-color: var(--edge-2); background: var(--surface-2); transform: translateY(-2px); }
+.index a b {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  height: 30px;
+  padding-inline: 8px;
+  border-radius: 999px;
+  background: var(--accent-wash);
+  color: var(--accent);
+  font: 600 12.5px/1 var(--font-display);
+  direction: ltr;
+}
+/* ── stages ───────────────────────────────────────────────── */
+.stages {
+  max-width: var(--max);
+  margin-inline: auto;
+  display: grid;
+  gap: 28px;
+}
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.28fr);
+  border: 1px solid var(--edge);
+  border-radius: var(--stage-r);
+  background: linear-gradient(180deg, var(--panel-a), var(--panel-b));
+  box-shadow: 0 30px 80px -40px rgba(0, 0, 0, .55);
+  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
+  scroll-margin-top: 24px;
+}
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 55%, transparent), transparent 35%, transparent 65%, color-mix(in srgb, var(--accent-2) 40%, transparent));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  opacity: .7;
+}
+.stage-info {
+  min-width: 0;
+  padding: clamp(24px, 3.2vw, 46px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.stage-id { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.stage-num {
+  margin: 0;
+  direction: ltr;
+  display: inline-flex;
+  font: 700 clamp(86px, 10.5vw, 148px)/.8 var(--font-display);
+  letter-spacing: -.05em;
+  background: linear-gradient(180deg, var(--num-a) 10%, var(--num-b) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-block: .06em .02em;
+}
+.stage-num span { display: inline-block; animation: lab-num-in 1.3s cubic-bezier(.16, 1, .3, 1) both; }
+.stage-num span:nth-child(2) { animation-delay: .12s; }
+@keyframes lab-num-in {
+  from { transform: translateY(42%) rotateX(70deg); opacity: 0; filter: blur(6px); }
+  to { transform: none; opacity: 1; filter: none; }
+}
+.stage-kicker { margin: 0 0 .5em; display: grid; gap: 4px; }
+.stage-kicker b { font-size: 15px; font-weight: 700; color: var(--accent); }
+.stage-kicker span { font: 500 12px/1.2 var(--font-latin); color: var(--ink-3); letter-spacing: .08em; text-transform: uppercase; direction: ltr; text-align: end; }
+.stage-title { margin: 6px 0 0; font-size: clamp(24px, 2.6vw, 32px); font-weight: 800; line-height: 1.3; text-wrap: balance; }
+.stage-en { margin: -4px 0 0; color: var(--ink-3); font: 500 14px/1.4 var(--font-latin); direction: ltr; text-align: end; }
+.stage-desc { margin: 4px 0 0; color: var(--ink-2); font-size: 15px; line-height: 1.95; max-width: 46ch; }
+.hints { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 10px; }
+.hints li {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+.hints li b { color: var(--ink); font-weight: 600; }
+.hints svg {
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--edge);
+  background: var(--surface);
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.stage-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 44px;
+  padding-inline: 18px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 600 14px/1 var(--font-fa);
+  cursor: pointer;
+  transition: background-color .25s ease, border-color .25s ease, transform .2s ease;
+}
+.btn:hover { background: var(--surface-2); border-color: var(--edge-2); }
+.btn:active { transform: scale(.97); }
+.btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.btn.primary { background: var(--accent); border-color: transparent; color: #fff; }
+:root[data-theme-now="dark"] .btn.primary { color: #0b0c1d; }
+.btn.primary:hover { background: color-mix(in srgb, var(--accent) 88%, #fff); }
+.btn .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ink-3); box-shadow: 0 0 0 0 transparent; transition: background-color .25s ease; }
+.btn[aria-pressed="true"] { border-color: color-mix(in srgb, #2fd27a 55%, transparent); background: color-mix(in srgb, #2fd27a 12%, transparent); }
+.btn[aria-pressed="true"] .dot { background: #2fd27a; animation: lab-live 1.6s ease-out infinite; }
+@keyframes lab-live {
+  0% { box-shadow: 0 0 0 0 rgba(47, 210, 122, .55); }
+  100% { box-shadow: 0 0 0 10px rgba(47, 210, 122, 0); }
+}
+.stage-path {
+  margin-top: auto;
+  padding-top: 14px;
+  align-self: flex-start;
+  color: var(--ink-3);
+  font: 500 12.5px/1.4 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  direction: ltr;
+}
+.stage-show {
+  position: relative;
+  min-width: 0;
+  min-height: clamp(420px, 46vw, 640px);
+  display: grid;
+  place-items: center;
+  padding: clamp(30px, 3vw, 44px) clamp(20px, 4vw, 60px) clamp(40px, 4vw, 56px);
+  border-inline-start: 1px solid var(--edge);
+  background:
+    radial-gradient(58% 52% at 50% 48%, var(--stage-glow), transparent 72%),
+    radial-gradient(var(--stage-dots) 1px, transparent 1.6px) 0 0 / 22px 22px;
+}
+.stage-tag {
+  position: absolute;
+  top: 18px;
+  inset-inline-end: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid var(--edge-2);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font: 600 12px/1 var(--font-display);
+  letter-spacing: .04em;
+  direction: ltr;
+}
+.stage-tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.stage-mount { width: min(100%, 500px); }
+.stage-mount.is-wide { width: min(100%, 640px); }
+.stage-mount.is-tall { width: min(100%, 460px); }
+.stage-mount.is-full { width: min(100%, 1100px); }
+/* a set wider than the stage's right column: notes on top, the set below at full width */
+.stage.is-full { grid-template-columns: minmax(0, 1fr); }
+.stage.is-full .stage-show { border-inline-start: 0; border-top: 1px solid var(--edge); min-height: 0; padding-top: clamp(56px, 6vw, 72px); }
+@media (min-width: 941px) {
+  .stage.is-full .stage-info { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(32px, 5vw, 72px); row-gap: 14px; align-content: start; }
+  .stage.is-full .stage-info > * { grid-column: 1; }
+  .stage.is-full .hints { grid-column: 2; grid-row: 1 / span 5; align-self: start; margin-top: 0; }
+  .stage.is-full .stage-actions { grid-column: 2; grid-row: 6; }
+  .stage.is-full .stage-path { grid-column: 2; grid-row: 7; }
+}
+/* rolling digits from lab/kit.js (the sets use them) */
+.kit-odo { display: inline-flex; height: 1.2em; line-height: 1.2em; white-space: nowrap; vertical-align: baseline; }
+.kit-odo .odo-c {
+  display: inline-block;
+  position: relative;
+  flex: none;
+  height: 1.2em;
+  margin-inline: -.1em;
+  padding-inline: .1em;
+  overflow: hidden;
+  box-sizing: border-box;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 84%, transparent 100%);
+}
+.kit-odo .odo-c.is-glyph { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+.kit-odo .odo-s { display: block; white-space: pre; line-height: 1.2em; text-align: left; will-change: transform; }
+/* a set's sub-numbers: each chip points at one card of the set */
+.stage-subs {
+  list-style: none;
+  margin: 2px 0 4px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 168px), 1fr));
+  gap: 8px;
+}
+.stage-subs button {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 600 14px/1.25 var(--font-fa);
+  text-align: start;
+  cursor: pointer;
+  transition: border-color .25s ease, background-color .25s ease, transform .25s ease;
+}
+.stage-subs button:hover, .stage-subs button:focus-visible, .stage-subs button.is-on { border-color: var(--edge-2); background: var(--surface-2); transform: translateY(-2px); }
+.stage-subs b {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  min-width: 48px;
+  height: 30px;
+  padding-inline: 8px;
+  border-radius: 999px;
+  background: var(--accent-wash);
+  color: var(--accent);
+  font: 600 12px/1 var(--font-display);
+  letter-spacing: .02em;
+  direction: ltr;
+}
+.stage-subs span { display: grid; gap: 2px; min-width: 0; }
+.stage-subs i { font: 500 11.5px/1.2 var(--font-latin); font-style: normal; color: var(--ink-3); direction: ltr; text-align: end; }
+.foot {
+  max-width: var(--max);
+  margin: 40px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  justify-content: space-between;
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.foot b { color: var(--ink-2); font-weight: 600; }
+@media (max-width: 940px) {
+  .stage { grid-template-columns: minmax(0, 1fr); }
+  .stage-show { order: -1; border-inline-start: 0; border-bottom: 1px solid var(--edge); min-height: 0; }
+  .stage-mount { width: min(100%, 440px); }
+  .stage-num { font-size: clamp(72px, 18vw, 120px); }
+}
+@media (max-width: 520px) {
+  .tool .label { display: none; }
+  .tool { padding-inline: 11px; }
+  .stage-show { padding: 60px 12px 40px; }
+  .stage-info { padding: 22px 18px 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora, .bg-market svg, .stage-num span { animation: none; }
+  .btn[aria-pressed="true"] .dot { animation: none; }
+}
+/* ── backgrounds/page.css ── */
+/* ==========================================================================
+   Background Lab · page styles (on top of lab/lab.css: tokens, header, intro)
+   Tiles: a live frame (small canvas scaled up smooth + a crisp overlay +
+   grain) and a caption. The viewer is a full-window overlay of one frame.
+   ========================================================================== */
+.bgl { --bgl-r: 26px; }
+/* page background: calm, lit by the background under the pointer */
+.bgl .bg { background: radial-gradient(120% 75% at 50% -12%, var(--bg-lift), var(--bg) 62%); }
+.bgl-ambient {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 140vmax;
+  height: 90vmax;
+  margin-left: -70vmax;
+  margin-top: -40vmax;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--amb, rgba(110, 118, 255, .2)), transparent);
+  opacity: .9;
+  transition: opacity 1.2s ease;
+}
+/* ── groups and tiles ─────────────────────────────────────── */
+.bgl-group { max-width: var(--max); margin: clamp(24px, 3vw, 40px) auto 0; }
+.bgl-head { display: flex; align-items: baseline; gap: 6px 14px; flex-wrap: wrap; margin: 0 4px 16px; }
+.bgl-head h2 { margin: 0; font-size: clamp(20px, 2.2vw, 26px); font-weight: 800; line-height: 1.3; }
+.bgl-head p { margin: 0; color: var(--ink-3); font-size: 14px; }
+.bgl-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 2.6vw, 34px) clamp(18px, 2.2vw, 28px); }
+.bgl-tile { min-width: 0; display: grid; gap: 14px; align-content: start; }
+.bgl-tile.is-hero { grid-column: 1 / -1; }
+.bgl-frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--bgl-r);
+  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
+  background: #05060d;
+  box-shadow: 0 34px 70px -40px rgba(0, 0, 0, .75), 0 0 0 1px var(--edge);
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: crosshair;
+  transform: translateZ(0);
+}
+.bgl-tile.is-hero .bgl-frame { aspect-ratio: 21 / 9; }
+.bgl-field, .bgl-over, .bglv-prev { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.bgl-over { pointer-events: none; }
+.bgl-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--bgl-grain, none);
+  background-size: var(--bgl-grain-size, 128px);
+  mix-blend-mode: overlay;
+  opacity: .3;
+  transition: opacity .4s ease;
+}
+.bgl.no-grain .bgl-grain { opacity: .07; }   /* just enough to dither dark gradients */
+/* chips on the frame */
+.bgl-num {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;   /* physical: the chip itself reads left to right */
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding-inline: 11px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  background: rgba(8, 9, 20, .4);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  backdrop-filter: blur(10px) saturate(1.3);
+  color: #fff;
+  font: 600 12px/1 var(--font-display);
+  letter-spacing: .04em;
+  direction: ltr;
+  pointer-events: none;
+}
+.bgl-num i { width: 7px; height: 7px; border-radius: 50%; background: var(--dot, #fff); box-shadow: 0 0 0 2px rgba(255, 255, 255, .25); }
+.bgl-open {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  left: 12px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 50%;
+  background: rgba(8, 9, 20, .4);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  backdrop-filter: blur(10px) saturate(1.3);
+  color: #fff;
+  cursor: pointer;
+  transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), background-color .25s ease;
+}
+.bgl-open:hover { transform: scale(1.08); background: rgba(8, 9, 20, .42); }
+.bgl-open:active { transform: scale(.94); }
+.bgl-open svg, .bgl-btn svg, .bglv-btn svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* caption */
+.bgl-cap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 18px; padding-inline: 6px; }
+.bgl-title { grid-column: 1; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0; }
+.bgl-title b { font-size: 19px; font-weight: 800; line-height: 1.35; }
+.bgl-title span { font: 500 14px/1.2 var(--font-latin); color: var(--ink-3); }
+.bgl-from { grid-column: 1; margin: 0; font-size: 12.5px; font-weight: 600; color: var(--accent); }
+.bgl-from.is-new { color: var(--accent-2); }
+.bgl-note { grid-column: 1; margin: 2px 0 0; max-width: 60ch; color: var(--ink-2); font-size: 14px; line-height: 1.85; }
+.bgl-acts { grid-column: 2; grid-row: 1 / span 3; align-self: center; display: flex; gap: 8px; }
+.bgl.no-dl .js-dl { display: none; }
+.bgl-btn, .bglv-btn { position: relative; overflow: hidden; }
+.bgl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding-inline: 14px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 600 13.5px/1 var(--font-fa);
+  cursor: pointer;
+  transition: background-color .25s ease, border-color .25s ease, transform .2s ease;
+}
+.bgl-btn:hover { background: var(--surface-2); border-color: var(--edge-2); }
+.bgl-btn:active { transform: scale(.96); }
+/* progress while a download renders: the button fills from the start side */
+.bgl-btn::before, .bglv-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent-wash);
+  transform: scaleX(var(--p, 0));
+  transform-origin: 100% 50%;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.bglv-btn::before { background: rgba(255, 255, 255, .2); }
+.is-busy::before { opacity: 1; }
+.bgl-btn > *, .bglv-btn > * { position: relative; }
+.is-busy { cursor: progress; }
+/* ── the viewer ───────────────────────────────────────────── */
+.bgl-viewer { position: fixed; inset: 0; z-index: 60; background: #000; overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; cursor: crosshair; }
+.bgl-viewer[hidden] { display: none; }
+.bgl-viewer:focus { outline: none; }
+.bgl-viewer.is-idle { cursor: none; }
+.bglv-prev { opacity: 0; pointer-events: none; }
+.bglv-ui {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 5, 12, .34), rgba(4, 5, 12, 0) 22%, rgba(4, 5, 12, 0) 76%, rgba(4, 5, 12, .3));   /* keeps the bars readable on light backgrounds */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(18px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  pointer-events: none;
+  color: #fff;
+  transition: opacity .6s ease;
+}
+.bgl-viewer.is-idle .bglv-ui { opacity: 0; }
+.bglv-top, .bglv-bar { display: flex; align-items: center; gap: 10px; pointer-events: auto; }
+.bglv-top .bgl-num { position: static; flex: none; }
+.bglv-name { flex: 1; min-width: 0; margin: 0; display: flex; align-items: baseline; gap: 10px; font-size: 18px; font-weight: 800; text-shadow: 0 1px 12px rgba(0, 0, 0, .35); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bglv-en { font: 500 14px/1.2 var(--font-latin); opacity: .75; }
+.bglv-hint { align-self: center; margin: 0; padding: 8px 14px; border-radius: 999px; background: rgba(8, 9, 20, .42); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font-size: 13px; opacity: .9; transition: opacity .8s ease; }
+.bglv-hint.is-gone { opacity: 0; }
+.bglv-bar { align-self: center; gap: 8px; padding: 6px; border: 1px solid rgba(255, 255, 255, .16); border-radius: 999px; background: rgba(8, 9, 20, .46); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); }
+.bglv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font: 600 13.5px/1 var(--font-fa);
+  cursor: pointer;
+  transition: background-color .25s ease, transform .2s ease;
+}
+.bglv-btn.is-wide { padding-inline: 14px; }
+.bglv-btn:hover { background: rgba(255, 255, 255, .12); }
+.bglv-btn:active { transform: scale(.94); }
+.bglv-btn:focus-visible, .bgl-open:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.bglv-close { flex: none; border: 1px solid rgba(255, 255, 255, .2); background: rgba(8, 9, 20, .46); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.bglv-btn .i-play { display: none; }
+.bglv-btn[aria-pressed="true"] .i-play { display: block; }
+.bglv-btn[aria-pressed="true"] .i-pause { display: none; }
+.bglv-btn[aria-pressed="true"] { background: rgba(255, 255, 255, .16); }
+.bgl.no-fs .js-fs { display: none; }
+/* toast */
+.bgl-toast {
+  position: fixed;
+  z-index: 70;
+  left: 50%;
+  bottom: max(22px, env(safe-area-inset-bottom, 0px));
+  margin: 0;
+  padding: 11px 18px;
+  border: 1px solid var(--edge-2);
+  border-radius: 999px;
+  background: var(--panel-a);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--ink);
+  font-size: 14px;
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, .6);
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease, transform .45s cubic-bezier(.2, 1.4, .4, 1);
+}
+.bgl-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+.bgl-viewer:not([hidden]) ~ .bgl-toast { bottom: calc(max(18px, env(safe-area-inset-bottom, 0px)) + 76px); background: rgba(8, 9, 20, .55); color: #fff; border-color: rgba(255, 255, 255, .18); }
+/* ── narrow screens ───────────────────────────────────────── */
+@media (max-width: 760px) {
+  .bgl-grid { grid-template-columns: minmax(0, 1fr); }
+  .bgl-frame, .bgl-tile.is-hero .bgl-frame { aspect-ratio: 4 / 5; }
+  .bgl-cap { grid-template-columns: minmax(0, 1fr); }
+  .bgl-acts { grid-column: 1; grid-row: auto; margin-top: 8px; }
+  .bgl-acts .bgl-btn { flex: 1; justify-content: center; }
+}
+@media (max-width: 520px) {
+  .bglv-btn.is-wide span { display: none; }
+  .bglv-btn.is-wide { padding-inline: 0; }
+  .bglv-hint { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bglv-ui, .bgl-grain, .bgl-ambient { transition: none; }
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<div class="lab bgl" dir="rtl" lang="fa">
+  <div class="bg" aria-hidden="true">
+    <div class="bgl-ambient"></div>
+    <div class="bg-grain"></div>
+  </div>
+
+  <header class="top">
+    <a class="brand" href="#top" id="top">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+        <rect class="bm-bar" x="7" y="21" width="6" height="12" rx="2"/>
+        <rect class="bm-bar b2" x="17" y="15" width="6" height="18" rx="2"/>
+        <rect class="bm-bar" x="27" y="9" width="6" height="24" rx="2"/>
+        <path class="bm-line" d="M5.5 17.5l9.5-6.5 7 4 12.5-9"/>
+      </svg>
+      <span class="brand-name"><b>Widget Lab</b><span>آزمایشگاه ویجت</span></span>
+    </a>
+    <nav class="sections" aria-label="بخش‌ها">
+      <a href="https://claude.ai/artifact/BTiquurgTiZ1PMPsitsU8i" target="_blank" rel="noopener" data-section="widgets">ویجت‌ها</a>
+      <a href="#top" data-section="backgrounds" aria-current="page">بک‌گراندها</a>
+    </nav>
+    <div class="tools">
+      <button class="tool" type="button" data-tool="grain" aria-pressed="false" title="بافت دانه‌دانه روی بک‌گراندها و فایل‌های دانلودی">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="1.1"/><circle cx="12" cy="7.5" r="1.1"/><circle cx="18" cy="5.5" r="1.1"/><circle cx="8.5" cy="12" r="1.1"/><circle cx="15" cy="13" r="1.1"/><circle cx="5.5" cy="18" r="1.1"/><circle cx="12" cy="18.5" r="1.1"/><circle cx="18.5" cy="17.5" r="1.1"/></svg>
+        <span class="label">بافت</span>
+      </button>
+      <button class="tool" type="button" data-tool="slow" aria-pressed="false" title="همه‌ی حرکت‌ها چهار برابر آهسته">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5l3.2-3.2"/><path d="M9.5 2.8h5"/><path d="M12 2.8v3.2"/></svg>
+        <span class="label">حرکت آهسته</span>
+      </button>
+      <button class="tool" type="button" data-tool="theme" aria-label="پس‌زمینه‌ی روشن">
+        <svg class="t-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+        <svg class="t-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z"/></svg>
+        <span class="label">روشن</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="intro" aria-labelledby="bgl-title">
+    <p class="eyebrow">اپلیکیشن صرافی · کتابخانه‌ی بک‌گراند</p>
+    <h1 id="bgl-title">بک‌گراندهای ویجت‌ها، <span class="grad">جدا و زنده</span></h1>
+    <p class="lead">هفت تای اول همون بک‌گراندهای ویجت‌هان، جدا شده و تمام‌صفحه؛ اولی همون پنل رنگی ویجت ۰۵ـه. بقیه یه سری تازه‌ان با همون هارمونی‌ها. همه زنده‌ان: اشاره‌گر رو روشون تکون بده تا رنگ‌ها دنبالش بیان، کلیک کن تا موج بخورن، نگه دار تا جمع بشن. هر کدوم رو می‌تونی تمام‌صفحه ببینی یا برای <b>موبایل</b> و <b>دسکتاپ</b> دانلود کنی. اگه نظری داشتی بگو «بک‌گراند ۳».</p>
+  </section>
+
+  <section class="bgl-group" aria-labelledby="bgl-g1">
+    <div class="bgl-head">
+      <h2 id="bgl-g1">از ویجت‌ها</h2>
+      <p>همون نورها و رنگ‌ها، بدون کارت</p>
+    </div>
+    <div class="bgl-grid" data-group="from"></div>
+  </section>
+
+  <section class="bgl-group" aria-labelledby="bgl-g2">
+    <div class="bgl-head">
+      <h2 id="bgl-g2">سری تازه</h2>
+      <p>گرادینت‌های تازه با همون هارمونی‌ها</p>
+    </div>
+    <div class="bgl-grid" data-group="new"></div>
+  </section>
+
+  <footer class="foot">
+    <p><b>Background Lab</b> · کد هر بک‌گراند در <bdi dir="ltr">backgrounds/engine.js</bdi></p>
+    <p>دانلودها PNG ان: موبایل <bdi dir="ltr">1179 × 2556</bdi> · دسکتاپ <bdi dir="ltr">2560 × 1440</bdi></p>
+  </footer>
+
+  <div class="bgl-viewer" role="dialog" aria-modal="true" aria-labelledby="bglv-name" tabindex="-1" hidden>
+    <canvas class="bgl-field" aria-hidden="true"></canvas>
+    <canvas class="bglv-prev" aria-hidden="true"></canvas>
+    <canvas class="bgl-over" aria-hidden="true"></canvas>
+    <i class="bgl-grain" aria-hidden="true"></i>
+    <div class="bglv-ui">
+      <div class="bglv-top">
+        <span class="bgl-num js-vnum">BG·01</span>
+        <h2 class="bglv-name" id="bglv-name"><span class="js-vfa"></span><span class="bglv-en js-ven" lang="en" dir="ltr"></span></h2>
+        <button class="bglv-btn bglv-close" type="button" aria-label="بستن" title="بستن (Esc)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <p class="bglv-hint">اشاره‌گر رو تکون بده · کلیک کن · نگه دار</p>
+      <div class="bglv-bar">
+        <button class="bglv-btn" type="button" data-v="prev" aria-label="بک‌گراند قبلی" title="قبلی (→)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="bglv-btn" type="button" data-v="pause" aria-pressed="false" aria-label="نگه داشتن حرکت" title="مکث (Space)">
+          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6v12M15 6v12"/></svg>
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </button>
+        <button class="bglv-btn is-wide js-dl" type="button" data-kind="phone" aria-label="دانلود برای موبایل">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="7" y="2.5" width="10" height="19" rx="2.6"/><path d="M11 18.6h2"/></svg>
+          <span>موبایل</span>
+        </button>
+        <button class="bglv-btn is-wide js-dl" type="button" data-kind="desktop" aria-label="دانلود برای دسکتاپ">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M9 20.5h6M12 16.5v4"/></svg>
+          <span>دسکتاپ</span>
+        </button>
+        <button class="bglv-btn js-fs" type="button" aria-label="تمام‌صفحه‌ی واقعی" title="تمام‌صفحه">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+        </button>
+        <button class="bglv-btn" type="button" data-v="next" aria-label="بک‌گراند بعدی" title="بعدی (←)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <p class="bgl-toast" role="status" aria-live="polite"></p>
+</div>
+<script>
+/* ── lab/lab.js ── */
+/* ==========================================================================
+   Widget Lab · gallery runtime
+   - WidgetLab.register({ id, slug, mount(host) → api }) — each widget file
+     registers itself; the lab mounts it into [data-mount="<id>"].
+   - api: intro(), replay(), setLive(bool), setVisible(bool)
+   - flags: ?still (final frame, no motion: for screenshots), reduced motion,
+     slow motion (×0.25 for every GSAP tween and every widget loop)
+   ========================================================================== */
+(() => {
+  'use strict';
+  const params = new URLSearchParams(location.search);
+  const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mqLight = window.matchMedia('(prefers-color-scheme: light)');
+
+  const Lab = {
+    defs: new Map(),
+    apis: new Map(),
+    timeScale: 1,
+    still: params.has('still'),
+    get reduced() { return this.still || mqReduce.matches; },
+    register(def) { this.defs.set(def.id, def); },
+    fonts: null,
+  };
+  window.WidgetLab = Lab;
+
+  /* fonts the widgets measure with (rolling digits need real glyph widths) */
+  Lab.fonts = new Promise(resolve => {
+    if (!document.fonts || !document.fonts.load) { resolve(); return; }
+    const faces = ['400 40px Outfit', '500 40px Outfit', '600 40px Outfit', '300 40px Inter', '400 40px Inter', '500 40px Inter'];
+    Promise.all(faces.map(f => document.fonts.load(f))).then(() => resolve(), () => resolve());
+    setTimeout(resolve, 2200);
+  });
+
+  /* if the GSAP CDN is unreachable, jump every tween to its end so nothing breaks */
+  function gsapShim() {
+    const apply = (targets, vars) => {
+      const list = targets == null ? [] : (Array.isArray(targets) || targets instanceof NodeList ? Array.from(targets) : [targets]);
+      list.forEach(t => {
+        Object.keys(vars).forEach(k => {
+          if (['duration', 'delay', 'ease', 'stagger', 'onUpdate', 'onComplete', 'onStart', 'repeat', 'yoyo', 'overwrite', 'transformOrigin', 'svgOrigin', 'transformPerspective', 'clearProps'].includes(k)) return;
+          if (k === 'attr') { Object.entries(vars.attr).forEach(([a, v]) => t.setAttribute && t.setAttribute(a, v)); return; }
+          if (t instanceof Element) { if (k === 'autoAlpha' || k === 'opacity') t.style.opacity = vars[k]; }
+          else t[k] = vars[k];
+        });
+      });
+      ['onStart', 'onUpdate', 'onComplete'].forEach(cb => vars[cb] && vars[cb]());
+    };
+    const tl = () => {
+      const api = {
+        to: (t, v) => { apply(t, v); return api; },
+        fromTo: (t, a, b) => { apply(t, b); return api; },
+        call: fn => { fn(); return api; },
+        set: (t, v) => { apply(t, v); return api; },
+        kill() {}, play() { return api; },
+      };
+      return api;
+    };
+    const ticks = new Set();
+    let last = performance.now();
+    const loop = now => { const d = now - last; last = now; ticks.forEach(fn => fn(now / 1000, d)); requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+    return {
+      to: (t, v) => apply(t, v), fromTo: (t, a, b) => apply(t, b), set: (t, v) => apply(t, v),
+      timeline: vars => { const x = tl(); if (vars && vars.onComplete) setTimeout(vars.onComplete, 0); return x; },
+      killTweensOf() {}, ticker: { add: fn => ticks.add(fn), remove: fn => ticks.delete(fn) },
+      globalTimeline: { timeScale() {} },
+    };
+  }
+
+  /* ── theme ── */
+  function effectiveTheme() {
+    const t = document.documentElement.dataset.theme;
+    return t === 'light' || t === 'dark' ? t : (mqLight.matches ? 'light' : 'dark');
+  }
+  function paintTheme() {
+    const now = effectiveTheme();
+    document.documentElement.dataset.themeNow = now;
+    const btn = document.querySelector('[data-tool="theme"]');
+    if (btn) {
+      const label = now === 'dark' ? 'روشن' : 'تیره';
+      btn.setAttribute('aria-label', `پس‌زمینه‌ی ${label}`);
+      const l = btn.querySelector('.label');
+      if (l) l.textContent = label;
+    }
+  }
+  function setupTheme() {
+    try {
+      const saved = localStorage.getItem('widget-lab-theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+    } catch (e) { /* storage blocked: follow the system */ }
+    paintTheme();
+    mqLight.addEventListener('change', paintTheme);
+    new MutationObserver(paintTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    const btn = document.querySelector('[data-tool="theme"]');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('widget-lab-theme', next); } catch (e) { /* ignore */ }
+      paintTheme();
+    });
+  }
+
+  /* ── slow motion ── */
+  function setupSlowmo() {
+    const btn = document.querySelector('[data-tool="slow"]');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on));
+      Lab.timeScale = on ? .25 : 1;
+      gsap.globalTimeline.timeScale(Lab.timeScale);
+    });
+  }
+
+  /* ── background: the market line and the pointer light ── */
+  function mulberry(seed) {
+    return () => {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function marketSVG(seed, cls) {
+    // a periodic curve (sum of whole-period sines) so two copies tile seamlessly
+    const W = 1200, H = 300, N = 260, rnd = mulberry(seed);
+    const comps = Array.from({ length: 26 }, (_, i) => ({ k: i + 1, a: 46 / Math.pow(i + 1, .78) * (.45 + rnd() * .9), p: rnd() * Math.PI * 2 }));
+    let d = '';
+    for (let j = 0; j <= N * 2; j++) {
+      const x = j / N * W;
+      let y = H * .52;
+      comps.forEach(c => { y += Math.sin((x / W) * Math.PI * 2 * c.k + c.p) * c.a; });
+      d += (j ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1);
+    }
+    return `<svg class="${cls}" viewBox="0 0 ${W * 2} ${H}" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path class="m-fill" d="${d}L${W * 2},${H}L0,${H}Z"/><path class="m-line" d="${d}"/></svg>`;
+  }
+  function setupBackground() {
+    const host = document.querySelector('.bg-market');
+    if (host) {
+      host.innerHTML = `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+        <linearGradient id="lab-market-fill" x1="0" y1="0" x2="0" y2="1"><stop class="m-stop-a" offset="0"/><stop class="m-stop-b" offset="1"/></linearGradient>
+      </defs></svg>` + marketSVG(7, 'back') + marketSVG(19, 'front');
+    }
+    const spot = document.querySelector('.bg-spot');
+    if (!spot || Lab.reduced || !window.matchMedia('(hover: hover)').matches) return;
+    let x = innerWidth / 2, y = innerHeight * .28, tx = x, ty = y, raf = 0;
+    const tick = () => {
+      x += (tx - x) * .08; y += (ty - y) * .08;
+      spot.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`;
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(tick) : 0;
+    };
+    addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; if (!raf) raf = requestAnimationFrame(tick); }, { passive: true });
+  }
+
+  /* ── widgets ── */
+  function setupWidgets() {
+    const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        const api = Lab.apis.get(en.target);
+        if (!api) return;
+        api.setVisible(en.isIntersecting);
+        // half the widget in view, or enough of a short screen
+        const enough = en.isIntersecting && (en.intersectionRatio >= .5 || en.intersectionRect.height >= innerHeight * .35);
+        if (enough && !en.target.dataset.played) {
+          en.target.dataset.played = '1';
+          Lab.fonts.then(() => api.intro());
+        }
+      });
+    }, { threshold: [0, .1, .2, .3, .4, .5, .75, 1] }) : null;
+
+    document.querySelectorAll('[data-mount]').forEach(host => {
+      const def = Lab.defs.get(Number(host.dataset.mount));
+      if (!def) return;
+      let api;
+      try { api = def.mount(host, Lab); } catch (err) { console.error(`[lab] widget ${def.id} failed to mount`, err); return; }
+      Lab.apis.set(host, api);
+      if (Lab.still) host.dataset.played = '1';
+      else if (io) io.observe(host);
+      else Lab.fonts.then(() => api.intro());
+
+      const stage = host.closest('.stage');
+      if (!stage) return;
+      const replay = stage.querySelector('[data-act="replay"]');
+      if (replay) replay.addEventListener('click', () => api.replay());
+      const live = stage.querySelector('[data-act="live"]');
+      if (live) live.addEventListener('click', () => {
+        const on = live.getAttribute('aria-pressed') !== 'true';
+        live.setAttribute('aria-pressed', String(on));
+        api.setLive(on);
+      });
+      // a set's sub-number chips point at one of its cards
+      if (api.focus) {
+        let hold = 0;
+        const point = i => { clearTimeout(hold); api.focus(i); stage.querySelectorAll('[data-sub]').forEach(b => b.classList.toggle('is-on', Number(b.dataset.sub) === i)); };
+        const release = delay => { clearTimeout(hold); hold = setTimeout(() => point(null), delay); };
+        stage.querySelectorAll('[data-sub]').forEach(chip => {
+          const i = Number(chip.dataset.sub);
+          chip.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') point(i); });
+          chip.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') release(90); });
+          chip.addEventListener('focus', () => point(i));
+          chip.addEventListener('blur', () => release(90));
+          chip.addEventListener('click', e => {
+            point(i);
+            const r = host.getBoundingClientRect();
+            if (r.top < 0 || r.bottom > innerHeight) host.scrollIntoView({ behavior: Lab.reduced ? 'auto' : 'smooth', block: 'center' });
+            if (e.pointerType !== 'mouse') release(2400);   // touch and keyboard: show it for a moment
+          });
+        });
+      }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      Lab.apis.forEach((api, host) => {
+        if (document.hidden) api.setVisible(false);
+        else if (!io) api.setVisible(true);
+        else { const r = host.getBoundingClientRect(); api.setVisible(r.bottom > 0 && r.top < innerHeight); }
+      });
+    });
+  }
+
+  function init() {
+    if (!window.gsap) { console.warn('[lab] GSAP did not load; showing final frames'); window.gsap = gsapShim(); Lab.still = true; }
+    setupTheme();
+    setupSlowmo();
+    setupBackground();
+    setupWidgets();
+  }
+  // deferred or inline, run once the whole page (and every widget file) is parsed
+  let booted = false;
+  const boot = () => { if (!booted) { booted = true; init(); } };
+  if (document.readyState === 'complete') boot();
+  else { document.addEventListener('DOMContentLoaded', boot); window.addEventListener('load', boot); }
+})();
+
+/* ── backgrounds/engine.js ── */
+/* ==========================================================================
+   Backgrounds · engine (window.BGLab)
+   Exchange-app Widget Lab · no dependencies
+
+   Every background is a colour field drawn in its own design units: the
+   units of the widget it came from (1u = 1px of that widget's shot).
+   · grid    a colour grid smoothed with Catmull-Rom (widget 05's panel and
+             its re-tints)
+   · layers  soft lights and CSS-style gradients composited in order
+             (widgets 02, 03, 04, 06 and the gallery's own aurora)
+
+   The painter fits a design to any frame (part stretch, part crop, around a
+   focus point), then samples it after a liquid displacement:
+   idle flow · the pointer's swell and sweep · press-and-hold · ripples.
+   The frame is small (about a sixth of its CSS size); the browser scales it
+   up smooth. Exports render the same field at full size, dithered.
+   ========================================================================== */
+(() => {
+  'use strict';
+  const D2R = Math.PI / 180;
+  const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const spring = (v, k = 170, c = 22) => ({ v, t: v, vel: 0, k, c });
+  function step(s, dt) {
+    const n = Math.max(1, Math.ceil(dt * 120)), h = dt / n;
+    for (let i = 0; i < n; i++) { s.vel += (-s.k * (s.v - s.t) - s.c * s.vel) * h; s.v += s.vel * h; }
+    return s.v;
+  }
+
+  /* ───────────── colour ───────────── */
+  const toLin = c => { c /= 255; return c <= .04045 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); };
+  const toSrgb = l => 255 * (l <= .0031308 ? l * 12.92 : 1.055 * Math.pow(l, 1 / 2.4) - .055);
+  function rgb2lab(r, g, b) {   // sRGB 0…255 → OKLab
+    const R = toLin(r), G = toLin(g), B = toLin(b);
+    const l = Math.cbrt(.4122214708 * R + .5363325363 * G + .0514459929 * B);
+    const m = Math.cbrt(.2119034982 * R + .6806995451 * G + .1073969566 * B);
+    const s = Math.cbrt(.0883024619 * R + .2817188376 * G + .6299787005 * B);
+    return [.2104542553 * l + .793617785 * m - .0040720468 * s, 1.9779984951 * l - 2.428592205 * m + .4505937099 * s, .0259040371 * l + .7827717662 * m - .808675766 * s];
+  }
+  function lab2lin(L, a, b) {
+    const l = (L + .3963377774 * a + .2158037573 * b) ** 3, m = (L - .1055613458 * a - .0638541728 * b) ** 3, s = (L - .0894841775 * a - 1.291485548 * b) ** 3;
+    return [4.0767416621 * l - 3.3077115913 * m + .2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - .3413193965 * s, -.0041960863 * l - .7034186147 * m + 1.707614701 * s];
+  }
+  const inGamut = c => c[0] > -1e-4 && c[0] < 1.0001 && c[1] > -1e-4 && c[1] < 1.0001 && c[2] > -1e-4 && c[2] < 1.0001;
+  function lab2rgb(L, a, b) {   // OKLab → sRGB 0…255, chroma pulled in until it fits
+    let c = lab2lin(L, a, b);
+    if (!inGamut(c)) {
+      let lo = 0, hi = 1;
+      for (let i = 0; i < 14; i++) { const k = (lo + hi) / 2; if (inGamut(lab2lin(L, a * k, b * k))) lo = k; else hi = k; }
+      c = lab2lin(L, a * lo, b * lo);
+    }
+    return [toSrgb(clamp(c[0], 0, 1)), toSrgb(clamp(c[1], 0, 1)), toSrgb(clamp(c[2], 0, 1))];
+  }
+  /* turn a colour's hue by dh degrees in OKLCH, scale its chroma, nudge its lightness */
+  function turn(rgb, dh, kc = 1, dl = 0) {
+    const [L, a, b] = rgb2lab(rgb[0], rgb[1], rgb[2]), c = Math.hypot(a, b) * kc, h = Math.atan2(b, a) + dh * D2R;
+    return lab2rgb(L + dl, c * Math.cos(h), c * Math.sin(h)).map(Math.round);
+  }
+  const hexOf = c => '#' + c.map(v => clamp(Math.round(v), 0, 255).toString(16).padStart(2, '0')).join('');
+
+  /* ───────────── widget 05's panel: the shot sampled on a 34 × 24 grid ───────────── */
+  const GW = 34, GH = 24;
+  const HEX05 = [
+    'e2e4e3c5c7c6dae1e1ddeaecd6eaefc9e7f2b4e3f398d9f473cdf54cbbef30a0de1b85c80e67a80c4d860a3b6d082e59072549052041051d3e051c3e061c3f061b3b08193708173106142c071327071222071120080f1c080e1a080e19090e190a1017080f18',
+    'c5c7c5e2e4e3e2eaebddeaecd2e9f0bee5f2a4def280d3f357c3f137ace31f91cf1077b60c5b9409447308355f062b4f072446062243072144062043072043061d3d07193607173005142b071227061122081120080f1d080e1b080e1a070e1a080f180a0f16',
+    'dfdfdde7e9e8e2e9ebdae9edcbe6eeb0dfee8dd4ef63c7ed3fb3e22699ce1581b810679c0d4f7d0b3c6309305408294909254609254909254a092348082142091c3a081a3307172e06152607132407132108121e08101c080f1a080e18080d17090d150a0d13',
+    'e9e8e7e6e9e8e1e8ead6e6ecbedfeb9bd5ea72cae84cb7df319fcc1c87b9146f9f1158850f456a0d36580c2e4e0b2b4a0d2a4b0d294e0d284d0c25490a2140091c3708192f07172907142407132309132009121d08101b080e19080d17080d15080c13090b12',
+    'eae8e7e5e8e8dde5e7cce0e6acd6e580c9e25bb8da3da3c8288bb61d759f186086144e72113f5f1035530f304f113050122f53122e53112b4d0f25450d203b0b1b3308182a0915270814240914220a112009101c080f19080e17090d15090c13090b12090a10',
+    'e8e7e5e2e4e6d6dfe3c0d7df98cadc6db9d44fa4c63690b5287aa121658a1c5475184766163c5a15375515365519365919355b173154142a4a1125400f1f360c1b2e0a17260915240a14220a121f0a101d09101a080e17090d15090c13090c110a0b100a0b0f',
+    'e7e3e5dddee2cbd6ddaecad686bacf63a5c14992b2367ea12d6a8c265a79214c6a1d435f1d3e5b1e3d5b213d5f213d6020375b1c304e1828431323380f1d300c19280a16250a15220b131f0b101c0a0f1a080f17090e14090d12090c110a0b100b0c110c0c10',
+    'e2dee0d5d4dabcc9d29dbccb7ba8be5d93ae48819f3b6e8f325f7d2d526e2949652745612944622b44642c4466293f602537561f2e4919263b142032101c2b0e18250c15210b141e0b111b0a0f180a0f160b0e160a0d13090d110a0c100b0c100c0d120e0c11',
+    'dbd4d7c9c9ceaebac493a9bc7695ac5c819d4d708e42617f3a5672354e6a334a67334a68364b6b384b6b354767303e5a28354d212b3f1b2334161d2d121a260f17220d151e0b121b0b0f170b0e150b0e150a0d130b0d120b0d120c0d110e0e120f0d12100e12',
+    'd1c7ccbdb9c1a4a9b58d97aa74849c60728e5563804b597545526d41506a424f6d445271465373434e6d3c4460343a512d30432327371c202e161b281219230e151e0d121a0b10160b0e150b0e150a0d130a0d120c0d120e0d12110e14110e13120e14130e12',
+    'c7b7bdb4a9b3a097a78b879977768d6765815d5b7757557052546d535572545876555a775357744b4c66424055393547302c3a2724311e1e2917192313161e10131a0e10170c0f140d0e130d0e140d0e130f0e13100e13110f14140e13140f13150f13160f11',
+    'bfa8aeaf97a39e87978c798c7c6981715d766a5771655670645972655d7a66617d64607a5d556d52455a48394a3e2f3d3427332a212a1f1b2318171d14131a1111170f0f160e0f14100f14100f15120f15130f15150f14180f141a0f131a0e131a0e131b0f12',
+    'ba979eae87949e798a906d818462787d5a73795972755b7476607876647d75667d6f5e73644e5f583e4c4e323e432a3537232c2a1d2521181f1a151b151219131117131016131016151015161016190f161b0f151c10151f0f14200f14200f131f0e13200e12',
+    'b78991ae7d8aa37383986b7c8f6376885d71845b70815c70805d717f5f727d60717856666c45515e3641532d3647262d3b1f252d1a1e23171a1d14191912181912171912151b11161e1115201216241115261014271014291014280f13270f13260f12250e12',
+    'b77c86af7480a86f7ca06a78986373925e6e8e5b6b8b5a698859688658668557637f4d56733c4566303759272d4c22273d1c222f171b2715182114172012162013162412152812172b12152f1217321017341116331116331016310f152f0f142c0e132a0f13',
+    'b7727cb36e78ad6c76a76873a1636f9b5e6a975a6693576390545f8e515b8c4e558643487b363b6c2b2f5e24294f1e2240191e34171b2e15172b14172c14162f14173413173913173c13163f12174011174110164010153d1015391015370f15320f152f0f14',
+    'bb6b74b86b73b36a72ae686fa8636ba35d659f59619b545c985057954b5191454a8b3d4080323674292c672326591d214b191c3e171a3b16173b15183e14174514184913184b13174c12164d12164c11164b1016491015450f15400f153c0f15380f15340f15',
+    'be6a70bc6b71b86b70b4686daf6368ab5d61a7575ba35156a04c509c464997404291393b8930327e292b742325681e215b1a1d4f161a4d16175014185615185f15186114185f13185d13175b12175911165610165210154d0f15470f15420f153d0f14380f14',
+    'c26c70c16e71be6e6fbb6a6cb76465b25c5daf5656ab4f4fa84849a342429f3b3c993535922e2f892728812224781e206e1a1c6516196716186d16187316197916197815197314186e13176a12176511166110165b1015550f154e0f15480f14420f143c0f14',
+    'c77575c77674c57472c16e6cbe6664ba5c5ab65451b34c49af4442ab3d3ba73735a231309c2b2b9526269022228a1e1f831b1c7e171983171889171a8e181a92171b8d15198614187f13187912177211166c10166510155e0f15550f144e0f14470f14400f14',
+    'cf837ecf817ccb7c77c8746fc56963c15d56be524cbb4943b8403bb43834af322fab2d2aa62826a123229e21209c1e1e9a1c1c9a191aa0191aa41a1ba8191aa9171aa116199815198f1418871217801117781016700f15660f155c0f14540e144c0e14450e14',
+    'ce8d86d68f87d2877fce7d73cb6d63c75d52c65046c4443bc13b33bd332cb82c27b32724b02421ad211fad1f1ead1e1daf1d1db21c1cb71d1cba1d1cbb1b1dba1a1cb31819a816199f14189612178d11178410167a0f156f0e14630e145a0e14510e14490f15',
+    'bb887fd79c91d79689d48679d07163cd5c4dcd4c3ecd3e31cb3429c62b23c0251eba211db71e1bb71e1bba1d1bbe1f1cc1201dc6201fca201eca1f1ec91e1dc71b1dbf191ab71719ae1419a412189911188f0f16840f15770e13690e14600e15550e14490e13',
+    'd79c91ba897fcc9083d28376ce6d5ecc584acd473ace3b2dcc3024c7291fc2231cbd201bbd1f1dbf211ec2221ec72420ca2623cd2622ce2421ce221fcd201fc81e1ec01b1bb8181aaf151aa513199a11198f0f17840f15770f156a0e155d0f154c0d12550e14',
+  ].join('');
+  const GRID05 = new Float32Array(GW * GH * 3);
+  for (let i = 0; i < GRID05.length; i++) GRID05[i] = parseInt(HEX05.substr(i * 2, 2), 16);
+  /* the panel's rounded corners bled the dark card into the cells beside each
+     corner; the widget clips them, a full-bleed background must not show them */
+  (function fixCorners(g) {
+    const at = (i, j) => (j * GW + i) * 3;
+    const avg = (dst, cells) => { for (let c = 0; c < 3; c++) g[dst + c] = cells.reduce((s, k) => s + g[k + c], 0) / cells.length; };
+    [[0, 0, 1, 1], [GW - 1, 0, -1, 1], [0, GH - 1, 1, -1], [GW - 1, GH - 1, -1, -1]].forEach(([ci, cj, di, dj]) => {
+      const h = at(ci + di, cj), v = at(ci, cj + dj), d = at(ci + di, cj + dj);
+      avg(h, [at(ci + 2 * di, cj), d, at(ci + 2 * di, cj + dj)]);
+      avg(v, [at(ci, cj + 2 * dj), d, at(ci + di, cj + 2 * dj)]);
+      avg(at(ci, cj), [h, v, d]);
+    });
+  })(GRID05);
+
+  /* re-tint a grid in widget 05's harmony: keep every cell's lightness and its
+     mix of the two families — cool (the cyan → navy side) and warm (the coral
+     → red side) — and give each family new hues, which may change with
+     lightness (light, mid, dark: a dark gold would turn to mud, a dark wine
+     does not). Hues are OKLCH degrees; `lift` remaps lightness. */
+  const COOL0 = 238, WARM0 = 27;
+  function hueAt(table, L) {
+    if (L <= table[0][0]) return table[0][1];
+    for (let i = 1; i < table.length; i++) {
+      if (L <= table[i][0]) {
+        const [l0, h0] = table[i - 1], [l1, h1] = table[i], t = (L - l0) / (l1 - l0);
+        let d = ((h1 - h0 + 540) % 360) - 180;   // the short way round
+        return h0 + d * t;
+      }
+    }
+    return table[table.length - 1][1];
+  }
+  function retint(grid, pal) {
+    const c0x = Math.cos(COOL0 * D2R), c0y = Math.sin(COOL0 * D2R), w0x = Math.cos(WARM0 * D2R), w0y = Math.sin(WARM0 * D2R);
+    const det = c0x * w0y - c0y * w0x, out = new Float32Array(grid.length);
+    for (let i = 0; i < grid.length; i += 3) {
+      const [L, a, b] = rgb2lab(grid[i], grid[i + 1], grid[i + 2]);
+      const al = (a * w0y - b * w0x) / det, be = (b * c0x - a * c0y) / det;   // a·c0 + b·w0
+      const hc = hueAt(pal.cool, L) * D2R, hw = hueAt(pal.warm, L) * D2R, kc = pal.kc || 1, kw = pal.kw || 1;
+      const L2 = pal.lift ? pal.lift(L) : L;
+      const A = al * kc * Math.cos(hc) + be * kw * Math.cos(hw), B = al * kc * Math.sin(hc) + be * kw * Math.sin(hw);
+      const k = pal.chroma ? pal.chroma(L) : 1, c = lab2rgb(L2, A * k, B * k);
+      out[i] = c[0]; out[i + 1] = c[1]; out[i + 2] = c[2];
+    }
+    return out;
+  }
+  function flipGrid(grid, gw, gh, fx, fy) {
+    const out = new Float32Array(grid.length);
+    for (let j = 0; j < gh; j++) for (let i = 0; i < gw; i++) {
+      const s = ((fy ? gh - 1 - j : j) * gw + (fx ? gw - 1 - i : i)) * 3, d = (j * gw + i) * 3;
+      out[d] = grid[s]; out[d + 1] = grid[s + 1]; out[d + 2] = grid[s + 2];
+    }
+    return out;
+  }
+
+  /* Catmull-Rom over the grid (the same sampler as widget 05) into an 8× texture */
+  function upsample(grid, gw, gh, tw, th) {
+    const tex = new Float32Array(tw * th * 3), wx = new Float32Array(4), wy = new Float32Array(4);
+    const cubic = (t, o) => { const t2 = t * t, t3 = t2 * t; o[0] = (-t3 + 2 * t2 - t) * .5; o[1] = (3 * t3 - 5 * t2 + 2) * .5; o[2] = (-3 * t3 + 4 * t2 + t) * .5; o[3] = (t3 - t2) * .5; };
+    let o = 0;
+    for (let j = 0; j < th; j++) {
+      const gy = (j + .5) / th * gh - .5, iy = Math.floor(gy);
+      cubic(gy - iy, wy);
+      for (let i = 0; i < tw; i++) {
+        const gx = (i + .5) / tw * gw - .5, ix = Math.floor(gx);
+        cubic(gx - ix, wx);
+        let R = 0, G = 0, B = 0;
+        for (let m = 0; m < 4; m++) {
+          const row = clamp(iy - 1 + m, 0, gh - 1) * gw, wm = wy[m];
+          for (let n = 0; n < 4; n++) {
+            const k = (row + clamp(ix - 1 + n, 0, gw - 1)) * 3, w = wx[n] * wm;
+            R += grid[k] * w; G += grid[k + 1] * w; B += grid[k + 2] * w;
+          }
+        }
+        tex[o++] = R; tex[o++] = G; tex[o++] = B;
+      }
+    }
+    return tex;
+  }
+
+  /* ───────────── fields ───────────── */
+  const mirror = (v, p) => { const m = ((v % (2 * p)) + 2 * p) % (2 * p); return m < p ? m : 2 * p - m; };
+
+  /* grid field: bilinear over the 8× texture; an optional warp bends the design (Silk) */
+  function gridField(def) {
+    const [Wd, Hd] = def.size, tw = def.gw * 8, th = def.gh * 8;
+    const tex = upsample(def.grid, def.gw, def.gh, tw, th), kx = tw / Wd, ky = th / Hd;
+    const warp = def.warp || null;
+    let T = 0;
+    const W = [0, 0];
+    return {
+      size: def.size,
+      prepare(t) { T = t; },
+      color(x, y, out) {
+        if (warp) { warp(x, y, T, W); x = mirror(W[0], Wd); y = mirror(W[1], Hd); }
+        let gx = x * kx - .5, gy = y * ky - .5;
+        gx = gx < 0 ? 0 : gx > tw - 1.001 ? tw - 1.001 : gx;
+        gy = gy < 0 ? 0 : gy > th - 1.001 ? th - 1.001 : gy;
+        const ix = gx | 0, iy = gy | 0, fx = gx - ix, fy = gy - iy;
+        const k0 = (iy * tw + ix) * 3, k1 = k0 + tw * 3;
+        const a = (1 - fx) * (1 - fy), b = fx * (1 - fy), c = (1 - fx) * fy, d = fx * fy;
+        out[0] = tex[k0] * a + tex[k0 + 3] * b + tex[k1] * c + tex[k1 + 3] * d;
+        out[1] = tex[k0 + 1] * a + tex[k0 + 4] * b + tex[k1 + 1] * c + tex[k1 + 4] * d;
+        out[2] = tex[k0 + 2] * a + tex[k0 + 5] * b + tex[k1 + 2] * c + tex[k1 + 5] * d;
+      },
+    };
+  }
+
+  /* gradient stops [t, r, g, b, a] → premultiplied, for lookups */
+  function premul(stops) { return stops.map(([t, r, g, b, a = 1]) => [t, r * a, g * a, b * a, a]); }
+  function stopAt(S, t, o) {   // o = [r, g, b, a] premultiplied
+    if (t <= S[0][0]) { const s = S[0]; o[0] = s[1]; o[1] = s[2]; o[2] = s[3]; o[3] = s[4]; return; }
+    for (let i = 1; i < S.length; i++) {
+      const s1 = S[i];
+      if (t <= s1[0]) {
+        const s0 = S[i - 1], f = (t - s0[0]) / (s1[0] - s0[0] || 1);
+        o[0] = s0[1] + (s1[1] - s0[1]) * f; o[1] = s0[2] + (s1[2] - s0[2]) * f; o[2] = s0[3] + (s1[3] - s0[3]) * f; o[3] = s0[4] + (s1[4] - s0[4]) * f;
+        return;
+      }
+    }
+    const s = S[S.length - 1]; o[0] = s[1]; o[1] = s[2]; o[2] = s[3]; o[3] = s[4];
+  }
+
+  /* layers field. Layer kinds (design units; listed bottom first):
+       blob   soft rotated ellipse, alpha·(1 − d²)²  — the widgets' fitted lights
+       rad    ellipse with CSS-style stops (radial-gradient)
+       lin    CSS-angle gradient with stops (linear-gradient), over an optional box
+       planet a dark disc with a lit rim, glow outside and haze inside (Eclipse)
+     A layer's `m` moves it: drift (ax, ay, fx, fy, p), breathing scale (as, fs),
+     lean toward the pointer (lean), or following it (follow). */
+  function layersField(def) {
+    const [Wd, Hd] = def.size;
+    const base = premul(def.base.map(s => (s.length === 4 ? [...s, 1] : s)));
+    const L = def.layers.map(l => {
+      const o = { ...l, x: l.cx, y: l.cy, s: 1 };
+      if (l.stops) { o.S = premul(l.stops); o.end = o.S[o.S.length - 1][0]; o.endA = o.S[o.S.length - 1][4]; }
+      if (l.t === 'blob') { o.cr = l.c[0] * l.a; o.cg = l.c[1] * l.a; o.cb = l.c[2] * l.a; }
+      if (l.t === 'lin') {
+        o.cx = o.x = 0; o.cy = o.y = 0;
+        const [bx, by, bw, bh] = l.box || [0, 0, Wd, Hd], th = l.deg * D2R;
+        o.dx = Math.sin(th); o.dy = -Math.cos(th); o.len = Math.abs(bw * Math.sin(th)) + Math.abs(bh * Math.cos(th));
+        o.ox = bx + bw / 2; o.oy = by + bh / 2;
+      }
+      const r = (l.rot || 0) * D2R; o.co = Math.cos(r); o.si = Math.sin(r);
+      return o;
+    });
+    const st = [0, 0, 0, 0];
+    let PX = 0, PY = 0, PON = 0, T = 0, ROT = false;
+    return {
+      size: def.size,
+      layers: L,
+      prepare(t, P) {
+        T = t; PX = P ? P.x : Wd / 2; PY = P ? P.y : Hd / 2; PON = P ? P.on : 0; ROT = !!(P && P.rot);
+        for (let i = 0; i < L.length; i++) {
+          const l = L[i], m = l.m;
+          let x = l.cx, y = l.cy, s = 1;
+          if (m) {
+            if (m.ax) x += Math.sin(t * m.fx + m.p) * m.ax;
+            if (m.ay) y += Math.cos(t * m.fy + m.p * 1.7) * m.ay;
+            if (m.as) s += Math.sin(t * (m.fs || .2) + m.p * .7) * m.as;
+            if (m.lean) { x += (PX - l.cx) * m.lean * PON; y += (PY - l.cy) * m.lean * PON; }
+            if (m.leanX) x += (PX / Wd * 2 - 1) * m.leanX * PON;
+            if (m.leanY) y += (PY / Hd * 2 - 1) * m.leanY * PON;
+          }
+          l.x = x; l.y = y; l.s = s;
+          if (l.t === 'planet') l.hl = (l.light || 0) + Math.sin(t * .09) * 8 * D2R + (PX / Wd * 2 - 1) * 26 * D2R * PON;
+        }
+      },
+      color(x, y, out) {
+        // the base: opaque, vertical
+        stopAt(base, y / Hd, st);
+        let r = st[0], g = st[1], b = st[2];
+        for (let i = 0; i < L.length; i++) {
+          const l = L[i];
+          if (ROT && l.flat) continue;   // e.g. a card's top sheen: meaningless once the design turns
+          switch (l.t) {
+            case 'blob': {
+              const ex = x - l.x, ey = y - l.y;
+              const u = (ex * l.co + ey * l.si) / (l.rx * l.s), v = (-ex * l.si + ey * l.co) / (l.ry * l.s), d2 = u * u + v * v;
+              if (d2 < 1) { const k = (1 - d2) * (1 - d2), a = l.a * k, f = k; r = r * (1 - a) + l.cr * f; g = g * (1 - a) + l.cg * f; b = b * (1 - a) + l.cb * f; }
+              break;
+            }
+            case 'rad': {
+              const ex = x - l.x, ey = y - l.y;
+              const u = (ex * l.co + ey * l.si) / (l.rx * l.s), v = (-ex * l.si + ey * l.co) / (l.ry * l.s), d = Math.sqrt(u * u + v * v);
+              if (d < l.end || l.endA > 0) { stopAt(l.S, d, st); r = r * (1 - st[3]) + st[0]; g = g * (1 - st[3]) + st[1]; b = b * (1 - st[3]) + st[2]; }
+              break;
+            }
+            case 'lin': {
+              const t = ((x - l.ox - l.x) * l.dx + (y - l.oy - l.y) * l.dy) / l.len + .5;
+              stopAt(l.S, t, st); r = r * (1 - st[3]) + st[0]; g = g * (1 - st[3]) + st[1]; b = b * (1 - st[3]) + st[2];
+              break;
+            }
+            case 'planet': {
+              const ex = x - l.x, ey = y - l.y, d = Math.sqrt(ex * ex + ey * ey), e = d - l.r;
+              // where the light falls on the rim: brightest at angle hl from the top
+              const ang = Math.atan2(ex, -ey) - l.hl, cf = Math.cos(ang), f = cf > 0 ? Math.pow(cf, l.fall) : 0;
+              if (e < 0) {   // the body, with the atmosphere's haze along the lit edge
+                const a = clamp(-e / l.aa, 0, 1);
+                r = r * (1 - a) + l.body[0] * a; g = g * (1 - a) + l.body[1] * a; b = b * (1 - a) + l.body[2] * a;
+                const h = l.haze[3] * Math.exp(e / l.haze[4]) * f;
+                r = r * (1 - h) + l.haze[0] * h; g = g * (1 - h) + l.haze[1] * h; b = b * (1 - h) + l.haze[2] * h;
+              } else {   // the glow beyond the edge
+                const h = l.glow[3] * Math.exp(-e / l.glow[4]) * (.25 + .75 * f);
+                r = r * (1 - h) + l.glow[0] * h; g = g * (1 - h) + l.glow[1] * h; b = b * (1 - h) + l.glow[2] * h;
+              }
+              const q = e / l.core[4], c = l.core[3] * Math.exp(-q * q) * f;   // the thin bright rim
+              r = r * (1 - c) + l.core[0] * c; g = g * (1 - c) + l.core[1] * c; b = b * (1 - c) + l.core[2] * c;
+              break;
+            }
+          }
+        }
+        out[0] = r; out[1] = g; out[2] = b;
+      },
+    };
+  }
+
+  /* ───────────── fitting a design to a frame ─────────────
+     Positions stretch a little and the rest is cropped around the focus point:
+     stretch 1 = fill exactly (distorts), 0 = crop only. A very wide design can
+     turn a quarter on tall frames (portrait: 'rotate'): its left edge becomes
+     the frame's bottom. */
+  function fit(scene, W, H) {
+    const rot = scene.portrait === 'rotate' && W / H < .8;
+    if (rot) [W, H] = [H, W];
+    const [Wd, Hd] = scene.size, sig = scene.stretch == null ? .5 : scene.stretch, f = scene.focus || [.5, .5];
+    const ax = W / Wd, ay = H / Hd, c = Math.max(ax, ay);
+    const sx = Math.pow(ax, sig) * Math.pow(c, 1 - sig), sy = Math.pow(ay, sig) * Math.pow(c, 1 - sig);
+    return { sx, sy, ox: f[0] * (Wd - W / sx), oy: f[1] * (Hd - H / sy), W, H, rot };
+  }
+
+  /* ───────────── the liquid displacement (shared by painter and export) ─────────────
+     in frame pixels, S = the frame's short side:
+       dx = A·(sin(5.3y + .31t) + .66·cos(3.9x − .23t) + .5·sin(4.7(x + y) + .19t))
+       dy = A·(sin(4.6x − .27t) + .7·cos(3.4y + .37t) + .5·sin(5.1(x − y) − .21t))   (x, y in S units)
+     The cross terms split into column × row factors, so a frame costs W + H sines. */
+  function flowTables(W, H, S, t, F) {
+    if (!F || F.W !== W || F.H !== H) {
+      F = { W, H };
+      ['c1', 's3', 'c3', 's4', 's6', 'c6'].forEach(k => { F[k] = new Float32Array(W); });
+      ['y1', 'yc3', 'ys3', 'y5', 'yc6', 'ys6'].forEach(k => { F[k] = new Float32Array(H); });
+    }
+    for (let i = 0; i < W; i++) {
+      const x = (i + .5) / S;
+      F.c1[i] = .66 * Math.cos(x * 3.9 - t * .23); F.s3[i] = Math.sin(x * 4.7); F.c3[i] = Math.cos(x * 4.7);
+      F.s4[i] = Math.sin(x * 4.6 - t * .27); F.s6[i] = Math.sin(x * 5.1); F.c6[i] = Math.cos(x * 5.1);
+    }
+    for (let j = 0; j < H; j++) {
+      const y = (j + .5) / S;
+      F.y1[j] = Math.sin(y * 5.3 + t * .31); F.yc3[j] = Math.cos(y * 4.7 + t * .19); F.ys3[j] = Math.sin(y * 4.7 + t * .19);
+      F.y5[j] = .7 * Math.cos(y * 3.4 + t * .37); F.yc6[j] = Math.cos(y * 5.1 + t * .21); F.ys6[j] = Math.sin(y * 5.1 + t * .21);
+    }
+    return F;
+  }
+
+  /* noise for exports: a triangular dither (±1 level) and a larger film-grain tile */
+  const DITH = new Float32Array(256 * 256), GRAIN = new Int8Array(512 * 512);
+  (() => {
+    let seed = 20261101;
+    const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+    for (let i = 0; i < DITH.length; i++) DITH[i] = rnd() - rnd();
+    for (let i = 0; i < GRAIN.length; i++) GRAIN[i] = Math.round((rnd() + rnd() - 1) * 127);
+  })();
+
+  /* ───────────── overlays: crisp line work drawn at full resolution ───────────── */
+  function mulberry(seed) {
+    return () => {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  /* the gallery's market line: a periodic curve so two copies tile seamlessly (lab.js) */
+  function marketCurve(seed) {
+    const W = 1200, H = 300, N = 260, rnd = mulberry(seed);
+    const comps = Array.from({ length: 26 }, (_, i) => ({ k: i + 1, a: 46 / Math.pow(i + 1, .78) * (.45 + rnd() * .9), p: rnd() * Math.PI * 2 }));
+    const ys = new Float32Array(N + 1);
+    for (let j = 0; j <= N; j++) {
+      const x = j / N * W;
+      let y = H * .52;
+      comps.forEach(c => { y += Math.sin((x / W) * Math.PI * 2 * c.k + c.p) * c.a; });
+      ys[j] = y / H;
+    }
+    return ys;
+  }
+  const MARKET = [marketCurve(7), marketCurve(19)];
+  function drawMarket(ctx, W, H, t, ys, hFrac, period, alpha, scale) {
+    // one period spans 1200 / 1440 of the frame width at the gallery's size; scrolls right to left
+    const h = H * .42 * hFrac, top = H - h, pw = W * 1200 / 1440 * 1.0, off = -((t / period) % 1) * pw, N = ys.length - 1;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    for (let rep = 0; rep * pw + off < W + pw; rep++) {
+      for (let j = 0; j <= N; j++) {
+        const x = off + rep * pw + j / N * pw, y = top + ys[j] * h;
+        if (rep === 0 && j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+    }
+    const last = off + Math.ceil((W - off) / pw + 1) * pw;
+    ctx.lineTo(last, H); ctx.lineTo(off, H); ctx.closePath();
+    const g = ctx.createLinearGradient(0, top, 0, H);
+    g.addColorStop(0, 'rgba(91,97,246,.12)'); g.addColorStop(1, 'rgba(91,97,246,0)');
+    ctx.fillStyle = g; ctx.fill();
+    ctx.beginPath();
+    for (let rep = 0; rep * pw + off < W + pw; rep++) {
+      for (let j = 0; j <= N; j++) {
+        const x = off + rep * pw + j / N * pw, y = top + ys[j] * h;
+        if (rep === 0 && j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+    }
+    ctx.strokeStyle = 'rgba(150,156,255,.38)'; ctx.lineWidth = 1.5 * scale; ctx.lineJoin = 'round';
+    ctx.stroke();
+    ctx.restore();
+  }
+  const OVERLAYS = {
+    /* the gallery: a 56px grid fading out from the top, the two market lines */
+    aurora(ctx, W, H, t, o) {
+      const step = 56 * o.scale;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(165,172,255,.07)'; ctx.lineWidth = Math.max(1, o.scale);
+      ctx.beginPath();
+      for (let x = (W / 2) % step; x < W; x += step) { ctx.moveTo(Math.round(x) + .5, 0); ctx.lineTo(Math.round(x) + .5, H); }
+      for (let y = 0; y < H; y += step) { ctx.moveTo(0, Math.round(y) + .5); ctx.lineTo(W, Math.round(y) + .5); }
+      ctx.stroke();
+      // mask: ellipse 85% 65% at 50% 22%, solid to 25%, gone at 78%
+      ctx.globalCompositeOperation = 'destination-in';
+      ctx.translate(W / 2, H * .22); ctx.scale(W * .85, H * .65);
+      const m = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
+      m.addColorStop(.25, '#000'); m.addColorStop(.78, 'rgba(0,0,0,0)');
+      ctx.fillStyle = m; ctx.fillRect(-2, -2, 4, 4);
+      ctx.restore();
+      drawMarket(ctx, W, H, t, MARKET[0], .82, 170, .55, o.scale);
+      drawMarket(ctx, W, H, t, MARKET[1], 1, 110, 1, o.scale);
+    },
+    /* widget 03: the glass's diagonal gloss, sliding with the pointer */
+    gloss(ctx, W, H, t, o) {
+      const bw = W * 1.24, th = 118 * D2R, dx = Math.sin(th), dy = -Math.cos(th), len = Math.abs(bw * dx) + Math.abs(H * dy);
+      const cx = W / 2 - o.px * W * .035 + Math.sin(t * .13) * W * .01, cy = H / 2;
+      const g = ctx.createLinearGradient(cx - dx * len / 2, cy - dy * len / 2, cx + dx * len / 2, cy + dy * len / 2);
+      g.addColorStop(.24, 'rgba(255,255,255,0)'); g.addColorStop(.35, 'rgba(160,150,255,.045)');
+      g.addColorStop(.416, 'rgba(190,182,255,.085)'); g.addColorStop(.421, 'rgba(255,255,255,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    },
+  };
+
+  /* ───────────── scene helpers ───────────── */
+  const rgbOf = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+  /* the widgets' lights: [cx, cy, rx, ry, angle, r, g, b, alpha], with drift and lean like set 06 */
+  function lights(list, o = {}) {
+    const k = o.drift == null ? 2.4 : o.drift, s = o.s || 1, dx = o.dx || 0, dy = o.dy || 0, W = o.W || 0, H = o.H || 0;
+    return list.map(([cx, cy, rx, ry, th, r, g, b, a], j) => {
+      const x = o.flipX ? W - cx : cx, y = o.flipY ? H - cy : cy, rot = (o.flipX ? -1 : 1) * (o.flipY ? -1 : 1) * th;
+      const c = o.tint ? o.tint([r, g, b], j) : [r, g, b];
+      return {
+        t: 'blob', cx: dx + x * s, cy: dy + y * s, rx: rx * s, ry: ry * s, rot, c, a: a * (o.alpha || 1),
+        m: { ax: 9 * k * s, ay: 7 * k * s, fx: .21 + j * .04, fy: .17 + j * .05, p: j * 1.3 + (o.phase || 0), lean: (.05 + j * .025) * (o.lean == null ? 1 : o.lean) },
+      };
+    });
+  }
+  const FADE06 = { t: 'lin', deg: 180, stops: [[.7, 0, 0, 0, 0], [.92, 0, 0, 0, .55], [1, 0, 0, 0, 1]] };
+
+  /* set 06's fitted lights (cx, cy, rx, ry, angle, r, g, b, alpha), bottom first */
+  const INS = [[272.6, 38.1, 132.1, 202.3, 74, 255, 66, 29, .678], [157.4, 159.8, 156.9, 116.5, -27.5, 210, 57, 15, .857],
+    [111.8, 222.8, 204.4, 188, 20.3, 122, 25, 8, .868], [239.5, 172, 388.7, 147.4, 47.4, 147, 36, 6, .5],
+    [353.3, -14.4, 153.8, 185.8, 3.4, 147, 55, 25, .68]];
+  const CONV = [[260.1, 271.9, 163.8, 140.9, 15.5, 39, 146, 247, .883], [368.6, 355.2, 227.2, 195.6, 3.2, 3, 106, 198, .9],
+    [130.8, 187.8, 219.5, 187.9, 29.9, 0, 95, 180, .831], [40.6, 98.8, 133.7, 78.5, -11.1, 2, 68, 121, .498],
+    [453.2, 117.1, 202.4, 141.2, 103.1, 0, 72, 135, .684], [475, 253.7, 226.8, 295.1, -21.4, 0, 54, 106, .682]];
+
+  /* widget 05's harmony in other hues: [lightness, hue] tables for each family */
+  const PALETTES = {
+    amber: { cool: [[.2, 352], [.36, 18], [.55, 42], [.72, 62], [.88, 80]], warm: [[.25, 276], [.5, 286], [.75, 300]], kc: 1.12 },
+    lagoon: { cool: [[.2, 222], [.4, 205], [.62, 192], [.85, 182]], warm: [[.25, 322], [.5, 338], [.75, 352]], kc: 1.05, kw: 1.05 },
+    royal: { cool: [[.2, 280], [.45, 288], [.7, 296], [.9, 304]], warm: [[.2, 24], [.4, 38], [.6, 52], [.8, 68]], kc: 1.15, kw: 1.08 },
+    quartz: { cool: [[.2, 276], [.5, 290], [.9, 306]], warm: [[.3, 10], [.6, 24], [.9, 46]], lift: L => .6 + .37 * L, chroma: L => .62 + 1.1 * Math.max(0, .55 - L) },
+  };
+
+  /* ───────────── the backgrounds ─────────────
+     from: the widget it was built from ('lab' = the gallery page), or null for the new series */
+  const SCENES = [
+    {
+      id: 1, slug: 'prism', name: 'Prism', fa: 'منشور', from: '05',
+      note: 'پنل رنگی ویجت ۰۵: گوشه‌ی روشن، فیروزه‌ای، سرمه‌ای و قرمز، مثل مایع روون.',
+      size: [425, 291], focus: [.26, .5], stretch: .55, flow: 1,
+      field: { kind: 'grid', grid: GRID05, gw: GW, gh: GH },
+    },
+    {
+      id: 2, slug: 'deep-current', name: 'Deep Current', fa: 'جریان عمیق', from: '06·2',
+      note: 'نور آبی کارت Conversion: شش نور نرم روی سرمه‌ای که پایینش سیاه می‌شه.',
+      size: [476, 615], focus: [.5, .36], stretch: .5, flow: .55,
+      field: { kind: 'layers', base: [[0, 1, 18, 36], [1, 1, 7, 14]], layers: [...lights(CONV), FADE06] },
+    },
+    {
+      id: 3, slug: 'ember', name: 'Ember', fa: 'اخگر', from: '06·1',
+      note: 'نور نارنجی کارت Insights: رگه‌ی آتشی بالا و سرخیِ گرم روی سیاه.',
+      size: [476, 615], focus: [.5, .3], stretch: .5, flow: .55,
+      field: { kind: 'layers', base: [[0, 22, 1, 1], [1, 0, 0, 0]], layers: [...lights(INS), FADE06] },
+    },
+    {
+      id: 4, slug: 'violet-glass', name: 'Violet Glass', fa: 'شیشه‌ی بنفش', from: '03',
+      note: 'شیشه‌ی کارت ۰۳: نور بنفش گوشه‌ها، برق مورب شیشه و نور روشن روی زمین.',
+      size: [700, 520], focus: [.5, .5], stretch: .55, flow: .5, edge: { s: .04, c: [124, 92, 255], a: .2 },
+      overlay: 'gloss',
+      field: {
+        kind: 'layers', base: [[0, 13, 12, 38], [.26, 8, 9, 27], [1, 6, 7, 26]], layers: [
+          { t: 'rad', cx: 700, cy: 0, rx: 252, ry: 129, stops: [[0, 110, 90, 230, .22], [1, 110, 90, 230, 0]], m: { ax: 14, ay: 10, fx: .13, fy: .11, p: 1, as: .06, fs: .21 } },
+          { t: 'rad', cx: 350, cy: 520, rx: 420, ry: 95, stops: [[0, 96, 62, 236, .3], [1, 96, 62, 236, 0]], m: { ax: 20, fx: .09, p: 2, as: .05, fs: .17, leanX: 30 } },
+          { t: 'rad', cx: 0, cy: 520, rx: 238, ry: 172, stops: [[0, 112, 70, 255, .42], [.72, 112, 70, 255, 0]], m: { ax: 16, ay: 12, fx: .12, fy: .15, p: 3, as: .07, fs: .19 } },
+          { t: 'rad', cx: 0, cy: 0, rx: 294, ry: 198, stops: [[0, 132, 98, 255, .5], [.7, 132, 98, 255, 0]], m: { ax: 18, ay: 14, fx: .1, fy: .13, p: 4, as: .07, fs: .15, lean: .04 } },
+          // the light the card's violet chart threw on the glass (#6b4be3), without the chart
+          { t: 'rad', cx: 400, cy: 330, rx: 360, ry: 150, rot: -8, stops: [[0, 107, 75, 227, .2], [.6, 80, 50, 200, .08], [1, 58, 37, 150, 0]], m: { ax: 24, ay: 10, fx: .08, fy: .12, p: 5, as: .06, fs: .14, lean: .05 } },
+          // the light on the floor and its bright streak
+          { t: 'rad', cx: 350, cy: 470, rx: 320, ry: 35, stops: [[0, 255, 252, 255, 1], [.1, 214, 196, 255, .85], [.3, 150, 110, 255, .6], [.58, 112, 72, 255, .26], [1, 96, 60, 240, 0]], m: { as: .04, fs: .9, p: 0, leanX: 40 } },
+          { t: 'rad', cx: 350, cy: 470, rx: 179, ry: 7, stops: [[0, 255, 255, 255, 1], [.45, 232, 222, 255, .8], [1, 190, 160, 255, 0]], m: { as: .05, fs: .9, p: 0, leanX: 40 } },
+        ],
+      },
+    },
+    {
+      id: 5, slug: 'blue-hour', name: 'Blue Hour', fa: 'ساعت آبی', from: '02',
+      note: 'نور کارت ۰۲: نوار آبی سمت چپ، لکه‌ی فیروزه‌ای و نوری که دنبال اشاره‌گر میاد.',
+      size: [500, 203], focus: [0, .5], stretch: .7, flow: .5, spot: { r: .3, a: .085 }, portrait: 'rotate',
+      field: {
+        kind: 'layers', base: [[0, 42, 42, 43], [.16, 29, 29, 30], [.38, 22, 22, 23], [.74, 17, 17, 18], [.93, 20, 20, 21], [1, 27, 27, 28]], layers: [
+          { t: 'lin', deg: 90, box: [-10, 0, 520, 203], stops: [[0, 116, 185, 254, 1], [.07, 90, 143, 254, 1], [.13, 82, 130, 254, 1], [.195, 76, 114, 254, 1], [.255, 65, 91, 251, 1], [.315, 52, 70, 196, 1], [.375, 42, 50, 135, .55], [.44, 36, 42, 110, .16], [.5, 36, 42, 110, 0]], m: { ax: 5, fx: .9, p: 0, leanX: 16 } },
+          { t: 'rad', cx: 250, cy: 125.9, rx: 176.8, ry: 152.25, stops: [[0, 34, 39, 112, .86], [.55, 33, 38, 104, .46], [1, 33, 38, 104, 0]], m: { ax: 5, fx: .9, p: 0, leanX: 16, leanY: 10, as: .04, fs: .9 } },
+          { t: 'rad', cx: -8.4, cy: 127.9, rx: 60, ry: 131.95, stops: [[0, 130, 216, 255, .74], [.5, 112, 192, 255, .3], [.76, 100, 170, 255, 0]], m: { ay: 14, fy: .23, p: 1, as: .06, fs: .3 } },
+          { t: 'rad', cx: 185, cy: 200, rx: 200, ry: 130, stops: [[0, 95, 140, 255, 1], [.45, 86, 120, 253, .92], [.7, 51, 65, 200, .7], [.85, 30, 36, 120, .32], [1, 30, 36, 120, 0]], m: { ax: 35, ay: 19, fx: .37, fy: .29, p: 0, leanX: 54, leanY: 29 } },
+          { t: 'lin', deg: 180, stops: [[0, 255, 255, 255, .1], [.22, 255, 255, 255, 0]], flat: true },
+        ],
+      },
+    },
+    {
+      id: 6, slug: 'night-aurora', name: 'Night Aurora', fa: 'شفق شب', from: 'lab',
+      note: 'پس‌زمینه‌ی خود گالری: سه شفق آبی، بنفش و فیروزه‌ای، شبکه و خط بازار.',
+      size: [1440, 900], focus: [.5, .4], stretch: .45, flow: .4, overlay: 'aurora',
+      field: {
+        kind: 'layers', base: [[0, 12, 15, 33], [.5, 7, 8, 18], [1, 5, 6, 13]], layers: [
+          { t: 'rad', cx: 259, cy: 28, rx: 518, ry: 518, stops: [[0, 66, 80, 255, .5], [.72, 66, 80, 255, 0]], m: { ax: 100, ay: 45, fx: .157, fy: .131, p: 0, as: .09, fs: .16 } },
+          { t: 'rad', cx: 1324, cy: 144, rx: 518, ry: 518, stops: [[0, 144, 92, 246, .34], [.72, 144, 92, 246, 0]], m: { ax: 100, ay: 45, fx: .131, fy: .109, p: 2.1, as: .09, fs: .13 } },
+          { t: 'rad', cx: 735, cy: 760, rx: 418, ry: 418, stops: [[0, 30, 190, 255, .17], [.72, 30, 190, 255, 0]], m: { ax: 100, ay: 45, fx: .112, fy: .094, p: 4.2, as: .09, fs: .11 } },
+          // the gallery's pointer light: rests at 50% / 28%, follows the pointer
+          { t: 'rad', cx: 720, cy: 252, rx: 450, ry: 450, stops: [[0, 110, 118, 255, .17], [1, 110, 118, 255, 0]], m: { lean: .92 } },
+        ],
+      },
+    },
+    {
+      id: 7, slug: 'fog', name: 'Fog', fa: 'مه', from: '04',
+      note: 'دیوار پشت کارت‌های سلامتی ۰۴: خاکستری گرم، زیتونی و بادمجونی، مثل مه.',
+      size: [460, 736], focus: [.5, .4], stretch: .5, flow: .6,
+      field: {
+        kind: 'layers', base: [[0, 138, 134, 129], [1, 138, 134, 129]], layers: [
+          { t: 'rad', cx: 110.4, cy: 103, rx: 414, ry: 382.7, stops: [[0, 184, 179, 176, 1], [.74, 184, 179, 176, 0]] },
+          { t: 'rad', cx: -27.6, cy: 750.7, rx: 294.4, ry: 250.2, stops: [[0, 140, 132, 106, .95], [.72, 140, 132, 106, 0]] },
+          { t: 'rad', cx: 423.2, cy: 544.6, rx: 248.4, ry: 220.8, stops: [[0, 66, 72, 74, .9], [.72, 66, 72, 74, 0]] },
+          { t: 'rad', cx: 478.4, cy: 765.4, rx: 340.4, ry: 294.4, stops: [[0, 46, 37, 52, .96], [.72, 46, 37, 52, 0]] },
+          { t: 'rad', cx: 487.6, cy: 309.1, rx: 266.8, ry: 250.2, stops: [[0, 100, 99, 62, .95], [.74, 100, 99, 62, 0]] },
+          { t: 'rad', cx: 478.4, cy: -14.7, rx: 285.2, ry: 220.8, stops: [[0, 58, 62, 60, .95], [.72, 58, 62, 60, 0]] },
+          // the four drifting lights
+          { t: 'rad', cx: 110.4, cy: 81, rx: 211.6, ry: 169.3, stops: [[0, 204, 199, 195, .5], [1, 204, 199, 195, 0]], m: { ax: 22, ay: 16, fx: .11, fy: .088, p: 0, lean: .04 } },
+          { t: 'rad', cx: 395.6, cy: 338.6, rx: 193.2, ry: 147.2, stops: [[0, 112, 110, 62, .5], [1, 112, 110, 62, 0]], m: { ax: 22, ay: 16, fx: .135, fy: .108, p: 1.7, lean: .055 } },
+          { t: 'rad', cx: 368, cy: 684.5, rx: 202.4, ry: 169.3, stops: [[0, 50, 38, 60, .55], [1, 50, 38, 60, 0]], m: { ax: 22, ay: 16, fx: .16, fy: .128, p: 3.4, lean: .07 } },
+          { t: 'rad', cx: 59.8, cy: 677.1, rx: 188.6, ry: 147.2, stops: [[0, 150, 142, 110, .45], [1, 150, 142, 110, 0]], m: { ax: 22, ay: 16, fx: .185, fy: .148, p: 5.1, lean: .085 } },
+        ],
+      },
+    },
+
+    /* ── the new series: the same harmonies, new gradients ── */
+    {
+      id: 8, slug: 'prism-silk', name: 'Prism Silk', fa: 'ابریشم منشوری', from: null, kin: '05',
+      note: 'همون رنگ‌های ۰۵، تاخورده مثل ابریشم: نوارهای سفید و فیروزه‌ای و قرمز که موج می‌خورن.',
+      size: [425, 291], focus: [.5, .5], stretch: .6, flow: .7,
+      field: {
+        kind: 'grid', grid: GRID05, gw: GW, gh: GH,
+        warp(x, y, t, o) {
+          const u = x / 425, v = y / 291;
+          o[0] = x + 92 * Math.sin(v * 5.2 + u * 2.1 + t * .23) + 36 * Math.sin(v * 11.3 - t * .31);
+          o[1] = y + 70 * Math.sin(u * 4.4 - v * 1.3 - t * .19) + 24 * Math.cos(u * 9.1 + t * .27);
+        },
+      },
+    },
+    {
+      id: 9, slug: 'amber-tide', name: 'Amber Tide', fa: 'مد کهربایی', from: null, kin: '05',
+      note: 'هارمونی ۰۵ با رنگ غروب: کرم و طلایی و شرابی بالا، بنفش و نیلی پایین.',
+      size: [425, 291], focus: [.74, .5], stretch: .55, flow: 1,
+      field: { kind: 'grid', grid: flipGrid(retint(GRID05, PALETTES.amber), GW, GH, true, false), gw: GW, gh: GH },
+    },
+    {
+      id: 10, slug: 'lagoon', name: 'Lagoon', fa: 'تالاب', from: null, kin: '05',
+      note: 'هارمونی ۰۵ با رنگ آب: فیروزه‌ای و سبزآبی، با سرخابی و آلبالویی.',
+      size: [425, 291], focus: [.26, .5], stretch: .55, flow: 1,
+      field: { kind: 'grid', grid: retint(GRID05, PALETTES.lagoon), gw: GW, gh: GH },
+    },
+    {
+      id: 11, slug: 'royal', name: 'Royal', fa: 'شاهانه', from: null, kin: '05',
+      note: 'هارمونی ۰۵ با بنفش و نارنجی: یاسی روشن، بنفش عمیق و نارنجیِ گرم.',
+      size: [425, 291], focus: [.5, .5], stretch: .55, flow: 1,
+      field: { kind: 'grid', grid: flipGrid(retint(GRID05, PALETTES.royal), GW, GH, true, true), gw: GW, gh: GH },
+    },
+    {
+      id: 12, slug: 'rose-quartz', name: 'Rose Quartz', fa: 'رزکوارتز', from: null, kin: '05',
+      note: 'هارمونی ۰۵ روشن و پاستلی: یاسی، صورتی و هلویی. برای تم روشن.',
+      size: [425, 291], focus: [.26, .5], stretch: .55, flow: 1,
+      field: { kind: 'grid', grid: retint(GRID05, PALETTES.quartz), gw: GW, gh: GH },
+    },
+    {
+      id: 13, slug: 'emerald-current', name: 'Emerald Current', fa: 'جریان زمردی', from: null, kin: '06·2',
+      note: 'نورهای Conversion به رنگ زمرد: سبزآبی روشن روی سبزِ خیلی تیره.',
+      size: [476, 615], focus: [.5, .36], stretch: .5, flow: .55,
+      field: { kind: 'layers', base: [[0, ...turn([1, 18, 36], -88)], [1, ...turn([1, 7, 14], -88)]], layers: [...lights(CONV, { tint: c => turn(c, -86, 1.04) }), FADE06] },
+    },
+    {
+      id: 14, slug: 'fuchsia-ember', name: 'Fuchsia Ember', fa: 'اخگر سرخابی', from: null, kin: '06·1',
+      note: 'نورهای Insights به رنگ سرخابی: صورتیِ داغ و آلبالویی روی سیاه.',
+      size: [476, 615], focus: [.5, .3], stretch: .5, flow: .55,
+      field: { kind: 'layers', base: [[0, ...turn([22, 1, 1], -40)], [1, 0, 0, 0]], layers: [...lights(INS, { tint: c => turn(c, -42, 1.05) }), FADE06] },
+    },
+    {
+      id: 15, slug: 'twin-flame', name: 'Twin Flame', fa: 'دو شعله', from: null, kin: '06',
+      note: 'دو کارت ۰۶ کنار هم: آتش نارنجی از بالا، جریان آبی از پایین، که وسط به هم می‌رسن.',
+      size: [720, 720], focus: [.5, .5], stretch: .5, flow: .55,
+      field: {
+        kind: 'layers', base: [[0, 14, 2, 4], [.5, 3, 4, 12], [1, 1, 9, 20]], layers: [
+          ...lights(CONV, { flipX: true, flipY: true, W: 476, H: 615, s: 1.05, dx: -40, dy: 120, phase: 2 }),
+          ...lights(INS, { flipX: true, W: 476, H: 615, s: 1.05, dx: 250, dy: -10 }),
+        ],
+      },
+    },
+    {
+      id: 16, slug: 'eclipse', name: 'Eclipse', fa: 'کسوف', from: null, kin: '03',
+      note: 'نور بنفش ۰۳ پشت یه سیاره: لبه‌ی روشن، هاله‌ی بنفش و نوری که با اشاره‌گر دور لبه می‌چرخه.',
+      size: [1000, 700], focus: [.5, .5], stretch: .45, flow: .35,
+      field: {
+        kind: 'layers', base: [[0, 9, 7, 30], [.55, 12, 10, 40], [1, 5, 4, 16]], layers: [
+          { t: 'rad', cx: 0, cy: 0, rx: 470, ry: 330, stops: [[0, 132, 98, 255, .42], [.7, 132, 98, 255, 0]], m: { ax: 26, ay: 18, fx: .1, fy: .13, p: 0, as: .07, fs: .15 } },
+          { t: 'rad', cx: 1000, cy: 40, rx: 380, ry: 260, stops: [[0, 110, 90, 230, .26], [1, 110, 90, 230, 0]], m: { ax: 22, ay: 14, fx: .12, fy: .1, p: 2, as: .06, fs: .19 } },
+          { t: 'rad', cx: 500, cy: 470, rx: 640, ry: 190, stops: [[0, 120, 80, 255, .36], [.55, 96, 62, 236, .14], [1, 96, 62, 236, 0]], m: { as: .05, fs: .5, p: 1 } },
+          {
+            t: 'planet', cx: 500, cy: 1290, r: 820, aa: 2.2, fall: 2.2, light: 0,
+            body: [6, 5, 16], haze: [118, 80, 255, .55, 70], glow: [140, 104, 255, .62, 46], core: [246, 240, 255, .95, 4.5],
+            m: { ay: 9, fy: .11, p: 0 },
+          },
+          { t: 'rad', cx: 500, cy: 470, rx: 300, ry: 9, stops: [[0, 255, 255, 255, .9], [.45, 232, 222, 255, .55], [1, 190, 160, 255, 0]], m: { ay: 9, fy: .11, p: 0, leanX: 120 } },
+        ],
+      },
+    },
+  ];
+
+  /* compile each scene's field once */
+  function compile(scene) {
+    if (scene.compiled) return scene.compiled;
+    const def = { ...scene.field, size: scene.size };
+    scene.compiled = def.kind === 'grid' ? gridField(def) : layersField(def);
+    return scene.compiled;
+  }
+
+  /* ───────────── the painter: one small canvas, redrawn every frame ───────────── */
+  class Painter {
+    constructor(canvas, scene, o = {}) {
+      this.cv = canvas;
+      this.ctx = canvas.getContext('2d', { alpha: false });
+      this.scene = scene;
+      this.field = compile(scene);
+      this.div = o.div || 6;
+      this.maxPx = o.maxPx || 26000;
+      this.t = o.t0 == null ? Math.random() * 60 : o.t0;
+      this.flowAmp = 1;
+      this.p = { in: false, x: 0, y: 0, down: false, lx: null, ly: null, mouse: true };
+      this.s = {
+        lens: spring(0, 110, 7), vx: spring(0, 60, 13), vy: spring(0, 60, 13), on: spring(0, 40, 12),
+        px: spring(.5, 70, 15), py: spring(.5, 70, 15), expo: 1,
+      };
+      this.rip = [];
+      this.cw = 0; this.ch = 0; this.cssW = 0; this.cssH = 0;
+      this.tmp = [0, 0, 0]; this.F = null;
+    }
+    resize(w, h) {
+      if (w < 2 || h < 2) return false;
+      let cw = Math.max(16, Math.round(w / this.div)), ch = Math.max(16, Math.round(h / this.div));
+      if (cw * ch > this.maxPx) { const f = Math.sqrt(this.maxPx / (cw * ch)); cw = Math.round(cw * f); ch = Math.round(ch * f); }
+      this.cssW = w; this.cssH = h;
+      if (cw === this.cw && ch === this.ch) return false;
+      this.cw = cw; this.ch = ch;
+      this.cv.width = cw; this.cv.height = ch;
+      this.img = this.ctx.createImageData(cw, ch);
+      this.map = fit(this.scene, cw, ch);
+      return true;
+    }
+    setScene(scene) {
+      this.scene = scene; this.field = compile(scene);
+      if (this.cw) this.map = fit(scene, this.cw, this.ch);
+    }
+    /* pointer input in CSS pixels of the canvas box */
+    move(x, y, mouse = true) {
+      const p = this.p;
+      p.in = true; p.mouse = mouse; p.x = x; p.y = y;
+    }
+    leave() { this.p.in = false; this.p.down = false; this.p.lx = this.p.ly = null; }
+    press(x, y, a = 1) { this.p.down = true; this.move(x, y, this.p.mouse); this.ripple(x, y, a); }
+    release() { this.p.down = false; }
+    ripple(x, y, a = 1) {
+      if (this.rip.length > 4) this.rip.shift();
+      this.rip.push({ x: x / this.cssW * this.cw, y: y / this.cssH * this.ch, r: 0, a });
+    }
+    /* advance springs and time; returns true while something is moving fast (draw every frame) */
+    step(dt, motion = 1) {
+      const p = this.p, s = this.s, k = this.cw / (this.cssW || 1), S = Math.min(this.cw, this.ch);
+      this.t += dt * motion;
+      this.flowAmp = motion;
+      const on = p.in ? 1 : 0;
+      s.on.t = on;
+      s.lens.t = !p.in ? 0 : p.down ? .72 : .17;
+      if (p.in) {
+        const x = p.x * k, y = p.y * k;
+        if (p.lx !== null && dt > 0) {
+          const lim = S * .3;
+          const f = .045 / Math.max(dt, 1 / 240);
+          s.vx.t = clamp((x - p.lx) * f, -lim, lim); s.vy.t = clamp((y - p.ly) * f, -lim, lim);
+        }
+        p.lx = x; p.ly = y;
+        s.px.t = x / this.cw; s.py.t = y / this.ch;
+      } else { s.vx.t = 0; s.vy.t = 0; s.px.t = .5; s.py.t = .5; }
+      step(s.lens, dt); step(s.vx, dt); step(s.vy, dt); step(s.on, dt); step(s.px, dt); step(s.py, dt);
+      const fade = Math.pow(.82, dt * 60); s.vx.t *= fade; s.vy.t *= fade;   // the sweep dies away when the pointer rests
+      for (const r of this.rip) { r.r += dt * S * .95; r.a *= Math.pow(.2, dt); }
+      this.rip = this.rip.filter(r => r.a > .01);
+      return p.in || this.rip.length > 0 || Math.abs(s.lens.v) > .004 || Math.abs(s.lens.vel) > .01;
+    }
+    draw() {
+      const { cw, ch, img, map, s, p } = this;
+      if (!cw) return;
+      const px = img.data, S = Math.min(cw, ch), t = this.t, out = this.tmp, field = this.field, sc = this.scene;
+      const F = this.F = flowTables(cw, ch, S, t, this.F);
+      const { c1, s3, c3, s4, s6, c6, y1, yc3, ys3, y5, yc6, ys6 } = F;
+      // the pointer, in frame pixels and in design units (for lights that lean)
+      const k = cw / this.cssW, pxx = s.px.v * cw, pyy = s.py.v * ch;
+      field.prepare(t, map.rot ? { x: map.ox + (ch - pyy) / map.sx, y: map.oy + pxx / map.sy, on: s.on.v, rot: true } : { x: map.ox + pxx / map.sx, y: map.oy + pyy / map.sy, on: s.on.v });
+      const A = .032 * S * (sc.flow == null ? 1 : sc.flow) * this.flowAmp;
+      const sig2 = 2 * (S * .21) * (S * .21), lens = s.lens.v, vx = s.vx.v, vy = s.vy.v;
+      const ptrOn = Math.abs(lens) > .002 || Math.abs(vx) + Math.abs(vy) > .02;
+      const pxp = p.in ? p.x * k : pxx, pyp = p.in ? p.y * k : pyy;
+      const rips = this.rip, rw = S * .075, rk = S * .045;
+      const spot = sc.spot && s.on.v > .01 ? sc.spot : null, spR = spot ? spot.r * S : 0, spA = spot ? spot.a * s.on.v : 0, spC = spot && spot.c ? spot.c : [255, 255, 255];
+      const edge = sc.edge || null, eS = edge ? edge.s * S : 0;
+      // slow breathing of the whole composition
+      const z = 1 + .022 * Math.sin(t * .11), ox = map.ox + Math.sin(t * .07) * .018 * sc.size[0], oy = map.oy + Math.cos(t * .059) * .018 * sc.size[1];
+      const iz = 1 / z, rot = map.rot, cx0 = (rot ? ch : cw) / 2, cy0 = (rot ? cw : ch) / 2;
+      const expo = s.expo;
+      let o = 0;
+      for (let j = 0; j < ch; j++) {
+        const y = j + .5, a1 = y1[j], a3 = yc3[j], b3 = ys3[j], a5 = y5[j], a6 = yc6[j], b6 = ys6[j];
+        for (let i = 0; i < cw; i++) {
+          const x = i + .5;
+          let dx = A * (a1 + c1[i] + .5 * (s3[i] * a3 + c3[i] * b3)), dy = A * (s4[i] + a5 + .5 * (s6[i] * a6 - c6[i] * b6));
+          if (ptrOn) {
+            const ex = x - pxp, ey = y - pyp, d2 = ex * ex + ey * ey;
+            if (d2 < sig2 * 4.5) { const g = Math.exp(-d2 / sig2); dx += (vx + ex * lens) * g; dy += (vy + ey * lens) * g; }
+          }
+          for (let r = 0; r < rips.length; r++) {
+            const R = rips[r], ex = x - R.x, ey = y - R.y, d = Math.sqrt(ex * ex + ey * ey) + .01, q = (d - R.r) / rw;
+            if (q > -3 && q < 3) { const f = R.a * Math.exp(-q * q) * Math.sin(q * 2.4) * rk / d; dx += ex * f; dy += ey * f; }
+          }
+          let sx = x - dx, sy = y - dy;
+          if (rot) { const k = sx; sx = ch - sy; sy = k; }
+          field.color(ox + (cx0 + (sx - cx0) * iz) / map.sx, oy + (cy0 + (sy - cy0) * iz) / map.sy, out);
+          let R = out[0], G = out[1], B = out[2];
+          if (spot) {
+            const ex = x - pxp, ey = y - pyp, d = Math.sqrt(ex * ex + ey * ey);
+            if (d < spR) { const a = spA * (1 - d / spR); R += (spC[0] - R) * a; G += (spC[1] - G) * a; B += (spC[2] - B) * a; }
+          }
+          if (edge) {
+            const d = Math.min(x, y, cw - x, ch - y) / eS, a = edge.a * Math.exp(-d * d * .5);
+            R += (edge.c[0] - R) * a; G += (edge.c[1] - G) * a; B += (edge.c[2] - B) * a;
+          }
+          px[o] = R * expo; px[o + 1] = G * expo; px[o + 2] = B * expo; px[o + 3] = 255; o += 4;
+        }
+      }
+      this.ctx.putImageData(img, 0, 0);
+    }
+  }
+
+  /* ───────────── export: the same field at full size ─────────────
+     grain: film grain blended like CSS `overlay` (none in deep black or white);
+     every pixel is dithered so dark gradients don't band. */
+  async function render(scene, W, H, o = {}) {
+    const field = compile(scene), t = o.t == null ? 12 : o.t, grain = o.grain == null ? .045 : o.grain;
+    const cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d', { alpha: false });
+    const map = fit(scene, W, H), S = Math.min(W, H);
+    field.prepare(t, map.rot ? { x: scene.size[0] / 2, y: scene.size[1] / 2, on: 0, rot: true } : null);
+    const A = o.exact ? 0 : .032 * S * (scene.flow == null ? 1 : scene.flow), out = [0, 0, 0];
+    const { c1, s3, c3, s4, s6, c6, y1, yc3, ys3, y5, yc6, ys6 } = flowTables(W, H, S, t, null);
+    const gk = grain * 2 / 127 * 255 / 127.5;
+    // exact: the design as drawn, without the flow and the slow breathing (for comparisons)
+    const z = o.exact ? 1 : 1 + .022 * Math.sin(t * .11), ox = map.ox + (o.exact ? 0 : Math.sin(t * .07) * .018 * scene.size[0]), oy = map.oy + (o.exact ? 0 : Math.cos(t * .059) * .018 * scene.size[1]);
+    const rot = map.rot, cx0 = (rot ? H : W) / 2, cy0 = (rot ? W : H) / 2, edge = scene.edge || null, eS = edge ? edge.s * S : 0;
+    const band = Math.max(1, Math.floor(160000 / W));
+    for (let y0 = 0; y0 < H; y0 += band) {
+      const rows = Math.min(band, H - y0), img = ctx.createImageData(W, rows), px = img.data;
+      let p = 0;
+      for (let j = 0; j < rows; j++) {
+        const jj = y0 + j, y = jj + .5, a1 = y1[jj], a3 = yc3[jj], b3 = ys3[jj], a5 = y5[jj], a6 = yc6[jj], b6 = ys6[jj];
+        const drow = (jj & 255) << 8, grow = (jj & 511) << 9;
+        for (let i = 0; i < W; i++) {
+          const x = i + .5;
+          const dx = A * (a1 + c1[i] + .5 * (s3[i] * a3 + c3[i] * b3)), dy = A * (s4[i] + a5 + .5 * (s6[i] * a6 - c6[i] * b6));
+          let X = x - dx, Y = y - dy;
+          if (rot) { const k = X; X = H - Y; Y = k; }
+          field.color(ox + (cx0 + (X - cx0) / z) / map.sx, oy + (cy0 + (Y - cy0) / z) / map.sy, out);
+          let R = out[0], G = out[1], B = out[2];
+          if (edge) {
+            const d = Math.min(x, y, W - x, H - y) / eS, a = edge.a * Math.exp(-d * d * .5);
+            R += (edge.c[0] - R) * a; G += (edge.c[1] - G) * a; B += (edge.c[2] - B) * a;
+          }
+          if (grain) {   // overlay-style: strongest in the mid tones, none in black or white
+            const n = GRAIN[grow | (i & 511)] * gk;
+            R += n * (R < 127.5 ? R : 255 - R); G += n * (G < 127.5 ? G : 255 - G); B += n * (B < 127.5 ? B : 255 - B);
+          }
+          const d = DITH[drow | (i & 255)];   // triangular dither, ±1 level
+          px[p] = R + d; px[p + 1] = G + d; px[p + 2] = B + d; px[p + 3] = 255; p += 4;
+        }
+      }
+      ctx.putImageData(img, 0, y0);
+      if (o.progress) o.progress(Math.min(1, (y0 + rows) / H));
+      await new Promise(r => setTimeout(r, 0));
+    }
+    if (scene.overlay && OVERLAYS[scene.overlay]) OVERLAYS[scene.overlay](ctx, W, H, t, { scale: Math.min(W, H) / 900, px: 0 });
+    return cv;
+  }
+
+  window.BGLab = { SCENES, Painter, render, compile, fit, OVERLAYS, hexOf, rgb2lab, lab2rgb, turn, retint, GRID05 };
+})();
+
+/* ── backgrounds/page.js ── */
+/* ==========================================================================
+   Background Lab · page
+   - a tile per background (engine.js SCENES): live frame + caption
+   - one animation loop for the tiles in view (only the viewer while it's open)
+   - pointer: move = swell and sweep · press = ripple · hold = pull · drag = stir
+   - viewer: full window, previous / next, pause, real fullscreen, downloads
+   - downloads: PNG at phone and desktop sizes, through the Artifact
+     `downloads` capability inside claude.ai, else a plain download link
+   ========================================================================== */
+(() => {
+  'use strict';
+  const BG = window.BGLab;
+  if (!BG) { console.warn('[bg] engine.js missing'); return; }
+  const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const Lab = window.WidgetLab || { timeScale: 1, still: false, get reduced() { return mqReduce.matches; } };
+
+  const SIZES = { phone: { w: 1179, h: 2556, fa: 'موبایل' }, desktop: { w: 2560, h: 1440, fa: 'دسکتاپ' } };
+  const FA = '۰۱۲۳۴۵۶۷۸۹';
+  const fa = s => String(s).replace(/\d/g, d => FA[d]);
+  const two = n => String(n).padStart(2, '0');
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const SVG = d => `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${d}</svg>`;
+  const ICON = {
+    open: SVG('<path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/>'),
+    phone: SVG('<rect x="7" y="2.5" width="10" height="19" rx="2.6"/><path d="M11 18.6h2"/>'),
+    desktop: SVG('<rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M9 20.5h6M12 16.5v4"/>'),
+  };
+
+  let root, toastEl, toastTimer = 0, grainOn = true, raf = 0, last = 0, frameNo = 0;
+  const items = [];
+  const shown = new Set();
+
+  /* a background's signature colour: its most vivid spot (for the number dot and the page glow) */
+  function accentOf(scene) {
+    const f = BG.compile(scene), [W, H] = scene.size, out = [0, 0, 0];
+    f.prepare(12, null);
+    let best = null, bestScore = -1;
+    for (let j = 1; j < 12; j++) for (let i = 1; i < 16; i++) {
+      f.color(i / 16 * W, j / 12 * H, out);
+      const [L, a, b] = BG.rgb2lab(clamp(out[0], 0, 255), clamp(out[1], 0, 255), clamp(out[2], 0, 255));
+      const score = Math.hypot(a, b) * (.35 + L);
+      if (score > bestScore) { bestScore = score; best = out.map(v => clamp(Math.round(v), 0, 255)); }
+    }
+    return best;
+  }
+  const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+
+  /* ───────────── tiles ───────────── */
+  // a set's card number (06·2) stays left to right, like the gallery writes it
+  const wnum = n => (n.includes('·') ? `<bdi dir="ltr">${n}</bdi>` : fa(n));
+  function fromText(s) {
+    if (s.from === 'lab') return 'از پس‌زمینه‌ی گالری';
+    if (s.from) return `از ویجت ${wnum(s.from)}`;
+    return `تازه · هارمونی ${wnum(s.kin)}`;
+  }
+  function tileHTML(s, hero) {
+    return `<article class="bgl-tile${hero ? ' is-hero' : ''}" data-id="${s.id}" aria-labelledby="bgl-t${s.id}">
+  <div class="bgl-frame">
+    <canvas class="bgl-field" role="img" aria-label="${s.fa} (${s.name})، بک‌گراند زنده"></canvas>
+    ${s.overlay ? '<canvas class="bgl-over" aria-hidden="true"></canvas>' : ''}
+    <i class="bgl-grain" aria-hidden="true"></i>
+    <span class="bgl-num" aria-hidden="true"><i></i>BG·${two(s.id)}</span>
+    <button class="bgl-open" type="button" aria-label="${s.fa}، تمام‌صفحه" title="تمام‌صفحه">${ICON.open}</button>
+  </div>
+  <div class="bgl-cap">
+    <h3 class="bgl-title" id="bgl-t${s.id}"><b>${s.fa}</b><span lang="en" dir="ltr">${s.name}</span></h3>
+    <p class="bgl-from${s.from ? '' : ' is-new'}">بک‌گراند ${fa(s.id)} · ${fromText(s)}</p>
+    <p class="bgl-note">${s.note}</p>
+    <div class="bgl-acts">
+      <button class="bgl-btn js-dl" type="button" data-kind="phone" aria-label="دانلود ${s.fa} برای موبایل">${ICON.phone}<span>موبایل</span></button>
+      <button class="bgl-btn js-dl" type="button" data-kind="desktop" aria-label="دانلود ${s.fa} برای دسکتاپ">${ICON.desktop}<span>دسکتاپ</span></button>
+    </div>
+  </div>
+</article>`;
+  }
+
+  function buildTiles() {
+    const groups = { from: root.querySelector('[data-group="from"]'), new: root.querySelector('[data-group="new"]') };
+    let firstNew = true;
+    BG.SCENES.forEach((s, i) => {
+      const g = s.from ? groups.from : groups.new;
+      const hero = i === 0 || (!s.from && firstNew);
+      if (!s.from) firstNew = false;
+      g.insertAdjacentHTML('beforeend', tileHTML(s, hero));
+      const el = g.lastElementChild;
+      const item = {
+        scene: s, index: i, el, frame: el.querySelector('.bgl-frame'), field: el.querySelector('.bgl-field'), over: el.querySelector('.bgl-over'),
+        painter: null, visible: false, played: false, introT: -1, phase: i % 2, accent: accentOf(s), dirty: true,
+      };
+      el.style.setProperty('--dot', rgba(item.accent, 1));
+      item.painter = new BG.Painter(item.field, s, { div: 6, maxPx: hero ? 30000 : 16000, t0: Lab.still ? 12 : 8 + Math.random() * 40 });
+      items.push(item);
+    });
+  }
+
+  /* ───────────── sizing ───────────── */
+  const DPR = () => Math.min(2, window.devicePixelRatio || 1);
+  function sizeItem(item, w, h) {
+    item.painter.resize(w, h);
+    if (item.over) {
+      const W = Math.round(w * DPR()), H = Math.round(h * DPR());
+      if (item.over.width !== W || item.over.height !== H) { item.over.width = W; item.over.height = H; }
+    }
+    item.dirty = true;
+  }
+  function drawOverlay(item, painter = item.painter, canvas = item.over, scene = item.scene) {
+    if (!canvas || !scene.overlay) return;
+    const ctx = canvas.getContext('2d'), W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    const px = (painter.s.px.v * 2 - 1) * painter.s.on.v;
+    BG.OVERLAYS[scene.overlay](ctx, W, H, painter.t, { scale: Math.min(W, H) / 900, px });
+  }
+
+  /* ───────────── pointer ───────────── */
+  function bindPointer(el, getPainter, opt = {}) {
+    let rect = null, down = null, leaveTimer = 0;
+    const drop = () => { rect = null; };
+    addEventListener('scroll', drop, { passive: true, capture: true });
+    addEventListener('resize', drop, { passive: true });
+    const pos = e => {
+      if (opt.screen) return [e.clientX, e.clientY];   // the viewer fills the window
+      const r = rect || (rect = el.getBoundingClientRect());
+      return [e.clientX - r.left, e.clientY - r.top];
+    };
+    const live = () => !Lab.reduced;
+    el.addEventListener('pointerenter', () => { drop(); if (opt.enter) opt.enter(); });
+    el.addEventListener('pointermove', e => {
+      const P = getPainter();
+      if (!P || !live()) return;
+      clearTimeout(leaveTimer);
+      const [x, y] = pos(e);
+      P.move(x, y, e.pointerType !== 'touch');
+      if (opt.move) opt.move(e);
+    }, { passive: true });
+    el.addEventListener('pointerdown', e => {
+      if (e.button > 0 || e.target.closest('button')) return;
+      const P = getPainter();
+      if (!P || !live()) return;
+      clearTimeout(leaveTimer);
+      const [x, y] = pos(e);
+      P.p.mouse = e.pointerType !== 'touch';
+      P.press(x, y, 1.25);
+      down = { x: e.clientX, y: e.clientY, t: performance.now(), type: e.pointerType };
+      if (opt.down) opt.down(e);
+    });
+    const up = e => {
+      const P = getPainter();
+      if (!P) return;
+      P.release();
+      if (down && opt.swipe && down.type !== 'mouse') {
+        const dx = e.clientX - down.x, dy = e.clientY - down.y, dt = performance.now() - down.t;
+        if (dt < 380 && Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) opt.swipe(dx);
+      }
+      down = null;
+      if (e.pointerType !== 'mouse') { clearTimeout(leaveTimer); leaveTimer = setTimeout(() => P.leave(), 1100); }
+    };
+    el.addEventListener('pointerup', up);
+    el.addEventListener('pointercancel', () => { const P = getPainter(); if (P) { P.release(); P.leave(); } down = null; });
+    el.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { const P = getPainter(); if (P) P.leave(); if (opt.leave) opt.leave(); } });
+  }
+
+  /* the page glow takes the colour of the background under the pointer */
+  let ambTimer = 0;
+  function ambient(c) {
+    clearTimeout(ambTimer);
+    const el = root.querySelector('.bgl-ambient');
+    if (!el) return;
+    if (c) el.style.setProperty('--amb', rgba(c, .24));
+    else ambTimer = setTimeout(() => el.style.removeProperty('--amb'), 500);
+  }
+
+  /* ───────────── the loop ───────────── */
+  function tick(item, painter, dt, every, canvas, scene) {
+    const motion = Lab.reduced ? 0 : 1;
+    const busy = painter.step(dt, motion);
+    if (item && item.introT >= 0) { item.introT += dt; if (item.introT > 1.6) item.introT = -1; }
+    if (Lab.reduced && !(item ? item.dirty : V.dirty)) return;
+    if (busy || every || (item && item.introT >= 0) || (frameNo + (item ? item.phase : 0)) % 2 === 0) {
+      painter.draw();
+      drawOverlay(item, painter, canvas, scene);
+      if (item) item.dirty = false; else V.dirty = false;
+    }
+  }
+  function loop(now) {
+    raf = 0;
+    const dt = Math.min(.05, (now - (last || now)) / 1000) * (Lab.timeScale || 1);
+    last = now; frameNo++;
+    if (V.open) {
+      if (!V.paused || V.dirty) tick(null, V.painter, V.paused ? 0 : dt, true, V.over, V.scene);
+    } else {
+      shown.forEach(item => tick(item, item.painter, dt, false, item.over, item.scene));
+    }
+    if (!document.hidden && (V.open || shown.size)) raf = requestAnimationFrame(loop);
+  }
+  function kick() { if (!raf && !document.hidden) { last = 0; raf = requestAnimationFrame(loop); } }
+
+  /* ───────────── downloads ───────────── */
+  let saverP = null;
+  function getSaver() {
+    if (saverP) return saverP;
+    saverP = (async () => {
+      const c = window.claude;
+      if (c && typeof c.use === 'function') {
+        // served by claude.ai: only the capability can save (a link the page starts is inert there)
+        let dl = null;
+        try { dl = await c.use('downloads'); } catch (e) { dl = null; }
+        return dl ? { kind: 'claude', save: (filename, blob) => dl.save({ filename, data: blob }) } : null;
+      }
+      return {   // a saved copy or any other host: a plain download link
+        kind: 'link',
+        save: async (filename, blob) => {
+          const url = URL.createObjectURL(blob), a = document.createElement('a');
+          a.href = url; a.download = filename; a.rel = 'noopener';
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 8000);
+          return { status: 'started' };
+        },
+      };
+    })();
+    return saverP;
+  }
+  let busyDl = false;
+  async function download(scene, kind, btn, t) {
+    if (busyDl) { toast('یکی دیگه در حال ساخته؛ یه لحظه صبر کن'); return; }
+    const saver = await getSaver();
+    if (!saver) { root.classList.add('no-dl'); toast('دانلود اینجا در دسترس نیست'); return; }
+    const Z = SIZES[kind];
+    busyDl = true;
+    btn.classList.add('is-busy'); btn.style.setProperty('--p', '0'); btn.setAttribute('aria-busy', 'true');
+    toast(`در حال ساختن نسخه‌ی ${Z.fa}…`, 0);
+    try {
+      const cv = await BG.render(scene, Z.w, Z.h, { t, grain: grainOn ? .035 : 0, progress: p => btn.style.setProperty('--p', p.toFixed(3)) });
+      const blob = await new Promise((res, rej) => cv.toBlob(b => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
+      const name = `bg-${two(scene.id)}-${scene.slug}-${kind}-${Z.w}x${Z.h}.png`;
+      const r = await saver.save(name, blob);
+      toast(r && r.status === 'saved' ? 'ذخیره شد' : r && r.status === 'started' ? 'دانلود شروع شد' : 'آماده شد');
+    } catch (err) {
+      const code = err && err.code;
+      if (code === 'declined') toast('دانلود لغو شد');
+      else if (code === 'rate_limited') toast('یه پنجره‌ی دانلود بازه؛ یه لحظه بعد دوباره بزن');
+      else if (code === 'too_large') toast('این فایل برای این‌جا بزرگه');
+      else if (code === 'bad_request' || code === 'transform_error') { toast('ساختن فایل نشد'); console.warn('[bg] download', err); }
+      else if (code) { root.classList.add('no-dl'); toast('دانلود اینجا در دسترس نیست'); }
+      else { toast('ساختن فایل نشد'); console.warn('[bg] download', err); }
+    } finally {
+      busyDl = false;
+      btn.classList.remove('is-busy'); btn.removeAttribute('aria-busy'); btn.style.removeProperty('--p');
+    }
+  }
+
+  function toast(msg, ms = 2600) {
+    if (!toastEl) return;
+    clearTimeout(toastTimer);
+    toastEl.textContent = msg;
+    toastEl.classList.add('is-on');
+    if (ms) toastTimer = setTimeout(() => toastEl.classList.remove('is-on'), ms);
+  }
+
+  /* ───────────── the viewer ───────────── */
+  const V = { open: false, paused: false, dirty: true, index: 0, scene: null, painter: null, el: null, field: null, prev: null, over: null, from: null, idleTimer: 0, hintTimer: 0, anim: null };
+  function sizeViewer() {
+    const w = innerWidth, h = innerHeight;
+    V.painter.resize(w, h);
+    const W = Math.round(w * DPR()), H = Math.round(h * DPR());
+    if (V.over.width !== W || V.over.height !== H) { V.over.width = W; V.over.height = H; }
+    V.dirty = true;
+  }
+  function paintViewerInfo() {
+    const s = V.scene;
+    V.el.querySelector('.js-vnum').innerHTML = `<i style="--dot:${rgba(items[V.index].accent, 1)}"></i>BG·${two(s.id)}`;
+    V.el.querySelector('.js-vfa').textContent = s.fa;
+    V.el.querySelector('.js-ven').textContent = s.name;
+    V.el.setAttribute('aria-label', `${s.fa}، بک‌گراند ${fa(s.id)}`);
+    const ctx = V.over.getContext('2d');
+    ctx.clearRect(0, 0, V.over.width, V.over.height);
+  }
+  function wake() {
+    V.el.classList.remove('is-idle');
+    clearTimeout(V.idleTimer);
+    V.idleTimer = setTimeout(() => {
+      const f = document.activeElement;
+      if (f && f !== V.el && V.el.contains(f) && f.matches(':focus-visible')) return;   // a key user on a button keeps the bar
+      V.el.classList.add('is-idle');
+    }, 2800);
+  }
+  function openViewer(i, fromEl) {
+    const item = items[i];
+    V.index = i; V.scene = item.scene; V.from = fromEl;
+    V.painter.setScene(item.scene);
+    V.painter.t = item.painter.t;
+    V.painter.leave();
+    V.open = true; V.dirty = true;
+    V.el.hidden = false;
+    document.documentElement.style.overflow = 'hidden';
+    sizeViewer();
+    paintViewerInfo();
+    V.painter.draw(); drawOverlay(null, V.painter, V.over, V.scene);
+    const hint = V.el.querySelector('.bglv-hint');
+    hint.textContent = matchMedia('(hover: none)').matches ? 'بکش · بزن · نگه دار' : 'اشاره‌گر رو تکون بده · کلیک کن · نگه دار';
+    hint.classList.remove('is-gone');
+    clearTimeout(V.hintTimer); V.hintTimer = setTimeout(() => hint.classList.add('is-gone'), 4200);
+    wake();
+    // grow out of the tile
+    if (V.anim) V.anim.kill();
+    const r = fromEl && fromEl.getBoundingClientRect();
+    if (r && r.width && !Lab.reduced && window.gsap && gsap.fromTo) {
+      const sx = r.width / innerWidth, sy = r.height / innerHeight;
+      const ui = V.el.querySelector('.bglv-ui');
+      V.anim = gsap.timeline({ onComplete: () => { V.anim = null; } })
+        .fromTo(V.el, { x: r.left, y: r.top, scaleX: sx, scaleY: sy, transformOrigin: '0 0', borderRadius: `${26 / sx}px / ${26 / sy}px` },
+          { x: 0, y: 0, scaleX: 1, scaleY: 1, borderRadius: '0px / 0px', duration: .8, ease: 'expo.inOut', clearProps: 'transform,borderRadius' })
+        .fromTo(ui, { opacity: 0 }, { opacity: 1, duration: .4, clearProps: 'opacity' }, .55);
+    }
+    V.el.focus({ preventScroll: true });   // keys go to the viewer: arrows, Space, Esc; Tab reaches the buttons
+    kick();
+  }
+  function closeViewer() {
+    if (!V.open) return;
+    const item = items[V.index];
+    const done = () => {
+      V.open = false; V.el.hidden = true; V.anim = null;
+      document.documentElement.style.overflow = '';
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      // carry the viewer's moment back to the tile
+      item.painter.t = V.painter.t; item.dirty = true;
+      const btn = item.el.querySelector('.bgl-open');
+      if (btn) btn.focus({ preventScroll: true });
+      kick();
+    };
+    if (V.anim) V.anim.kill();
+    const r0 = item.frame.getBoundingClientRect();
+    if (r0.bottom < 0 || r0.top > innerHeight) item.frame.scrollIntoView({ block: 'center' });
+    const r = item.frame.getBoundingClientRect();
+    if (!Lab.reduced && window.gsap && gsap.timeline && r.width && !document.fullscreenElement) {
+      const sx = r.width / innerWidth, sy = r.height / innerHeight;
+      V.anim = gsap.timeline({ onComplete: () => { gsap.set(V.el, { clearProps: 'transform,borderRadius' }); done(); } })
+        .to(V.el.querySelector('.bglv-ui'), { opacity: 0, duration: .2, clearProps: 'opacity' }, 0)
+        .to(V.el, { x: r.left, y: r.top, scaleX: sx, scaleY: sy, transformOrigin: '0 0', borderRadius: `${26 / sx}px / ${26 / sy}px`, duration: .65, ease: 'expo.inOut' }, 0);
+    } else done();
+  }
+  function go(dir) {
+    const n = (V.index + dir + items.length) % items.length;
+    // the old frame fades out over the new one
+    V.prev.width = V.painter.cw; V.prev.height = V.painter.ch;
+    V.prev.getContext('2d').drawImage(V.field, 0, 0);
+    V.index = n; V.scene = items[n].scene;
+    V.painter.setScene(V.scene);
+    V.painter.t = items[n].painter.t;
+    V.dirty = true;
+    paintViewerInfo();
+    V.painter.draw(); drawOverlay(null, V.painter, V.over, V.scene);
+    if (!Lab.reduced) {
+      const x = dir > 0 ? V.painter.cssW * .12 : V.painter.cssW * .88;
+      V.painter.ripple(x, V.painter.cssH * .5, 1.4);
+      if (window.gsap && gsap.fromTo) gsap.fromTo(V.prev, { opacity: 1 }, { opacity: 0, duration: .9, ease: 'power2.out' });
+    }
+    wake();
+  }
+  function togglePause(force) {
+    V.paused = force == null ? !V.paused : force;
+    const b = V.el.querySelector('[data-v="pause"]');
+    b.setAttribute('aria-pressed', String(V.paused));
+    b.setAttribute('aria-label', V.paused ? 'ادامه‌ی حرکت' : 'نگه داشتن حرکت');
+  }
+  function setupViewer() {
+    V.el = root.querySelector('.bgl-viewer');
+    V.field = V.el.querySelector('.bgl-field'); V.prev = V.el.querySelector('.bglv-prev'); V.over = V.el.querySelector('.bgl-over');
+    V.painter = new BG.Painter(V.field, BG.SCENES[0], { div: 5, maxPx: 56000, t0: 12 });
+    bindPointer(V.el, () => (V.open && !V.anim ? V.painter : null), {
+      screen: true,
+      move: wake,
+      down: () => { wake(); V.el.querySelector('.bglv-hint').classList.add('is-gone'); },
+      swipe: dx => go(dx > 0 ? 1 : -1),   // right to left reading: a swipe to the right brings the next one
+    });
+    V.el.querySelector('.bglv-close').addEventListener('click', closeViewer);
+    V.el.querySelector('[data-v="prev"]').addEventListener('click', () => go(-1));
+    V.el.querySelector('[data-v="next"]').addEventListener('click', () => go(1));
+    V.el.querySelector('[data-v="pause"]').addEventListener('click', () => togglePause());
+    V.el.querySelectorAll('.js-dl').forEach(b => b.addEventListener('click', () => download(V.scene, b.dataset.kind, b, V.painter.t)));
+    const fs = V.el.querySelector('.js-fs');
+    if (!document.fullscreenEnabled || !V.el.requestFullscreen) root.classList.add('no-fs');
+    fs.addEventListener('click', () => {
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      else V.el.requestFullscreen().catch(() => root.classList.add('no-fs'));
+    });
+    document.addEventListener('keydown', e => {
+      if (!V.open) return;
+      if (e.key === 'Escape') { if (!document.fullscreenElement) { e.preventDefault(); closeViewer(); } return; }
+      if (e.target.closest && e.target.closest('button') && (e.key === ' ' || e.key === 'Enter')) { wake(); return; }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); go(-1); }
+      else if (e.key === ' ' || e.key === 'k') { e.preventDefault(); togglePause(); }
+      else if (e.key === 'f' && !root.classList.contains('no-fs')) fs.click();
+      else if (e.key === 'Tab') {   // keep focus inside the viewer
+        const f = [...V.el.querySelectorAll('button')].filter(b => b.offsetParent !== null);
+        const i = f.indexOf(document.activeElement);
+        if (e.shiftKey && (i <= 0)) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+      }
+      wake();
+    });
+    addEventListener('resize', () => { if (V.open) sizeViewer(); });
+  }
+
+  /* ───────────── setup ───────────── */
+  function grainTexture() {
+    const n = 192, c = document.createElement('canvas');
+    c.width = c.height = n;
+    const x = c.getContext('2d'), img = x.createImageData(n, n), d = img.data;
+    for (let i = 0; i < d.length; i += 4) { const v = 128 + (Math.random() + Math.random() - 1) * 56; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; }
+    x.putImageData(img, 0, 0);
+    root.style.setProperty('--bgl-grain', `url(${c.toDataURL('image/png')})`);
+    root.style.setProperty('--bgl-grain-size', `${(n / DPR()).toFixed(1)}px`);
+  }
+  function setupGrain() {
+    grainOn = false;   // off by default: smooth like the widgets (a faint dither stays, against banding)
+    try { grainOn = localStorage.getItem('bg-lab-grain') === 'on'; } catch (e) { /* storage blocked */ }
+    const b = root.querySelector('[data-tool="grain"]');
+    const paint = () => { root.classList.toggle('no-grain', !grainOn); if (b) b.setAttribute('aria-pressed', String(grainOn)); };
+    paint();
+    if (b) b.addEventListener('click', () => {
+      grainOn = !grainOn; paint();
+      try { localStorage.setItem('bg-lab-grain', grainOn ? 'on' : 'off'); } catch (e) { /* ignore */ }
+      toast(grainOn ? 'بافت روشن شد (روی فایل‌ها هم)' : 'بافت خاموش شد');
+    });
+  }
+
+  function init() {
+    root = document.querySelector('.bgl');
+    if (!root) return;
+    toastEl = root.querySelector('.bgl-toast');
+    if (Lab.still) root.classList.add('is-still');
+    grainTexture();
+    setupGrain();
+    buildTiles();
+    setupViewer();
+    getSaver().then(s => { if (!s) root.classList.add('no-dl'); });
+
+    const ro = new ResizeObserver(entries => entries.forEach(en => {
+      const item = items.find(it => it.frame === en.target);
+      if (item) { sizeItem(item, en.contentRect.width, en.contentRect.height); item.painter.draw(); drawOverlay(item); item.dirty = false; }
+    }));
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      const item = items.find(it => it.frame === en.target);
+      if (!item) return;
+      item.visible = en.isIntersecting;
+      if (en.isIntersecting) shown.add(item); else shown.delete(item);
+      // first time in view: the colours pinch, ring out from the centre and spring back
+      if (en.isIntersecting && !item.played && (en.intersectionRatio >= .3 || en.intersectionRect.height > innerHeight * .3)) {
+        item.played = true;
+        if (!Lab.reduced && !Lab.still) {
+          item.introT = 0;
+          item.painter.s.lens.v = -.5;
+          item.painter.ripple(item.painter.cssW / 2, item.painter.cssH / 2, 1.3);
+        }
+      }
+      kick();
+    }), { rootMargin: '80px 0px', threshold: [0, .15, .3, .5] });
+
+    items.forEach(item => {
+      ro.observe(item.frame);
+      io.observe(item.frame);
+      bindPointer(item.frame, () => item.painter, {
+        enter: () => ambient(item.accent),
+        leave: () => ambient(null),
+      });
+      item.frame.addEventListener('dblclick', e => { if (!e.target.closest('button')) openViewer(item.index, item.frame); });
+      item.el.querySelector('.bgl-open').addEventListener('click', () => openViewer(item.index, item.frame));
+      item.el.querySelectorAll('.js-dl').forEach(b => b.addEventListener('click', () => download(item.scene, b.dataset.kind, b, item.painter.t)));
+    });
+    if (Lab.still) items.forEach(it => { it.played = true; });
+
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) kick(); });
+    mqReduce.addEventListener('change', () => { items.forEach(it => { it.dirty = true; }); V.dirty = true; kick(); });
+    kick();
+  }
+
+  window.BGPage = { items, V, open: (i = 0) => openViewer(i, items[i].frame), close: closeViewer, go, download, getSaver };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+</body></html>

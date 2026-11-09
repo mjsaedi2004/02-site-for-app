@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study 01 · Fintech homepage</title>
+<meta name="description" content="Design study 01: a fintech landing page rebuilt from a reference shot, with smooth scroll and motion. Brand and figures are illustrative.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&family=Playfair+Display:wght@800&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add("js-intro");setTimeout(function(){document.documentElement.classList.remove("js-intro")},4000);</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 28 20"><path d="M9.2 1.2h16.3c1 0 1.6 1 1.1 1.9l-6.1 10.4c-.4.6-1 1-1.8 1H2.5c-1 0-1.6-1-1.1-1.9L7.5 2.2c.4-.6 1-1 1.7-1Z" opacity=".55"/><path d="M11.2 5.2h14.3c1 0 1.6 1 1.1 1.9l-6.1 10.4c-.4.6-1 1-1.8 1H4.5c-1 0-1.6-1-1.1-1.9L9.5 6.2c.4-.6 1-1 1.7-1Z"/></symbol>
+    <symbol id="spark" viewBox="0 0 60 60"><path d="M30 0c.9 17.6 4.4 26.8 30 30-25.6 3.2-29.1 12.4-30 30-.9-17.6-4.4-26.8-30-30C25.6 26.8 29.1 17.6 30 0Z"/></symbol>
+    <symbol id="mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m3.5 7 7.4 5.4c.7.5 1.5.5 2.2 0L20.5 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="grid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7.5" height="7.5" rx="2.4"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2.4"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2.4"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2.4"/></g></symbol>
+    <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="back" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="dots3" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></g></symbol>
+    <symbol id="scan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3"/><circle cx="12" cy="12" r="3.2"/></g></symbol>
+    <symbol id="t-card" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></g></symbol>
+    <symbol id="t-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></g></symbol>
+    <symbol id="t-swap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4 4 7l3 3M4 7h12M17 20l3-3-3-3M20 17H8"/></g></symbol>
+    <symbol id="t-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20h16M7 17v-6M12 17V7M17 17v-9"/></g></symbol>
+    <symbol id="share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M6 11H5v9h14v-9h-1"/></g></symbol>
+    <symbol id="person" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18c1.4-2.4 3.2-3.6 5.5-3.6s4.1 1.2 5.5 3.6"/></g></symbol>
+    <symbol id="flag" viewBox="0 0 24 24"><path d="M6 21V4m0 1h11l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="cardout" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M8 15h3"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <!-- ============ header ============ -->
+  <header class="nav wrap">
+    <a class="logo" href="#top" aria-label="Arzino home"><svg class="logo__mark"><use href="#mark"/></svg><span>Arzino</span></a>
+    <a class="nav__link" href="#">Careers</a>
+    <a class="btn btn--nav" href="#access" data-magnetic>Get Early Access</a>
+  </header>
+
+  <main id="top">
+    <!-- ============ hero ============ -->
+    <section class="hero wrap">
+      <img class="hero__map" src="img/world-dots.png" alt="" aria-hidden="true">
+      <div class="hero__copy">
+        <h1 class="hero__title">
+          <span class="ln"><span>Are you ready <svg class="spark"><use href="#spark"/></svg></span></span>
+          <span class="ln"><span>for a revolution in</span></span>
+          <span class="ln"><span>fintech industry?</span></span>
+          <span class="ln"><span class="blue">Explore us</span></span>
+        </h1>
+        <p class="hero__lead">Business owners, finance teams &amp; CFO's – use our software &amp; unlimited corporate cards to control online &amp; offline business expenses, get real time spend insights &amp; reduce petty cash leakages.</p>
+        <form class="email" id="access" onsubmit="return false">
+          <svg class="email__ic"><use href="#mail"/></svg>
+          <label class="vh" for="email-hero">Email address</label>
+          <input id="email-hero" type="email" placeholder="Your email address" autocomplete="email">
+          <button class="btn" type="submit">Get Early Access</button>
+        </form>
+        <ul class="logos" aria-label="Featured in (placeholder names)">
+          <li class="lg lg--serif">Adatum</li>
+          <li class="lg lg--intel">zeta</li>
+          <li class="lg lg--visa">NOVA</li>
+          <li class="lg lg--swoosh"><svg viewBox="0 0 56 19" aria-label="Arc"><path d="M1 13.5c3.6 4.8 11 5.2 19 2.4L55 1 22.6 17.6C13.5 21.4 4.4 19.6 1 13.5Z"/></svg></li>
+          <li class="lg lg--google">Lumina</li>
+          <li class="lg lg--intel">aero</li>
+        </ul>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__box"></div>
+        <div class="phone phone--hero">
+          <div class="phone__screen">
+            <div class="sb"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
+            <div class="app">
+              <div class="app__top"><svg class="app__grid"><use href="#grid"/></svg><span class="app__avatar"></span></div>
+              <p class="app__lbl">Balance <svg><use href="#chev"/></svg></p>
+              <p class="app__bal">$15,786.00</p>
+              <div class="app__btns"><span>Deposit</span><span>Withdraw</span></div>
+              <p class="app__sec">Bank Accounts: <svg><use href="#plus"/></svg></p>
+              <div class="row"><span class="row__logo row__logo--nb">nw<b>b</b></span><span class="row__name">Family<small><i>•••</i>0216</small></span><span class="row__amt">$1,546</span></div>
+              <div class="row"><span class="row__logo row__logo--w">W</span><span class="row__name">Main<small><i>•••</i>2425</small></span><span class="row__amt">$2,365</span></div>
+              <p class="app__sec app__sec--2">Cards <svg><use href="#plus"/></svg></p>
+              <div class="row row--card"><span class="row__logo row__logo--card">CARD</span><span class="row__name">Debit Card</span><span class="row__amt">$1,546</span></div>
+              <div class="row row--card"><span class="row__logo row__logo--pay"><i></i>Pay</span><span class="row__name">Wallet Pay</span><span class="row__amt">$2,365</span></div>
+              <div class="tabs"><svg class="on"><use href="#t-card"/></svg><svg><use href="#t-bag"/></svg><svg><use href="#t-swap"/></svg><svg><use href="#t-chart"/></svg></div>
+            </div>
+            <span class="home"></span>
+          </div>
+          <span class="phone__notch"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ banking made easier ============ -->
+    <section class="easier">
+      <div class="easier__panel">
+        <svg class="easier__arcs" viewBox="0 0 1312 440" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><g fill="none" stroke="currentColor"><circle cx="656" cy="420" r="170"/><circle cx="656" cy="420" r="230"/><circle cx="656" cy="420" r="290"/><circle cx="656" cy="420" r="350"/></g></svg>
+        <h2 class="easier__title">We Made Banking <mark>Easier!</mark></h2>
+      </div>
+      <div class="cards wrap">
+        <article class="card card--a">
+          <h3>QR transfer;<br>a piece of cake!</h3>
+          <svg class="card__rings" viewBox="0 0 344 344" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="172" cy="172" r="141"/><circle cx="172" cy="172" r="155.5"/><circle cx="172" cy="172" r="170"/></g></svg>
+          <div class="phone phone--card" aria-hidden="true">
+            <div class="phone__screen">
+              <div class="sb"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
+              <div class="qr">
+                <div class="qr__top"><b>Transaction</b><svg><use href="#scan"/></svg></div>
+                <div class="qr__tabs"><span>Send Money</span><span class="on">Receive Money</span></div>
+                <svg class="qr__code" viewBox="0 0 29 29" shape-rendering="crispEdges"><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM15 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM12 1h1v1h-1zM15 1h1v1h-1zM17 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM10 2h1v1h-1zM12 2h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM13 3h1v1h-1zM16 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM19 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM20 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM14 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM18 7h1v1h-1zM1 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM11 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM3 9h1v1h-1zM7 9h1v1h-1zM11 9h1v1h-1zM12 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM22 9h1v1h-1zM25 9h1v1h-1zM26 9h1v1h-1zM27 9h1v1h-1zM28 9h1v1h-1zM3 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM19 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM25 10h1v1h-1zM28 10h1v1h-1zM0 11h1v1h-1zM8 11h1v1h-1zM9 11h1v1h-1zM14 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM23 11h1v1h-1zM25 11h1v1h-1zM26 11h1v1h-1zM27 11h1v1h-1zM0 12h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM9 12h1v1h-1zM17 12h1v1h-1zM20 12h1v1h-1zM21 12h1v1h-1zM23 12h1v1h-1zM27 12h1v1h-1zM1 13h1v1h-1zM4 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM18 13h1v1h-1zM19 13h1v1h-1zM22 13h1v1h-1zM24 13h1v1h-1zM26 13h1v1h-1zM28 13h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM26 14h1v1h-1zM0 15h1v1h-1zM1 15h1v1h-1zM2 15h1v1h-1zM3 15h1v1h-1zM7 15h1v1h-1zM12 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM2 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM9 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM13 16h1v1h-1zM15 16h1v1h-1zM20 16h1v1h-1zM22 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM28 16h1v1h-1zM0 17h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM10 17h1v1h-1zM11 17h1v1h-1zM13 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM22 17h1v1h-1zM23 17h1v1h-1zM24 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM28 17h1v1h-1zM6 18h1v1h-1zM11 18h1v1h-1zM12 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM19 18h1v1h-1zM20 18h1v1h-1zM23 18h1v1h-1zM26 18h1v1h-1zM27 18h1v1h-1zM28 18h1v1h-1zM1 19h1v1h-1zM3 19h1v1h-1zM7 19h1v1h-1zM8 19h1v1h-1zM10 19h1v1h-1zM11 19h1v1h-1zM12 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM18 19h1v1h-1zM19 19h1v1h-1zM21 19h1v1h-1zM24 19h1v1h-1zM25 19h1v1h-1zM26 19h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM8 21h1v1h-1zM10 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM26 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM9 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM12 22h1v1h-1zM15 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM26 22h1v1h-1zM27 22h1v1h-1zM28 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM10 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM19 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM15 25h1v1h-1zM18 25h1v1h-1zM22 25h1v1h-1zM23 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM11 26h1v1h-1zM12 26h1v1h-1zM14 26h1v1h-1zM15 26h1v1h-1zM17 26h1v1h-1zM20 26h1v1h-1zM24 26h1v1h-1zM27 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM12 27h1v1h-1zM16 27h1v1h-1zM23 27h1v1h-1zM26 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM12 28h1v1h-1zM13 28h1v1h-1zM17 28h1v1h-1zM19 28h1v1h-1zM21 28h1v1h-1zM22 28h1v1h-1zM23 28h1v1h-1zM28 28h1v1h-1z"/></svg>
+                <span class="qr__scan"></span>
+                <b class="qr__name">Alex Morgan</b>
+                <small class="qr__hint">Scan this code with another device to receive money</small>
+              </div>
+            </div>
+            <span class="phone__notch"></span>
+          </div>
+        </article>
+        <article class="card card--b">
+          <svg class="card__rings" viewBox="0 0 344 344" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="172" cy="172" r="141"/><circle cx="172" cy="172" r="155.5"/><circle cx="172" cy="172" r="170"/></g></svg>
+          <div class="phone phone--card phone--up" aria-hidden="true">
+            <div class="phone__screen">
+              <div class="sent">
+                <div class="sent__icon"></div>
+                <b>Money has been sent successfully!</b>
+                <small>Alexa will be notified by email</small>
+                <div class="sent__sheet">
+                  <b>Details</b>
+                  <p><span>Amount in USD</span><span>$500</span></p>
+                  <p><span>Fee</span><span>$5</span></p>
+                  <p><span>Total</span><span>$505</span></p>
+                  <small>Payment received in seconds!</small>
+                  <span class="sent__btn">Done</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3>Access to transaction<br>detail in a second</h3>
+        </article>
+        <article class="card card--c">
+          <h3>Control card spend,<br>before it happens.</h3>
+          <svg class="card__rings" viewBox="0 0 344 344" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="172" cy="172" r="141"/><circle cx="172" cy="172" r="155.5"/><circle cx="172" cy="172" r="170"/></g></svg>
+          <div class="phone phone--card" aria-hidden="true">
+            <div class="phone__screen">
+              <div class="sb"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
+              <div class="cd">
+                <div class="cd__top"><svg><use href="#back"/></svg><b>Card Details</b><svg><use href="#dots3"/></svg></div>
+                <div class="cd__card"><b>5426 4646<br>3463 7843</b><i><svg class="cd__dot" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="currentColor"/></svg>Pay</i><span>Alex Morgan</span><span>$2,365</span></div>
+                <div class="cd__stats"><p><small>Received</small>$1,056</p><p><small>Available</small>$1,546</p><p><small>Sent</small>$568</p></div>
+                <div class="cd__more"><p><svg><use href="#flag"/></svg><small>Card Limits</small>$1,800 <em>/ month</em></p><p><svg><use href="#cardout"/></svg><small>Subscriptions</small>6 active</p></div>
+              </div>
+            </div>
+            <span class="phone__notch"></span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ app store soon ============ -->
+    <section class="soon">
+      <h2 class="soon__title">To be released on AppStore <span class="nw">soon<span class="dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></span></h2>
+      <div class="soon__stage">
+        <svg class="soon__rings" viewBox="0 0 700 700" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="350" cy="350" r="280"/><circle cx="350" cy="350" r="310"/><circle cx="350" cy="350" r="338"/></g></svg>
+        <div class="p3d" aria-hidden="true">
+          <div class="p3d__side"><i></i><i></i><i></i></div>
+          <div class="p3d__front">
+            <div class="p3d__screen">
+              <div class="st__bar"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
+              <p class="st__back"><svg><use href="#back"/></svg>Search</p>
+              <span class="st__icon"><svg><use href="#mark"/></svg></span>
+              <b class="st__name">Arzino</b>
+              <small class="st__sub">Money Management</small>
+              <span class="st__get">GET</span>
+              <svg class="st__share"><use href="#share"/></svg>
+              <span class="st__rule"></span>
+              <div class="st__meta">
+                <p><small>SAMPLE RATING</small><b>4.8</b><i class="st__stars">★★★★★</i></p>
+                <p><small>AGE</small><b>4+</b><i>Years Old</i></p>
+                <p><small>CHART</small><b>#3</b><i>Finance</i></p>
+                <p><small>DEVELOPER</small><svg><use href="#person"/></svg><i>Arzino</i></p>
+              </div>
+              <div class="st__shot st__shot--1"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i><svg><use href="#grid"/></svg><span class="st__av"></span><small>Balance</small><em>$15,786.00</em></div>
+              <div class="st__shot st__shot--2"></div>
+            </div>
+            <span class="p3d__notch"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ footer ============ -->
+  <footer class="foot">
+    <div class="foot__in">
+      <div class="foot__brand">
+        <a class="logo" href="#top"><svg class="logo__mark"><use href="#mark"/></svg><span>Arzino</span></a>
+        <p class="foot__legal">© Arzino Card is an illustrative brand<br>for this design study, 2026</p>
+        <form class="email email--foot" onsubmit="return false">
+          <svg class="email__ic"><use href="#mail"/></svg>
+          <label class="vh" for="email-foot">Email address</label>
+          <input id="email-foot" type="email" placeholder="Your email address" autocomplete="email">
+          <button class="btn" type="submit">Get Early Access</button>
+        </form>
+      </div>
+      <nav class="foot__cols" aria-label="Footer">
+        <div><h4>About Product</h4><a href="#">Patch</a><a href="#">Updates</a><a href="#">Careers</a></div>
+        <div><h4>Company</h4><a href="#">Patch</a><a href="#">Updated</a><a href="#">Beta Test</a></div>
+        <div><h4>Support</h4><a href="#">Help Center</a><a href="#">Account Information</a><a href="#">Early Access</a><a href="#">Talk to Support</a></div>
+      </nav>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

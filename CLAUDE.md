@@ -1,7 +1,7 @@
 # Project instructions — 02-site-for-app
 
 The owner (**Mohammad**, writes in **Persian** — reply in Persian) builds landing sites for a mobile app.
-Two tracks live in this repo:
+Three tracks live in this repo (the third is the current work):
 
 1. **NetRate site (main track, `site/`)** — the real landing site for **«نت‌ریت» / NetRate**, an app Mohammad
    builds for a client: UK exchange-office rates for pound → Toman, side by side. Built from the **app's own
@@ -11,6 +11,10 @@ Two tracks live in this repo:
    the newest: luxury black/white with neon gradients) — see “NetRate variants” and “NetRate Aurora” below.
 2. **Reference rebuilds (`designs/`)** — earlier exercises: reference designs rebuilt for a placeholder
    exchange app **“Arzino”** (illustrative content). Rules for them are in “Hard rules” below.
+3. **Reference rebuilds v2 (`studies/`, current, Nov 2026)** — Mohammad paused NetRate and sent six new references
+   (`studies/refs/`): rebuild each **exactly** (English only, original copy, placeholder brands), check twice, then add
+   smooth motion; one at a time in his order 01 → 06; all in one numbered gallery artifact. See “Studies” below and
+   `studies/README.md` (registry, workflow, numbers).
 
 The owner does not run things locally — he views every site as a **claude.ai artifact** (he calls it “local”).
 Keep earlier artifacts alive; a new site gets a new artifact.
@@ -157,6 +161,17 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   transition's update callback is part of the live new view, so it is drawn inside the reveal's clip; the pinned showroom
   must fit short laptops (1280×720) → `--show-chrome` budget under `max-height: 900px`; no rating values in the site's
   own mock-ups (brief: no fake ratings — the app's stills may show its own demo ratings).
+
+## Studies (`studies/`, reference rebuilds v2)
+- Gallery artifact **“Reference Rebuilds”**: https://claude.ai/artifact/DJ1wyggQMRGJ6CdQxi8axG — `studies/index.html`
+  (numbered cards, viewer with Live / Reference / Split with synced scroll / Onion skin + Difference, widths 1440–390,
+  keys ← → 1–6 Esc). Build `python3 -I studies/tools/build_gallery.py` → `dist/studies/`, publish `index.html` with
+  `root` = `dist/studies` and every listed file. Videos are never published: 12-frame sheets (`refs/sheets/`) instead.
+- After each finished study: thumbnail, `STUDIES` entry (status built), `BUILT` list, rebuild, republish, commit, push,
+  tell Mohammad (in Persian) with the link, and move on to the next study without asking.
+- Exactness first: measure against the reference at 1440 (`studies/tools/qa/`: compare.py bands, inkcmp.py, boxes.js,
+  posefit.py for 3D mockups). Real brands, logos and people become placeholders of similar shape; sample ratings
+  are labelled. Motion upgrades never change the resting layout.
 
 ## Tech conventions
 - Static HTML/CSS/JS, no build step for the repo. Classic `<script>` tags so `index.html` also works from `file://`.
