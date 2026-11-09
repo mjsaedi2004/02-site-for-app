@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study 05 · Finance platform</title>
+<meta name="description" content="Design study 05: a finance platform landing page rebuilt from a reference video, with growing image panels, a follow cursor and a pinned feature story. Brand, people and figures are placeholders.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add("js-intro");setTimeout(function(){document.documentElement.classList.remove("js-intro")},4000);</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><path d="M7 12.5c2.5-5 8.5-7.5 13.5-6.3 4.6 1.1 5.5 6 1.7 8.6L9.8 22.6"/><path d="M25 19.5c-2.5 5-8.5 7.5-13.5 6.3-4.6-1.1-5.5-6-1.7-8.6"/></g></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15L6 16Zm4 4a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m7 12.5 3.2 3.2L17 9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 5.5v13l11-6.5L7 5.5Z" fill="currentColor"/><path d="M5 9.5h2M4 12h3M5 14.5h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14.8 9.6a3.6 3.6 0 1 0 0 4.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-transfer" viewBox="0 0 24 24"><circle cx="11" cy="13" r="7.5" fill="currentColor"/><path d="M11 9v8m2-6.5c-.6-.6-1.3-.8-2-.8-1.2 0-2 .6-2 1.4 0 1.9 4 1 4 3 0 .8-.9 1.4-2 1.4-.8 0-1.6-.3-2.1-.9" fill="none" stroke="#1F1F2A" stroke-width="1.4" stroke-linecap="round"/><path d="m16 4 4 0 0 4M20 4l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pocket" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0v2H6z"/><rect x="4" y="11" width="16" height="9" rx="3"/><circle cx="9.5" cy="15.5" r="1.8"/></g></symbol>
+    <symbol id="i-spend" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="6" width="15" height="12" rx="2.5"/><path d="M3 10h15M7 14h3M20 9V4m-2 2 2-2 2 2"/></g></symbol>
+    <symbol id="i-dash-home" viewBox="0 0 24 24"><path d="M12 4c-3 0-5 2.6-5 5.4 0 3 2.6 4.4 2.6 7.6h4.8c0-3.2 2.6-4.6 2.6-7.6C17 6.6 15 4 12 4Zm-2 15h4" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <header class="nav">
+    <a class="logo" href="#top"><svg><use href="#mark"/></svg><span><b>Nim</b>bo</span></a>
+    <nav class="nav__links" aria-label="Main"><a href="#top">Home</a><a href="#feature">Feature</a><a href="#feature">Benefit</a><a href="#about">About us</a></nav>
+    <a class="pill pill--dark" href="#cta">Request demo</a>
+  </header>
+
+  <main id="top">
+    <!-- ============ hero ============ -->
+    <section class="hero">
+      <h1 class="hero__title"><span class="ln">Control your finances</span><span class="ln">more easily</span></h1>
+      <p class="hero__lead">Application that provides complete information about your finances and has principles to make it easier for you to manage finances</p>
+      <div class="panels">
+        <a class="panel panel--laptop" href="#feature" aria-label="See more: the dashboard">
+          <div class="shot shot--laptop" aria-hidden="true">
+            <div class="lap">
+              <div class="lap__screen">
+                <div class="dash">
+                  <div class="dash__side"><svg class="dash__logo"><use href="#mark"/></svg><svg><use href="#i-dash-home"/></svg><i></i><i></i><i></i></div>
+                  <div class="dash__main">
+                    <p class="dash__hi">Welcome back, Sam! <span><svg><use href="#i-search"/></svg><svg><use href="#i-bell"/></svg></span></p>
+                    <div class="dash__flow"><b>Money Flow</b><small class="dash__week">Last Week ⌄</small>
+                      <svg viewBox="0 0 300 110" preserveAspectRatio="none"><defs><linearGradient id="fl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F06C6C"/><stop offset=".5" stop-color="#F5B84E"/><stop offset="1" stop-color="#D8D650"/></linearGradient><linearGradient id="flf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5C46A" stop-opacity=".25"/><stop offset="1" stop-color="#F5C46A" stop-opacity="0"/></linearGradient></defs><path d="M0 104 14 96 24 100 34 40 44 82 54 70 64 30 74 56 84 26 94 50 104 22 114 46 124 18 134 34 144 26 154 40 164 30 174 48 184 20 194 36 204 30 214 48 224 26 234 34 244 20 254 38 264 30 274 44 284 26 294 34 300 30V110H0Z" fill="url(#flf)"/><path class="flowline" d="M0 104 14 96 24 100 34 40 44 82 54 70 64 30 74 56 84 26 94 50 104 22 114 46 124 18 134 34 144 26 154 40 164 30 174 48 184 20 194 36 204 30 214 48 224 26 234 34 244 20 254 38 264 30 274 44 284 26 294 34 300 30" fill="none" stroke="url(#fl)" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg>
+                      <i class="dash__tip">$53,405.08 <em>+13%</em></i>
+                    </div>
+                    <div class="dash__cards"><p><b>Income</b><small>$3,476.00</small><em>+16.4%</em></p><p><b>Total Spend</b><small>$2,584.00</small><em>+12%</em></p></div>
+                    <p class="dash__tx"><b>Last Transaction</b><span>Mar 20, 2026</span><span>$54.00</span><i>Success</i></p>
+                  </div>
+                  <div class="dash__right"><b>My Cards</b><span class="mini-stack"><i></i><i></i><i></i></span><small>$ 53,405.08</small><b>My goal</b><span class="goal"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="panel panel--phone" href="#feature" aria-label="See more: the mobile app">
+          <div class="shot shot--phone" aria-hidden="true">
+            <div class="iph">
+              <div class="iph__screen">
+                <p class="iph__hi"><span class="ava"></span><span><small>Welcome back</small><b>Sam Rivera</b></span><svg><use href="#i-bell"/></svg></p>
+                <div class="stack"><i class="stack__c stack__c--1"></i><i class="stack__c stack__c--2"></i><i class="stack__c stack__c--3"></i><div class="stack__card"><b>1234 <em>••••</em> <em>••••</em></b><small>Sam Rivera <span>12/24</span></small><i class="stack__chip"></i></div></div>
+                <p class="iph__bal"><span><small>Total Balance</small><b>$ 53,405.08</b></span><span><small>Traffic / Week</small><b class="red">♥ 0,34 %</b></span></p>
+                <p class="iph__last"><b>Last Transaction</b><small>More <svg><use href="#i-arrow"/></svg></small></p>
+              </div>
+              <span class="iph__notch"></span>
+            </div>
+          </div>
+        </a>
+        <span class="cursor" aria-hidden="true"><b>See more</b></span>
+      </div>
+    </section>
+
+    <!-- ============ partners ============ -->
+    <section class="partners" id="about">
+      <div class="partners__label"><h2>Our Support partner</h2><p>Some of our best partner in Finances platfrom</p></div>
+      <ul class="partners__logos" aria-label="Placeholder partner names">
+        <li class="pl pl--a"><svg viewBox="0 0 24 24"><path d="M6 20 9 4h6a4.5 4.5 0 0 1 0 9h-4l-1.4 7z" fill="currentColor"/></svg><i>Fernpay</i></li>
+        <li class="pl pl--b"><svg viewBox="0 0 24 24"><path d="m3 6 6 0-6 12h6l6-12h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg><b>kite</b></li>
+        <li class="pl pl--c">Ledgerly</li>
+        <li class="pl pl--d">tandem</li>
+      </ul>
+    </section>
+
+    <!-- ============ everything becomes easy (pinned two-part story) ============ -->
+    <section class="feature" id="feature">
+      <div class="feature__stage">
+        <h2 class="feature__title">Everything becomes Easy<br>with Nimbo</h2>
+        <div class="fx">
+          <div class="fx__copy">
+            <article class="fs fs--1">
+              <h3>Manage your finances digitally in one platform</h3>
+              <p>The features we provide include everything you need. peace mind for you</p>
+              <ul class="tabs" role="list">
+                <li><button class="tab is-on" type="button"><i><svg><use href="#i-transfer"/></svg></i><span><b>Transfer Money</b><small>Pay anyone instanly everywere. It’s simpler thank you think</small></span></button></li>
+                <li><button class="tab" type="button"><i><svg><use href="#i-pocket"/></svg></i><span><b>Pocket Saving</b><small>You can saving money and make achievement targets</small></span></button></li>
+                <li><button class="tab" type="button"><i><svg><use href="#i-spend"/></svg></i><span><b>Spending</b><small>Transactions with lowest tax and secured from repayment</small></span></button></li>
+              </ul>
+            </article>
+            <article class="fs fs--2">
+              <h3>Clear information and of course up-to-date</h3>
+              <p>Don’t worry about missing the latest information about your product. We always provide a brief summary of your product such as income and expenses</p>
+              <ul class="checks" role="list"><li><i><svg><use href="#i-check"/></svg></i>Real time money flow</li><li><i><svg><use href="#i-check"/></svg></i>Income statistics everydays</li><li><i><svg><use href="#i-check"/></svg></i>progress for your pocket saving</li></ul>
+              <a class="pill pill--dark" href="#cta">Request demo</a>
+            </article>
+          </div>
+          <div class="fx__art" aria-hidden="true">
+            <div class="fx__phone">
+              <div class="iph iph--flat">
+                <div class="iph__screen">
+                  <p class="iph__hi"><span class="ava"></span><span><small>Welcome back</small><b>Sam Rivera</b></span><svg><use href="#i-bell"/></svg></p>
+                  <div class="stack"><i class="stack__c stack__c--1"></i><i class="stack__c stack__c--2"></i><i class="stack__c stack__c--3"></i><div class="stack__card"><b>1234 <em>••••</em> <em>••••</em></b><small>Sam Rivera <span>12/24</span></small><i class="stack__chip"></i></div></div>
+                  <p class="iph__bal"><span><small>Total Balance</small><b>$ 53,405.08</b></span><span><small>Traffic / Week</small><b class="red">♥ 0,34 %</b></span></p>
+                  <p class="iph__last"><b>Last Transaction</b><small>More <svg><use href="#i-arrow"/></svg></small></p>
+                  <p class="tx"><i class="tx__ic tx__ic--a"></i><span><b>Design Pro plan</b><small>Mar 20, 2026</small></span><em>-$64</em></p>
+                  <p class="tx"><i class="tx__ic tx__ic--b"></i><span><b>Site Builder</b><small>Mar 20, 2026</small></span><em>-$30</em></p>
+                  <p class="tx"><i class="tx__ic tx__ic--c"></i><span><b>Sketchbook</b><small>Mar 19, 2026</small></span><em>-$12</em></p>
+                </div>
+                <span class="iph__notch"></span>
+              </div>
+            </div>
+            <div class="fx__laptop"><div class="lap lap--flat"><div class="lap__screen">
+                <div class="dash">
+                  <div class="dash__side"><svg class="dash__logo"><use href="#mark"/></svg><svg><use href="#i-dash-home"/></svg><i></i><i></i><i></i></div>
+                  <div class="dash__main">
+                    <p class="dash__hi">Welcome back, Sam! <span><svg><use href="#i-search"/></svg><svg><use href="#i-bell"/></svg></span></p>
+                    <div class="dash__flow"><b>Money Flow</b><small class="dash__week">Last Week ⌄</small>
+                      <svg viewBox="0 0 300 110" preserveAspectRatio="none"><defs><linearGradient id="fl2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F06C6C"/><stop offset=".5" stop-color="#F5B84E"/><stop offset="1" stop-color="#D8D650"/></linearGradient><linearGradient id="flf2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5C46A" stop-opacity=".25"/><stop offset="1" stop-color="#F5C46A" stop-opacity="0"/></linearGradient></defs><path d="M0 104 14 96 24 100 34 40 44 82 54 70 64 30 74 56 84 26 94 50 104 22 114 46 124 18 134 34 144 26 154 40 164 30 174 48 184 20 194 36 204 30 214 48 224 26 234 34 244 20 254 38 264 30 274 44 284 26 294 34 300 30V110H0Z" fill="url(#flf2)"/><path class="flowline" d="M0 104 14 96 24 100 34 40 44 82 54 70 64 30 74 56 84 26 94 50 104 22 114 46 124 18 134 34 144 26 154 40 164 30 174 48 184 20 194 36 204 30 214 48 224 26 234 34 244 20 254 38 264 30 274 44 284 26 294 34 300 30" fill="none" stroke="url(#fl2)" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg>
+                      <i class="dash__tip">$53,405.08 <em>+13%</em></i>
+                    </div>
+                    <div class="dash__cards"><p><b>Income</b><small>$3,476.00</small><em>+16.4%</em></p><p><b>Total Spend</b><small>$2,584.00</small><em>+12%</em></p></div>
+                    <p class="dash__tx"><b>Last Transaction</b><span>Mar 20, 2026</span><span>$54.00</span><i>Success</i></p>
+                  </div>
+                  <div class="dash__right"><b>My Cards</b><span class="mini-stack"><i></i><i></i><i></i></span><small>$ 53,405.08</small><b>My goal</b><span class="goal"></span></div>
+                </div>
+</div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ cta ============ -->
+    <section class="cta" id="cta">
+      <h2>Let’s upgrade your finances experience by using Nimbo</h2>
+      <p class="cta__btns"><a class="pill pill--light" href="#cta">Request a Demo</a><a class="pill pill--ghost" href="#cta"><svg><use href="#i-play"/></svg>Watch Video</a></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__brand"><a class="logo" href="#top"><svg><use href="#mark"/></svg><span><b>Nim</b>bo</span></a><p>digital banking platform base on mobile app and dashboard application</p></div>
+    <nav class="foot__cols" aria-label="Footer">
+      <div><h3>Social Media</h3><a href="#top">Twiter</a><a href="#top">Instagram</a><a href="#top">facebook</a></div>
+      <div><h3>About us</h3><a href="#feature">Feature</a><a href="#top">Testimonials</a><a href="#top">Pricing</a></div>
+      <div><h3>Contact</h3><a href="#top">Affiliate program</a><a href="#top">Become Partner</a><a href="#top">Contact Sales</a></div>
+    </nav>
+    <p class="foot__legal"><svg><use href="#i-copy"/></svg>2026 Nimbo is a placeholder brand for this design study. <i></i><a href="#top">Privacy Policy</a> . <a href="#top">Term of Service</a></p>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

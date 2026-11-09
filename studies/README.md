@@ -17,8 +17,8 @@ Gallery (one artifact, numbered, opens each study in place with Live / Reference
 | 02 | `refs/designs/02.mp4` (720 × 540, 30 fps, 30.2 s) | Violet AI landing: animated neon/purple background, kinetic headline with icon pills, floating cards, phone, giant wordmark | `02-violet/` | built |
 | 03 | `refs/designs/03.mp4` (640 × 480, 60 fps, 30 s) | Digital bank: blurred maroon photo gradients, "Banking for future", giant wordmark, FAQ, 3D cards | `03-bank/` | built |
 | 04 | `refs/designs/04.mp4` (720 × 540, 30 fps, 27 s) | Crypto wallet: condensed heavy type, isometric illustrations, stats, sticky phone steps, FAQ, marquee | `04-wallet/` | built |
-| 05 | `refs/designs/05.mp4` (640 × 480, 29.97 fps, 15.5 s) | Finance platform: light grey, laptop + phone mockups, tabs with phone, dark CTA | — | next |
-| 06 | `refs/designs/06.mp4` (640 × 480, 60 fps, 16.5 s) | Investing app: lime panels, hand-drawn arrows, market phones, partners, dark CTA | — | queued |
+| 05 | `refs/designs/05.mp4` (640 × 480, 29.97 fps, 15.5 s) | Finance platform: light grey, laptop + phone mockups, tabs with phone, dark CTA | `05-finance/` | built |
+| 06 | `refs/designs/06.mp4` (640 × 480, 60 fps, 16.5 s) | Investing app: lime panels, hand-drawn arrows, market phones, partners, dark CTA | — | next |
 
 Also sent with the request (references to use in places later, not studies themselves):
 - `refs/backgrounds/bg-01.jpg … bg-08.jpg` — background photos (bg-01 ← photo_2026-07-26_10-57-08, bg-02 ← 2026-08-04_10-51-13,
@@ -50,6 +50,16 @@ Also sent with the request (references to use in places later, not studies thems
 5. Gallery: add the study to `STUDIES` in `index.html` (status, thumb, ref), thumbnail with `tools/qa/thumb.js`,
    add the folder to `BUILT` in `tools/build_gallery.py`, run `python3 -I studies/tools/build_gallery.py` and publish
    `dist/studies/index.html` with `root` = `dist/studies` and every listed file (same file path keeps the URL).
+
+## Study 05 notes
+
+- The page is the white column x 56–583 of the 640-px video (528 px → 1440, × 2.727); the grey around it is the video's
+  backdrop. `tools/qa/scenes05.js` uses a 1440 × 1309 viewport (the video's 480 px height at that scale).
+- Font: Plus Jakarta Sans (hero 77u / 560, section titles 46u / 540, CTA 58u).
+- Placeholders: brand "Nimbo", person "Sam Rivera", partner wordmarks Fernpay / kite / Ledgerly / tandem, transactions
+  Design Pro plan / Site Builder / Sketchbook. Laptop and phone mock-ups are HTML/CSS.
+- Pitfall: GSAP x/y on an element that also uses the CSS `scale` property bakes that scale into its transform (the cursor
+  stayed at scale 0) → GSAP moves an outer box, the circle inside scales by class.
 
 ## Study 04 notes
 
