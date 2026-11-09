@@ -132,6 +132,9 @@ Also sent with the request (references to use in places later, not studies thems
   - Seed: seven circles scroll in as a 270–300u hexagon, close to the seed of life (outer centres at r = 42u) once pinned,
     then turn 40°. Manifesto corners and the wordmark orb = one stripes shader (level lines of a bumped field).
     Pill glyphs = projected 3D wireframes (torus, interlocked rings, gyroscope), far side dimmer.
+  - QA note: in this sandbox's headless Chromium (software GL) the console shows "GPU stall due to ReadPixels"
+    performance notices for the WebGL canvases even without screenshots: software compositing reads every WebGL canvas
+    back. The page never calls readPixels; on a GPU browser the canvases are composited as textures.
   - The nav slides away at the footer (GSAP, not a CSS transition: a transition on opacity made GSAP's intro from() read
     0 as the end value); the logo from far down flips the window in 3D back to the hero, like the video's loop.
 

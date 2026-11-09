@@ -174,8 +174,14 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   shifts programmatic scrolls). Real brands, logos and people become placeholders of similar shape, including the
   reference's own product name (superconscious → innerconsensus, Luna → Nula, Faithful → Stalwart, Dubank → Nimbo,
   Pro Finance → Pro Finova); sample ratings are labelled. Motion upgrades never change the resting layout.
-- Status (Nov 2026): all six studies built and published (gallery v6). Next, on Mohammad's word: pick the best parts
-  and combine them into the NetRate site.
+- Status (Nov 2026): all six studies built and published; round 2 (Mohammad: "many are not exactly like the originals,
+  make the motion more professional, design 2's background more animated") reworked all six frame by frame with
+  `tools/qa/scan.js` + `framematch.py` (gallery v11). Next, on Mohammad's word: pick the best parts and combine them into
+  the NetRate site.
+- Pitfalls (round 2): a CSS transition on opacity/translate of an element GSAP animates makes from() read a mid-transition
+  end value (study 02's nav stayed invisible); splitting a word into inline-block letters drops the font's kerning
+  (study 04's HODLERS grew 92 px; keep letters at their kerned spots); fromTo in a click timeline renders its start at
+  once unless `immediateRender: false`; GSAP caches function values unless `invalidateOnRefresh`.
 
 ## Tech conventions
 - Static HTML/CSS/JS, no build step for the repo. Classic `<script>` tags so `index.html` also works from `file://`.
