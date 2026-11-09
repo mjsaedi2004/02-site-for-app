@@ -78,11 +78,26 @@
   var bal = $('.app__bal');
   var count = { v: 0 };
   var intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
-  gsap.set('.hero__title .ln', { clipPath: 'inset(-30% -6% -8% -6%)' });
+  // headline words: each word rises out of its own mask with a slight 3D turn
+  var words = [];
+  $$('.hero__title .ln > span').forEach(function (line) {
+    Array.prototype.slice.call(line.childNodes).forEach(function (n) {
+      if (n.nodeType !== 3) return;
+      var frag = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        var m = document.createElement('span'); m.className = 'wd';
+        var w = document.createElement('span'); w.className = 'wi'; w.textContent = part;
+        m.appendChild(w); frag.appendChild(m); words.push(w);
+      });
+      line.replaceChild(frag, n);
+    });
+  });
   intro
-    .from('.hero__map', { opacity: 0, scale: 1.04, duration: 1.8, ease: 'power2.out' }, 0)
+    .fromTo('.hero__map', { clipPath: 'circle(0% at 12% 40%)', opacity: .2 }, { clipPath: 'circle(140% at 12% 40%)', opacity: 1, duration: 2.4, ease: 'power2.inOut', clearProps: 'clipPath' }, 0)
     .from('.page .nav > *', { y: -16, opacity: 0, duration: .9, stagger: .07 }, .05)
-    .from('.hero__title .ln > span', { yPercent: 108, duration: 1.15, stagger: .09 }, .1)
+    .from(words, { yPercent: 115, rotationX: -55, transformOrigin: '50% 100%', duration: 1.25, stagger: .055, ease: 'expo.out' }, .12)
     .from('.spark', { scale: 0, rotation: -135, duration: 1.2, ease: 'back.out(1.7)' }, .55)
     .from('.hero__lead', { y: 18, opacity: 0, duration: 1 }, .5)
     .fromTo('.hero .email', { clipPath: 'inset(0% 100% 0% 0% round 999px)' }, { clipPath: 'inset(0% 0% 0% 0% round 999px)', duration: 1.1, ease: 'expo.inOut' }, .55)
@@ -92,7 +107,7 @@
     .from('.phone--hero', { y: 110, rotationX: 16, transformPerspective: 1100, transformOrigin: '50% 100%', opacity: 0, duration: 1.5 }, .3)
     .from('.app__lbl, .app__btns span, .app__sec, .app .row, .tabs', { x: 26, opacity: 0, duration: .9, stagger: .05 }, .85)
     .to(count, { v: 15786, duration: 1.6, ease: 'power3.out', onUpdate: function () { bal.textContent = money(count.v); }, onComplete: function () { bal.textContent = '$15,786.00'; } }, .8)
-    .add(function () { gsap.set('.hero__title .ln', { clearProps: 'clipPath' }); gsap.set('.hero .email', { clearProps: 'clipPath' }); });
+    .add(function () { gsap.set('.hero .email', { clearProps: 'clipPath' }); });
   bal.textContent = money(0);
   // the sparkle keeps a slow twinkle (a quarter turn lands on the same four-point shape)
   gsap.to('.spark', { rotation: 90, scale: .84, duration: 1.4, ease: 'sine.inOut', repeat: -1, yoyo: true, repeatDelay: 1.6, delay: 2.4 });
@@ -136,6 +151,29 @@
     gsap.from($$('.card__rings circle', card), { scale: .7, opacity: 0, transformOrigin: '50% 50%', duration: 1.4, ease: 'expo.out', stagger: .1, scrollTrigger: { trigger: card, start: 'top 80%', once: true } });
     ST.create({ trigger: card, start: 'top 75%', once: true, onEnter: function () { card.classList.add('is-in'); } });
   });
+
+  if (finePointer) {
+    $$('.card').forEach(function (card) {
+      var rx = gsap.quickTo(card, 'rotationX', { duration: .6, ease: 'power3' }), ry = gsap.quickTo(card, 'rotationY', { duration: .6, ease: 'power3' });
+      gsap.set(card, { transformPerspective: 1200 });
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        ry((px - .5) * 9); rx((py - .5) * -9);
+        card.style.setProperty('--gx', (px * 100).toFixed(1) + '%'); card.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+      });
+      card.addEventListener('pointerleave', function () { rx(0); ry(0); });
+    });
+    panel.addEventListener('pointermove', function (e) {
+      var r = panel.getBoundingClientRect();
+      panel.style.setProperty('--mx', (e.clientX - r.left) + 'px'); panel.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+    // buttons lean toward the pointer a little
+    $$('.btn').forEach(function (btn) {
+      var bx = gsap.quickTo(btn, 'x', { duration: .45, ease: 'power3' }), by = gsap.quickTo(btn, 'y', { duration: .45, ease: 'power3' });
+      btn.addEventListener('pointermove', function (e) { var r = btn.getBoundingClientRect(); bx((e.clientX - r.left - r.width / 2) * .18); by((e.clientY - r.top - r.height / 2) * .28); });
+      btn.addEventListener('pointerleave', function () { bx(0); by(0); });
+    });
+  }
 
   /* ------------------------------------------------------------ app store: the phone turns into the reference pose */
   var soonWords = splitWords($('.soon__title'));
