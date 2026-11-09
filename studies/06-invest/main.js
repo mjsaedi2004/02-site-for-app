@@ -1,6 +1,6 @@
 /* Study 06 — motion layer: Lenis smooth scroll; the hero intro with the hand-drawn loop drawing itself and live
    candles; every hand-drawn line draws with the scroll; analytics rings sweep in; the pulse banner's phone rises and its
-   balance counts; tickers float and their prices tick; a sticky nav that frosts once the hero scrolls away.
+   balance counts; tickers float and their prices tick; a sticky, transparent nav (as in the reference).
    Without JS or with reduced motion the page is complete and still. */
 (function () {
   'use strict';
@@ -113,9 +113,7 @@
     }, 1600);
   } });
 
-  /* sticky nav frosts once the hero has scrolled */
-  var nav = $('.nav');
-  ST.create({ start: 120, end: 'max', onToggle: function (s) { nav.classList.toggle('is-stuck', s.isActive); } });
+  /* the nav stays transparent while the page passes under it, as in the reference (no frosted band) */
 
   /* ------------------------------------------------------------ get the most out */
   gsap.from('.most .h2', { y: 40, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: '.most', start: 'top 80%', once: true } });

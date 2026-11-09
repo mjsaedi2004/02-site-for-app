@@ -61,6 +61,9 @@ Also sent with the request (references to use in places later, not studies thems
   Pass `reduced` as the third argument for exact positions: Lenis smoothing offsets programmatic scrolls by ~15 px,
   while the reduced-motion page has the same resting layout without it. Every section was checked as a 50 % overlay.
 - Font: Outfit (closest to the reference's geometric face): hero 94u / 85, headings 47.5u / 48 (500), body 24–25u.
+- Round 2 (frame-matched): the nav stays transparent over the page like the reference (the frosted band is kept only on
+  phones, where the reference says nothing and text would collide); the trade section is 945u tall, so the stonks
+  paragraph sits 236 px above "Get the App for Free" as in the video (it was 467 px).
 - Placeholders: companies Pear Inc / Sonar / Quadra Corp / Cratebox Inc / Harbor S&P, partner marks drawn here
   (no bank or card-network logos), the illustrations are drawn SVG; the brand "Pro Finance" became "Pro Finova".
 - The lime circle in the trade section is cut by the page edge like in the video: `.frame { overflow-x: clip }`, so
