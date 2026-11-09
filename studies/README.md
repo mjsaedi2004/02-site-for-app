@@ -14,8 +14,8 @@ Gallery (one artifact, numbered, opens each study in place with Live / Reference
 | # | Reference | What it is | Folder | Status |
 |---|-----------|------------|--------|--------|
 | 01 | `refs/designs/01.jpg` (Dribbble shot 1200 × 2139) | Fintech homepage: hero with phone, black "Banking easier" panel + 3 cards, App Store 3D phone, footer | `01-fintech/` | built |
-| 02 | `refs/designs/02.mp4` (720 × 540, 30 fps, 30.2 s) | Violet AI landing: animated neon/purple background, kinetic headline with icon pills, floating cards, phone, giant wordmark | `02-…/` | next |
-| 03 | `refs/designs/03.mp4` (640 × 480, 60 fps, 30 s) | Digital bank: blurred maroon photo gradients, "Banking for future", giant wordmark, FAQ, 3D cards | — | queued |
+| 02 | `refs/designs/02.mp4` (720 × 540, 30 fps, 30.2 s) | Violet AI landing: animated neon/purple background, kinetic headline with icon pills, floating cards, phone, giant wordmark | `02-violet/` | built |
+| 03 | `refs/designs/03.mp4` (640 × 480, 60 fps, 30 s) | Digital bank: blurred maroon photo gradients, "Banking for future", giant wordmark, FAQ, 3D cards | — | next |
 | 04 | `refs/designs/04.mp4` (720 × 540, 30 fps, 27 s) | Crypto wallet: condensed heavy type, isometric illustrations, stats, sticky phone steps, FAQ, marquee | — | queued |
 | 05 | `refs/designs/05.mp4` (640 × 480, 29.97 fps, 15.5 s) | Finance platform: light grey, laptop + phone mockups, tabs with phone, dark CTA | — | queued |
 | 06 | `refs/designs/06.mp4` (640 × 480, 60 fps, 16.5 s) | Investing app: lime panels, hand-drawn arrows, market phones, partners, dark CTA | — | queued |
@@ -50,6 +50,21 @@ Also sent with the request (references to use in places later, not studies thems
 5. Gallery: add the study to `STUDIES` in `index.html` (status, thumb, ref), thumbnail with `tools/qa/thumb.js`,
    add the folder to `BUILT` in `tools/build_gallery.py`, run `python3 -I studies/tools/build_gallery.py` and publish
    `dist/studies/index.html` with `root` = `dist/studies` and every listed file (same file path keeps the URL).
+
+## Study 02 notes
+
+- The video shows a 1440 × 904 site in a rounded window on a glowing backdrop; the rebuild keeps that frame: a fixed `.win`
+  (inset `3.6vw / 5vh`) with its own scroller, Lenis on that wrapper (`wrapper`/`content`) and `ScrollTrigger.defaults({ scroller })`.
+  Inside, `--u = 100cqi / 1440` (the window is a size container); scenes are sticky stages in tall sections.
+- QA viewport 1552 × 1004 makes the window exactly 1440 × 904: `tools/qa/scenes02.js` captures the reference moments,
+  `tools/qa/flow02.js` a scroll walkthrough. Reference panel crops: frame x 36–684, y 66–473 at 1×, scaled to 1440 × 904.
+- Fonts: Manrope 500 (sizes from the reference ink: headline 97.4u, wordmark 146u / 191u, footer caps 150u 600) and
+  Instrument Serif italic for "Manifest / Reality".
+- Pitfalls: scrubbed timelines map progress to their own length, so each ends with `.set({}, {}, 1)`; scroll tweens on
+  elements the intro also animates use `fromTo` with `immediateRender: false`; a filter tween from `none` rendered as
+  `brightness(0)` (always give `brightness(1)` as the start); `destination-in` with several gradients intersects them
+  (paint the union on an offscreen canvas first); split text keeps spaces as text nodes; overlapping sticky scenes
+  (`margin-bottom: -30cqb`, transparent stages) remove empty screens between scenes.
 
 ## Study 01 notes (numbers that matter)
 
