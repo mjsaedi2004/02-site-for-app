@@ -16,3 +16,5 @@ diagonal): navy `#000C5C`, deep blue `#001388`, blue `#0129F4`, bright blue `#03
 Rules: use the files as they are (don't redraw or recolour the mark). On light backgrounds, use the gradient icon tile;
 the white mark needs a dark or blue ground. The app demo (`site/app/`) still shows its own older mark on its About
 screen; changing that is a change to the app itself.
+
+The owner's poster `netrate-poster-uk.webp` ("NetRate.app", Nov 2026) is kept here but not used on the sites yet: its "best exchange rates" line, currency coins, UK flag and Apple badge break the NetRate brief (see CLAUDE.md); use it only if he confirms, or a part without them.

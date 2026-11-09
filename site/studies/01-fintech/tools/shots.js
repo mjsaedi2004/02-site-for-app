@@ -1,6 +1,7 @@
 // App screens for the NetRate × Design 1 page, rendered by the app itself (English, chosen theme).
-// The phones on this page draw their own status bar (2.75 e of a 26 e phone = 46 px of 390), so the app is
-// rendered 46 px shorter than a 390 × 844 screen: strip + screen = the whole phone, tab bar included.
+// The phones on this page draw their own status bar with a Dynamic Island (54 px of a 390 px screen, 3.24 e of a
+// 26 e phone), so the app is rendered 54 px shorter than a 390 × 844 screen: strip + render = the whole screen, tab bar
+// included. 3x pixels, so the screens stay sharp on phones and in the large phones of the page.
 // usage (from the repo root): node site/studies/01-fintech/tools/shots.js
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
@@ -10,10 +11,11 @@ const fs = require('fs');
 const SITE = path.resolve(__dirname, '../../..');
 const OUT = path.resolve(__dirname, '../img/raw');
 const PORT = 8096;
-const H = 844 - 46;
+const H = 844 - 54;
 const JOBS = [
-  ['light', ['live', 'list', 'expired', 'f-alerts', 'f-chart', 'office-page']],
-  ['dark', ['live']],
+  // the hero (tall, below), the showcase (dark main screen) and the App Store page's five screenshots
+  ['light', ['live', 'ranked', 'office-page', 'expired']],
+  ['dark', ['live', 'f-chart']],
   // a tall main screen: the hero phone scrolls through it as the page scrolls (its tab bar is drawn from 'live')
   ['light', ['live'], 1500, '-tall'],
 ];
@@ -28,7 +30,7 @@ const only = process.argv[2];
   try {
     for (const [theme, scenes, h = H, suffix = ''] of JOBS) {
       if (only && only !== theme + suffix) continue;
-      const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+      const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
       page.on('pageerror', (e) => errors.push(`${theme}: ${e.message}`));
       await page.goto(`http://127.0.0.1:${PORT}/tools/poster-host.html`);
       await page.setViewportSize({ width: 390, height: Math.max(844, h) });

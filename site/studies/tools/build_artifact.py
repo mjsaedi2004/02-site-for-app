@@ -13,7 +13,7 @@ from pathlib import Path
 
 STUDIES = Path(__file__).resolve().parent.parent
 NAMES = {'01-fintech': 'NetRate × Design 1'}           # the artifact's name in the gallery and the browser tab
-SKIP = {'tools', 'raw', '.gitignore'}
+SKIP = {'tools', 'raw', '.gitignore', 'page.html', 'tops.json'}
 
 
 def fragment(html, title):
@@ -22,7 +22,9 @@ def fragment(html, title):
     body = re.search(r'<body[^>]*>(.*)</body>', html, re.S).group(1)
     head = re.sub(r'\s*<meta (charset|name="viewport"|name="description"|name="theme-color")[^>]*>', '', head)
     head = re.sub(r'<title>.*?</title>', f'<title>{title}</title>', head, count=1)
-    return f"<script>document.documentElement.lang = '{lang}';</script>\n" + head.strip() + '\n' + body.strip() + '\n'
+    rel = re.search(r'<html[^>]*\sdata-release="([^"]+)"', html)
+    boot = f"document.documentElement.lang = '{lang}';" + (f" document.documentElement.dataset.release = '{rel.group(1)}';" if rel else '')
+    return f"<script>{boot}</script>\n" + head.strip() + '\n' + body.strip() + '\n'
 
 
 def main():

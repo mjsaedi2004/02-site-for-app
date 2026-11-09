@@ -16,8 +16,9 @@ Four tracks live in this repo (the fourth is the current work):
    smooth motion; one at a time in his order 01 → 06; all in one numbered gallery artifact. See “Studies” below and
    `studies/README.md` (registry, workflow, numbers).
 4. **NetRate × studies (`site/studies/`, current, Nov 2026)** — Mohammad liked studies **1, 6, 2** (in that order) and
-   wants NetRate built on their structures, one at a time; design 1 is done, and the next starts only on his word.
-   See “NetRate × studies” below and `site/studies/README.md`.
+   wants NetRate built on their structures, one at a time, each **before and after the app's release**; all of them live
+   on the **NetRate page of the Reference Rebuilds gallery** (`#netrate`). Design 1 is done (round 2); the next starts
+   only on his word. See “NetRate × studies” below and `site/studies/README.md`.
 
 The owner does not run things locally — he views every site as a **claude.ai artifact** (he calls it “local”).
 Keep earlier artifacts alive; a new site gets a new artifact.
@@ -179,24 +180,47 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   Pro Finance → Pro Finova); sample ratings are labelled. Motion upgrades never change the resting layout.
 - Status (Nov 2026): all six studies built and published; round 2 (Mohammad: "many are not exactly like the originals,
   make the motion more professional, design 2's background more animated") reworked all six frame by frame with
-  `tools/qa/scan.js` + `framematch.py` (gallery v11). Then he chose 1, 6 and 2 for NetRate (see “NetRate × studies”).
+  `tools/qa/scan.js` + `framematch.py` (gallery v11). Then he chose 1, 6 and 2 for NetRate (see “NetRate × studies”);
+  gallery v12 adds the NetRate page.
 - Pitfalls (round 2): a CSS transition on opacity/translate of an element GSAP animates makes from() read a mid-transition
   end value (study 02's nav stayed invisible); splitting a word into inline-block letters drops the font's kerning
   (study 04's HODLERS grew 92 px; keep letters at their kerned spots); fromTo in a click timeline renders its start at
   once unless `immediateRender: false`; GSAP caches function values unless `invalidateOnRefresh`.
 
 ## NetRate × studies (`site/studies/<NN-name>/`, the current direction)
-- Owner's brief: keep the study's structure exactly and change only the content; show the app's **English** version;
-  a short introduction, not the whole app; the gradient logo tile from `brand/`; complete and professional motion,
-  smooth scrolling and scroll-driven scenes; fix what the study left incomplete (design 1's store phone was cut by the
-  footer and its side strip broke at the corners). Tell him when a page is done and wait for his word before the next.
+- Owner's brief: keep the study's structure and change the content to NetRate's; the app's **English** version; the
+  gradient logo tile from `brand/`; complete, professional motion, smooth scrolling and scroll-driven scenes; fix what
+  the study left incomplete. Round 2 (his words): expand the site with NetRate content and sharper images; make the
+  last phone look as much like the **App Store** as possible; two versions of each page, **before release**
+  (`index.html`, “Coming soon”) and **after release** (`live.html`, download buttons, the lasting site); and **show the
+  app/phone much less** — the app in one or two places at most (hero + the App Store phone), plus **one showcase** in
+  the style of his sample `site/studies/refs/showcase-sample.webp` (dark navy, tilted phone, blue glass slabs; never the
+  sample's brand). Everything else is type, graphics and motion, borrowing ideas from the other studies. Tell him when a
+  page is done and wait for his word before the next.
+- Every NetRate build goes on the gallery's NetRate page: `NETRATE` entries in `studies/index.html` (1A/1B …; viewer
+  modes Live / the study live / Split with the study), copied by `studies/tools/build_gallery.py` (`NETRATE` list) to
+  `dist/studies/netrate/<name>/`; thumbnails `studies/thumbs/nr-*.jpg`. Queued designs show their study with a note.
+- His poster `brand/netrate-poster-uk.webp` is not used: its “best exchange rates”, currency coins, flag and Apple badge
+  break the brief — use it only if he confirms, or a part without them.
 - The brief's hard rules hold (no money moving, Coming soon, demo data with its date, legal sentences verbatim,
   signature + Telegram, AA contrast, text ≥ 14 px with `max(14px, …)` floors on scaled text, 44 px targets on touch).
-- Design 1: `site/studies/01-fintech/` → artifact “NetRate × Design 1”: https://claude.ai/artifact/PmdwM4ASFvM7oNRjBXNXFd
-  App screens come from the app itself (`tools/shots.js` at 390 × 798 under a drawn status strip; a 390 × 1500 main
-  screen scrolls inside the hero phone under the tab bar cut from the normal render; `tools/convert.py` → webp + top
-  colours). Build: `python3 -I site/studies/tools/build_artifact.py 01-fintech` → `dist/netrate-01-fintech/`.
-- Pitfalls: a render must leave room for the phone's status strip, or the strip crops the app's tab bar; a 3D phone made
+- Design 1: `site/studies/01-fintech/` — source `page.html` (`<!--pre-->`/`<!--post-->` blocks and `{{…}}` tags, see
+  `tools/build.py`) → `index.html` + `live.html`. App screens come from the app itself at 3x: `node …/tools/shots.js`
+  (390 × 790 under a drawn 54 px status strip with a Dynamic Island; a 390 × 1500 main screen scrolls inside the hero
+  phone under the tab bar cut from the normal render) → `python3 -I …/tools/convert.py` (600 / 1170 px webp,
+  `img/app/tops.json`) → `python3 -I …/tools/build.py`. Sections: hero (phone) → “We Made Rates Clearer!” cards with
+  animated pictures (offices sort themselves, a rate expires, an alert sentence lights up) → kinetic band → stacked
+  how-it-works cards → statement lit word by word with a drawn underline → honesty panels → showcase (3D phone, dark
+  app) → trust → offices panel (types its rate) → FAQ (one at a time) → App Store page on the 3D iPhone (iOS points:
+  header, info strip of true facts, captioned screenshots, tab bar; SOON / GET) → footer with a wordmark drawn by scroll.
+  Also published alone as “NetRate × Design 1”: https://claude.ai/artifact/PmdwM4ASFvM7oNRjBXNXFd
+  (`python3 -I site/studies/tools/build_artifact.py 01-fintech` → `dist/netrate-01-fintech/`, live.html beside it).
+- Pitfalls: the App Store page has no fake ratings, rank, age rating, size or developer name — its info strip shows true
+  facts; tweening `filter` from `none` starts at brightness(0) (cards went black) → fromTo with an explicit start; a
+  variable font's glyphs overlap inside, so a stroked wordmark shows inner lines → `paint-order: stroke` with an opaque
+  fill; the app's `f-offices` scene leaves an office sheet open that `base` does not close → render it last; at rest
+  (reduced motion) every picture shows its finished state, motion starts it from the beginning.
+- Pitfalls (round 1): a render must leave room for the phone's status strip, or the strip crops the app's tab bar; a 3D phone made
   of one front plane and one side plane breaks at the rounded corners → stack rounded slabs (preserve-3d) for the body;
   give scroll-scrubbed poses their own variables (`--sway`, `--wx`, `--wy` added in the transform) so idle and pointer
   motion never fight the scrub; a fixed-height footer clips fine print that wraps on laptops → let it flow.

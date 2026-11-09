@@ -2,7 +2,8 @@
 """Assemble the studies gallery for one claude.ai artifact: dist/studies/.
 The gallery (studies/index.html) becomes the artifact page (a fragment: the host adds doctype/html/head/body);
 each built study is published beside it as its own full HTML page with its files, plus thumbnails,
-the reference compare image(s) and the video contact sheets.
+the reference compare image(s) and the video contact sheets; the NetRate pages built on the studies (site/studies/)
+go to netrate/<name>/ for the gallery's NetRate page.
 Usage: python3 -I studies/tools/build_gallery.py   (prints the files to publish)"""
 import re
 import shutil
@@ -12,6 +13,9 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT.parent / 'dist' / 'studies'
 BUILT = ['01-fintech', '02-violet', '03-bank', '04-wallet', '05-finance', '06-invest']          # study folders that are finished and published live
 COPY = ['thumbs', 'refs/compare', 'refs/sheets']
+# NetRate pages built on the studies (site/studies/<name>/): their two pages, styles, script and images go to netrate/<name>/
+NETRATE = ['01-fintech']
+NR_SKIP = {'tools', 'raw', '.gitignore', 'page.html', 'tops.json'}
 
 def fragment(html):
     head = re.search(r'<head>(.*?)</head>', html, re.S).group(1)
@@ -26,6 +30,8 @@ def main():
     (OUT / 'index.html').write_text(fragment((ROOT / 'index.html').read_text(encoding='utf-8')), encoding='utf-8')
     for d in BUILT + COPY:
         shutil.copytree(ROOT / d, OUT / d)
+    for d in NETRATE:
+        shutil.copytree(ROOT.parent / 'site' / 'studies' / d, OUT / 'netrate' / d, ignore=lambda _, names: [n for n in names if n in NR_SKIP])
     files = sorted(p.relative_to(OUT).as_posix() for p in OUT.rglob('*') if p.is_file() and p.name != 'index.html' or p.is_file() and p.parent != OUT)
     total = sum((OUT / f).stat().st_size for f in files)
     print(f'{len(files)} files beside the page, {total / 1024:.0f} KB')

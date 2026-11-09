@@ -45,6 +45,12 @@ img { display: block; max-width: 100%; }
 .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 40px; padding-bottom: 28px; border-bottom: 1px solid var(--rule); }
 .head h1 { margin: 0; font-size: clamp(34px, 5vw, 56px); line-height: .95; font-weight: 800; font-stretch: 72%; letter-spacing: -.01em; text-transform: uppercase; text-wrap: balance; }
 .head p { margin: 12px 0 0; max-width: 60ch; color: var(--dim); }
+/* two pages in one gallery: the reference rebuilds, and NetRate built on the ones Mohammad chose */
+.pages { display: inline-flex; gap: 2px; padding: 3px; margin-bottom: 26px; border-radius: 10px; background: var(--raise); box-shadow: inset 0 0 0 1px var(--rule); }
+.pages a { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 8px; color: var(--dim); font-size: 14px; font-weight: 600; text-decoration: none; }
+.pages a:hover { color: var(--ink); }
+.pages a[aria-current="page"] { background: var(--sheet); color: var(--ink); box-shadow: 0 1px 2px rgba(0, 0, 0, .25), inset 0 0 0 1px var(--rule); }
+.pages i { width: 9px; height: 9px; border-radius: 2px; background: #0129F4; box-shadow: 0 0 0 1px rgba(255, 255, 255, .15); }
 .tally { display: grid; gap: 8px; min-width: 220px; }
 .tally__bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
 .tally__bar i { height: 6px; border-radius: 2px; background: var(--rule); }
@@ -129,6 +135,7 @@ html:has(body.is-viewing) { height: 100%; }
 </svg>
 
 <main class="index" id="index">
+  <nav class="pages" aria-label="Gallery pages"><a href="#" aria-current="page">Reference rebuilds</a><a href="#netrate"><i></i>NetRate</a></nav>
   <header class="head">
     <div>
       <h1>Reference Rebuilds</h1>
@@ -143,6 +150,25 @@ html:has(body.is-viewing) { height: 100%; }
   <footer class="foot mono">
     <p>Brand names, people, logos and figures inside the rebuilds are placeholders. The original files stay in studies/refs on GitHub.</p>
     <p>Keys in a study: ← → previous / next · 1–6 jump · Esc back</p>
+  </footer>
+</main>
+
+<main class="index" id="indexNR" hidden>
+  <nav class="pages" aria-label="Gallery pages"><a href="#">Reference rebuilds</a><a href="#netrate" aria-current="page"><i></i>NetRate</a></nav>
+  <header class="head">
+    <div>
+      <h1>NetRate</h1>
+      <p>NetRate built on the rebuilds Mohammad chose, in his order: design 1, then 6, then 2, one at a time. Each one comes in two versions: before the app's release (“Coming soon”) and after it (download buttons; the lasting site). Open one to see it live, next to the study it is built on.</p>
+    </div>
+    <div class="tally" aria-label="Progress">
+      <div class="tally__bar" id="tallyBarNR" style="grid-template-columns: repeat(3, 1fr)"></div>
+      <div class="tally__txt mono"><span id="tallyTxtNR"></span><span>English · demo data</span></div>
+    </div>
+  </header>
+  <ol class="grid" id="gridNR"></ol>
+  <footer class="foot mono">
+    <p>The app screens and numbers in these pages are demo data; office names, rates and addresses are made up. NetRate is not an exchange office and never moves money.</p>
+    <p>Keys in a page: ← → previous / next · Esc back</p>
   </footer>
 </main>
 
@@ -196,6 +222,20 @@ html:has(body.is-viewing) { height: 100%; }
       ref: { type: 'sheet', src: 'refs/sheets/06.jpg' },
       facts: ['Reference <b>video 640 × 480, 60 fps, 16.5 s</b> → the page is 542 px wide in it, rebuilt at <b>1440</b>', 'Hand-drawn lines draw themselves with the scroll; live candles and ticking prices', 'Every section checked as a 50% overlay on the video frames'] }
   ];
+  /* NetRate on the studies Mohammad chose (1, 6, 2), each before and after the app's release. ref.type live = the study
+     it is built on, shown live beside it. */
+  var NETRATE = [
+    { group: 'nr', id: '1a', n: '1A', design: '1', title: 'Design 1 · before release', chip: '#0129F4', status: 'built', kind: 'NetRate on study 01 · “Coming soon”', src: 'netrate/01-fintech/index.html', thumb: 'thumbs/nr-1a.jpg',
+      ref: { type: 'live', src: '01-fintech/index.html', label: 'Study 01' },
+      facts: ['The app shows in the hero only; one showcase in the style of the owner\'s sample; the App Store page on the last phone', 'Cards play pictures instead of phones: offices sort themselves, a rate expires, an alert lights up', 'Stacked steps, a statement lit word by word, honesty panels, trust, offices, FAQ, a wordmark drawn by the scroll'] },
+    { group: 'nr', id: '1b', n: '1B', design: '1', title: 'Design 1 · after release', chip: '#0129F4', status: 'built', kind: 'NetRate on study 01 · download buttons, the lasting site', src: 'netrate/01-fintech/live.html', thumb: 'thumbs/nr-1b.jpg',
+      ref: { type: 'live', src: '01-fintech/index.html', label: 'Study 01' },
+      facts: ['Same page after the release: Download in the header, download buttons in the hero, under the phone and in the footer', 'The App Store page says GET; the buttons wait for the real store links'] },
+    { group: 'nr', id: '6', n: '6', design: '6', title: 'Design 6', chip: '#D4F23A', status: 'queued', kind: 'Next, when Mohammad says so', src: '', thumb: 'thumbs/06.jpg',
+      ref: { type: 'live', src: '06-invest/index.html', label: 'Study 06' }, facts: ['Built after design 1 is approved, before and after release'] },
+    { group: 'nr', id: '2', n: '2', design: '2', title: 'Design 2', chip: '#8B5CF6', status: 'queued', kind: 'After design 6', src: '', thumb: 'thumbs/02.jpg',
+      ref: { type: 'live', src: '02-violet/index.html', label: 'Study 02' }, facts: ['Built after design 6, before and after release'] }
+  ];
   var LABEL = { built: 'Built', next: 'Building', queued: 'Queued' };
   var $ = function (id) { return document.getElementById(id); };
   var store = {
@@ -207,11 +247,21 @@ html:has(body.is-viewing) { height: 100%; }
   var built = STUDIES.filter(function (s) { return s.status === 'built'; }).length;
   $('tallyTxt').textContent = built + ' of ' + STUDIES.length + ' built';
   $('tallyBar').innerHTML = STUDIES.map(function (s) { return '<i class="is-' + s.status + '" title="' + s.n + ' · ' + LABEL[s.status] + '"></i>'; }).join('');
-  $('grid').innerHTML = STUDIES.map(function (s) {
-    return '<li><a class="card card--' + s.status + '" href="#study-' + s.n + '" style="--chip:' + s.chip + '">' +
-      '<figure class="card__shot"><img src="' + s.thumb + '" alt="Study ' + s.n + ': ' + (s.status === 'built' ? 'the rebuild' : 'a frame of the reference') + '" loading="lazy"></figure>' +
+  function cardHtml(s, href, alt) {
+    return '<li><a class="card card--' + s.status + '" href="' + href + '" style="--chip:' + s.chip + '">' +
+      '<figure class="card__shot"><img src="' + s.thumb + '" alt="' + alt + '" loading="lazy"></figure>' +
       '<div class="card__row"><span class="card__num">' + s.n + '</span><div><h2>' + s.title + '</h2><p class="card__meta mono">' + s.kind + '</p></div>' +
       '<span class="pill pill--' + s.status + '">' + LABEL[s.status] + '</span></div></a></li>';
+  }
+  $('grid').innerHTML = STUDIES.map(function (s) {
+    return cardHtml(s, '#study-' + s.n, 'Study ' + s.n + ': ' + (s.status === 'built' ? 'the rebuild' : 'a frame of the reference'));
+  }).join('');
+  var designs = ['1', '6', '2'];
+  var doneNR = designs.filter(function (d) { return NETRATE.filter(function (s) { return s.design === d && s.status === 'built'; }).length; });
+  $('tallyTxtNR').textContent = doneNR.length + ' of ' + designs.length + ' designs built';
+  $('tallyBarNR').innerHTML = designs.map(function (d) { return '<i class="' + (doneNR.indexOf(d) > -1 ? 'is-built' : '') + '" title="Design ' + d + '"></i>'; }).join('');
+  $('gridNR').innerHTML = NETRATE.map(function (s) {
+    return cardHtml(s, '#nr-' + s.id, s.status === 'built' ? 'NetRate page ' + s.n + ': ' + s.title : 'Study ' + s.design + ', the next NetRate page');
   }).join('');
 
   /* ---------------- viewing desk */
@@ -229,7 +279,11 @@ html:has(body.is-viewing) { height: 100%; }
     $('vTitle').textContent = s.title;
     $('vPill').className = 'pill pill--' + s.status;
     $('vPill').textContent = LABEL[s.status];
-    var live = canLive(s);
+    var live = canLive(s), nr = s.group === 'nr';
+    var back = document.querySelector('.bar__back');
+    back.setAttribute('href', nr ? '#netrate' : '#');
+    back.lastChild.textContent = nr ? 'NetRate pages' : 'All studies';
+    document.querySelector('#modes [data-mode="ref"]').textContent = nr ? s.ref.label : 'Reference';
     $('vOpen').hidden = !live;
     if (live) $('vOpen').href = s.src;
     Array.prototype.forEach.call($('modes').querySelectorAll('button'), function (b) {
@@ -240,8 +294,8 @@ html:has(body.is-viewing) { height: 100%; }
     if (!live) m = 'ref';
     else if (m === 'onion' && s.ref.type !== 'image') m = 'split';
     render(m);
-    $('strip').innerHTML = s.facts.map(function (f) { return '<span>' + f + '</span>'; }).join('') + '<span class="keys">← → studies · 1–6 · Esc</span>';
-    document.title = s.n + ' · ' + s.title + ' · Reference Rebuilds';
+    $('strip').innerHTML = s.facts.map(function (f) { return '<span>' + f + '</span>'; }).join('') + '<span class="keys">' + (nr ? '← → pages · Esc' : '← → studies · 1–6 · Esc') + '</span>';
+    document.title = s.n + ' · ' + s.title + (nr ? ' · NetRate' : ' · Reference Rebuilds');
   }
   function render(m) {
     var s = cur, stage = $('stage');
@@ -251,15 +305,29 @@ html:has(body.is-viewing) { height: 100%; }
     var compare = (m === 'split' || m === 'onion') && s.ref.type === 'image';
     var w = compare ? 1440 : width;
     pressed('widths', 'data-w', w);
-    Array.prototype.forEach.call($('widths').querySelectorAll('button'), function (b) { b.disabled = m === 'ref' || compare; });
+    Array.prototype.forEach.call($('widths').querySelectorAll('button'), function (b) { b.disabled = (m === 'ref' && s.ref.type !== 'live') || compare; });
     $('onionCtl').hidden = diff.hidden = m !== 'onion';
-    if (m === 'live' || m === 'split' || m === 'onion') {
+    if (s.ref.type === 'live' && (m === 'ref' || !canLive(s))) {
+      // a NetRate page's study, live (or the study alone while that page is queued)
+      var sp = el('div', 'pane');
+      var sf = document.createElement('iframe');
+      sf.title = s.ref.label + ' live';
+      sf.src = s.ref.src;
+      sp.appendChild(sf);
+      sp.appendChild(tag(s.ref.label + ' · ' + w));
+      stage.appendChild(sp);
+      if (!canLive(s)) {
+        var wait = el('div', 'empty');
+        wait.innerHTML = '<b>Waiting for your word.</b> NetRate pages are built one at a time in your order; this one starts when you say so. Its study is shown meanwhile.';
+        stage.appendChild(wait);
+      }
+    } else if (m === 'live' || m === 'split' || m === 'onion') {
       var pane = el('div', 'pane');
       frame = document.createElement('iframe');
-      frame.title = 'Study ' + s.n + ' live';
+      frame.title = (s.group === 'nr' ? 'NetRate page ' : 'Study ') + s.n + ' live';
       frame.src = s.src;
       pane.appendChild(frame);
-      pane.appendChild(tag('Rebuild · ' + w));
+      pane.appendChild(tag((s.group === 'nr' ? 'NetRate · ' : 'Rebuild · ') + w));
       if (m === 'onion') {
         var ov = el('div', 'overlay' + (diff.getAttribute('aria-pressed') === 'true' ? ' is-diff' : ''));
         ov.style.opacity = onion.value / 100;
@@ -267,7 +335,15 @@ html:has(body.is-viewing) { height: 100%; }
         pane.appendChild(ov);
       }
       stage.appendChild(pane);
-      if (m === 'split') {
+      if (m === 'split' && s.ref.type === 'live') {
+        var lp = el('div', 'pane');
+        var lf = document.createElement('iframe');
+        lf.title = s.ref.label + ' live';
+        lf.src = s.ref.src;
+        lp.appendChild(lf);
+        lp.appendChild(tag(s.ref.label + ' · ' + w));
+        stage.appendChild(lp);
+      } else if (m === 'split') {
         var rp = el('div', 'pane pane--ref' + (s.ref.type === 'sheet' ? ' is-free' : ''));
         rp.appendChild(refImg(s));
         rp.appendChild(tag(s.ref.type === 'image' ? 'Reference' : 'Reference · 12 frames'));
@@ -300,7 +376,7 @@ html:has(body.is-viewing) { height: 100%; }
     var H = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
     var panes = stage.querySelectorAll('.pane');
     var avail = (W - 16 * (panes.length - 1)) / panes.length;
-    if (m === 'ref') {
+    if (m === 'ref' && cur.ref.type !== 'live') {
       Array.prototype.forEach.call(panes, function (p) { p.style.width = Math.min(avail, cur.ref.type === 'image' ? 1100 : 1400) + 'px'; p.style.height = H + 'px'; });
       return;
     }
@@ -309,11 +385,11 @@ html:has(body.is-viewing) { height: 100%; }
       p.style.width = Math.round(w * scale) + 'px';
       p.style.height = H + 'px';
     });
-    if (frame) {
-      frame.style.width = w + 'px';
-      frame.style.height = Math.ceil(H / scale) + 'px';
-      frame.style.transform = 'scale(' + scale + ')';
-    }
+    Array.prototype.forEach.call(stage.querySelectorAll('iframe'), function (f) {
+      f.style.width = w + 'px';
+      f.style.height = Math.ceil(H / scale) + 'px';
+      f.style.transform = 'scale(' + scale + ')';
+    });
     sync();
   }
   function sync() {
@@ -342,6 +418,11 @@ html:has(body.is-viewing) { height: 100%; }
     var ov = document.querySelector('.overlay'); if (ov) ov.classList.toggle('is-diff', on);
   });
   function step(d) {
+    if (cur.group === 'nr') {
+      var k = NETRATE.indexOf(cur);
+      location.hash = 'nr-' + NETRATE[(k + d + NETRATE.length) % NETRATE.length].id;
+      return;
+    }
     var i = STUDIES.indexOf(cur);
     location.hash = 'study-' + STUDIES[(i + d + STUDIES.length) % STUDIES.length].n;
   }
@@ -349,11 +430,12 @@ html:has(body.is-viewing) { height: 100%; }
   $('next').addEventListener('click', function () { step(1); });
   document.addEventListener('keydown', function (e) {
     if (e.target.closest && e.target.closest('input, textarea')) return;
-    if (/^[1-6]$/.test(e.key)) { location.hash = 'study-0' + e.key; return; }
+    var onNR = cur ? cur.group === 'nr' : location.hash === '#netrate';
+    if (/^[1-6]$/.test(e.key) && !onNR) { location.hash = 'study-0' + e.key; return; }
     if (!cur) return;
     if (e.key === 'ArrowRight') step(1);
     else if (e.key === 'ArrowLeft') step(-1);
-    else if (e.key === 'Escape') location.hash = '';
+    else if (e.key === 'Escape') location.hash = onNR ? 'netrate' : '';
   });
   var t = null;
   window.addEventListener('resize', function () {
@@ -363,17 +445,18 @@ html:has(body.is-viewing) { height: 100%; }
 
   /* ---------------- routing: #study-NN opens a study, no hash shows the index */
   function route() {
-    var m = /^#study-(\d\d)$/.exec(location.hash);
-    var s = m && STUDIES.filter(function (x) { return x.n === m[1]; })[0];
+    var m = /^#study-(\d\d)$/.exec(location.hash), n = /^#nr-(\w+)$/.exec(location.hash);
+    var s = (m && STUDIES.filter(function (x) { return x.n === m[1]; })[0]) || (n && NETRATE.filter(function (x) { return x.id === n[1]; })[0]);
     if (s) {
-      $('index').hidden = true; $('desk').hidden = false; document.body.classList.add('is-viewing');
+      $('index').hidden = true; $('indexNR').hidden = true; $('desk').hidden = false; document.body.classList.add('is-viewing');
       if (window.innerWidth < 600 && !store.get('width-chosen', '')) width = 390;
       open(s);
     } else {
+      var nrPage = location.hash === '#netrate';
       cur = null; frame = null;
       $('stage').innerHTML = '';
-      $('desk').hidden = true; $('index').hidden = false; document.body.classList.remove('is-viewing');
-      document.title = 'Reference Rebuilds';
+      $('desk').hidden = true; $('index').hidden = nrPage; $('indexNR').hidden = !nrPage; document.body.classList.remove('is-viewing');
+      document.title = nrPage ? 'NetRate · Reference Rebuilds' : 'Reference Rebuilds';
     }
   }
   $('widths').addEventListener('click', function () { store.set('width-chosen', '1'); });

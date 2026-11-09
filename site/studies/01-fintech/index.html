@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<!-- Generated from page.html by tools/build.py (before release); edit page.html. -->
+<html lang="en" data-release="pre">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +10,7 @@
 <link rel="icon" href="img/netrate-icon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Outfit:wght@300..700&display=swap">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add("js-intro");setTimeout(function(){document.documentElement.classList.remove("js-intro")},4000);</script>
 </head>
@@ -17,12 +18,31 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="spark" viewBox="0 0 60 60"><path d="M30 2C31 22 36 29 58 30C36 31 31 36 30 58C29 36 24 31 2 30C24 29 29 22 30 2Z"/></symbol>
-    <!-- line icons from the NetRate app (site/src/partials/sprite.svg) -->
-    <symbol id="i-smartphone" viewBox="0 0 24 24"><path d="M8 2.8h8a1.8 1.8 0 0 1 1.8 1.8v14.8a1.8 1.8 0 0 1-1.8 1.8H8a1.8 1.8 0 0 1-1.8-1.8V4.6A1.8 1.8 0 0 1 8 2.8Z"/><path d="M10.8 17.8h2.4"/></symbol>
+    <!-- the App Store's own tab glyphs, drawn simply for the store mock-up -->
+    <symbol id="as-games" viewBox="0 0 24 24"><path d="M7.5 8h9a4.5 4.5 0 0 1 4.4 5.4l-.6 3a2.6 2.6 0 0 1-4.5 1.2L14 15.5h-4l-1.8 2.1a2.6 2.6 0 0 1-4.5-1.2l-.6-3A4.5 4.5 0 0 1 7.5 8Z"/><path d="M8 10.6v3M6.5 12.1h3M15.8 11.2h.01M17.6 13h.01"/></symbol>
+    <symbol id="as-arcade" viewBox="0 0 24 24"><path d="M12 3.6a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2ZM12 8.8v5.4"/><path d="M4.5 15.4 12 18.8l7.5-3.4M4.5 15.4V17l7.5 3.4 7.5-3.4v-1.6M4.5 15.4 12 12.2l7.5 3.2"/></symbol>
     <symbol id="i-back" viewBox="0 0 24 24"><path d="M14.8 4.8 7.6 12l7.2 7.2"/></symbol>
-    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15.4V3.8"/><path d="M8.2 7.6 12 3.8l3.8 3.8M5 13.2v6a1.4 1.4 0 0 0 1.4 1.4h11.2a1.4 1.4 0 0 0 1.4-1.4v-6"/></symbol>
-    <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 1 1 0 17.6 8.8 8.8 0 0 1 0-17.6Z"/><path d="m7.2 11.6 9-3.6-1.5 8.4-3.2-2.4-1.7 1.6.3-2.6 3.6-3.2-4.6 2.6Z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9.4a6 6 0 0 0-12 0c0 4.8-2 5.8-2 5.8h16s-2-1-2-5.8Z"/><path d="M10 18.8a2.2 2.2 0 0 0 4 0"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4.4 6.6h15.2v13.2H4.4Z"/><path d="M8.4 3.4v4M15.6 3.4v4M4.4 11h15.2"/></symbol>
+    <symbol id="i-chartline" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7.5 15.5 11 12l2.8 2.4L19.5 7.5"/></symbol>
+    <symbol id="i-chevrondown" viewBox="0 0 24 24"><path d="M5.2 9.2 12 16l6.8-6.8"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 1 1 0 17.6 8.8 8.8 0 0 1 0-17.6Z"/><path d="M12 7.4V12l3.4 2"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3.6H7.2a1.6 1.6 0 0 0-1.6 1.6v13.6a1.6 1.6 0 0 0 1.6 1.6h9.6a1.6 1.6 0 0 0 1.6-1.6V8Z"/><path d="M14 3.6V8h4.4M8.8 12.6h6.4M8.8 16h4.4"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.6 12S6.4 5.4 12 5.4 21.4 12 21.4 12 17.6 18.6 12 18.6 2.6 12 2.6 12Z"/><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3.6 20.6 8 12 12.4 3.4 8Z"/><path d="M3.4 12 12 16.4 20.6 12M3.4 16 12 20.4 20.6 16"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 20.8s6.8-6.1 6.8-10.8a6.8 6.8 0 1 0-13.6 0c0 4.7 6.8 10.8 6.8 10.8Z"/><path d="M14.5 10a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M20.8 11.8a8.6 8.6 0 0 1-12.4 7.7L3.8 20.8l1.4-4.7a8.6 8.6 0 1 1 15.6-4.3Z"/></symbol>
+    <symbol id="i-navigation" viewBox="0 0 24 24"><path d="M20.8 3.6 3.6 10.6l7.6 2.2 2.2 7.6Z"/></symbol>
+    <symbol id="i-penline" viewBox="0 0 24 24"><path d="M14.8 4.6l4.6 4.6L9 19.6H4.4v-4.6Z"/><path d="M12.6 6.8l4.6 4.6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.4 3.3h3l2 5-2.2 1.3a11.5 11.5 0 0 0 5.4 5.4l1.3-2.2 5 2v3a2 2 0 0 1-2 2A16.2 16.2 0 0 1 3.3 5.3a2 2 0 0 1 2-2Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path d="M10.8 4a6.8 6.8 0 1 1 0 13.6 6.8 6.8 0 0 1 0-13.6Z"/><path d="M20 20l-4.4-4.4"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15.4V3.8"/><path d="M8.2 7.6 12 3.8l3.8 3.8M5 13.2v6a1.4 1.4 0 0 0 1.4 1.4h11.2a1.4 1.4 0 0 0 1.4-1.4v-6"/></symbol>
+    <symbol id="i-smartphone" viewBox="0 0 24 24"><path d="M8 2.8h8a1.8 1.8 0 0 1 1.8 1.8v14.8a1.8 1.8 0 0 1-1.8 1.8H8a1.8 1.8 0 0 1-1.8-1.8V4.6A1.8 1.8 0 0 1 8 2.8Z"/><path d="M10.8 17.8h2.4"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.6l2.63 5.33 5.87.86-4.25 4.14 1 5.86L12 17.1l-5.25 2.75 1-5.86L3.5 9.79l5.87-.86Z"/></symbol>
+    <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 1 1 0 17.6 8.8 8.8 0 0 1 0-17.6Z"/><path d="m7.2 11.6 9-3.6-1.5 8.4-3.2-2.4-1.7 1.6.3-2.6 3.6-3.2-4.6 2.6Z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.2 6.6h15.6"/><path d="M9.4 6.6V4.9a1 1 0 0 1 1-1h3.2a1 1 0 0 1 1 1v1.7M6.2 6.6l.9 12.6a1.6 1.6 0 0 0 1.6 1.5h6.6a1.6 1.6 0 0 0 1.6-1.5l.9-12.6M10.2 10.6v6M13.8 10.6v6"/></symbol>
+    <symbol id="i-verified" viewBox="0 0 24 24"><path d="M12 3.2 20 6.2v5.6c0 4.2-3.5 7.4-8 9-4.5-1.6-8-4.8-8-9V6.2Z"/><path d="M8.7 11.9 11.3 14.5 15.6 10"/></symbol>
+    <symbol id="i-wifioff" viewBox="0 0 24 24"><path d="M3.4 3.4 20.6 20.6"/><path d="M4.6 12.6a12 12 0 0 1 4.2-2.6M8 16.2a6.6 6.6 0 0 1 2.6-1.5M15.2 10a12 12 0 0 1 4.2 2.6M12 19.6h.02"/></symbol>
   </defs>
 </svg>
 
@@ -30,12 +50,12 @@
   <!-- ============ header ============ -->
   <header class="nav wrap">
     <a class="logo" href="#top" aria-label="NetRate, back to the top"><img class="logo__mark" src="img/netrate-icon.webp" alt="" width="256" height="256"><span>NetRate</span></a>
-    <a class="nav__link" href="#how">How it works</a>
-    <a class="btn btn--nav" href="#soon">Coming soon</a>
+    <nav class="nav__links" aria-label="Page sections"><a class="nav__link" href="#how">How it works</a><a class="nav__link" href="#offices">For offices</a><a class="nav__link" href="#faq">FAQ</a></nav>
+    <a class="btn btn--nav" href="#get">Coming soon</a>
   </header>
 
   <main id="top">
-    <!-- ============ hero ============ -->
+    <!-- ============ hero: the app, once ============ -->
     <section class="hero wrap">
       <img class="hero__map" src="img/world-dots.png" alt="" aria-hidden="true">
       <div class="hero__copy">
@@ -46,11 +66,13 @@
           <span class="ln"><span class="blue">Ask NetRate</span></span>
         </h1>
         <p class="hero__lead">NetRate puts the rates UK exchange offices post side by side: pound to toman, fee included, with the age of every rate and no sign-up. NetRate is not an exchange office and never moves money.</p>
+        
         <div class="email soon-pill">
           <svg class="email__ic" aria-hidden="true"><use href="#i-smartphone"/></svg>
           <span class="email__txt">For iPhone and Android</span>
-          <a class="btn" href="#soon">Coming soon</a>
+          <a class="btn" href="#get">Coming soon</a>
         </div>
+        
         <ul class="facts" aria-label="NetRate in numbers">
           <li><b>8</b><span>currencies<br>and metals</span></li>
           <li><b>2</b><span>full<br>languages</span></li>
@@ -62,20 +84,20 @@
       <div class="hero__visual">
         <div class="hero__box" aria-hidden="true"></div>
         <figure class="phone phone--hero" role="img" aria-label="The NetRate app's main screen, Today's rates, with demo data">
-          <div class="phone__screen" style="--top:#F5F5F6">
+          <div class="phone__screen" style="--top:#F5F5F7">
             <div class="sb" aria-hidden="true"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
-            <div class="scr"><img class="scr__img" src="img/app/live-light-tall.webp" alt="" width="780" height="3000" fetchpriority="high"></div>
-            <img class="tabbar" src="img/app/tabbar-live-light.webp" alt="" width="584" height="120">
+            <div class="scr"><img class="scr__img" src="img/app/sm/live-light-tall.webp" srcset="img/app/sm/live-light-tall.webp 600w, img/app/live-light-tall.webp 1170w" sizes="(max-width: 860px) 236px, min(21.7vw, 312px)" width="1170" height="4500" alt="" loading="eager" decoding="async" fetchpriority="high"></div>
+            <img class="tabbar" src="img/app/tabbar-live-light.webp" alt="" width="876" height="195">
             <span class="home" aria-hidden="true"></span>
           </div>
-          <span class="phone__notch" aria-hidden="true"></span>
+          <span class="phone__island" aria-hidden="true"></span>
         </figure>
         <p class="demo-tag demo-tag--hero"><svg aria-hidden="true"><use href="#i-clock"/></svg>Demo data · 12 September</p>
       </div>
     </section>
 
-    <!-- ============ rates made clearer ============ -->
-    <section class="easier" id="how">
+    <!-- ============ rates made clearer: three cards, three moving pictures ============ -->
+    <section class="easier" id="clearer">
       <div class="easier__panel">
         <svg class="easier__arcs" viewBox="0 0 1312 440" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><g fill="none" stroke="currentColor"><circle cx="656" cy="420" r="170"/><circle cx="656" cy="420" r="230"/><circle cx="656" cy="420" r="290"/><circle cx="656" cy="420" r="350"/></g></svg>
         <h2 class="easier__title">We Made Rates <mark>Clearer!</mark></h2>
@@ -84,81 +106,264 @@
         <article class="card card--a">
           <h3>Every office's rate;<br>side by side!</h3>
           <svg class="card__rings" viewBox="0 0 344 344" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="172" cy="172" r="141"/><circle cx="172" cy="172" r="155.5"/><circle cx="172" cy="172" r="170"/></g></svg>
-          <figure class="phone phone--card" role="img" aria-label="The app's list of offices: each office's rate, fee and the age of its rate, with demo data">
-            <div class="phone__screen" style="--top:#F3F3F5">
-              <div class="sb" aria-hidden="true"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
-              <div class="scr"><img class="scr__img" src="img/app/sm/list-light.webp" alt="" width="420" height="859" loading="lazy"></div>
-              <span class="spot spot--a" aria-hidden="true"></span>
-            </div>
-            <span class="phone__notch" aria-hidden="true"></span>
-          </figure>
+          <div class="viz viz--rank" role="img" aria-label="Four offices' pound rates sorting themselves by highest payout, each with its age; demo data">
+            <p class="viz__cap"><span>Highest payout</span><span>Cash · per pound</span></p>
+            <ol class="rank" aria-hidden="true">
+              <li data-r="4" style="--slot:3"><i>4</i><b>K</b><span>Kian<small>Manchester</small></span><em>91,900<small>12 min ago</small></em><u style="--w:.42"></u></li>
+              <li data-r="3" style="--slot:2"><i>3</i><b>N</b><span>Nilo<small>London</small></span><em>92,300<small>27 min ago</small></em><u style="--w:.66"></u></li>
+              <li data-r="1" style="--slot:0"><i>1</i><b>A</b><span>Aria<small>London</small></span><em>92,900<small>8 min ago</small></em><u style="--w:1"></u></li>
+              <li data-r="2" style="--slot:1"><i>2</i><b>P</b><span>Pars<small>London</small></span><em>92,850<small>3 min ago</small></em><u style="--w:.97"></u></li>
+            </ol>
+          </div>
         </article>
         <article class="card card--b">
           <svg class="card__rings" viewBox="0 0 344 344" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="172" cy="172" r="141"/><circle cx="172" cy="172" r="155.5"/><circle cx="172" cy="172" r="170"/></g></svg>
-          <figure class="phone phone--card phone--up" role="img" aria-label="The app marks a rate that wasn't updated today as Expired and shows when each rate was posted, with demo data">
-            <div class="phone__screen" style="--top:#F2F2F4">
-              <div class="sb" aria-hidden="true"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
-              <div class="scr"><img class="scr__img" src="img/app/sm/expired-light.webp" alt="" width="420" height="859" loading="lazy"></div>
-              <span class="spot spot--b" aria-hidden="true"></span>
-            </div>
-            <span class="phone__notch" aria-hidden="true"></span>
-          </figure>
+          <div class="viz viz--age" role="img" aria-label="Each rate with how long ago it was posted; a rate not updated today fades and is marked Expired; demo data">
+            <svg class="clock" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54"/><g class="clock__ticks"><path d="M60 12v8M60 100v8M12 60h8M100 60h8"/></g><path class="clock__h" d="M60 60V34"/><path class="clock__m" d="M60 60h30"/><circle cx="60" cy="60" r="4.5" class="clock__c"/></svg>
+            <ul class="ages" aria-hidden="true">
+              <li><b>P</b><span>Pars<small>92,850 toman</small></span><em><svg><use href="#i-clock"/></svg>3 min ago</em></li>
+              <li><b>N</b><span>Nilo<small>92,300 toman</small></span><em><svg><use href="#i-clock"/></svg>27 min ago</em></li>
+              <li class="is-old"><b>M</b><span>Mehr<small>89,800 toman</small></span><em><svg><use href="#i-clock"/></svg>yesterday</em><i>Expired</i></li>
+            </ul>
+          </div>
           <h3>Every rate shows<br>how old it is</h3>
         </article>
         <article class="card card--c">
           <h3>Hear when the rate<br>hits your number.</h3>
           <svg class="card__rings" viewBox="0 0 344 344" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="172" cy="172" r="141"/><circle cx="172" cy="172" r="155.5"/><circle cx="172" cy="172" r="170"/></g></svg>
-          <figure class="phone phone--card" role="img" aria-label="Setting a rate alert in the app: the whole alert is written as one sentence, with demo data">
-            <div class="phone__screen" style="--top:#A0A1A2">
-              <div class="sb" aria-hidden="true"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
-              <div class="scr"><img class="scr__img" src="img/app/sm/f-alerts-light.webp" alt="" width="420" height="859" loading="lazy"></div>
-              <span class="spot spot--c" style="--sy:11.76;--sw:8.76;--i:0" aria-hidden="true"></span><span class="spot spot--c" style="--sy:19.38;--sw:6.0;--i:1" aria-hidden="true"></span><span class="spot spot--c" style="--sy:26.88;--sw:3.84;--i:2" aria-hidden="true"></span>
-            </div>
-            <span class="phone__notch" aria-hidden="true"></span>
-          </figure>
+          <div class="viz viz--alert" role="img" aria-label="A rate alert written as one sentence, and the notice it sends; demo data">
+            <div class="note" aria-hidden="true"><img src="img/netrate-icon.webp" alt="" width="256" height="256"><span><b>NetRate</b><small>now</small></span><p>The highest pound rate for Send to Iran is above 93,500 toman.</p></div>
+            <span class="bell" aria-hidden="true"><svg><use href="#i-bell"/></svg></span>
+            <p class="sentence" aria-hidden="true">When <span class="chip is-on">the highest rate</span> for <span class="chip is-on">Send to Iran</span> goes above <span class="chip is-on">93,500 toman</span>, tell me.</p>
+          </div>
         </article>
       </div>
-      <p class="cards__note">The app's own screens with demo data; office names and rates are made up.</p>
+      <p class="cards__note">Demo data · 12 September; office names and rates are made up.</p>
     </section>
 
-    <!-- ============ coming soon ============ -->
-    <section class="soon" id="soon">
+    <!-- ============ kinetic band ============ -->
+    <section class="band" aria-label="What NetRate gives you">
+      <div class="band__row"><p>Rates side by side <svg aria-hidden="true"><use href="#spark"/></svg> Every rate's age <svg aria-hidden="true"><use href="#spark"/></svg> Fee included <svg aria-hidden="true"><use href="#spark"/></svg> No sign-up <svg aria-hidden="true"><use href="#spark"/></svg></p><p aria-hidden="true">Rates side by side <svg><use href="#spark"/></svg> Every rate's age <svg><use href="#spark"/></svg> Fee included <svg><use href="#spark"/></svg> No sign-up <svg><use href="#spark"/></svg></p></div>
+      <div class="band__row band__row--ghost"><p>English and Persian <svg aria-hidden="true"><use href="#spark"/></svg> Three themes <svg aria-hidden="true"><use href="#spark"/></svg> Rate alerts <svg aria-hidden="true"><use href="#spark"/></svg> Verified offices <svg aria-hidden="true"><use href="#spark"/></svg></p><p aria-hidden="true">English and Persian <svg><use href="#spark"/></svg> Three themes <svg><use href="#spark"/></svg> Rate alerts <svg><use href="#spark"/></svg> Verified offices <svg><use href="#spark"/></svg></p></div>
+    </section>
+
+    <!-- ============ how it works: four cards stack up as you scroll ============ -->
+    <section class="how" id="how">
+      <header class="sec-head">
+        <p class="eyebrow">How it works</p>
+        <h2 class="sec-title">From your amount to a phone call,<br>in four steps</h2>
+      </header>
+      <div class="stack wrap">
+        <article class="sc sc--1" style="--i:0">
+          <div class="sc__txt"><span class="sc__n">01</span><h3>Type your amount and currency</h3><p>Say 1,000 pounds. Pick the direction, Send to Iran or Receive from Iran, and the rate type.</p></div>
+          <div class="sc__viz" aria-hidden="true">
+            <div class="amt"><small>Amount</small><b><span class="amt__v" data-to="1,000">1,000</span><i class="caret"></i></b><span class="amt__u">pounds</span></div>
+            <p class="chips"><span>Pound<svg><use href="#i-chevrondown"/></svg></span><span>Cash<svg><use href="#i-chevrondown"/></svg></span><span class="on">Send to Iran</span><span>Receive from Iran</span></p>
+          </div>
+        </article>
+        <article class="sc sc--2" style="--i:1">
+          <div class="sc__txt"><span class="sc__n">02</span><h3>See the offices side by side</h3><p>Ordered by Highest payout, fee included, and every rate shows how many minutes ago it was posted.</p></div>
+          <div class="sc__viz" aria-hidden="true">
+            <p class="bars__cap">For 1,000 pounds you get</p>
+            <ul class="bars">
+              <li style="--w:1"><i>1</i><span>Pars</span><b>92,850,000</b><small>No fee · 3 min ago</small></li>
+              <li style="--w:.9"><i>2</i><span>Kian</span><b>91,900,000</b><small>Fee 12 pounds · 12 min ago</small></li>
+              <li style="--w:.86"><i>3</i><span>Nilo</span><b>91,746,200</b><small>Fee 0.6% · 27 min ago</small></li>
+            </ul>
+          </div>
+        </article>
+        <article class="sc sc--3" style="--i:2">
+          <div class="sc__txt"><span class="sc__n">03</span><h3>Open the office's page</h3><p>Branches, opening hours, its rate table, a chart and reviews checked before they're published.</p></div>
+          <div class="sc__viz" aria-hidden="true">
+            <div class="office"><b class="office__tile">A</b><p><span>Aria Exchange<svg><use href="#i-verified"/></svg></span><small>London, Edgware Road · 2 branches</small></p></div>
+            <p class="chips chips--ink"><span class="on">Open until 18:00</span><span>Always up to date</span><span>Verified</span></p>
+            <table class="otable"><tr><th>Cash</th><td>92,900</td><td>94,219</td></tr><tr><th>Bank transfer</th><td>92,482</td><td>94,596</td></tr><tr class="otable__h"><th>8 min ago</th><td>Send to Iran</td><td>Receive</td></tr></table>
+          </div>
+        </article>
+        <article class="sc sc--4" style="--i:3">
+          <div class="sc__txt"><span class="sc__n">04</span><h3>Contact the office directly</h3><p>Call, message or get directions; the deal is directly between you and the office.</p></div>
+          <div class="sc__viz" aria-hidden="true">
+            <div class="acts"><span><i><svg><use href="#i-phone"/></svg></i>Call</span><span><i><svg><use href="#i-message"/></svg></i>WhatsApp</span><span><i><svg><use href="#i-telegram"/></svg></i>Telegram</span><span><i><svg><use href="#i-navigation"/></svg></i>Directions</span></div>
+            <p class="acts__note">NetRate is not an exchange office and never moves money.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ the statement, word by word ============ -->
+    <section class="say" aria-label="NetRate is not an exchange office and never moves money.">
+      <p class="say__big" aria-hidden="true">NetRate is not an exchange office and <span class="say__hl">never moves money.<svg class="say__line" viewBox="0 0 420 34" preserveAspectRatio="none"><path d="M6 22C70 9 130 27 196 17s130-14 218 2"/></svg></span></p>
+      <p class="say__small">The offices post the rates themselves, for information only; for a firm rate, contact the office before you deal.</p>
+    </section>
+
+    <!-- ============ honesty: three panels, one opens ============ -->
+    <section class="honest" id="honesty">
+      <header class="sec-head">
+        <p class="eyebrow">Honesty</p>
+        <h2 class="sec-title">It tells you the truth,<br>even when there's no news</h2>
+        <p class="sec-sub">The app never shows a number without its age.</p>
+      </header>
+      <div class="hp wrap">
+        <article class="hp__item is-on" tabindex="0" data-i="0">
+          <span class="hp__ic"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span>
+          <h3>Sundays, the week in summary</h3>
+          <div class="hp__more">
+            <p>Most UK offices are closed on Sundays. The app doesn't go empty: it shows last week's summary, and the offices that are open come to the top.</p>
+            <div class="week" aria-hidden="true"><span><small>Week's high</small><b>93,050</b><small>Thursday</small></span><span><small>Week's average</small><b>91,620</b><small>Mon to Sat</small></span><span><small>Week's low</small><b>90,400</b><small>Monday</small></span></div>
+          </div>
+        </article>
+        <article class="hp__item" tabindex="0" data-i="1">
+          <span class="hp__ic"><svg aria-hidden="true"><use href="#i-clock"/></svg></span>
+          <h3>Expired rates fade, with a label</h3>
+          <div class="hp__more">
+            <p>A rate that wasn't updated today fades, gets an “Expired” label and is never counted in the order or the average.</p>
+            <div class="faded" aria-hidden="true"><b>M</b><span>Mehr<small>Glasgow</small></span><em>89,800<small>yesterday</small></em><i>Expired</i></div>
+          </div>
+        </article>
+        <article class="hp__item" tabindex="0" data-i="2">
+          <span class="hp__ic"><svg aria-hidden="true"><use href="#i-wifioff"/></svg></span>
+          <h3>Offline, still in the know</h3>
+          <div class="hp__more">
+            <p>When you lose your connection, a bar at the top tells you how many minutes ago the last rates were posted.</p>
+            <div class="offbar" aria-hidden="true"><svg><use href="#i-wifioff"/></svg><span><b>Offline</b> — you're seeing the rates from 3 minutes ago</span></div>
+          </div>
+        </article>
+      </div>
+      <p class="cards__note">Demo data · 12–13 September.</p>
+    </section>
+
+    <!-- ============ showcase: the app, the second and last time (owner's sample: refs/showcase-sample.webp) ============ -->
+    <section class="show" id="showcase">
+      <div class="show__box">
+        <div class="show__glow" aria-hidden="true"></div>
+        <div class="show__slabs show__slabs--back" aria-hidden="true"><i></i><i></i></div>
+        <div class="show__copy">
+          <p class="show__logo"><img src="img/netrate-icon.webp" alt="" width="256" height="256"><span>NetRate</span></p>
+          <h2 class="show__title"><span>Exchange Rates</span><span class="show__blue">Side by Side</span></h2>
+          <i class="show__rule" aria-hidden="true"></i>
+          <p class="show__lines">Every rate with its age.<br>Every fee <b>included.</b></p>
+          <p class="show__foot">UK market · pound to toman</p>
+        </div>
+        <div class="show__stage">
+          <div class="p3d p3d--show" role="img" aria-label="The NetRate app in its black theme, with demo data">
+            <div class="p3d__body" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="p3d__side" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="p3d__front" aria-hidden="true">
+              <div class="p3d__screen p3d__screen--app" style="--top:#0A0A0A">
+                <div class="sb sb--light" aria-hidden="true"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
+                <div class="scr"><img class="scr__img" src="img/app/sm/live-dark.webp" srcset="img/app/sm/live-dark.webp 600w, img/app/live-dark.webp 1170w" sizes="(max-width: 860px) 205px, min(24.5vw, 352px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div>
+              </div>
+              <span class="p3d__island"></span>
+            </div>
+          </div>
+        </div>
+        <div class="show__slabs show__slabs--front" aria-hidden="true"><i></i><i></i></div>
+        <p class="demo-tag demo-tag--show"><svg aria-hidden="true"><use href="#i-clock"/></svg>Demo data · 12 September</p>
+      </div>
+    </section>
+
+    <!-- ============ trust ============ -->
+    <section class="trust" id="trust">
+      <header class="sec-head">
+        <p class="eyebrow">Trust</p>
+        <h2 class="sec-title">Why you can trust NetRate</h2>
+      </header>
+      <ul class="trust__grid wrap">
+        <li><span class="tic"><svg aria-hidden="true"><use href="#i-clock"/></svg></span><h3>Every rate shows its age</h3><p>The offices post their own rates, and you see how many minutes ago each one was posted.</p></li>
+        <li><span class="tic"><svg aria-hidden="true"><use href="#i-verified"/></svg></span><h3>One “Verified” badge</h3><p>Vouched for by two verified offices, or checked by company number and AML. The badge can't be bought.</p></li>
+        <li><span class="tic"><svg aria-hidden="true"><use href="#i-message"/></svg></span><h3>Reviews are moderated</h3><p>Every review is checked before it's published.</p></li>
+        <li><span class="tic"><svg aria-hidden="true"><use href="#i-eye"/></svg></span><h3>No account needed</h3><p>Seeing rates, the list, the chart and search needs no account.</p></li>
+        <li><span class="tic"><svg aria-hidden="true"><use href="#i-mappin"/></svg></span><h3>We don't ask for your location</h3><p>You pick your city yourself.</p></li>
+        <li><span class="tic"><svg aria-hidden="true"><use href="#i-trash"/></svg></span><h3>Delete your account any time</h3><p>Whenever you want, your account and its data are deleted.</p></li>
+      </ul>
+    </section>
+
+    <!-- ============ for exchange offices ============ -->
+    <section class="offices" id="offices">
+      <div class="offices__box">
+        <div class="offices__copy">
+          <p class="eyebrow eyebrow--ink">For exchange offices</p>
+          <h2 class="offices__title">Post your rate every day from a simple panel</h2>
+          <p class="offices__body">The NetRate web panel works well on a phone, and you get a reminder to post your rate. Your rate is shown with the time it was posted, next to the rest.</p>
+          <ul class="offices__list">
+            <li><svg aria-hidden="true"><use href="#i-penline"/></svg><span><b>Post your rate, with reminders</b>Every day from your phone or computer, in seconds.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-layers"/></svg><span><b>A rate card with your logo</b>A polished card from that rate, as an image or text, for your channel.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-star"/></svg><span><b>Daily Featured spot</b>Limited and bought day by day, always clearly labelled “Featured”.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-chartline"/></svg><span><b>Reports and stats</b>Weekly and monthly reports and full statistics.</span></li>
+          </ul>
+          <span class="btn btn--ghost" aria-disabled="true">Contact details coming soon</span>
+        </div>
+        <div class="panel" role="img" aria-label="The office web panel: today's pound rate for cash, with demo data">
+          <div class="panel__top"><img src="img/netrate-icon.webp" alt="" width="256" height="256"><b>Office web panel</b><span>Sample office</span></div>
+          <p class="panel__lbl">Today's pound rate · Cash</p>
+          <div class="panel__row"><span>Send to Iran</span><b><i class="type" data-to="92,900">92,900</i><small>toman</small></b></div>
+          <div class="panel__row"><span>Receive from Iran</span><b><i class="type" data-to="94,219">94,219</i><small>toman</small></b></div>
+          <div class="panel__meta"><span><svg aria-hidden="true"><use href="#i-bell"/></svg>Rate reminder · every day at 9:00</span><span><svg aria-hidden="true"><use href="#i-clock"/></svg>Last posted 8 min ago</span></div>
+          <span class="panel__btn">Post rate</span>
+          <p class="panel__tag">Demo data · 12 September</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ faq ============ -->
+    <section class="faq" id="faq">
+      <header class="sec-head">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="sec-title">Questions people often ask</h2>
+        <p class="sec-sub">The same answers you'll find inside the app.</p>
+      </header>
+      <div class="faq__list">
+        <details class="q"><summary>Is NetRate an exchange office?<i aria-hidden="true"></i></summary><p>No. NetRate is not an exchange office and never moves any money. It only puts the rates the offices themselves post side by side; the deal is directly between you and the office.</p></details>
+        <details class="q"><summary>Is my money safe?<i aria-hidden="true"></i></summary><p>Your money never reaches us, so its safety depends on the office you deal with. The “Verified” badge, user ratings and “Always up to date” on each office's page are there for exactly that; look at them before you deal.</p></details>
+        <details class="q"><summary>Why do offices' rates differ?<i aria-hidden="true"></i></summary><p>Each office has its own rate and fee, and its cash, bank transfer and official invoice rates differ too. That's why, once you type an amount, the order is by the money you get after the fee.</p></details>
+        <details class="q"><summary>What does an expired rate mean?<i aria-hidden="true"></i></summary><p>A rate the office hasn't updated today. It stays for one day, faded and labelled, then goes; it's never counted in the order or the average.</p></details>
+        <details class="q"><summary>How does an office become “Verified”?<i aria-hidden="true"></i></summary><p>In one of two equal ways: two active verified offices vouch for it, or it gives its company number and AML number and our team checks them. The badge can't be bought and has only one level.</p></details>
+        <details class="q"><summary>Why are there so few rates on Sunday?<i aria-hidden="true"></i></summary><p>Most UK offices are closed on Sundays. That day you see last week's summary, and the offices that are open come to the top of the list.</p></details>
+        <details class="q"><summary>Do I need an account to see rates?<i aria-hidden="true"></i></summary><p>No. Rates, the office list, the chart and search all work without an account. You only need one for rate alerts, saved offices and writing reviews.</p></details>
+      </div>
+    </section>
+
+    <!-- ============ the App Store page ============ -->
+    <section class="soon" id="get">
       <h2 class="soon__title">Coming to iPhone and Android <span class="nw">soon<span class="dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></span></h2>
       <div class="soon__stage">
         <svg class="soon__rings" viewBox="0 0 700 700" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="350" cy="350" r="280"/><circle cx="350" cy="350" r="310"/><circle cx="350" cy="350" r="338"/></g></svg>
-        <div class="p3d" role="img" aria-label="NetRate's store page on a phone: coming soon; two languages, three themes, eight currencies and metals, no sign-up to see rates; screenshots with demo data">
-          <div class="p3d__body" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="p3d__side" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="p3d p3d--store" role="img" aria-label="NetRate's App Store page on an iPhone, coming soon: two languages, three themes, eight currencies and metals, no sign-up to see rates; screenshots with demo data">
+          <div class="p3d__body" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="p3d__side" aria-hidden="true"><i></i><i></i><i></i></div>
           <div class="p3d__front" aria-hidden="true">
             <div class="p3d__screen">
-              <div class="st__bar"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
-              <p class="st__back"><svg><use href="#i-back"/></svg>Search</p>
-              <img class="st__icon" src="img/netrate-icon.webp" alt="" width="256" height="256">
-              <b class="st__name">NetRate</b>
-              <small class="st__sub">Rates, side by side</small>
-              <span class="st__get">COMING SOON</span>
-              <svg class="st__share"><use href="#i-share"/></svg>
-              <span class="st__rule"></span>
-              <div class="st__meta">
-                <p><small>LANGUAGES</small><b>2</b><i>EN · FA</i></p>
-                <p><small>THEMES</small><b>3</b><i>Dusk to black</i></p>
-                <p><small>CURRENCIES</small><b>8</b><i>With metals</i></p>
-                <p><small>SIGN-UPS</small><b>0</b><i>To see rates</i></p>
-              </div>
-              <div class="st__shots">
-                <div class="st__track">
-                  <img src="img/app/sm/live-light.webp" alt="" width="420" height="859" loading="lazy">
-                  <img src="img/app/sm/office-page-light.webp" alt="" width="420" height="859" loading="lazy">
-                  <img src="img/app/sm/f-chart-light.webp" alt="" width="420" height="859" loading="lazy">
-                  <img src="img/app/sm/live-dark.webp" alt="" width="420" height="859" loading="lazy">
+              <div class="as">
+                <div class="as__status"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
+                <div class="as__nav"><span class="as__back"><svg><use href="#i-back"/></svg>Search</span></div>
+                <div class="as__head">
+                  <img class="as__icon" src="img/netrate-icon.webp" alt="" width="256" height="256">
+                  <div class="as__name"><b>NetRate</b><small>UK office rates, side by side</small></div>
+                  <span class="as__get">SOON</span>
+                  <svg class="as__share"><use href="#i-share"/></svg>
                 </div>
+                <div class="as__badges"><div class="as__strip">
+                  <p><small>LANGUAGES</small><b>EN</b><i>+ Persian</i></p>
+                  <p><small>THEMES</small><b>3</b><i>Dusk to black</i></p>
+                  <p><small>CURRENCIES</small><b>8</b><i>With metals</i></p>
+                  <p><small>SIGN-UPS</small><b>0</b><i>To see rates</i></p>
+                  <p><small>MARKET</small><b>UK</b><i>Pound to toman</i></p>
+                </div></div>
+                <div class="as__shots"><div class="as__track">
+                  <figure class="as__shot as__shot--ink"><figcaption>Every office's rate,<br>side by side</figcaption><div class="as__scr" style="--top:#F5F5F7"><img class="scr__img" src="img/app/sm/live-light.webp" srcset="img/app/sm/live-light.webp 600w, img/app/live-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
+                  <figure class="as__shot"><figcaption>Fee included,<br>for your amount</figcaption><div class="as__scr" style="--top:#F3F3F5"><img class="scr__img" src="img/app/sm/ranked-light.webp" srcset="img/app/sm/ranked-light.webp 600w, img/app/ranked-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
+                  <figure class="as__shot as__shot--ink"><figcaption>Every rate shows<br>how old it is</figcaption><div class="as__scr" style="--top:#F3F3F5"><img class="scr__img" src="img/app/sm/expired-light.webp" srcset="img/app/sm/expired-light.webp 600w, img/app/expired-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
+                  <figure class="as__shot"><figcaption>Every office,<br>one page</figcaption><div class="as__scr" style="--top:#F5F5F6"><img class="scr__img" src="img/app/sm/office-page-light.webp" srcset="img/app/sm/office-page-light.webp 600w, img/app/office-page-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
+                  <figure class="as__shot as__shot--ink"><figcaption>A complete chart,<br>no predictions</figcaption><div class="as__scr" style="--top:#0A0A0A"><img class="scr__img" src="img/app/sm/f-chart-dark.webp" srcset="img/app/sm/f-chart-dark.webp 600w, img/app/f-chart-dark.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
+                </div></div>
+                <div class="as__tabs"><span><svg><use href="#i-doc"/></svg>Today</span><span><svg><use href="#as-games"/></svg>Games</span><span><svg><use href="#i-layers"/></svg>Apps</span><span><svg><use href="#as-arcade"/></svg>Arcade</span><span class="on"><svg><use href="#i-search"/></svg>Search</span></div>
+                <span class="as__home"></span>
               </div>
             </div>
-            <span class="p3d__notch"></span>
+            <span class="p3d__island"></span>
           </div>
         </div>
-        <p class="demo-tag demo-tag--soon"><svg aria-hidden="true"><use href="#i-clock"/></svg>Demo data · 12 September</p>
+        <p class="demo-tag demo-tag--soon"><svg aria-hidden="true"><use href="#i-clock"/></svg>Screenshots with demo data · 12 September</p>
       </div>
+      
     </section>
   </main>
 
@@ -168,14 +373,16 @@
       <div class="foot__brand">
         <a class="logo" href="#top" aria-label="NetRate, back to the top"><img class="logo__mark" src="img/netrate-icon.webp" alt="" width="256" height="256"><span>NetRate</span></a>
         <p class="foot__legal">NetRate is not an exchange office<br>and never moves money.</p>
+        
         <div class="email email--foot soon-pill">
           <svg class="email__ic" aria-hidden="true"><use href="#i-smartphone"/></svg>
           <span class="email__txt">iPhone and Android</span>
-          <a class="btn" href="#soon">Coming soon</a>
+          <a class="btn" href="#get">Coming soon</a>
         </div>
+        
       </div>
       <nav class="foot__cols" aria-label="Footer">
-        <div><h4>NetRate</h4><a href="#how">How it works</a><a href="#soon">Coming soon</a><a href="#top">Back to top</a></div>
+        <div><h4>NetRate</h4><a href="#how">How it works</a><a href="#offices">For offices</a><a href="#faq">FAQ</a><a href="#get">Coming soon</a></div>
         <div><h4>Legal</h4><span>Terms of use</span><span>Privacy</span><span>Disclaimer</span><em>Legal pages coming soon</em></div>
         <div><h4>In the app</h4><span>Rates side by side</span><span>Every rate's age</span><span>Fee included</span><span>Rate alerts</span></div>
       </nav>
@@ -183,6 +390,7 @@
         <p>The offices post the rates themselves, for information only; for a firm rate, contact the office before you deal.<br>The app screens and numbers on this page are demo data; office names, rates and addresses are made up.</p>
         <a class="sig" href="https://t.me/Mohammad_s203" target="_blank" rel="noopener" aria-label="DESIGNED &amp; DEVELOPED BY — M.S, the maker on Telegram">DESIGNED &amp; DEVELOPED BY — M.S<svg aria-hidden="true"><use href="#i-telegram"/></svg></a>
       </div>
+      <svg class="wordmark" viewBox="0 0 1180 250" aria-hidden="true"><text x="590" y="212" text-anchor="middle">NetRate</text></svg>
     </div>
   </footer>
 </div>
