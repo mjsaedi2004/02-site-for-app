@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study 06 · Investing app</title>
+<meta name="description" content="Design study 06: an investing app landing page rebuilt from a reference video, with hand-drawn lines that draw on scroll and live market cards. Brand, companies and prices are placeholders.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add("js-intro");setTimeout(function(){document.documentElement.classList.remove("js-intro")},4000);</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="apple" viewBox="0 0 24 24"><path d="M15.5 3.5c.1 1.2-.4 2.4-1.1 3.2-.8.9-1.9 1.5-3 1.4-.1-1.2.5-2.4 1.2-3.1.7-.8 2-1.4 2.9-1.5ZM19 16.6c-.5 1.1-.8 1.6-1.5 2.6-.9 1.4-2.2 3.1-3.8 3.1-1.4 0-1.8-.9-3.7-.9-1.9 0-2.3.9-3.7.9-1.6 0-2.8-1.6-3.7-3-2.6-3.9-2.8-8.4-1.3-10.8 1.1-1.7 2.8-2.7 4.4-2.7 1.6 0 2.7.9 4.1.9 1.3 0 2.1-.9 4-.9 1.4 0 2.9.8 4 2.1-3.5 1.9-2.9 6.9 1.2 8.7Z" fill="currentColor"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14m-5-5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="spark4" viewBox="0 0 40 40"><path d="M20 2c1.4 11 5.6 15.4 18 18-12.4 2.6-16.6 7-18 18-1.4-11-5.6-15.4-18-18C14.4 17.4 18.6 13 20 2Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-run" viewBox="0 0 24 24"><path d="M13 4.5a1.6 1.6 0 1 0 0 .1M9 21l2.4-5.6L14 17v4M7 12l3-3.4 3.4 1.2 2 2.6 2.6.6M11.4 15.4 10 9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-q" viewBox="0 0 24 24"><path d="M9.5 9.2a2.6 2.6 0 1 1 3.6 2.4c-.7.3-1.1.9-1.1 1.6v.6M12 17.2v.3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="7.5" rx="6" ry="2.5"/><path d="M6 7.5v8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-8M6 11.5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></g></symbol>
+    <symbol id="i-ticks" viewBox="0 0 24 24"><path d="m5 13 3 3 6-7M11 16l2 0 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.4.6-4 3.7 1.1 5.3L12 16l-4.9 2.6 1.1-5.3-4-3.7 5.4-.6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15L6 16Zm4 4a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-fb" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="currentColor"/><path d="M13.5 20v-6.5h2.2l.3-2.6h-2.5V9.3c0-.8.2-1.3 1.3-1.3h1.3V5.7c-.2 0-1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.8H8.6v2.6h2.2V20z" fill="#000"/></symbol>
+    <symbol id="i-tw" viewBox="0 0 24 24"><path d="M21 6.2c-.7.3-1.4.5-2.2.6.8-.5 1.4-1.2 1.6-2.1-.7.4-1.6.8-2.4.9a3.8 3.8 0 0 0-6.5 3.5C8.3 9 5.5 7.5 3.6 5.2c-1 1.8-.5 4 1.2 5.1-.6 0-1.2-.2-1.7-.5 0 1.9 1.3 3.5 3.1 3.9-.6.1-1.1.2-1.7.1.5 1.5 1.9 2.6 3.6 2.7A7.7 7.7 0 0 1 2 18.1 10.8 10.8 0 0 0 7.8 20c7 0 10.9-6 10.9-11.1v-.5c.9-.6 1.6-1.3 2.3-2.2Z" fill="currentColor"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" fill="currentColor"/><circle cx="12" cy="12" r="4" fill="none" stroke="#000" stroke-width="1.8"/></symbol>
+    <!-- placeholder company marks -->
+    <symbol id="c-pear" viewBox="0 0 24 24"><path d="M12 7c2.4 0 4 2 4 4.4 0 1.4.9 2.4.9 4.4 0 2.8-2.2 4.7-4.9 4.7s-4.9-1.9-4.9-4.7c0-2 .9-3 .9-4.4C8 9 9.6 7 12 7Zm.6-.2c0-1.6.8-2.9 2.4-3.6" fill="currentColor"/></symbol>
+    <symbol id="c-wave" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M7 10.5c2.6-1 7.4-1 10 .6M7.6 13.4c2.3-.8 6.3-.7 8.6.5M8.4 16c1.8-.6 5-.5 6.8.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="c-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7.4" height="7.4" fill="#F25022"/><rect x="12.6" y="4" width="7.4" height="7.4" fill="#7FBA00"/><rect x="4" y="12.6" width="7.4" height="7.4" fill="#00A4EF"/><rect x="12.6" y="12.6" width="7.4" height="7.4" fill="#FFB900"/></symbol>
+    <symbol id="c-box" viewBox="0 0 24 24"><path d="m7 4 5 3.2L7 10.4 2 7.2zm10 0 5 3.2-5 3.2-5-3.2zM2 13.6l5-3.2 5 3.2-5 3.2zm15-3.2 5 3.2-5 3.2-5-3.2zM7 18l5-3.2 5 3.2-5 3.2z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div class="frame">
+  <header class="nav">
+    <a class="brand" href="#top"><span>Pro Finova</span><i></i></a>
+    <nav class="nav__links" aria-label="Main"><a href="#adv">About Us</a><a href="#most">Catalog</a><a href="#trade">Price</a><a href="#faq">Help</a></nav>
+    <a class="nav__login" href="#top">Log In</a>
+    <a class="nav__dl" href="#get"><svg><use href="#apple"/></svg>Download App</a>
+  </header>
+
+  <main id="top">
+    <!-- ============ hero ============ -->
+    <section class="hero">
+      <div class="hero__panel">
+        <h1 class="hero__title"><span class="ln">Invest for <svg class="hero__spark"><use href="#spark4"/></svg></span><span class="ln">the Future</span></h1>
+        <p class="hero__lead">Work with all the necessary information and tools to boost money flow from your capital investment using ProFinova!</p>
+        <a class="btn btn--dark hero__btn" href="#get"><svg><use href="#apple"/></svg>Download App</a>
+        <a class="hero__more" href="#most">Find Out More <svg><use href="#i-down"/></svg></a>
+        <svg class="hero__loop" viewBox="0 0 300 380" aria-hidden="true"><path d="M190 12C250 20 300 74 290 152c-10 78-52 146-74 192-8 16 2 30 16 22 14-10 8-30-10-36-56-20-130-42-210-38" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/><path d="M34 283 10 296l24 14" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="hero__phones" aria-hidden="true">
+        <div class="ph ph--market">
+          <b class="mk__t">Market</b>
+          <p class="mk__search"><span>Find stocks, funds, bonds...</span><i></i></p>
+          <p class="mk__chips"><span>Stocks</span><span>Funds</span><span>Bonds</span><span>Currencies</span><span>Futures</span></p>
+          <small class="mk__label">Collections</small>
+          <div class="mk__div"><b>Dividend Strategy</b><small>Our best picks for steady payouts</small><em>+6.48%</em><span class="mk__avs"><i></i><i></i><i></i><i></i><i>+12</i></span></div>
+          <small class="mk__label mk__label--2">Popularity</small>
+          <div class="mk__pop"><p><svg><use href="#c-pear"/></svg><b>Pear Inc</b><small>$132.15 <em>+1.25%</em></small></p><p><svg class="g"><use href="#c-wave"/></svg><b>Sonar</b><small>$292.92 <em>+2.04%</em></small></p></div>
+          <small class="mk__label mk__label--3">Your choice</small>
+          <p class="mk__row"><svg><use href="#c-grid"/></svg><b>Quadra Corp</b><em>$1,402.71</em></p>
+          <p class="mk__tabs"><i></i><i></i><i></i></p>
+        </div>
+        <div class="ph ph--chart">
+          <p class="ch__top"><svg><use href="#i-back"/></svg><b><svg><use href="#c-pear"/></svg>Pear Inc</b><svg><use href="#i-star"/></svg></p>
+          <p class="ch__price">$132.15 <small>+1.25% · $1.73</small><svg><use href="#i-bell"/></svg></p>
+          <canvas class="candles"></canvas>
+          <p class="ch__range"><span>1h</span><span>4h</span><span class="on">Day</span><span>Week</span><span>Month</span></p>
+
+        </div>
+        <div class="ph-sheet"><p><span>$1,850.10<small>+48.1%</small></span><span>$133.10<small class="neg">-0.7%</small></span><span>$256.37<small>+1.4%</small></span></p><b class="sell">Sell</b><b class="buy">Buy</b></div>
+      </div>
+    </section>
+
+    <!-- ============ get the most out ============ -->
+    <section class="most" id="most">
+      <h2 class="h2">Get the Most Out<br>of Your Investments</h2>
+      <div class="most__cards">
+        <article class="mc">
+          <h3>Unlimited Portfolio Accounts</h3><p>Manage all your financial assets from one place</p><a href="#adv">Read More <svg><use href="#i-right"/></svg></a>
+          <svg class="mc__art mc__art--1" viewBox="0 0 240 230" aria-hidden="true"><path d="M114 30c34-8 78-14 140-12V240H140c-24-60-38-140-26-210Z" fill="#DDF33A"/><path d="M118 30c-10 2-16 10-14 20" fill="none" stroke="#DDF33A" stroke-width="8" stroke-linecap="round"/><path d="M6 240c4-30 14-62 34-86 16-18 44-30 70-22 22 6 30 28 32 52 2 18 2 36 0 56Z" fill="#111"/><path class="draw" d="M190 126c-16-14-34-4-30 12 4 18 34 22 42 2 6-14-6-26-20-20" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/></svg>
+        </article>
+        <article class="mc">
+          <h3>Full Analytics in Your App</h3><p>Analyze the results and try different strategies for more income</p><a href="#adv">Read More <svg><use href="#i-right"/></svg></a>
+          <svg class="mc__art mc__art--2" viewBox="0 0 400 300" aria-hidden="true"><circle class="ring ring--a" cx="310" cy="249" r="160" fill="none" stroke="#111" stroke-width="22" stroke-dasharray="223 1005" transform="rotate(-95 310 249)"/><circle class="ring ring--b" cx="310" cy="249" r="160" fill="none" stroke="#DDF33A" stroke-width="22" stroke-dasharray="112 1005" transform="rotate(-142 310 249)"/><circle class="ring ring--c" cx="310" cy="249" r="160" fill="none" stroke="#EE5A52" stroke-width="22" stroke-dasharray="134 1005" transform="rotate(161 310 249)"/><path class="draw" d="M236 238c8-14 14-24 20-10 6 16 12 14 18-4 6-18 12-16 18-2 6 14 14 8 22-12 8-20 16-30 30-38" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="m330 168 16-4-2 16" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ advantages ============ -->
+    <section class="adv" id="adv">
+      <div class="adv__intro"><h2 class="h2">Advantages</h2><p>We listen to our customers and work with them to improve the user experience of our platform</p></div>
+      <div class="adv__grid">
+        <article class="av"><i><svg><use href="#i-run"/></svg></i><h3>Smooth Start</h3><p>Without a visit to the office, we will set up your brokerage account in 5 minutes</p><a href="#get">Open an Account</a></article>
+        <article class="av"><i><svg><use href="#i-q"/></svg></i><h3>24/7 Support</h3><p>Our support team is always available to answer questions and resolve any issues</p><a href="#faq">Ask a Question</a></article>
+        <article class="av"><i><svg><use href="#i-coins"/></svg></i><h3>Low Commissions</h3><p>We give you the best rate we can for any kind of transactions. No extra fees</p><a href="#trade">Explore Prices</a></article>
+        <article class="av"><i><svg><use href="#i-ticks"/></svg></i><h3>Invest Any Amount</h3><p>You don’t have to have large sums to start investing, start small</p><a href="#get">Start Now</a></article>
+      </div>
+    </section>
+
+    <!-- ============ partners ============ -->
+    <section class="partners" id="faq">
+      <h2 class="h2">Our Partners</h2>
+      <p class="partners__lead">The largest banks, funds and exchanges from all over the world cooperate with us</p>
+      <ul class="badges" aria-label="Placeholder partner marks">
+        <li><svg viewBox="0 0 40 40"><path d="M12 10h3v14h-3zM17 10h3v14h-3zM22 10h3v14h-3zM27 10h3v14h-3zM8 10h2v14H8z" fill="currentColor"/><text x="20" y="33" text-anchor="middle" font-size="7" font-weight="800" fill="currentColor" font-family="Outfit">AXIS</text></svg></li>
+        <li><svg viewBox="0 0 40 40"><circle cx="16" cy="20" r="7" fill="currentColor"/><circle cx="24" cy="20" r="7" fill="currentColor" opacity=".55"/></svg></li>
+        <li><svg viewBox="0 0 40 40"><text x="20" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor" font-family="Outfit">orbi</text></svg></li>
+        <li><svg viewBox="0 0 40 40"><text x="20" y="25" text-anchor="middle" font-size="12" font-weight="800" font-style="italic" fill="currentColor" font-family="Outfit">VEXA</text></svg></li>
+        <li><svg viewBox="0 0 40 40"><path d="M8 24 22 12h10L18 24zM10 30l14-12h10L20 30z" fill="currentColor"/></svg></li>
+        <li><svg viewBox="0 0 40 40"><path d="M8 13h12v5h-4v10h-4V18H8zM22 13h10l-6 15h-4l4-10h-4z" fill="currentColor"/></svg></li>
+        <li><svg viewBox="0 0 40 40"><path d="M9 28 17 12h5l-4 9 9-9h4l-8 16h-5l4-9-9 9z" fill="currentColor"/></svg></li>
+        <li><svg viewBox="0 0 40 40"><path d="M6 20 13 13v14zM34 20l-7-7v14zM14 13h12l-6 7zM14 27h12l-6-7z" fill="currentColor"/></svg></li>
+      </ul>
+      <div class="pulse">
+        <svg class="pulse__line" viewBox="0 0 160 90" aria-hidden="true"><path class="draw" d="M0 80c30-20 46-46 66-60 18-12 20 12 26 34 6 18 26 22 66 4" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+        <h2>Keep Your Finger on the Investment Market Pulse</h2>
+        <a class="btn btn--light" href="#get"><svg><use href="#apple"/></svg>Download App</a>
+        <div class="pulse__phone" aria-hidden="true">
+          <b class="pp__total">$<span class="pp__num">16,988.31</span></b><small class="pp__sub">+$1,206 this month</small>
+          <div class="pp__card"><small>Portfolio · Dividend</small><b>$5,738.70 <em>+1.2%</em></b><p><span></span><span></span></p></div>
+          <p class="pp__row"><svg><use href="#c-pear"/></svg><span>Pear Inc</span><i></i><em>$1,882.03</em></p>
+          <p class="pp__row"><svg><use href="#c-grid"/></svg><span>Quadra Corp</span><i></i><em>$1,402.71</em></p>
+          <p class="pp__row"><svg class="b"><use href="#c-box"/></svg><span>Cratebox Inc</span><i></i><em>$669.12</em></p>
+          <p class="pp__row"><svg><use href="#c-wave"/></svg><span>Harbor S&amp;P</span><i></i><em>$1,292.75</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ trade ============ -->
+    <section class="trade" id="trade">
+      <div class="trade__chart" aria-hidden="true"><i class="trade__lime"></i><div class="tc"><small class="tc__p">135.76</small><small class="tc__d">+1.25% · $1.73</small><svg viewBox="0 0 400 200" preserveAspectRatio="none"><path class="tc__line" d="M0.0 66.6 3.3 56.0 6.7 65.6 10.0 59.5 13.3 60.4 16.7 67.8 20.0 64.8 23.3 74.6 26.7 82.0 30.0 82.2 33.3 77.1 36.7 78.4 40.0 78.7 43.3 99.6 46.7 101.6 50.0 102.0 53.3 110.8 56.7 105.7 60.0 101.7 63.3 114.3 66.7 124.0 70.0 121.5 73.3 134.3 76.7 119.6 80.0 125.1 83.3 126.0 86.7 127.8 90.0 145.5 93.3 137.7 96.7 147.5 100.0 155.2 103.3 141.8 106.7 144.6 110.0 141.8 113.3 143.3 116.7 161.0 120.0 166.7 123.3 155.4 126.7 153.7 130.0 149.1 133.3 154.6 136.7 165.1 140.0 166.7 143.3 167.5 146.7 157.0 150.0 152.3 153.3 159.0 156.7 160.6 160.0 157.9 163.3 159.9 166.7 161.6 170.0 151.5 173.3 152.9 176.7 143.3 180.0 139.3 183.3 145.8 186.7 140.5 190.0 155.0 193.3 143.0 196.7 128.8 200.0 132.5 203.3 120.7 206.7 133.9 210.0 135.5 213.3 122.1 216.7 117.7 220.0 113.6 223.3 108.9 226.7 110.4 230.0 106.0 233.3 96.8 236.7 106.6 240.0 94.3 243.3 96.5 246.7 88.6 250.0 71.9 253.3 81.5 256.7 85.3 260.0 74.2 263.3 78.6 266.7 57.7 270.0 52.5 273.3 58.3 276.7 66.0 280.0 66.5 283.3 63.7 286.7 52.0 290.0 60.0 293.3 46.9 296.7 53.3 300.0 63.1 303.3 59.9 306.7 60.2 310.0 61.5 313.3 44.3 316.7 48.6 320.0 45.3 323.3 49.8 326.7 62.9 330.0 49.8 333.3 44.7 336.7 42.3 340.0 30.1 343.3 40.0 346.7 51.0 350.0 44.7 353.3 44.5 356.7 38.6 360.0 28.6 363.3 38.7 366.7 41.9 370.0 42.7 373.3 44.8 376.7 35.8 380.0 38.3 383.3 29.0 386.7 30.9 390.0 35.6 393.3 35.2 396.7 35.8 400.0 39.3"/><path class="tc__base" d="M0 140C80 150 120 196 200 196S330 150 400 130" fill="none"/></svg></div></div>
+      <div class="trade__copy"><h2 class="h2">Trade in Real Time</h2><p>No more waiting. Your orders are executed immediately, the price of your securities is updated every second and ProFinova always has the most relevant information</p></div>
+      <div class="stonks"><h2 class="h2">100,000+<br>Stonks in Your App</h2><p>Trade through ProFinova and you’ll gain access to thousands of financial markets from around the world, using a wide range of investment tools. We are sure you will find the paper that’s right for your investment strategy.</p></div>
+      <div class="tickers" aria-hidden="true">
+        <i class="tickers__blob"></i>
+        <svg class="tickers__line" viewBox="0 0 400 700"><path class="draw" d="M320 180C250 160 156 200 166 286c8 64 64 98 76 58 12-40-50-52-58-8-10 50 40 84 30 140-8 50-30 96-110 160" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/></svg>
+        <p class="tk tk--1"><svg><use href="#c-pear"/></svg><span><b>Pear Inc</b><small>PEAR</small></span><em data-base="1882.03">$1,882.03</em></p>
+        <p class="tk tk--2"><svg><use href="#c-grid"/></svg><span><b>Quadra cor...</b><small>QUAD</small></span><svg class="tk__spark" viewBox="0 0 80 24"><path d="M2 14c8-6 12 8 20 2s10-8 18 0 12 6 20-2 10 4 18 0" fill="none" stroke="#E26D6D" stroke-width="1.6"/></svg><em data-base="1402.71">$1,402.71<small class="neg">-3.2%</small></em></p>
+        <p class="tk tk--3"><svg class="b"><use href="#c-box"/></svg><span><b>Cratebox Inc</b><small>CRBX</small></span><svg class="tk__spark" viewBox="0 0 80 24"><path d="M2 16c8 2 12-8 20-4s10 6 18-2 12-6 20 2 10-4 18-6" fill="none" stroke="#C6D94A" stroke-width="1.6"/></svg><em data-base="669.12">$669.12<small class="pos">+11.7%</small></em></p>
+      </div>
+    </section>
+
+    <!-- ============ get the app ============ -->
+    <section class="get" id="get">
+      <h2 class="h2">Get the App for Free<br>and Start Now</h2>
+      <a class="btn btn--dark" href="#top"><svg><use href="#apple"/></svg>Download App</a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <a class="brand brand--light" href="#top"><span>Pro Finova</span><i></i></a>
+    <nav class="foot__cols" aria-label="Footer">
+      <div><h3>Resources</h3><a href="#top">Stocks &amp; Founds</a><a href="#top">Learn</a><a href="#top">Help &amp; Support</a><a href="#top">Blog</a></div>
+      <div><h3>Company</h3><a href="#top">About</a><a href="#top">Careers</a><a href="#top">Privacy</a><a href="#top">Terms</a></div>
+    </nav>
+    <div class="foot__news">
+      <h3>Subscribe to News</h3>
+      <form class="news" onsubmit="return false"><label class="vh" for="news">Email address</label><input id="news" type="email" placeholder="Your e-mail" autocomplete="email"><button type="submit" aria-label="Subscribe"><svg><use href="#i-right"/></svg></button></form>
+      <p class="foot__soc"><a href="#top" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a><a href="#top" aria-label="X"><svg><use href="#i-tw"/></svg></a><a href="#top" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a></p>
+    </div>
+    <p class="foot__note">Pro Finova, companies and prices here are placeholders for this design study. The form is not connected.</p>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

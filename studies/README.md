@@ -18,7 +18,7 @@ Gallery (one artifact, numbered, opens each study in place with Live / Reference
 | 03 | `refs/designs/03.mp4` (640 × 480, 60 fps, 30 s) | Digital bank: blurred maroon photo gradients, "Banking for future", giant wordmark, FAQ, 3D cards | `03-bank/` | built |
 | 04 | `refs/designs/04.mp4` (720 × 540, 30 fps, 27 s) | Crypto wallet: condensed heavy type, isometric illustrations, stats, sticky phone steps, FAQ, marquee | `04-wallet/` | built |
 | 05 | `refs/designs/05.mp4` (640 × 480, 29.97 fps, 15.5 s) | Finance platform: light grey, laptop + phone mockups, tabs with phone, dark CTA | `05-finance/` | built |
-| 06 | `refs/designs/06.mp4` (640 × 480, 60 fps, 16.5 s) | Investing app: lime panels, hand-drawn arrows, market phones, partners, dark CTA | — | next |
+| 06 | `refs/designs/06.mp4` (640 × 480, 60 fps, 16.5 s) | Investing app: lime panels, hand-drawn arrows, market phones, partners, dark CTA | `06-invest/` | built |
 
 Also sent with the request (references to use in places later, not studies themselves):
 - `refs/backgrounds/bg-01.jpg … bg-08.jpg` — background photos (bg-01 ← photo_2026-07-26_10-57-08, bg-02 ← 2026-08-04_10-51-13,
@@ -50,6 +50,18 @@ Also sent with the request (references to use in places later, not studies thems
 5. Gallery: add the study to `STUDIES` in `index.html` (status, thumb, ref), thumbnail with `tools/qa/thumb.js`,
    add the folder to `BUILT` in `tools/build_gallery.py`, run `python3 -I studies/tools/build_gallery.py` and publish
    `dist/studies/index.html` with `root` = `dist/studies` and every listed file (same file path keeps the URL).
+
+## Study 06 notes
+
+- The page is the white box x 48–589, y 45–433 of the 640-px video (542 px → 1440, × 2.657); `tools/qa/scenes06.js`
+  uses a 1440 × 1033 viewport and puts an anchor element of each section at the y it has in the reference frame.
+  Pass `reduced` as the third argument for exact positions: Lenis smoothing offsets programmatic scrolls by ~15 px,
+  while the reduced-motion page has the same resting layout without it. Every section was checked as a 50 % overlay.
+- Font: Outfit (closest to the reference's geometric face): hero 94u / 85, headings 47.5u / 48 (500), body 24–25u.
+- Placeholders: companies Pear Inc / Sonar / Quadra Corp / Cratebox Inc / Harbor S&P, partner marks drawn here
+  (no bank or card-network logos), the illustrations are drawn SVG; the brand "Pro Finance" became "Pro Finova".
+- The lime circle in the trade section is cut by the page edge like in the video: `.frame { overflow-x: clip }`, so
+  wide screens and full-page captures stay 1440 wide (same fix in study 03's `main`).
 
 ## Study 05 notes
 
@@ -85,6 +97,9 @@ Also sent with the request (references to use in places later, not studies thems
   (the inner UI keeps its design pixels).
 
 ## Study 02 notes
+
+- The reference's brand ("innerconscious") became the placeholder "innerconsensus" (same letter count and x-height shapes,
+  so the wordmark keeps the reference width).
 
 - The video shows a 1440 × 904 site in a rounded window on a glowing backdrop; the rebuild keeps that frame: a fixed `.win`
   (inset `3.6vw / 5vh`) with its own scroller, Lenis on that wrapper (`wrapper`/`content`) and `ScrollTrigger.defaults({ scroller })`.

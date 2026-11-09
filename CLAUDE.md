@@ -170,8 +170,12 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
 - After each finished study: thumbnail, `STUDIES` entry (status built), `BUILT` list, rebuild, republish, commit, push,
   tell Mohammad (in Persian) with the link, and move on to the next study without asking.
 - Exactness first: measure against the reference at 1440 (`studies/tools/qa/`: compare.py bands, inkcmp.py, boxes.js,
-  posefit.py for 3D mockups). Real brands, logos and people become placeholders of similar shape; sample ratings
-  are labelled. Motion upgrades never change the resting layout.
+  posefit.py for 3D mockups, scenes0N.js per video study; for exact positions shoot with reduced motion, since Lenis
+  shifts programmatic scrolls). Real brands, logos and people become placeholders of similar shape, including the
+  reference's own product name (innerconscious → innerconsensus, Luna → Nula, Faithful → Stalwart, Dubank → Nimbo,
+  Pro Finance → Pro Finova); sample ratings are labelled. Motion upgrades never change the resting layout.
+- Status (Nov 2026): all six studies built and published (gallery v6). Next, on Mohammad's word: pick the best parts
+  and combine them into the NetRate site.
 
 ## Tech conventions
 - Static HTML/CSS/JS, no build step for the repo. Classic `<script>` tags so `index.html` also works from `file://`.

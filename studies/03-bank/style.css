@@ -22,6 +22,7 @@ img, svg { display: block; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 :focus-visible { outline: 2px solid #C77D86; outline-offset: 3px; border-radius: 6px; }
 main, .ft { max-width: 1440px; margin-inline: auto; }
+main { overflow-x: clip; }
 
 /* "photos": warm blurred gradients standing in for the reference's photo textures */
 .photo { position: absolute; inset: 0; pointer-events: none; }
