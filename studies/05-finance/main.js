@@ -14,9 +14,30 @@
     t.addEventListener('click', function () { $$('.tab').forEach(function (o) { o.classList.toggle('is-on', o === t); }); });
   });
 
-  /* follow cursor over the panels (fine pointers only) */
+  /* follow cursor (fine pointers only): with motion allowed it is a page-wide dot that becomes "See more" over the
+     panels (reference); with reduced motion it stays the panels' own circle */
   var panels = $('.panels'), cursor = $('.cursor');
-  if (panels && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (cursor && fine && !reduce && gsap) {
+    cursor.insertAdjacentHTML('afterbegin', '<i></i>');
+    document.body.appendChild(cursor);
+    cursor.classList.add('is-page');
+    root.classList.add('cur-dot');
+    var cx = gsap.quickTo(cursor, 'x', { duration: .35, ease: 'power3' }), cy = gsap.quickTo(cursor, 'y', { duration: .35, ease: 'power3' });
+    var first = true;
+    window.addEventListener('pointermove', function (e) {
+      if (e.clientX === 0 && e.clientY === 0) return;
+      if (first) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); first = false; }
+      cx(e.clientX); cy(e.clientY);
+      root.classList.add('cur-on');
+      var t = e.target;
+      cursor.classList.toggle('is-panel', !!(t.closest && t.closest('.panel')));
+      cursor.classList.toggle('is-link', !!(t.closest && t.closest('a:not(.panel), button, summary, .tab, input')));
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', function () { root.classList.remove('cur-on'); });
+    panels = null; // the page-wide cursor replaces the panels-only one
+  }
+  if (panels && fine) {
     var place = function (x, y) { cursor.style.transform = 'translate(' + x + 'px,' + y + 'px)'; };
     var qx = null, qy = null;
     if (gsap && !reduce) { qx = gsap.quickTo(cursor, 'x', { duration: .45, ease: 'power3' }); qy = gsap.quickTo(cursor, 'y', { duration: .45, ease: 'power3' }); }
@@ -80,7 +101,7 @@
     var story = gsap.timeline({ scrollTrigger: { trigger: '.feature', start: 'top top', end: 'bottom bottom', scrub: .6 } });
     story.to({}, { duration: .3 })
       .to(fs1, { autoAlpha: 0, y: -30, duration: .14 }, .3)
-      .to('.fx__phone .iph', { yPercent: 80, duration: .25, ease: 'power2.in' }, .3)
+      .to('.fx__phone .iph', { yPercent: 125, autoAlpha: 0, duration: .25, ease: 'power2.in' }, .3)
       .to('.fx__laptop', { autoAlpha: 1, xPercent: 0, yPercent: 0, duration: .3, ease: 'power2.out' }, .42)
       .fromTo(fs2, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .16 }, .46)
       .from('.checks li', { x: -24, opacity: 0, stagger: .03, duration: .12 }, .52)

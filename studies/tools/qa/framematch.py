@@ -1,5 +1,6 @@
 """Pair each moment of a reference video with the closest capture of the build (from scan.js).
-usage: framematch.py <video> <page box x0,y0,x1,y1> <scan dir> <out prefix> [step s] [t0] [t1]
+usage: framematch.py <video> <page box x0,y0,x1,y1> <scan dir> <out prefix> [step s] [t0] [t1] [--build-box x0,y0,x1,y1]
+--build-box crops every capture first (when the video shows only part of the viewport, e.g. a page that starts lower).
 For every <step> seconds the video's page area is compared with every capture (grey levels and edges, both
 normalised); the best capture is paired with the frame. Writes <out>-NN.jpg sheets (reference | build, 6 rows each)
 and <out>.csv (time, scroll y, score). A low score marks a moment the build does not reproduce."""
@@ -10,6 +11,11 @@ import json
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
+args = sys.argv[1:]
+bbox = None
+if '--build-box' in args:
+    k = args.index('--build-box'); bbox = tuple(int(v) for v in args[k + 1].split(',')); del args[k:k + 2]
+sys.argv = [sys.argv[0]] + args
 video, box, scan, out = sys.argv[1:5]
 step = float(sys.argv[5]) if len(sys.argv) > 5 else .5
 t0 = float(sys.argv[6]) if len(sys.argv) > 6 else 0.
@@ -40,6 +46,7 @@ shots = idx['shots']
 feats, thumbs = [], []
 for s in shots:
     im = Image.open(f"{scan}/{s['file']}").convert('RGB')
+    if bbox: im = im.crop(bbox)
     feats.append(feat(im))
     thumbs.append(im.resize((480, round(480 * im.height / im.width)), Image.LANCZOS))
 A = np.stack([f[0].ravel() for f in feats]); E = np.stack([f[1].ravel() for f in feats])

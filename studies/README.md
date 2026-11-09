@@ -73,6 +73,11 @@ Also sent with the request (references to use in places later, not studies thems
 - Font: Plus Jakarta Sans (hero 77u / 560, section titles 46u / 540, CTA 58u).
 - Placeholders: brand "Nimbo", person "Sam Rivera", partner wordmarks Fernpay / kite / Ledgerly / tandem, transactions
   Design Pro plan / Site Builder / Sketchbook. Laptop and phone mock-ups are HTML/CSS.
+- Round 2 (frame-matched; the video shows the page 44 px below the frame top until it scrolls, so match with
+  `framematch.py ... 56,44,583,480 ... --build-box 0,0,1440,1189`): nav 11u higher and a 44u logo mark, hero title
+  78u / 105u lines (all within 1-5 px of the reference now); the dashboards are drawn at the reference's 0.72 UI scale
+  (whole screen: chart, income / spend, transactions table, cards and goals column); the feature phone leaves fully when
+  the laptop arrives; a page-wide dot cursor (dot -> swell on links -> "See more" over the hero panels).
 - Pitfall: GSAP x/y on an element that also uses the CSS `scale` property bakes that scale into its transform (the cursor
   stayed at scale 0) → GSAP moves an outer box, the circle inside scales by class.
 
