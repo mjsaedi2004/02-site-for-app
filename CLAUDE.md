@@ -1,7 +1,7 @@
 # Project instructions — 02-site-for-app
 
 The owner (**Mohammad**, writes in **Persian** — reply in Persian) builds landing sites for a mobile app.
-Three tracks live in this repo (the third is the current work):
+Four tracks live in this repo (the fourth is the current work):
 
 1. **NetRate site (main track, `site/`)** — the real landing site for **«نت‌ریت» / NetRate**, an app Mohammad
    builds for a client: UK exchange-office rates for pound → Toman, side by side. Built from the **app's own
@@ -15,6 +15,9 @@ Three tracks live in this repo (the third is the current work):
    (`studies/refs/`): rebuild each **exactly** (English only, original copy, placeholder brands), check twice, then add
    smooth motion; one at a time in his order 01 → 06; all in one numbered gallery artifact. See “Studies” below and
    `studies/README.md` (registry, workflow, numbers).
+4. **NetRate × studies (`site/studies/`, current, Nov 2026)** — Mohammad liked studies **1, 6, 2** (in that order) and
+   wants NetRate built on their structures, one at a time; design 1 is done, and the next starts only on his word.
+   See “NetRate × studies” below and `site/studies/README.md`.
 
 The owner does not run things locally — he views every site as a **claude.ai artifact** (he calls it “local”).
 Keep earlier artifacts alive; a new site gets a new artifact.
@@ -176,12 +179,27 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   Pro Finance → Pro Finova); sample ratings are labelled. Motion upgrades never change the resting layout.
 - Status (Nov 2026): all six studies built and published; round 2 (Mohammad: "many are not exactly like the originals,
   make the motion more professional, design 2's background more animated") reworked all six frame by frame with
-  `tools/qa/scan.js` + `framematch.py` (gallery v11). Next, on Mohammad's word: pick the best parts and combine them into
-  the NetRate site.
+  `tools/qa/scan.js` + `framematch.py` (gallery v11). Then he chose 1, 6 and 2 for NetRate (see “NetRate × studies”).
 - Pitfalls (round 2): a CSS transition on opacity/translate of an element GSAP animates makes from() read a mid-transition
   end value (study 02's nav stayed invisible); splitting a word into inline-block letters drops the font's kerning
   (study 04's HODLERS grew 92 px; keep letters at their kerned spots); fromTo in a click timeline renders its start at
   once unless `immediateRender: false`; GSAP caches function values unless `invalidateOnRefresh`.
+
+## NetRate × studies (`site/studies/<NN-name>/`, the current direction)
+- Owner's brief: keep the study's structure exactly and change only the content; show the app's **English** version;
+  a short introduction, not the whole app; the gradient logo tile from `brand/`; complete and professional motion,
+  smooth scrolling and scroll-driven scenes; fix what the study left incomplete (design 1's store phone was cut by the
+  footer and its side strip broke at the corners). Tell him when a page is done and wait for his word before the next.
+- The brief's hard rules hold (no money moving, Coming soon, demo data with its date, legal sentences verbatim,
+  signature + Telegram, AA contrast, text ≥ 14 px with `max(14px, …)` floors on scaled text, 44 px targets on touch).
+- Design 1: `site/studies/01-fintech/` → artifact “NetRate × Design 1”: https://claude.ai/artifact/PmdwM4ASFvM7oNRjBXNXFd
+  App screens come from the app itself (`tools/shots.js` at 390 × 798 under a drawn status strip; a 390 × 1500 main
+  screen scrolls inside the hero phone under the tab bar cut from the normal render; `tools/convert.py` → webp + top
+  colours). Build: `python3 -I site/studies/tools/build_artifact.py 01-fintech` → `dist/netrate-01-fintech/`.
+- Pitfalls: a render must leave room for the phone's status strip, or the strip crops the app's tab bar; a 3D phone made
+  of one front plane and one side plane breaks at the rounded corners → stack rounded slabs (preserve-3d) for the body;
+  give scroll-scrubbed poses their own variables (`--sway`, `--wx`, `--wy` added in the transform) so idle and pointer
+  motion never fight the scrub; a fixed-height footer clips fine print that wraps on laptops → let it flow.
 
 ## Tech conventions
 - Static HTML/CSS/JS, no build step for the repo. Classic `<script>` tags so `index.html` also works from `file://`.
@@ -212,8 +230,8 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   `files` = every other file in that folder. Re-publishing the same `file_path` keeps the URL.
   Design 01: https://claude.ai/artifact/8heoX6NtmifHRNWoSK7Zfb · Design 02: https://claude.ai/artifact/4DD5tufpffMfe1jHwy1gWG ·
   NetRate v1: https://claude.ai/artifact/5qGX81EFhmZsxMd6h8wqgB · NetRate × FitRaho: https://claude.ai/artifact/Lu3ihedfAPNkN9XeRfhibk ·
-  NetRate × Byondbites: https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf · NetRate Aurora: https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt
-  (all private to the owner until he shares them).
+  NetRate × Byondbites: https://claude.ai/artifact/B8eCE8P2kkquENQFWB4yGf · NetRate Aurora: https://claude.ai/artifact/X9ARuLEUaqmwv54cGbhBqt ·
+  NetRate × Design 1: https://claude.ai/artifact/PmdwM4ASFvM7oNRjBXNXFd (all private to the owner until he shares them).
 - Publishing a file Claude did not write (the app demo) requires reading the whole file first: when the app changes,
   read the new `dist/netrate/app/netrate-demo.html` before republishing it.
 
