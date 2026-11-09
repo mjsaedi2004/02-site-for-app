@@ -172,7 +172,7 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
 - Exactness first: measure against the reference at 1440 (`studies/tools/qa/`: compare.py bands, inkcmp.py, boxes.js,
   posefit.py for 3D mockups, scenes0N.js per video study; for exact positions shoot with reduced motion, since Lenis
   shifts programmatic scrolls). Real brands, logos and people become placeholders of similar shape, including the
-  reference's own product name (innerconscious → innerconsensus, Luna → Nula, Faithful → Stalwart, Dubank → Nimbo,
+  reference's own product name (superconscious → innerconsensus, Luna → Nula, Faithful → Stalwart, Dubank → Nimbo,
   Pro Finance → Pro Finova); sample ratings are labelled. Motion upgrades never change the resting layout.
 - Status (Nov 2026): all six studies built and published (gallery v6). Next, on Mohammad's word: pick the best parts
   and combine them into the NetRate site.

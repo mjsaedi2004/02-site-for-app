@@ -45,6 +45,9 @@ Also sent with the request (references to use in places later, not studies thems
    (side-by-side + 50 % blend per band), `tools/qa/inkcmp.py` (ink boxes of named regions in both), `tools/qa/boxes.js`
    (element boxes). 3D mockups: measure edges, solve the CSS pose with `tools/qa/posefit.py`, map reference points onto
    the flat phone with `tools/qa/flatmap.py`.
+   Video studies (round 2): `node tools/qa/scan.js <url> <dir> <w> <h> <step> [scroller] [clip]` captures the build every
+   `step` px, then `python3 -I tools/qa/framematch.py refs/designs/0N.mp4 <page box> <dir> <out> 0.5` pairs every half
+   second of the video with the closest capture (grey + edge correlation) → `<out>-NN.jpg` sheets and a score per moment.
 4. Motion: `node tools/qa/motion01.js <url> out` (intro frames, rest state, scroll scenes, floating header, reduced motion,
    console). Overflow at 390 / 768 / 1024 / 1280 / 1920.
 5. Gallery: add the study to `STUDIES` in `index.html` (status, thumb, ref), thumbnail with `tools/qa/thumb.js`,
@@ -98,8 +101,20 @@ Also sent with the request (references to use in places later, not studies thems
 
 ## Study 02 notes
 
-- The reference's brand ("innerconscious") became the placeholder "innerconsensus" (same letter count and x-height shapes,
-  so the wordmark keeps the reference width).
+- The reference's brand ("superconscious") became the placeholder "innerconsensus" (same letter count; sizes set from
+  the reference ink: hero 134u, wordmark 182u, so x-height and width match).
+- Round 2 (frame-matched with `tools/qa/scan.js` + `framematch.py`):
+  - Backdrop = WebGL light field (`main.js` → neon): measured from the video's edges, two violet / two blue / two dark
+    lobes turn clockwise around the window (2-fold conic), brightest behind it, a soft disc edge at 0.55 window widths;
+    here it also bends like liquid, turns faster while scrolling and leans toward the pointer. CSS glows without WebGL.
+  - Hero cushion = superellipsoid sampled as a cube-sphere dot grid, lit from the upper left (canvas 2D, convex-hull
+    body); hero / CTA phones use poses fitted to the video (`perspective(900u) rotateX(14.7) rotateY(26.2)`), with a real
+    3D titanium side (`::after rotateY(90deg)` in a preserve-3d phone).
+  - Seed: seven circles scroll in as a 270–300u hexagon, close to the seed of life (outer centres at r = 42u) once pinned,
+    then turn 40°. Manifesto corners and the wordmark orb = one stripes shader (level lines of a bumped field).
+    Pill glyphs = projected 3D wireframes (torus, interlocked rings, gyroscope), far side dimmer.
+  - The nav slides away at the footer (GSAP, not a CSS transition: a transition on opacity made GSAP's intro from() read
+    0 as the end value); the logo from far down flips the window in 3D back to the hero, like the video's loop.
 
 - The video shows a 1440 × 904 site in a rounded window on a glowing backdrop; the rebuild keeps that frame: a fixed `.win`
   (inset `3.6vw / 5vh`) with its own scroller, Lenis on that wrapper (`wrapper`/`content`) and `ScrollTrigger.defaults({ scroller })`.
