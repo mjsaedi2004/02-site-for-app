@@ -36,6 +36,7 @@
 
   if (reduce || !gsap || !ST) { show(); return; }
   gsap.registerPlugin(ST);
+  root.classList.add('js-motion');
 
   /* ------------------------------------------------------------ smooth scroll */
   var lenis = null;
@@ -80,51 +81,63 @@
   /* the hero photo keeps drifting slowly (a living texture) */
   gsap.to('.photo--hero', { xPercent: -3, yPercent: 2, scale: 1.1, duration: 9, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2.2 });
 
-  /* ------------------------------------------------------------ hero phone: home <-> send money */
-  var home = $('.scr--home'), send = $('.scr--send'), num = $('.snd__num'), keys = $$('.snd__keys span');
-  function press(i) { return function () { var k = keys[i]; if (!k) return; k.classList.add('hit'); setTimeout(function () { k.classList.remove('hit'); }, 180); }; }
-  var loop = gsap.timeline({ repeat: -1, repeatDelay: 1.2, delay: 2.6, defaults: { ease: 'power3.inOut' } });
-  loop.to('.scr--home .ph__sheet', { yPercent: -18, duration: 1.1 }, 1.4)
-    .to(home, { autoAlpha: 0, duration: .45 }, 2.3)
-    .fromTo(send, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .6 }, 2.4)
-    .fromTo('.snd__cards', { x: 120 }, { x: 0, duration: .9, ease: 'expo.out' }, 2.5)
-    .add(function () { num.textContent = '0'; }, 2.4)
-    .add(press(3), 3.3).add(function () { num.textContent = '4'; }, 3.3)
-    .add(press(4), 3.65).add(function () { num.textContent = '45'; }, 3.65)
-    .add(press(10), 4.0).add(function () { num.textContent = '450'; }, 4.0)
-    .fromTo('.snd__slide b', { x: 0 }, { x: function () { return $('.snd__slide').clientWidth - $('.snd__slide b').offsetWidth - 12; }, duration: .8 }, 4.7)
-    .to(send, { autoAlpha: 0, duration: .45 }, 5.9)
-    .set('.snd__slide b', { x: 0 }, 6.4)
-    .to(home, { autoAlpha: 1, duration: .5 }, 6.0)
-    .to('.scr--home .ph__sheet', { yPercent: 0, duration: 1 }, 6.1);
+  /* ------------------------------------------------------------ hero phone: home -> send money and back (reference 0.6-2.5 s):
+     the white home sheet slides down out of the screen, the dark header swaps to "Send money", then the white send sheet
+     slides up from the bottom; the amount is typed, the slider is pulled, and it goes back the same way */
+  var home = $('.scr--home'), send = $('.scr--send'), num = $('.snd__num'), heroPh = $('.phone--hero .ph');
+  gsap.set('.snd__sheet', { yPercent: 102 });
+  var loop = gsap.timeline({ repeat: -1, repeatDelay: 1.4, delay: 1.9, defaults: { ease: 'power3.inOut' } });
+  loop.to('.scr--home .ph__sheet', { yPercent: 105, duration: .95, ease: 'power2.in' }, .2)
+    .to('.scr--home .ph__top', { opacity: 0, duration: .3 }, .95)
+    .set(send, { autoAlpha: 1 }, 1.05)
+    .fromTo('.snd__top--dark', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .35, ease: 'power2.out' }, 1.1)
+    .set(home, { autoAlpha: 0 }, 1.15)
+    .add(function () { num.textContent = '450'; }, 1.2)
+    .to('.snd__sheet', { yPercent: 0, duration: 1.05, ease: 'expo.out' }, 1.35)
+    .add(function () { heroPh.classList.add('is-send'); }, 1.6)
+    .fromTo('.snd__cards', { x: 120 }, { x: 0, duration: .9, ease: 'expo.out' }, 1.6)
+    .fromTo('.snd__slide b', { x: 0 }, { x: function () { return $('.snd__slide').clientWidth - $('.snd__slide b').offsetWidth - 12; }, duration: .8 }, 3.6)
+    // back home: the send sheet drops, the header swaps back, the home sheet rises
+    .add(function () { heroPh.classList.remove('is-send'); }, 5.3)
+    .to('.snd__sheet', { yPercent: 102, duration: .8, ease: 'power2.in' }, 5.3)
+    .set(home, { autoAlpha: 1 }, 6.0)
+    .to('.scr--home .ph__top', { opacity: 1, duration: .35 }, 6.05)
+    .set(send, { autoAlpha: 0 }, 6.1)
+    .set('.snd__slide b', { x: 0 }, 6.1)
+    .to('.scr--home .ph__sheet', { yPercent: 0, duration: .95, ease: 'expo.out' }, 6.1);
   ST.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: function (s) { s.isActive ? loop.resume() : loop.pause(); } });
 
   /* ------------------------------------------------------------ about: title fills in, the wordmark is drawn, bubbles arrive */
   var tw = words($('.about__title'));
   gsap.set(tw, { color: '#C9C9C9' });
-  gsap.to(tw, { color: '#111111', stagger: .1, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top 85%', end: 'top 25%', scrub: .4 } });
+  gsap.to(tw, { color: '#111111', stagger: .1, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top 85%', end: 'top 2%', scrub: .4 } });
+  // the giant wordmark is drawn one letter after the other once the section is up, at its own pace (reference 4.0-7.0 s:
+  // the page rests while the letters complete), and the bubbles pop in one by one beside it
   var g1 = prepDraw($$('.giant__g path')), g2 = prepDraw($$('.giant__shade path'));
-  var draw = gsap.timeline({ scrollTrigger: { trigger: '.about', start: 'top 62%', end: 'top 12%', scrub: .5 } });
-  g1.forEach(function (p, i) { draw.to([p, g2[i]], { strokeDashoffset: 0, ease: 'none', duration: 1 }, i * .85); });
-  $$('.bub').forEach(function (b, i) {
-    gsap.from(b, { scale: .6, opacity: 0, transformOrigin: '100% 100%', duration: .9, ease: 'back.out(1.6)', scrollTrigger: { trigger: '.about', start: (35 - i * 6) + '% bottom', once: true }, delay: i * .12 });
-  });
+  var draw = gsap.timeline({ paused: true });
+  g1.forEach(function (p, i) { draw.to([p, g2[i]], { strokeDashoffset: 0, ease: 'power1.inOut', duration: .85 }, i * .62); });
+  var bubs = $$('.bub');
+  gsap.set(bubs, { scale: .6, opacity: 0, transformOrigin: '100% 100%' });
+  bubs.forEach(function (b, i) { draw.to(b, { scale: 1, opacity: 1, duration: .8, ease: 'back.out(1.6)' }, .15 + i * .55); });
+  ST.create({ trigger: '.about', start: 'top 30%', once: true, onEnter: function () { draw.play(); } });
 
-  /* ------------------------------------------------------------ bento: the transaction list highlight cycles */
-  var rows = $$('.lr'), hot = -1;
-  function nextHot() {
+  /* ------------------------------------------------------------ bento: pinned while the transactions scroll under a fixed
+     focus slot (reference 9-13 s); the focused row turns dark and pops out past the phone's edges */
+  var rows = $$('.lr'), lst = $('.lst'), hot = -1;
+  function pitch() { return rows[1].offsetTop - rows[0].offsetTop; }
+  function focus(i) {
+    if (i === hot) return;
     var prev = rows[hot];
-    hot = (hot + 1) % 4;
+    hot = i;
     var cur = rows[hot];
-    if (prev) { gsap.to(prev, { scale: 1, duration: .5, ease: 'power3.out', onComplete: function () { prev.classList.remove('is-hot'); } }); }
-    cur.classList.add('is-hot');
-    gsap.fromTo(cur, { scale: 1 }, { scale: 1.16, duration: .55, ease: 'back.out(1.7)' });
+    if (prev) { gsap.killTweensOf(prev); gsap.set(prev, { clearProps: 'backgroundColor' }); prev.classList.remove('is-hot'); gsap.to(prev, { scale: 1, duration: .45, ease: 'power3.out' }); }
+    rows.forEach(function (r, k) { r.style.opacity = k < hot ? 0 : 1; });
+    gsap.to(lst, { y: -hot * pitch(), duration: .7, ease: 'power3.inOut', overwrite: 'auto' });
+    gsap.fromTo(cur, { scale: 1, backgroundColor: '#9A9A9A' }, { scale: 1.16, backgroundColor: '#1A1A1A', duration: .6, ease: 'back.out(1.5)', delay: .25, onStart: function () { if (rows[hot] === cur) cur.classList.add('is-hot'); }, clearProps: 'backgroundColor' });
   }
-  var hotTimer = null;
-  ST.create({ trigger: '.bento', start: 'top 70%', end: 'bottom top', onToggle: function (s) {
-    if (s.isActive && !hotTimer) { nextHot(); hotTimer = setInterval(nextHot, 1700); }
-    if (!s.isActive && hotTimer) { clearInterval(hotTimer); hotTimer = null; }
-  } });
+  ST.create({ trigger: '.bento', start: 'top 78px', end: function () { return '+=' + window.innerHeight * 1.4; }, pin: true, anticipatePin: 1,
+    onUpdate: function (s) { focus(Math.min(rows.length - 2, Math.floor(s.progress * (rows.length - 1)))); } });
+  ST.create({ trigger: '.bento', start: 'top 75%', once: true, onEnter: function () { focus(0); } });
   gsap.from('.phone--list', { y: 160, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.bento', start: 'top 80%', once: true } });
   gsap.from('.chart i', { scaleY: 0, duration: 1.1, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.bc--photo', start: 'top 80%', once: true } });
   gsap.from('.mc--bento', { rotate: -8, y: 40, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.bc--dark', start: 'top 75%', once: true } });
@@ -135,6 +148,13 @@
   gsap.set(fw, { color: '#C9C9C9' });
   gsap.to(fw, { color: '#111111', stagger: .1, ease: 'none', scrollTrigger: { trigger: '.faq', start: 'top 85%', end: 'top 35%', scrub: .4 } });
   gsap.from('.qa', { y: 40, opacity: 0, duration: 1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: '.faq', start: 'top 70%', once: true } });
+  // the reference arrives with every question closed and the second one opens a moment later
+  var touched = false, auto = qas[1];
+  qas.forEach(function (d) { d.querySelector('summary').addEventListener('click', function () { touched = true; }); });
+  if (auto && auto.open) { auto.open = false; }
+  ST.create({ trigger: '.faq', start: 'top 30%', once: true, onEnter: function () {
+    setTimeout(function () { if (!touched && !auto.open) auto.querySelector('summary').dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })); touched = false; }, 900);
+  } });
   gsap.from('.ask', { y: 60, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.faq', start: 'top 55%', once: true } });
 
   /* ------------------------------------------------------------ cards: they turn a little with the scroll and lean to the pointer */

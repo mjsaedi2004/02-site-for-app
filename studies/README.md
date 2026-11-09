@@ -94,6 +94,11 @@ Also sent with the request (references to use in places later, not studies thems
   giant about-section wordmark are drawn by `stroke-dashoffset`). Merchant names are placeholders (Pixel Store, Northwind,
   Cloud Apps, Studio Pro); people are drawn SVG avatars; photo textures are blurred CSS gradients sampled from the video.
 - Font: Lexend (600 for headlines, 500 for sub-headings).
+- Round 2 (frame-matched): the hero phone plays the reference's demo after load (home sheet slides down, dark
+  "Send money" header, white send sheet slides up with $450.00 and a caret, slider pulled, back home); the giant wordmark
+  is drawn letter after letter once the about section is up (time based, bubbles one by one); the bento is pinned below
+  the header while the transactions scroll under a fixed focus slot (the focused row turns dark and pops out past the
+  phone); the FAQ arrives closed and opens the second question by itself; FAQ questions 32u / 600; footer columns 190u.
 - Pitfalls: GSAP `rotation` on an element with a CSS 3D pose replaces the pose (the cards lost their tilt) → the pose
   stays in CSS and GSAP animates `--sy` / `--sr` variables used inside it; the cards settle to exactly 0 offset when the
   section reaches the header so the resting layout matches the reference; scaled phones on small screens use `scale`
