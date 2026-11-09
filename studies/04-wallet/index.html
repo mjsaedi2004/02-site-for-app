@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study 04 · Crypto wallet</title>
+<meta name="description" content="Design study 04: a crypto wallet landing page rebuilt from a reference video, with pinned scroll stories and a live phone. Brand, tokens and figures are placeholders.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add("js-intro");setTimeout(function(){document.documentElement.classList.remove("js-intro")},4000);</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 32 32"><path d="M2 3h11v26H2zM15 3h9a6 6 0 0 1 0 12h-9z" fill="currentColor"/><circle cx="23" cy="23" r="6.5" fill="currentColor"/></symbol>
+    <symbol id="coin" viewBox="0 0 120 120"><g stroke="#111" stroke-width="2.6" stroke-linejoin="round"><path d="M14 56c0-24 20-44 46-44s46 20 46 44v8c0 24-20 44-46 44S14 88 14 64Z" fill="#fff"/><ellipse cx="60" cy="56" rx="46" ry="44" fill="#fff"/><ellipse cx="60" cy="56" rx="34" ry="32" fill="#E6E6E6"/><path d="M33 40c8-9 18-13 27-13" fill="none" stroke-width="2"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-ring" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18"/></g></symbol>
+    <symbol id="i-del" viewBox="0 0 24 24"><path d="m14 7-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><path d="M5 9h3v10H5zM6.5 4a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6ZM10 9h3v1.5c.5-1 1.8-1.8 3.4-1.8 3 0 3.6 2 3.6 4.6V19h-3v-5c0-1.3-.2-2.6-1.8-2.6s-2.2 1.1-2.2 2.6v5H10z" fill="currentColor"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/></g></symbol>
+    <symbol id="i-fb" viewBox="0 0 24 24"><path d="M13.5 21v-7.5H16l.4-3h-2.9V8.7c0-.9.3-1.5 1.5-1.5h1.6V4.5c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.2H8v3h2.5V21z" fill="currentColor"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 3a8 8 0 0 0-2.9 15.4c-.1-.7-.1-1.7 0-2.4l1-4.1s-.3-.5-.3-1.3c0-1.2.7-2.1 1.6-2.1.7 0 1.1.6 1.1 1.2 0 .8-.5 1.9-.7 2.9-.2.9.4 1.6 1.3 1.6 1.6 0 2.8-1.7 2.8-4.1 0-2.1-1.5-3.6-3.7-3.6-2.5 0-4 1.9-4 3.8 0 .8.3 1.6.7 2l.1.3-.3 1c0 .2-.1.2-.3.1-1.1-.5-1.8-2.1-1.8-3.4 0-2.8 2-5.3 5.8-5.3 3 0 5.4 2.2 5.4 5.1 0 3-1.9 5.5-4.6 5.5-.9 0-1.7-.5-2-1l-.5 2c-.2.8-.8 1.7-1.1 2.3A8 8 0 1 0 12 3Z" fill="currentColor"/></symbol>
+    <!-- placeholder token glyphs -->
+    <symbol id="t-orb" viewBox="0 0 24 24"><path d="M12 3 6.5 12 12 15l5.5-3zM6.5 13.2 12 21l5.5-7.8L12 16.4z" fill="currentColor"/></symbol>
+    <symbol id="t-gold" viewBox="0 0 24 24"><path d="M9 6h5a3 3 0 0 1 .8 5.9A3.2 3.2 0 0 1 14 18H9zm2 2v3h3a1.5 1.5 0 0 0 0-3zm0 5v3h3.2a1.5 1.5 0 0 0 0-3z" fill="currentColor"/></symbol>
+    <symbol id="t-swirl" viewBox="0 0 24 24"><path d="M12 5a7 7 0 1 0 7 7c0-2.6-2.1-4.4-4.4-4.4S10.5 9.3 10.5 11.4s1.6 3.3 3 3.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="t-xeno" viewBox="0 0 24 24"><path d="M5 5c3.5 4 5.2 5.5 7 5.5S15.5 9 19 5M5 19c3.5-4 5.2-5.5 7-5.5s3.5 1.5 7 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="t-solis" viewBox="0 0 24 24"><path d="M7 6h12l-2 3H5zM5 10.5h12l2 3H7zM7 15h12l-2 3H5z" fill="currentColor"/></symbol>
+    <symbol id="t-prism" viewBox="0 0 24 24"><path d="M9 8.5 12 7l3 1.5v3L12 13l-3-1.5zM5 11l3-1.5M16 9.5 19 11v3l-3 1.5-3-1.5M8 12.5v3L11 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="t-arc" viewBox="0 0 24 24"><path d="M6 19 12 5l6 14M8.5 14h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="t-hex" viewBox="0 0 24 24"><path d="m12 4 3 3-3 3-3-3zM6 10l3 3-3 3-3-3zM18 10l3 3-3 3-3-3zM12 16l3 3-3 3-3-3zM12 10l2 2-2 2-2-2z" fill="currentColor"/></symbol>
+    <symbol id="t-nimbus" viewBox="0 0 24 24"><path d="M5 14.5 12 6l7 8.5-7 4z" fill="currentColor"/></symbol>
+    <linearGradient id="lav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A9ABFA"/><stop offset="1" stop-color="#5D63F2"/></linearGradient>
+    <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.6" fill="#7B7FF2"/></pattern>
+  </defs>
+</svg>
+
+<!-- ============ hero ============ -->
+<header class="nav">
+  <a class="nav__brand" href="#top">Stalwart</a>
+  <a class="nav__mark" href="#top" aria-label="Stalwart home"><svg><use href="#mark"/></svg></a>
+  <nav class="nav__right"><a href="#top">Login</a><a href="#top">Sign In</a></nav>
+</header>
+<main id="top">
+  <section class="hero">
+    <p class="hero__sub">Powerful, fast, and built for you.</p>
+    <h1 class="hero__title" aria-label="Hodlers"><span aria-hidden="true">HODLERS</span></h1>
+    <a class="btn btn--hero" href="#steps">Get started</a>
+    <div class="coins" aria-hidden="true">
+      <svg class="coin" style="--x:188;--y:600;--s:1.1;--r:-8"><use href="#coin"/></svg>
+      <svg class="coin" style="--x:-34;--y:672;--s:.62;--r:58"><use href="#coin"/></svg>
+      <svg class="coin" style="--x:345;--y:774;--s:.82;--r:62"><use href="#coin"/></svg>
+      <svg class="coin" style="--x:982;--y:505;--s:.82;--r:-62"><use href="#coin"/></svg>
+      <svg class="coin" style="--x:1382;--y:366;--s:.72;--r:-18"><use href="#coin"/></svg>
+      <svg class="coin" style="--x:1232;--y:742;--s:1.05;--r:-6"><use href="#coin"/></svg>
+    </div>
+    <div class="hero__phones" aria-hidden="true">
+      <div class="dev dev--l">
+        <div class="scr">
+          <div class="s-top"><i class="dot"></i><svg><use href="#i-search"/></svg><svg><use href="#i-ring"/></svg></div>
+          <div class="s-token"><span class="tk tk--vega"><svg><use href="#t-arc"/></svg></span><p><b>Vega Chain</b><small>VEGA</small></p><em>▲ 1.72% <small>(24h)</small></em><svg class="spark" viewBox="0 0 110 40"><path d="M2 30c8-2 10 4 18 1s8-10 16-6 10 8 18 2 6-14 16-10 8 6 16-2 10-8 22-10" fill="none" stroke="#6E73F4" stroke-width="2"/></svg></div>
+          <p class="s-chips"><b>All tokens</b><span>Top losers</span><span>Volume</span><span>Market</span></p>
+        </div>
+      </div>
+      <div class="dev dev--r">
+        <div class="scr">
+          <i class="grab"></i>
+          <small class="s-pair">ORB · Orbit</small>
+          <b class="s-price">$3 144</b>
+          <small class="s-chg">▲ 2.81%</small>
+          <span class="s-coin"><svg><use href="#t-orb"/></svg></span>
+          <svg class="s-chart" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M0 92l6-8 5 10 6-12 5 6 6-16 4 14 6-8 5 4 6-20 4 18 6-6 5 10 6-22 4 8 5-30 4 26 6-4 5 8 6-16 4 6 6-12 5 18 6-8 4 4 6-26 5 14 6-6 4 12 6-18 5 6 6-4 4-12 6 10 5-4 6-14 4 22 6-8 5 4 6-18 4 10"/></svg>
+          <small class="s-hi">$3,479</small><small class="s-lo">$2,934</small>
+          <p class="s-range"><span class="on">1w</span><span>1m</span><span>6m</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="marquee marquee--hero" aria-hidden="true"><div class="marquee__track"><span>Own your future with fast, secure transactions</span><span>Own your future with fast, secure transactions</span><span>Own your future with fast, secure transactions</span><span>Own your future with fast, secure transactions</span><span>Own your future with fast, secure transactions</span><span>Own your future with fast, secure transactions</span></div></div>
+  </section>
+
+  <!-- ============ send, receive, manage ============ -->
+  <section class="dark">
+    <div class="dark__stage">
+      <h2 class="dark__title"><span>Send, receive, and</span><span>manage crypto securely</span><span>with full control</span></h2>
+      <ul class="chips" aria-label="Sample tokens (placeholder names)">
+        <li class="chip" style="--x:255;--y:98;--s:1;--d:1"><i style="--c:#5F79F2"><svg><use href="#t-orb"/></svg></i>Orbit</li>
+        <li class="chip" style="--x:1220;--y:108;--s:.72;--d:.8"><i style="--c:#F2931B"><svg><use href="#t-gold"/></svg></i>Golden</li>
+        <li class="chip" style="--x:818;--y:202;--s:.6;--d:.6"><i style="--c:#FF4FA0;--b:#fff"><svg><use href="#t-swirl"/></svg></i>Swirl</li>
+        <li class="chip" style="--x:-12;--y:465;--s:.9;--d:.9"><i style="--c:transparent"><svg><use href="#t-xeno"/></svg></i>Xeno</li>
+        <li class="chip" style="--x:150;--y:690;--s:.94;--d:.95"><i style="--c:#0E0E12"><svg class="grad"><use href="#t-solis"/></svg></i>Solis</li>
+        <li class="chip" style="--x:577;--y:740;--s:1.36;--d:1.2"><i style="--c:#8247E5"><svg><use href="#t-prism"/></svg></i>Prism</li>
+        <li class="chip chip--far" style="--x:24;--y:236;--s:.6;--d:.3"><i style="--c:#3A6EE8"></i>Lumen</li>
+        <li class="chip chip--far" style="--x:318;--y:282;--s:.8;--d:.4"><i style="--c:#2FC79A"></i>Verdant</li>
+        <li class="chip chip--far" style="--x:1330;--y:276;--s:.62;--d:.35"><i style="--c:#C7A0E8"></i>Opal</li>
+        <li class="chip chip--far" style="--x:1270;--y:582;--s:.66;--d:.35"><i style="--c:#6D5BF0"></i>Ion</li>
+        <li class="chip chip--far" style="--x:764;--y:596;--s:.6;--d:.3"><i style="--c:#4A6CF0"></i>Delta</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ stats ============ -->
+  <section class="stats">
+    <div class="stats__in">
+      <div class="art" aria-hidden="true">
+        <svg class="art__img art__img--1" viewBox="62 40 220 300">
+          <ellipse cx="150" cy="300" rx="78" ry="30" fill="url(#dots)" opacity=".9"/>
+          <g stroke="#111" stroke-width="5" stroke-linejoin="round">
+            <path d="M88 116c-24 38-22 98 10 142 12 16 34 28 52 30" fill="none" stroke-width="7"/>
+            <path d="M226 140c22 50 6 112-40 140" fill="none"/>
+            <ellipse cx="160" cy="194" rx="66" ry="96" transform="rotate(-22 160 194)" fill="#fff" stroke-width="7"/>
+            <ellipse cx="166" cy="192" rx="50" ry="76" transform="rotate(-22 166 192)" fill="#fff" stroke-width="3"/>
+            <path d="M104 92c40-40 112-40 140 18l20-12-6 64-52-32 18-8c-18-30-68-38-100-12z" fill="url(#lav)" stroke-width="4"/>
+          </g>
+          <text x="166" y="214" text-anchor="middle" font-family="Anton, sans-serif" font-size="74" fill="#111" transform="rotate(-14 166 192)">$</text>
+        </svg>
+        <svg class="art__img art__img--2" viewBox="8 62 304 290">
+          <ellipse cx="150" cy="318" rx="70" ry="22" fill="url(#dots)" opacity=".9"/>
+          <g stroke="#111" stroke-width="4" stroke-linejoin="round" fill="#fff">
+            <ellipse cx="160" cy="300" rx="62" ry="22"/><path d="M98 300v-12a62 22 0 0 1 124 0v12"/>
+            <rect x="148" y="104" width="24" height="186" rx="4"/>
+            <path d="M136 120h48v40h-48z"/><circle cx="160" cy="88" r="14"/>
+            <path d="M40 150h240" stroke-width="6"/>
+            <path d="M60 150 30 214M60 150l30 64M262 150l-30 64M262 150l30 64" fill="none" stroke-width="2.5"/>
+            <ellipse cx="60" cy="216" rx="46" ry="16" fill="url(#lav)"/><ellipse cx="262" cy="216" rx="46" ry="16" fill="url(#lav)"/>
+          </g>
+        </svg>
+        <svg class="art__img art__img--3" viewBox="46 44 236 296">
+          <ellipse cx="170" cy="304" rx="64" ry="22" fill="url(#dots)" opacity=".9"/>
+          <g stroke="#111" stroke-width="4" stroke-linejoin="round">
+            <path d="M60 184 160 128l90 52-100 56z" fill="url(#lav)"/><path d="M60 184v34l90 52v-34M150 236v34l100-56v-34" fill="#fff"/>
+            <path d="M80 120 180 64l90 52-100 56z" fill="url(#lav)"/><path d="M80 120v34l90 52v-34M170 172v34l100-56v-34" fill="#fff"/>
+            <path d="M110 128c20 6 36 0 50-10M190 94c14 10 32 12 48 6M90 192c20 6 36 0 50-10M168 156c14 10 32 12 48 6" fill="none" stroke="#fff" stroke-width="5"/>
+          </g>
+        </svg>
+        <svg class="art__img art__img--4" viewBox="28 44 256 302">
+          <ellipse cx="150" cy="310" rx="70" ry="22" fill="url(#dots)" opacity=".9"/>
+          <g stroke="#111" stroke-width="4" stroke-linejoin="round">
+            <path d="M40 228 120 184l70 40-80 46z" fill="#fff"/><path d="M40 228v22l70 40v-22M110 268v22l80-46v-22" fill="#fff"/>
+            <path d="M178 58c30 14 60 18 92 14 4 80-20 150-84 186C128 232 112 168 118 86c22 0 42-12 60-28Z" fill="#111"/>
+            <path d="M168 66c30 14 60 18 92 14 4 80-20 150-84 186C118 240 102 176 108 94c22 0 42-12 60-28Z" fill="url(#lav)"/>
+            <circle cx="180" cy="148" r="16" fill="#111"/><path d="M174 158l-6 34h24l-6-34z" fill="#111"/>
+          </g>
+        </svg>
+      </div>
+      <div class="stat-list">
+        <article class="stat"><div class="stat__top"><b>4M</b><small>Global users</small></div><p>Trusted by over 4 million people worldwide, our wallet empowers users with seamless access to their digital assets anytime, anywhere.</p></article>
+        <article class="stat"><div class="stat__top"><b>0%</b><small>Hidden fees</small></div><p>Enjoy complete transparency — no hidden fees, no surprises. Every transaction is fast, fair, and built for your financial freedom.</p></article>
+        <article class="stat"><div class="stat__top"><b>24/7</b><small>Customer support</small></div><p>Our dedicated team is available around the clock to assist you with any questions or issues, ensuring smooth and secure transactions at all times.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ steps with the phone ============ -->
+  <section class="steps" id="steps">
+    <div class="steps__stage">
+     <div class="steps__box">
+      <div class="pager" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="sphone" aria-hidden="true">
+        <div class="sphone__strip">
+          <div class="sp sp--chart">
+            <i class="grab"></i><small class="s-pair">ORB · Orbit</small><b class="s-price">$<span class="live-price">3 143</span></b><small class="s-chg">▲ 2.81%</small><span class="s-coin"><svg><use href="#t-orb"/></svg></span>
+            <svg class="s-chart" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M0 100l6-6 5 8 6-10 5 4 6-14 4 12 6-6 5 4 6-18 4 16 6-4 5 8 6-20 4 6 5-28 4 24 6-2 5 6 6-14 4 4 6-10 5 16 6-6 4 2 6-24 5 12 6-4 4 10 6-16 5 4 6-2 4-10 6 8 5-2 6-12 4 20 6-6 5 2 6-16 4 8"/></svg>
+            <small class="s-hi">$3,479</small><small class="s-lo">$2,934</small>
+            <p class="s-range"><span>1d</span><span class="on">1w</span><span>1m</span><span>6m</span><span>1y</span><span>Max</span></p>
+            <p class="s-btns"><b>Buy</b><span>Send</span></p>
+            <p class="s-about"><b>Orbit</b>Orbit is a sample network used in this design study. ORB is its sample token and powers many other sample apps.</p>
+            <p class="s-tiles"><span>Market Cap</span><span>Volume</span></p>
+          </div>
+          <div class="sp sp--buy">
+            <i class="grab"></i>
+            <div class="buy__box"><span class="pill"><i></i>ORB</span><b>$<span class="buy__amt">15</span></b><small>≈ 0.00218</small></div>
+            <p class="buy__bank"><svg><use href="#i-card"/></svg><span><b>Sample Bank Ltd</b><small>**** 8765</small></span><em>$5,000</em></p>
+            <div class="buy__keys"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>.</span><span>0</span><span><svg><use href="#i-del"/></svg></span></div>
+            <span class="buy__go">Buy</span>
+          </div>
+          <div class="sp sp--notes">
+            <p class="nt__top"><svg><use href="#i-home"/></svg><svg><use href="#i-search"/></svg><i class="dot"></i></p>
+            <div class="nt"><div class="nt__card"><span class="nt__ic nt__ic--y"><svg><use href="#t-nimbus"/></svg></span><p><b>Your reward is here!</b><small>Dec 12, 2026</small></p><svg class="nt__go"><use href="#i-right"/></svg></div><p class="nt__txt">We dropped <b>3.42 ORB</b> into your wallet for completing the weekly quest.</p></div>
+            <div class="nt"><div class="nt__card"><span class="nt__ic nt__ic--b"><svg><use href="#t-orb"/></svg></span><p><b>Price alert</b><small>Oct 2, 2026</small></p><svg class="nt__go"><use href="#i-right"/></svg></div><p class="nt__txt">Orbit (ORB) is down <b>-3.45%</b> to <b>$1,832.50</b> in the last <b>24</b> hours.</p></div>
+          </div>
+          <div class="sp sp--qr">
+            <p class="qr__addr">0x9f…a7c4</p>
+            <div class="qr__code"><svg viewBox="0 0 25 25" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h7v7H0zM18 0h7v7h-7zM0 18h7v7H0zM9 1h2v2H9zM13 0h3v2h-3zM9 5h4v2H9zM15 4h2v4h-2zM8 9h3v2H8zM12 8h2v3h-2zM16 10h4v2h-4zM21 8h3v3h-3zM1 9h3v3H1zM5 11h2v2H5zM9 13h2v4H9zM12 13h4v2h-4zM18 13h2v2h-2zM21 13h4v2h-4zM13 17h2v2h-2zM17 16h3v3h-3zM22 17h3v4h-3zM9 19h3v2H9zM14 20h3v2h-3zM19 21h2v4h-2zM9 23h4v2H9zM15 23h3v2h-3zM2 14h4v2H2z"/><path fill="#000" d="M1 1h5v5H1zM19 1h5v5h-5zM1 19h5v5H1z"/><path fill="#fff" d="M2 2h3v3H2zM20 2h3v3h-3zM2 20h3v3H2z"/></svg><span><svg><use href="#t-orb"/></svg></span></div>
+            <b class="qr__title">Receive</b><small class="qr__hint">Scan the QR code or copy the address<br>to receive Orbit</small>
+            <span class="qr__copy">Copy</span>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <article class="cp"><small>Smooth experience</small><h2>Intuitive design for fast, effortless asset management.</h2><a class="btn" href="#faq">Learn more</a></article>
+        <article class="cp"><small>Power anywhere</small><h2>Access and control your assets on the go.</h2><p class="cp__coins" aria-hidden="true"><i style="--c:#5F79F2"><svg><use href="#t-orb"/></svg></i><i style="--c:linear-gradient(135deg,#B6509E,#2EBAC6)"><svg><use href="#t-arc"/></svg></i><i style="--c:#F3BA2F"><svg><use href="#t-hex"/></svg></i></p></article>
+        <article class="cp"><small>Notifications</small><h2>Receive instant notifications about any changes to your account.</h2><p class="cp__note"><span><svg><use href="#t-nimbus"/></svg></span><b>Nimbus (NMB)<small>+$24.56</small></b><svg><use href="#i-right"/></svg></p></article>
+        <article class="cp"><small>Store &amp; manage</small><h2>Receive 160+ crypto in your wallet.</h2><div class="cp__price"><small>ORB · Orbit</small><b>$2 789</b><p><em>▲ 1.09%</em> Dec 12, 12:30 PM</p><span><svg><use href="#t-orb"/></svg></span></div></article>
+      </div>
+     </div>
+    </div>
+  </section>
+
+  <!-- ============ faq ============ -->
+  <section class="faq" id="faq">
+    <div class="faq__head"><h2>Got Questions? Find Answers Here!</h2><a class="btn" href="#contact">Ask a question</a></div>
+    <div class="faq__list">
+      <details class="q"><summary>How do I create an account?<svg><use href="#i-chev"/></svg></summary><p>Download the app, tap Create wallet and write down your recovery phrase. That is all; no paperwork in this sample.</p></details>
+      <details class="q"><summary>What cryptocurrencies are supported?<svg><use href="#i-chev"/></svg></summary><p>More than 160 sample tokens, from the largest networks to new ones, all in one wallet.</p></details>
+      <details class="q"><summary>Are there any transaction fees?<svg><use href="#i-chev"/></svg></summary><p>Only the network fee, shown before you confirm. Stalwart adds nothing on top.</p></details>
+      <details class="q"><summary>Is the app available worldwide?<svg><use href="#i-chev"/></svg></summary><p>Yes, in most countries; a few features depend on local rules.</p></details>
+      <details class="q"><summary>Can I recover my wallet if I lose access?<svg><use href="#i-chev"/></svg></summary><p>Yes, with your recovery phrase you can restore your wallet on any device.</p></details>
+      <details class="q"><summary>How fast are transactions?<svg><use href="#i-chev"/></svg></summary><p>Most transfers settle within seconds; busy networks can take a little longer.</p></details>
+      <details class="q"><summary>Where can I get support?<svg><use href="#i-chev"/></svg></summary><p>In the app under Help, any time of day.</p></details>
+    </div>
+  </section>
+</main>
+
+<!-- ============ footer ============ -->
+<footer class="foot" id="contact">
+  <div class="marquee" aria-hidden="true"><div class="marquee__track"><span>Powerful, fast, and built for you</span><span>Powerful, fast, and built for you</span><span>Powerful, fast, and built for you</span><span>Powerful, fast, and built for you</span><span>Powerful, fast, and built for you</span><span>Powerful, fast, and built for you</span></div></div>
+  <small class="foot__eyebrow">Contact us</small>
+  <p class="foot__mail">work@stalwart.example</p>
+  <nav class="foot__links" aria-label="Footer"><a href="#top">About Us</a><a href="#top">Blog</a><a href="#steps">Features</a><a href="#top">Security</a><a href="#faq">Help Center</a><a href="#top">Careers</a></nav>
+  <div class="foot__soc">
+    <a class="soc" href="#contact"><svg><use href="#i-in"/></svg>LinkedIn</a>
+    <a class="soc" href="#contact"><svg><use href="#i-ig"/></svg>Instagram</a>
+    <a class="soc" href="#contact"><svg><use href="#i-fb"/></svg>Facebook</a>
+    <a class="soc" href="#contact"><svg><use href="#i-pin"/></svg>Pinterest</a>
+  </div>
+  <p class="foot__note">Stalwart and every token name here are placeholders for this design study; prices are samples.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

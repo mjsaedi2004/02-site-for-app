@@ -16,8 +16,8 @@ Gallery (one artifact, numbered, opens each study in place with Live / Reference
 | 01 | `refs/designs/01.jpg` (Dribbble shot 1200 × 2139) | Fintech homepage: hero with phone, black "Banking easier" panel + 3 cards, App Store 3D phone, footer | `01-fintech/` | built |
 | 02 | `refs/designs/02.mp4` (720 × 540, 30 fps, 30.2 s) | Violet AI landing: animated neon/purple background, kinetic headline with icon pills, floating cards, phone, giant wordmark | `02-violet/` | built |
 | 03 | `refs/designs/03.mp4` (640 × 480, 60 fps, 30 s) | Digital bank: blurred maroon photo gradients, "Banking for future", giant wordmark, FAQ, 3D cards | `03-bank/` | built |
-| 04 | `refs/designs/04.mp4` (720 × 540, 30 fps, 27 s) | Crypto wallet: condensed heavy type, isometric illustrations, stats, sticky phone steps, FAQ, marquee | — | next |
-| 05 | `refs/designs/05.mp4` (640 × 480, 29.97 fps, 15.5 s) | Finance platform: light grey, laptop + phone mockups, tabs with phone, dark CTA | — | queued |
+| 04 | `refs/designs/04.mp4` (720 × 540, 30 fps, 27 s) | Crypto wallet: condensed heavy type, isometric illustrations, stats, sticky phone steps, FAQ, marquee | `04-wallet/` | built |
+| 05 | `refs/designs/05.mp4` (640 × 480, 29.97 fps, 15.5 s) | Finance platform: light grey, laptop + phone mockups, tabs with phone, dark CTA | — | next |
 | 06 | `refs/designs/06.mp4` (640 × 480, 60 fps, 16.5 s) | Investing app: lime panels, hand-drawn arrows, market phones, partners, dark CTA | — | queued |
 
 Also sent with the request (references to use in places later, not studies themselves):
@@ -50,6 +50,16 @@ Also sent with the request (references to use in places later, not studies thems
 5. Gallery: add the study to `STUDIES` in `index.html` (status, thumb, ref), thumbnail with `tools/qa/thumb.js`,
    add the folder to `BUILT` in `tools/build_gallery.py`, run `python3 -I studies/tools/build_gallery.py` and publish
    `dist/studies/index.html` with `root` = `dist/studies` and every listed file (same file path keeps the URL).
+
+## Study 04 notes
+
+- Page area in the video: x 36–683, y 67–472 → 1440 × 902 per screen. `tools/qa/scenes04.js` (viewport 1440 × 902).
+- Fonts: Anton for the condensed headlines (HODLERS: 240u with .054em tracking to reach the reference width; the dark
+  title 101u), Inter 600/500 for the rest.
+- Placeholders: brand "Stalwart", tokens Orbit / Golden / Swirl / Xeno / Solis / Prism (glyphs drawn here, no real
+  crypto logos), Sample Bank Ltd, Nimbus (NMB); the isometric illustrations are drawn SVG in the same style.
+- The pinned scenes (`.js-motion` only): the dark title stage and the four-step phone stage are sticky 100vh stages
+  centered on a 902u box; without motion the steps stack beside a sticky phone and everything is visible.
 
 ## Study 03 notes
 
