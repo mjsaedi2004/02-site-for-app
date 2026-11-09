@@ -10,9 +10,14 @@
 <link rel="icon" href="img/netrate-icon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Outfit:wght@300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Inter+Tight:wght@300..800&display=swap">
+<link rel="preload" as="image" href="img/app/sm/live-light-tall.webp" imagesrcset="img/app/sm/live-light-tall.webp 600w, img/app/live-light-tall.webp 1170w" imagesizes="(max-width: 860px) 236px, min(21.7vw, 312px)" fetchpriority="high">
 <link rel="stylesheet" href="style.css">
-<script>document.documentElement.classList.add("js-intro");setTimeout(function(){document.documentElement.classList.remove("js-intro")},4000);</script>
+<script>document.documentElement.classList.add("js-intro");setTimeout(function(){document.documentElement.classList.remove("js-intro")},1800);</script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+<script defer src="main.js"></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -48,6 +53,7 @@
 </svg>
 
 <div class="page">
+  <div class="bgx" aria-hidden="true"><i class="bgx__glow"></i><i class="bgx__dots"></i></div>
   <!-- ============ header ============ -->
   <header class="nav wrap">
     <a class="logo" href="#top" aria-label="NetRate, back to the top"><img class="logo__mark" src="img/netrate-icon.webp" alt="" width="256" height="256"><span>NetRate</span></a>
@@ -58,6 +64,7 @@
   <main id="top">
     <!-- ============ hero: the app, once ============ -->
     <section class="hero wrap">
+      <i class="floor floor--hero" aria-hidden="true"></i>
       <img class="hero__map" src="img/world-dots.png" alt="" aria-hidden="true">
       <div class="hero__copy">
         <h1 class="hero__title">
@@ -141,7 +148,7 @@
     <!-- ============ kinetic band ============ -->
     <section class="band" aria-label="What NetRate gives you">
       <div class="band__row"><p>Rates side by side <svg aria-hidden="true"><use href="#spark"/></svg> Every rate's age <svg aria-hidden="true"><use href="#spark"/></svg> Fee included <svg aria-hidden="true"><use href="#spark"/></svg> No sign-up <svg aria-hidden="true"><use href="#spark"/></svg></p><p aria-hidden="true">Rates side by side <svg><use href="#spark"/></svg> Every rate's age <svg><use href="#spark"/></svg> Fee included <svg><use href="#spark"/></svg> No sign-up <svg><use href="#spark"/></svg></p></div>
-      <div class="band__row band__row--ghost"><p>English and Persian <svg aria-hidden="true"><use href="#spark"/></svg> Three themes <svg aria-hidden="true"><use href="#spark"/></svg> Rate alerts <svg aria-hidden="true"><use href="#spark"/></svg> Verified offices <svg aria-hidden="true"><use href="#spark"/></svg></p><p aria-hidden="true">English and Persian <svg><use href="#spark"/></svg> Three themes <svg><use href="#spark"/></svg> Rate alerts <svg><use href="#spark"/></svg> Verified offices <svg><use href="#spark"/></svg></p></div>
+      <div class="band__row band__row--alt"><p>English and Persian <svg aria-hidden="true"><use href="#spark"/></svg> Three themes <svg aria-hidden="true"><use href="#spark"/></svg> Rate alerts <svg aria-hidden="true"><use href="#spark"/></svg> Verified offices <svg aria-hidden="true"><use href="#spark"/></svg></p><p aria-hidden="true">English and Persian <svg><use href="#spark"/></svg> Three themes <svg><use href="#spark"/></svg> Rate alerts <svg><use href="#spark"/></svg> Verified offices <svg><use href="#spark"/></svg></p></div>
     </section>
 
     <!-- ============ how it works: four cards stack up as you scroll ============ -->
@@ -151,14 +158,14 @@
         <h2 class="sec-title">From your amount to a phone call,<br>in four steps</h2>
       </header>
       <div class="stack wrap">
-        <article class="sc sc--1" style="--i:0">
+        <article class="sc sc--1" style="--i:0"><i class="sc__dim" aria-hidden="true"></i>
           <div class="sc__txt"><span class="sc__n">01</span><h3>Type your amount and currency</h3><p>Say 1,000 pounds. Pick the direction, Send to Iran or Receive from Iran, and the rate type.</p></div>
           <div class="sc__viz" aria-hidden="true">
             <div class="amt"><small>Amount</small><b><span class="amt__v" data-to="1,000">1,000</span><i class="caret"></i></b><span class="amt__u">pounds</span></div>
             <p class="chips"><span>Pound<svg><use href="#i-chevrondown"/></svg></span><span>Cash<svg><use href="#i-chevrondown"/></svg></span><span class="on">Send to Iran</span><span>Receive from Iran</span></p>
           </div>
         </article>
-        <article class="sc sc--2" style="--i:1">
+        <article class="sc sc--2" style="--i:1"><i class="sc__dim" aria-hidden="true"></i>
           <div class="sc__txt"><span class="sc__n">02</span><h3>See the offices side by side</h3><p>Ordered by Highest payout, fee included, and every rate shows how many minutes ago it was posted.</p></div>
           <div class="sc__viz" aria-hidden="true">
             <p class="bars__cap">For 1,000 pounds you get</p>
@@ -169,7 +176,7 @@
             </ul>
           </div>
         </article>
-        <article class="sc sc--3" style="--i:2">
+        <article class="sc sc--3" style="--i:2"><i class="sc__dim" aria-hidden="true"></i>
           <div class="sc__txt"><span class="sc__n">03</span><h3>Open the office's page</h3><p>Branches, opening hours, its rate table, a chart and reviews checked before they're published.</p></div>
           <div class="sc__viz" aria-hidden="true">
             <div class="office"><b class="office__tile">A</b><p><span>Aria Exchange<svg><use href="#i-verified"/></svg></span><small>London, Edgware Road · 2 branches</small></p></div>
@@ -177,7 +184,7 @@
             <table class="otable"><tr><th>Cash</th><td>92,900</td><td>94,219</td></tr><tr><th>Bank transfer</th><td>92,482</td><td>94,596</td></tr><tr class="otable__h"><th>8 min ago</th><td>Send to Iran</td><td>Receive</td></tr></table>
           </div>
         </article>
-        <article class="sc sc--4" style="--i:3">
+        <article class="sc sc--4" style="--i:3"><i class="sc__dim" aria-hidden="true"></i>
           <div class="sc__txt"><span class="sc__n">04</span><h3>Contact the office directly</h3><p>Call, message or get directions; the deal is directly between you and the office.</p></div>
           <div class="sc__viz" aria-hidden="true">
             <div class="acts"><span><i><svg><use href="#i-phone"/></svg></i>Call</span><span><i><svg><use href="#i-message"/></svg></i>WhatsApp</span><span><i><svg><use href="#i-telegram"/></svg></i>Telegram</span><span><i><svg><use href="#i-navigation"/></svg></i>Directions</span></div>
@@ -195,6 +202,7 @@
 
     <!-- ============ honesty: three panels, one opens ============ -->
     <section class="honest" id="honesty">
+      <i class="floor floor--honest" aria-hidden="true"></i>
       <header class="sec-head">
         <p class="eyebrow">Honesty</p>
         <h2 class="sec-title">It tells you the truth,<br>even when there's no news</h2>
@@ -247,7 +255,8 @@
             <div class="p3d__front" aria-hidden="true">
               <div class="p3d__screen p3d__screen--app" style="--top:#0A0A0A">
                 <div class="sb sb--light" aria-hidden="true"><b>9:41</b><i class="sb__icons"><span></span><span></span><span></span></i></div>
-                <div class="scr"><img class="scr__img" src="img/app/sm/live-dark.webp" srcset="img/app/sm/live-dark.webp 600w, img/app/live-dark.webp 1170w" sizes="(max-width: 860px) 205px, min(24.5vw, 352px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div>
+                <div class="scr"><img class="scr__img" src="img/app/sm/live-dark.webp" srcset="img/app/sm/live-dark.webp 600w, img/app/live-dark.webp 1170w" sizes="(max-width: 860px) 205px, min(24.5vw, 352px)" width="1170" height="2370" alt="" loading="eager" decoding="async" fetchpriority="high"></div>
+                <i class="p3d__glint"></i>
               </div>
               <span class="p3d__island"></span>
             </div>
@@ -319,10 +328,25 @@
       </div>
     </section>
 
+    <!-- ============ on your home screen (the owner's poster, its graphic part: brand/netrate-poster-uk.webp) ============ -->
+    <section class="homes" id="home-screen">
+      <div class="homes__box">
+        <img class="homes__img" src="img/home-screen.webp" alt="NetRate's icon on an iPhone home screen, next to the phone's own apps, with London's lights behind" width="872" height="687" loading="eager" decoding="async">
+        <div class="homes__copy">
+          <p class="eyebrow eyebrow--ink">On iPhone and Android</p>
+          <h2 class="homes__title">Today's rates,<br><span>one tap away.</span></h2>
+          <p class="homes__body">NetRate sits on your home screen with the rest of your apps. Open it and every UK exchange office's rate is there, side by side, each with its age.</p>
+          
+          <div class="stores stores--light"><a class="store" href="#" data-store="iphone"><svg aria-hidden="true"><use href="#i-smartphone"/></svg><span><small>Download for</small>iPhone</span></a><a class="store" href="#" data-store="android"><svg aria-hidden="true"><use href="#i-download"/></svg><span><small>Download for</small>Android</span></a></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ the App Store page ============ -->
     <section class="soon" id="get">
       <h2 class="soon__title">Now on iPhone and Android</h2>
       <div class="soon__stage">
+        <i class="floor floor--soon"></i>
         <svg class="soon__rings" viewBox="0 0 700 700" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="350" cy="350" r="280"/><circle cx="350" cy="350" r="310"/><circle cx="350" cy="350" r="338"/></g></svg>
         <div class="p3d p3d--store" role="img" aria-label="NetRate's App Store page on an iPhone: two languages, three themes, eight currencies and metals, no sign-up to see rates; screenshots with demo data">
           <div class="p3d__body" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="p3d__side" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -345,15 +369,16 @@
                   <p><small>MARKET</small><b>UK</b><i>Pound to toman</i></p>
                 </div></div>
                 <div class="as__shots"><div class="as__track">
-                  <figure class="as__shot as__shot--ink"><figcaption>Every office's rate,<br>side by side</figcaption><div class="as__scr" style="--top:#F5F5F7"><img class="scr__img" src="img/app/sm/live-light.webp" srcset="img/app/sm/live-light.webp 600w, img/app/live-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
-                  <figure class="as__shot"><figcaption>Fee included,<br>for your amount</figcaption><div class="as__scr" style="--top:#F3F3F5"><img class="scr__img" src="img/app/sm/ranked-light.webp" srcset="img/app/sm/ranked-light.webp 600w, img/app/ranked-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
-                  <figure class="as__shot as__shot--ink"><figcaption>Every rate shows<br>how old it is</figcaption><div class="as__scr" style="--top:#F3F3F5"><img class="scr__img" src="img/app/sm/expired-light.webp" srcset="img/app/sm/expired-light.webp 600w, img/app/expired-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
-                  <figure class="as__shot"><figcaption>Every office,<br>one page</figcaption><div class="as__scr" style="--top:#F5F5F6"><img class="scr__img" src="img/app/sm/office-page-light.webp" srcset="img/app/sm/office-page-light.webp 600w, img/app/office-page-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
-                  <figure class="as__shot as__shot--ink"><figcaption>A complete chart,<br>no predictions</figcaption><div class="as__scr" style="--top:#0A0A0A"><img class="scr__img" src="img/app/sm/f-chart-dark.webp" srcset="img/app/sm/f-chart-dark.webp 600w, img/app/f-chart-dark.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="lazy" decoding="async"></div></figure>
+                  <figure class="as__shot as__shot--ink"><figcaption>Every office's rate,<br>side by side</figcaption><div class="as__scr" style="--top:#F5F5F7"><img class="scr__img" src="img/app/sm/live-light.webp" srcset="img/app/sm/live-light.webp 600w, img/app/live-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="eager" decoding="async" fetchpriority="high"></div></figure>
+                  <figure class="as__shot"><figcaption>Fee included,<br>for your amount</figcaption><div class="as__scr" style="--top:#F3F3F5"><img class="scr__img" src="img/app/sm/ranked-light.webp" srcset="img/app/sm/ranked-light.webp 600w, img/app/ranked-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="eager" decoding="async" fetchpriority="high"></div></figure>
+                  <figure class="as__shot as__shot--ink"><figcaption>Every rate shows<br>how old it is</figcaption><div class="as__scr" style="--top:#F3F3F5"><img class="scr__img" src="img/app/sm/expired-light.webp" srcset="img/app/sm/expired-light.webp 600w, img/app/expired-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="eager" decoding="async" fetchpriority="high"></div></figure>
+                  <figure class="as__shot"><figcaption>Every office,<br>one page</figcaption><div class="as__scr" style="--top:#F5F5F6"><img class="scr__img" src="img/app/sm/office-page-light.webp" srcset="img/app/sm/office-page-light.webp 600w, img/app/office-page-light.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="eager" decoding="async" fetchpriority="high"></div></figure>
+                  <figure class="as__shot as__shot--ink"><figcaption>A complete chart,<br>no predictions</figcaption><div class="as__scr" style="--top:#0A0A0A"><img class="scr__img" src="img/app/sm/f-chart-dark.webp" srcset="img/app/sm/f-chart-dark.webp 600w, img/app/f-chart-dark.webp 1170w" sizes="(max-width: 860px) 126px, min(14.4vw, 207px)" width="1170" height="2370" alt="" loading="eager" decoding="async" fetchpriority="high"></div></figure>
                 </div></div>
                 <div class="as__tabs"><span><svg><use href="#i-doc"/></svg>Today</span><span><svg><use href="#as-games"/></svg>Games</span><span><svg><use href="#i-layers"/></svg>Apps</span><span><svg><use href="#as-arcade"/></svg>Arcade</span><span class="on"><svg><use href="#i-search"/></svg>Search</span></div>
                 <span class="as__home"></span>
               </div>
+              <i class="p3d__glint"></i>
             </div>
             <span class="p3d__island"></span>
           </div>
@@ -385,15 +410,11 @@
         <p>The offices post the rates themselves, for information only; for a firm rate, contact the office before you deal.<br>The app screens and numbers on this page are demo data; office names, rates and addresses are made up.</p>
         <a class="sig" href="https://t.me/Mohammad_s203" target="_blank" rel="noopener" aria-label="DESIGNED &amp; DEVELOPED BY — M.S, the maker on Telegram">DESIGNED &amp; DEVELOPED BY — M.S<svg aria-hidden="true"><use href="#i-telegram"/></svg></a>
       </div>
-      <svg class="wordmark" viewBox="0 0 1180 250" aria-hidden="true"><text x="590" y="212" text-anchor="middle">NetRate</text></svg>
+      <div class="marq" aria-hidden="true"><div class="marq__track"><span class="marq__item">NetRate<img src="img/netrate-icon.webp" alt="" width="256" height="256"></span><span class="marq__item">NetRate<img src="img/netrate-icon.webp" alt="" width="256" height="256"></span><span class="marq__item">NetRate<img src="img/netrate-icon.webp" alt="" width="256" height="256"></span><span class="marq__item">NetRate<img src="img/netrate-icon.webp" alt="" width="256" height="256"></span><span class="marq__item">NetRate<img src="img/netrate-icon.webp" alt="" width="256" height="256"></span><span class="marq__item">NetRate<img src="img/netrate-icon.webp" alt="" width="256" height="256"></span></div></div>
     </div>
   </footer>
 </div>
 <p class="toast" id="toast" role="status" aria-live="polite"></p>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
-<script src="main.js"></script>
 </body>
 </html>

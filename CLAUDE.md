@@ -200,8 +200,16 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
 - Every NetRate build goes on the gallery's NetRate page: `NETRATE` entries in `studies/index.html` (1A/1B …; viewer
   modes Live / the study live / Split with the study), copied by `studies/tools/build_gallery.py` (`NETRATE` list) to
   `dist/studies/netrate/<name>/`; thumbnails `studies/thumbs/nr-*.jpg`. Queued designs show their study with a note.
-- His poster `brand/netrate-poster-uk.webp` is not used: its “best exchange rates”, currency coins, flag and Apple badge
-  break the brief — use it only if he confirms, or a part without them.
+- Round 3 (his words): talk to him in Persian, work in English; more professional fonts — **Inter Tight** for headings,
+  numbers and the wordmark, **Inter** for text; **no outlined/hollow letters**; the page's end is a **very large NetRate
+  gliding left to right without end**, edges faded (CSS loop of two equal halves, transform only, paused off screen);
+  phone images must show at once (eager loading, no app splash, scripts deferred in the head); **contrast and framing**:
+  a cool off-white ground (`--ground`), white boxes with an edge and a soft shadow (`--edge`), rows inside on `--tint`;
+  a **non-white, professional background**: a dot grid shown only in soft masked patches, faint blue light and dot floors
+  in perspective under three sections, all still (painted once); smooth, light scrolling. His poster
+  `brand/netrate-poster-uk.webp` is used as its graphic part only (`img/home-screen.webp`: crop 250,715–1122,1402, the
+  phone with the NetRate icon among the other apps) in the “Today's rates, one tap away” panel: its headline (“best
+  exchange rates”), coins, flag and Apple badge stay out because of the brief.
 - The brief's hard rules hold (no money moving, Coming soon, demo data with its date, legal sentences verbatim,
   signature + Telegram, AA contrast, text ≥ 14 px with `max(14px, …)` floors on scaled text, 44 px targets on touch).
 - Design 1: `site/studies/01-fintech/` — source `page.html` (`<!--pre-->`/`<!--post-->` blocks and `{{…}}` tags, see
@@ -211,10 +219,16 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   `img/app/tops.json`) → `python3 -I …/tools/build.py`. Sections: hero (phone) → “We Made Rates Clearer!” cards with
   animated pictures (offices sort themselves, a rate expires, an alert sentence lights up) → kinetic band → stacked
   how-it-works cards → statement lit word by word with a drawn underline → honesty panels → showcase (3D phone, dark
-  app) → trust → offices panel (types its rate) → FAQ (one at a time) → App Store page on the 3D iPhone (iOS points:
-  header, info strip of true facts, captioned screenshots, tab bar; SOON / GET) → footer with a wordmark drawn by scroll.
+  app) → trust → offices panel (types its rate) → FAQ (one at a time) → “one tap away” panel (his poster's graphic
+  part) → App Store page on the 3D iPhone (iOS points: header, info strip of true facts, captioned screenshots, tab bar;
+  SOON / GET) → footer with the NetRate marquee.
   Also published alone as “NetRate × Design 1”: https://claude.ai/artifact/PmdwM4ASFvM7oNRjBXNXFd
   (`python3 -I site/studies/tools/build_artifact.py 01-fintech` → `dist/netrate-01-fintech/`, live.html beside it).
+- Smoothness: a 3D phone's pose variables are registered `@property … inherits: false` (moving it never restyles its
+  screen), its glint is its own element moved by GSAP, no `backdrop-filter` inside 3D or over moving parts, no `filter`
+  tweens (the stacked cards dim with a shade element), no scale scrubs on large boxes (one-time reveals instead).
+- Pitfalls (round 3): a full-page screenshot draws a 3D phone's screen black although it renders in the viewport — check
+  3D in viewport shots; Inter is wider than Outfit, so pills need `max(14px, …)` and a narrow-phone rule.
 - Pitfalls: the App Store page has no fake ratings, rank, age rating, size or developer name — its info strip shows true
   facts; tweening `filter` from `none` starts at brightness(0) (cards went black) → fromTo with an explicit start; a
   variable font's glyphs overlap inside, so a stroked wordmark shows inner lines → `paint-order: stroke` with an opaque

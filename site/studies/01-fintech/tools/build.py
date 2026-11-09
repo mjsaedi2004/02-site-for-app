@@ -43,7 +43,7 @@ RINGS = ('<svg class="card__rings" viewBox="0 0 344 344" aria-hidden="true"><g f
 
 def shot(m):
     scene, kind, *rest = m.group(1).split(':')
-    load = rest[0] if rest and rest[0] else 'lazy'
+    load = rest[0] if rest and rest[0] else 'eager'          # the few app screens load at once: no blank phones while scrolling
     cls = (' ' + rest[1]) if len(rest) > 1 else ''
     h = 4500 if scene.endswith('-tall') else 2370
     pri = ' fetchpriority="high"' if load == 'eager' else ''

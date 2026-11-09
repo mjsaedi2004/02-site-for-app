@@ -59,5 +59,10 @@ alert sentence (no phones) → how it works as stacked cards → statement word 
 hover panels → showcase (tilted phone, dark app screen) → trust grid → for offices (panel mock-up) → FAQ → App Store
 phone (SOON before release, GET + download buttons after) → footer with a wordmark drawn by scroll.
 
-`brand/netrate-poster-uk.webp` is the owner's poster (“NetRate.app”); it is not on the page yet: its “best exchange
-rates”, currency coins, flag and Apple badge break the brief's rules — ask before using it, or use a part without them.
+`brand/netrate-poster-uk.webp` is the owner's poster (“NetRate.app”). Round 3 uses its graphic part only
+(`img/home-screen.webp`, the phone with the NetRate icon) in the “one tap away” panel; its “best exchange rates” line,
+currency coins, flag and Apple badge stay out because of the brief.
+
+Round 3 (owner): Inter Tight + Inter, no hollow letters, a very large NetRate marquee at the end (left to right, faded
+edges), phone images at once, stronger contrast and framing (white boxes with an edge on a cool off-white ground), a
+dotted background in soft patches with perspective dot floors, lighter rendering for smooth scrolling.

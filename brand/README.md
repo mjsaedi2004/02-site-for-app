@@ -17,4 +17,4 @@ Rules: use the files as they are (don't redraw or recolour the mark). On light b
 the white mark needs a dark or blue ground. The app demo (`site/app/`) still shows its own older mark on its About
 screen; changing that is a change to the app itself.
 
-The owner's poster `netrate-poster-uk.webp` ("NetRate.app", Nov 2026) is kept here but not used on the sites yet: its "best exchange rates" line, currency coins, UK flag and Apple badge break the NetRate brief (see CLAUDE.md); use it only if he confirms, or a part without them.
+The owner's poster `netrate-poster-uk.webp` ("NetRate.app", Nov 2026): the NetRate × Design 1 page uses its graphic part only (the phone with the NetRate icon among the other apps, `site/studies/01-fintech/img/home-screen.webp`); its "best exchange rates" line, currency coins, UK flag and Apple badge stay out because of the NetRate brief (see CLAUDE.md).
