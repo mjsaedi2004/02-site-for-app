@@ -79,6 +79,22 @@
   var letters = title.textContent.split('').map(function (ch) { return ch; });
   title.textContent = '';
   var chars = letters.map(function (ch) { var s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; title.appendChild(s); return s; });
+  // the letters keep the word's kerning: a hidden probe holds the unsplit word, each letter is nudged to its kerned spot
+  function rekern() {
+    chars.forEach(function (c) { c.style.marginLeft = ''; });
+    var probe = document.createElement('span');
+    probe.textContent = letters.join('');
+    probe.style.cssText = 'position:absolute;left:0;top:0;visibility:hidden;white-space:nowrap';
+    title.parentNode.appendChild(probe);
+    var node = probe.firstChild, rg = document.createRange(), ks = [], i;
+    for (i = 0; i < letters.length; i++) { rg.setStart(node, i); rg.setEnd(node, i + 1); ks.push(rg.getBoundingClientRect().left); }
+    probe.parentNode.removeChild(probe);
+    var ss = chars.map(function (c) { return c.getBoundingClientRect().left; });
+    for (i = 1; i < chars.length; i++) chars[i].style.marginLeft = ((ks[i] - ks[i - 1]) - (ss[i] - ss[i - 1])).toFixed(2) + 'px';
+  }
+  rekern();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(rekern);
+  window.addEventListener('resize', rekern);
   gsap.set(title, { clipPath: 'inset(0 -10% 0 -10%)' });
   var coins = $$('.coin');
   var intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
@@ -96,8 +112,8 @@
   });
   // scroll: the phones rise into the dark section, coins drift at different depths
   var heroST = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .4 };
+  // reference: the title scrolls with the page, the phones run 1.3x faster over the band and the dark section
   gsap.to('.hero__phones', { y: function () { return -260 * innerWidth / 1440; }, ease: 'none', scrollTrigger: heroST });
-  gsap.to('.hero__title, .hero__sub, .btn--hero', { y: -90, opacity: .2, ease: 'none', scrollTrigger: heroST });
   coins.forEach(function (c, i) { gsap.to(c, { yPercent: -(60 + i * 35), ease: 'none', scrollTrigger: heroST }); });
   // the phone's live ticker in the hero
   var heroPrice = $('.dev--r .s-price'), hp = 3144;
@@ -155,6 +171,29 @@
   setStep(0);
   ST.create({ trigger: '.steps', start: 'top top', end: 'bottom bottom', onUpdate: function (s) { setStep(Math.min(3, Math.floor(s.progress * 4 * .999))); } });
   gsap.from('.sphone', { y: 200, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: '.steps', start: 'top 80%', once: true } });
+
+  /* ------------------------------------------------------------ faq: answers open smoothly; the fifth question is hovered
+     and opened by itself a moment after the section arrives (as the reference's visitor does), unless someone clicked */
+  var qs = $$('.q'), faqTouched = false;
+  function openQ(d) {
+    var p = d.querySelector('p');
+    qs.forEach(function (o) { if (o !== d && o.open) closeQ(o); });
+    d.open = true;
+    gsap.fromTo(p, { height: 0, opacity: 0 }, { height: 'auto', opacity: 1, duration: .5, ease: 'power3.out', clearProps: 'height' });
+  }
+  function closeQ(d) {
+    var p = d.querySelector('p');
+    gsap.to(p, { height: 0, opacity: 0, duration: .35, ease: 'power3.inOut', onComplete: function () { d.open = false; gsap.set(p, { clearProps: 'height,opacity' }); } });
+  }
+  qs.forEach(function (d) {
+    d.querySelector('summary').addEventListener('click', function (e) { e.preventDefault(); faqTouched = true; d.open ? closeQ(d) : openQ(d); });
+  });
+  ST.create({ trigger: '.faq', start: 'top 35%', once: true, onEnter: function () {
+    var d = qs[4]; if (!d) return;
+    setTimeout(function () { if (faqTouched) return; d.classList.add('is-hover'); }, 700);
+    setTimeout(function () { if (faqTouched) { d.classList.remove('is-hover'); return; } openQ(d); }, 1500);
+    setTimeout(function () { d.classList.remove('is-hover'); }, 2200);
+  } });
 
   /* ------------------------------------------------------------ faq and footer */
   gsap.from('.q', { y: 30, opacity: 0, duration: .9, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.faq', start: 'top 70%', once: true } });

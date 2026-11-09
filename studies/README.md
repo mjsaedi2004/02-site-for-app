@@ -83,6 +83,12 @@ Also sent with the request (references to use in places later, not studies thems
   title 101u), Inter 600/500 for the rest.
 - Placeholders: brand "Stalwart", tokens Orbit / Golden / Swirl / Xeno / Solis / Prism (glyphs drawn here, no real
   crypto logos), Sample Bank Ltd, Nimbus (NMB); the isometric illustrations are drawn SVG in the same style.
+- Round 2 (frame-matched): the hero phones are full app screens (token list; range chips, Buy / Send, token card) that
+  ride over the marquee band and the dark section (z-index above them, the hero clips only sideways; phones 1.3x the
+  scroll, the title scrolls with the page); HODLERS keeps Anton's kerning after the letter split (a hidden probe holds the
+  unsplit word and the letters get margins: the split alone made it 92 px wider); stats art 1.2x; the Receive phone has
+  the grabber, address pill, QR card with a dense 29x29 code, glow and blurred rows; FAQ answers open smoothly, an open
+  answer has no grey ground, and the fifth question is hovered then opened by itself like the reference's visitor.
 - The pinned scenes (`.js-motion` only): the dark title stage and the four-step phone stage are sticky 100vh stages
   centered on a 902u box; without motion the steps stack beside a sticky phone and everything is visible.
 
