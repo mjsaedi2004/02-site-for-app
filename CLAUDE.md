@@ -210,6 +210,16 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   `brand/netrate-poster-uk.webp` is used as its graphic part only (`img/home-screen.webp`: crop 250,715–1122,1402, the
   phone with the NetRate icon among the other apps) in the “Today's rates, one tap away” panel: its headline (“best
   exchange rates”), coins, flag and Apple badge stay out because of the brief.
+- Round 4 (his words): the background was good but too little → twice as much (13 dot patches, a line grid in other
+  patches, dot floors under eight sections); everything looked small and centred on his wide screen → the layout keeps
+  growing past 1440 (`--u` capped at 2200 px), boxes are 1376u wide, the footer spans the page; the gallery viewer has a
+  **Fit** width (the page at the stage's own width, now the default); the FAQ was janky → the list reserves room for one
+  open answer so the page below never moves, questions move by transform only, no ScrollTrigger refresh; the hero phone
+  looked tilted at load → no transform intro and no pointer tilt on it; more content: “the problem” (seven scattered
+  messages sort themselves into one list with times, pinned on wide screens), a **calculator** (the app's ranked list and
+  fee rules: no fee / fixed pounds / percent / “under 1,000”; it reproduces the app's order for 1,000 pounds exactly),
+  and five feature tiles (a 30-day chart drawn by the scroll with Sundays shaded, rate types, themes, English/Persian in
+  Vazirmatn, widgets coming soon).
 - The brief's hard rules hold (no money moving, Coming soon, demo data with its date, legal sentences verbatim,
   signature + Telegram, AA contrast, text ≥ 14 px with `max(14px, …)` floors on scaled text, 44 px targets on touch).
 - Design 1: `site/studies/01-fintech/` — source `page.html` (`<!--pre-->`/`<!--post-->` blocks and `{{…}}` tags, see

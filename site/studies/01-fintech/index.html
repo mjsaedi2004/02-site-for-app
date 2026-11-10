@@ -10,7 +10,7 @@
 <link rel="icon" href="img/netrate-icon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Inter+Tight:wght@300..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Inter+Tight:wght@300..800&family=Vazirmatn:wght@400;600&display=swap">
 <link rel="preload" as="image" href="img/app/sm/live-light-tall.webp" imagesrcset="img/app/sm/live-light-tall.webp 600w, img/app/live-light-tall.webp 1170w" imagesizes="(max-width: 860px) 236px, min(21.7vw, 312px)" fetchpriority="high">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add("js-intro");setTimeout(function(){document.documentElement.classList.remove("js-intro")},1800);</script>
@@ -30,6 +30,7 @@
     <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9.4a6 6 0 0 0-12 0c0 4.8-2 5.8-2 5.8h16s-2-1-2-5.8Z"/><path d="M10 18.8a2.2 2.2 0 0 0 4 0"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4.4 6.6h15.2v13.2H4.4Z"/><path d="M8.4 3.4v4M15.6 3.4v4M4.4 11h15.2"/></symbol>
     <symbol id="i-chartline" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7.5 15.5 11 12l2.8 2.4L19.5 7.5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.8 10 17.8 20 6.6"/></symbol>
     <symbol id="i-chevrondown" viewBox="0 0 24 24"><path d="M5.2 9.2 12 16l6.8-6.8"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 1 1 0 17.6 8.8 8.8 0 0 1 0-17.6Z"/><path d="M12 7.4V12l3.4 2"/></symbol>
     <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3.6H7.2a1.6 1.6 0 0 0-1.6 1.6v13.6a1.6 1.6 0 0 0 1.6 1.6h9.6a1.6 1.6 0 0 0 1.6-1.6V8Z"/><path d="M14 3.6V8h4.4M8.8 12.6h6.4M8.8 16h4.4"/></symbol>
@@ -52,7 +53,7 @@
 </svg>
 
 <div class="page">
-  <div class="bgx" aria-hidden="true"><i class="bgx__glow"></i><i class="bgx__dots"></i></div>
+  <div class="bgx" aria-hidden="true"><i class="bgx__glow"></i><i class="bgx__grid"></i><i class="bgx__dots"></i></div>
   <!-- ============ header ============ -->
   <header class="nav wrap">
     <a class="logo" href="#top" aria-label="NetRate, back to the top"><img class="logo__mark" src="img/netrate-icon.webp" alt="" width="256" height="256"><span>NetRate</span></a>
@@ -154,8 +155,30 @@
       <div class="band__row band__row--alt"><p>English and Persian <svg aria-hidden="true"><use href="#spark"/></svg> Three themes <svg aria-hidden="true"><use href="#spark"/></svg> Rate alerts <svg aria-hidden="true"><use href="#spark"/></svg> Verified offices <svg aria-hidden="true"><use href="#spark"/></svg></p><p aria-hidden="true">English and Persian <svg><use href="#spark"/></svg> Three themes <svg><use href="#spark"/></svg> Rate alerts <svg><use href="#spark"/></svg> Verified offices <svg><use href="#spark"/></svg></p></div>
     </section>
 
+    <!-- ============ the problem, then NetRate: scattered messages sort themselves into one list as you scroll ============ -->
+    <section class="why" id="why">
+      <div class="why__stage">
+        <div class="why__copy">
+          <p class="eyebrow">The problem</p>
+          <h2 class="why__title">Rates are scattered, and you can't tell how old they are</h2>
+          <p class="why__body">Today you dig through scattered messages to find a rate; each one a number, with no time and nothing to compare it with. NetRate puts them all side by side.</p>
+          <ul class="why__pts">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>It compares the effective rate, fee included; not the rate an office advertises.</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Every rate shows its age, and old rates fade.</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>A rank is just a number; no office gets a special frame or colour.</li>
+          </ul>
+        </div>
+        <div class="why__board" role="img" aria-label="Seven offices' pound rates: first as scattered messages without a time, then side by side in one list, each with its age; demo data">
+          <p class="why__lbl" aria-hidden="true"><span class="why__a">Scattered messages</span><span class="why__b">Side by side, with times</span></p>
+          <ol class="why__list" aria-hidden="true"><li class="msg" style="--i:0" data-x="380" data-y="92" data-r="-7"><i>1</i><b>A</b><span>Aria</span><strong>92,900</strong><em class="when">When?</em><em class="age">8 min ago</em></li><li class="msg" style="--i:1" data-x="40" data-y="168" data-r="5"><i>2</i><b>P</b><span>Pars</span><strong>92,850</strong><em class="when">When?</em><em class="age">3 min ago</em></li><li class="msg" style="--i:2" data-x="300" data-y="236" data-r="9"><i>3</i><b>N</b><span>Nilo</span><strong>92,300</strong><em class="when">When?</em><em class="age">27 min ago</em></li><li class="msg" style="--i:3" data-x="60" data-y="330" data-r="-4"><i>4</i><b>K</b><span>Kian</span><strong>91,900</strong><em class="when">When?</em><em class="age">12 min ago</em></li><li class="msg" style="--i:4" data-x="330" data-y="412" data-r="-9"><i>5</i><b>S</b><span>Sepehr</span><strong>91,600</strong><em class="when">When?</em><em class="age">2 h ago</em></li><li class="msg" style="--i:5" data-x="30" data-y="470" data-r="6"><i>6</i><b>A</b><span>Ava</span><strong>91,400</strong><em class="when">When?</em><em class="age">45 min ago</em></li><li class="msg" style="--i:6" data-x="360" data-y="520" data-r="4"><i>7</i><b>R</b><span>Royal</span><strong>91,150</strong><em class="when">When?</em><em class="age">21 min ago</em></li></ol>
+          <p class="why__tag">Demo data · cash, per pound · 12 September</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ how it works: four cards stack up as you scroll ============ -->
     <section class="how" id="how">
+      <i class="floor floor--how" aria-hidden="true"></i>
       <header class="sec-head">
         <p class="eyebrow">How it works</p>
         <h2 class="sec-title">From your amount to a phone call,<br>in four steps</h2>
@@ -194,6 +217,30 @@
             <p class="acts__note">NetRate is not an exchange office and never moves money.</p>
           </div>
         </article>
+      </div>
+    </section>
+
+    <!-- ============ calculator: the app's own order for any amount ============ -->
+    <section class="calc" id="calculator">
+      <i class="floor floor--calc" aria-hidden="true"></i>
+      <header class="sec-head">
+        <p class="eyebrow">Calculator</p>
+        <h2 class="sec-title">For your amount, what does each office give?</h2>
+        <p class="sec-sub">Type an amount; the order is by the money you get after the fee. With the app's own demo data.</p>
+      </header>
+      <div class="calc__box">
+        <div class="calc__ctl">
+          <label class="calc__lbl" for="calcAmt">Amount</label>
+          <div class="calc__in"><input id="calcAmt" type="text" inputmode="numeric" value="1,000" autocomplete="off" spellcheck="false" aria-describedby="calcNote"><span>pounds</span></div>
+          <div class="calc__quick" role="group" aria-label="Quick amounts"><button type="button" data-a="500" aria-pressed="false">500</button><button type="button" data-a="1000" aria-pressed="true">1,000</button><button type="button" data-a="2000" aria-pressed="false">2,000</button><button type="button" data-a="5000" aria-pressed="false">5,000</button></div>
+          <p class="calc__fix"><span>Pound</span><span>Cash</span><span>Send to Iran</span></p>
+          <p class="calc__gap"><small>Gap between the first and the last office</small><b><span id="calcGap">1,708,000</span> <small>toman</small></b></p>
+          <p class="calc__note" id="calcNote">Demo data · 12 September; office names and rates are made up. The offices post the rates themselves, for information only; for a firm rate, contact the office before you deal.</p>
+        </div>
+        <div class="calc__res">
+          <p class="calc__head" id="calcHead">For <b>1,000</b> pounds you get</p>
+          <ol class="calc__list" id="calcList" aria-live="polite"><li data-k="pars" data-rate="92850" data-kind="none" data-fee="0"><i>1</i><b>P</b><span>Pars<small>No fee · 3 min ago</small></span><strong><span class="v">92,850,000</span> <small>toman</small></strong><u style="--w:1.0000"></u></li><li data-k="kian" data-rate="91900" data-kind="under" data-fee="12"><i>2</i><b>K</b><span>Kian<small>Under 1,000: 12 pounds · 12 min ago</small></span><strong><span class="v">91,900,000</span> <small>toman</small></strong><u style="--w:0.9898"></u></li><li data-k="nilo" data-rate="92300" data-kind="pct" data-fee="0.6"><i>3</i><b>N</b><span>Nilo<small>Fee 0.6% · 27 min ago</small></span><strong><span class="v">91,746,200</span> <small>toman</small></strong><u style="--w:0.9881"></u></li><li data-k="aria" data-rate="92900" data-kind="fixed" data-fee="15"><i>4</i><b>A</b><span>Aria<small>Fee 15 pounds · 8 min ago</small></span><strong><span class="v">91,506,500</span> <small>toman</small></strong><u style="--w:0.9855"></u></li><li data-k="ava" data-rate="91400" data-kind="none" data-fee="0"><i>5</i><b>A</b><span>Ava<small>No fee · 45 min ago</small></span><strong><span class="v">91,400,000</span> <small>toman</small></strong><u style="--w:0.9844"></u></li><li data-k="royal" data-rate="91150" data-kind="none" data-fee="0"><i>6</i><b>R</b><span>Royal<em class=feat>Featured</em><small>No fee · 21 min ago</small></span><strong><span class="v">91,150,000</span> <small>toman</small></strong><u style="--w:0.9817"></u></li><li data-k="sepehr" data-rate="91600" data-kind="fixed" data-fee="5"><i>7</i><b>S</b><span>Sepehr<small>Fee 5 pounds · 2 h ago</small></span><strong><span class="v">91,142,000</span> <small>toman</small></strong><u style="--w:0.9816"></u></li></ol>
+        </div>
       </div>
     </section>
 
@@ -240,6 +287,53 @@
       <p class="cards__note">Demo data · 12–13 September.</p>
     </section>
 
+    <!-- ============ features: five tiles, each a small working part of the app ============ -->
+    <section class="bento" id="features">
+      <i class="floor floor--bento" aria-hidden="true"></i>
+      <header class="sec-head">
+        <p class="eyebrow">Features</p>
+        <h2 class="sec-title">Everything you need to decide</h2>
+        <p class="sec-sub">Each tile is a part of the app; the numbers are demo data, each with its age.</p>
+      </header>
+      <div class="bento__grid">
+        <article class="tile tile--chart">
+          <h3>A complete chart</h3>
+          <p>The pound's market average over the last 30 days. NetRate doesn't predict rates.</p>
+          <svg class="chart" viewBox="0 0 640 200" role="img" aria-label="The pound's market average over 30 days, from a low of 90,400 on Monday 7 September to 91,733 on 12 September; Sundays have no rate; demo data">
+            <g class="chart__grid"><path d="M20 20H620M20 73H620M20 126H620M20 180H620"/></g>
+            <g class="chart__sun"><rect x="51" y="14" width="21" height="172"/><rect x="196" y="14" width="21" height="172"/><rect x="341" y="14" width="21" height="172"/><rect x="486" y="14" width="21" height="172"/></g>
+            <path class="chart__line" d="M20.0 80.8 L40.7 58.6 M82.1 72.4 L102.8 124.3 L123.4 134.6 L144.1 156.4 L164.8 116.7 L185.5 90.8 M226.9 64.3 L247.6 41.7 L268.3 78.3 L289.0 81.0 L309.7 115.7 L330.3 65.0 M371.7 70.8 L392.4 115.5 L413.1 90.0 L433.8 104.6 L454.5 111.4 L475.2 68.1 M516.6 165.5 L537.2 113.8 L557.9 108.6 L578.6 151.5 L599.3 91.5 L620.0 36.2"/>
+            <circle class="chart__dot chart__dot--lo" cx="516.6" cy="165.5" r="5"/><circle class="chart__dot" cx="620" cy="36.2" r="6"/>
+            <text class="chart__t" x="508" y="196" text-anchor="end">Low 90,400 · 7 Sep</text><text class="chart__t chart__t--hi" x="612" y="24" text-anchor="end">91,733 today</text>
+          </svg>
+          <p class="tile__tag">Demo data · 14 August to 12 September · shaded: Sundays, market closed</p>
+        </article>
+        <article class="tile tile--types">
+          <h3>Rates, side by side</h3>
+          <p>Cash, bank transfer and official invoice; eight currencies and metals.</p>
+          <p class="types" aria-hidden="true"><span class="is-on">Cash</span><span>Bank transfer</span></p>
+          <div class="types__nums"><p><small>Send to Iran</small><b data-a="92,900" data-b="92,482">92,900</b></p><p><small>Receive from Iran</small><b data-a="94,219" data-b="94,596">94,219</b></p></div>
+          <p class="tile__tag">Aria Exchange · demo data · 8 min ago</p>
+        </article>
+        <article class="tile tile--themes">
+          <h3>Three complete themes</h3>
+          <p>Dusk, white and black; all three complete.</p>
+          <div class="sw" aria-hidden="true"><span class="sw--dusk"><small>Market average</small><b>91,733</b><i>Dusk</i></span><span class="sw--white"><small>Market average</small><b>91,733</b><i>White</i></span><span class="sw--black"><small>Market average</small><b>91,733</b><i>Black</i></span></div>
+        </article>
+        <article class="tile tile--lang">
+          <h3>English and Persian</h3>
+          <p>Each language with its own numerals and reading direction.</p>
+          <div class="lang" aria-hidden="true"><p class="lang__en is-on">92,900 <small>toman</small></p><p class="lang__fa" lang="fa" dir="rtl"><bdi>۹۲,۹۰۰</bdi> <small>تومان</small></p></div>
+          <p class="tile__tag">Demo data · 12 September</p>
+        </article>
+        <article class="tile tile--widget">
+          <h3>Home and lock screen widgets</h3>
+          <p>See the rate without opening the app; the design is still in the making.</p>
+          <div class="wph" aria-hidden="true"><i></i><i></i><span>Widget design, coming soon</span></div>
+        </article>
+      </div>
+    </section>
+
     <!-- ============ showcase: the app, the second and last time (owner's sample: refs/showcase-sample.webp) ============ -->
     <section class="show" id="showcase">
       <div class="show__box">
@@ -272,6 +366,7 @@
 
     <!-- ============ trust ============ -->
     <section class="trust" id="trust">
+      <i class="floor floor--trust" aria-hidden="true"></i>
       <header class="sec-head">
         <p class="eyebrow">Trust</p>
         <h2 class="sec-title">Why you can trust NetRate</h2>
@@ -315,13 +410,14 @@
 
     <!-- ============ faq ============ -->
     <section class="faq" id="faq">
+      <i class="floor floor--faq" aria-hidden="true"></i>
       <header class="sec-head">
         <p class="eyebrow">FAQ</p>
         <h2 class="sec-title">Questions people often ask</h2>
         <p class="sec-sub">The same answers you'll find inside the app.</p>
       </header>
       <div class="faq__list">
-        <details class="q"><summary>Is NetRate an exchange office?<i aria-hidden="true"></i></summary><p>No. NetRate is not an exchange office and never moves any money. It only puts the rates the offices themselves post side by side; the deal is directly between you and the office.</p></details>
+        <details class="q" open><summary>Is NetRate an exchange office?<i aria-hidden="true"></i></summary><p>No. NetRate is not an exchange office and never moves any money. It only puts the rates the offices themselves post side by side; the deal is directly between you and the office.</p></details>
         <details class="q"><summary>Is my money safe?<i aria-hidden="true"></i></summary><p>Your money never reaches us, so its safety depends on the office you deal with. The “Verified” badge, user ratings and “Always up to date” on each office's page are there for exactly that; look at them before you deal.</p></details>
         <details class="q"><summary>Why do offices' rates differ?<i aria-hidden="true"></i></summary><p>Each office has its own rate and fee, and its cash, bank transfer and official invoice rates differ too. That's why, once you type an amount, the order is by the money you get after the fee.</p></details>
         <details class="q"><summary>What does an expired rate mean?<i aria-hidden="true"></i></summary><p>A rate the office hasn't updated today. It stays for one day, faded and labelled, then goes; it's never counted in the order or the average.</p></details>

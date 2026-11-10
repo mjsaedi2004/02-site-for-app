@@ -183,6 +183,7 @@ html:has(body.is-viewing) { height: 100%; }
       <button type="button" data-mode="onion">Onion skin</button>
     </div>
     <div class="seg" id="widths" role="group" aria-label="Page width">
+      <button type="button" data-w="fit" title="The page at the stage's full width">Fit</button>
       <button type="button" data-w="1440">1440</button>
       <button type="button" data-w="1280">1280</button>
       <button type="button" data-w="768">768</button>
@@ -227,7 +228,7 @@ html:has(body.is-viewing) { height: 100%; }
   var NETRATE = [
     { group: 'nr', id: '1a', n: '1A', design: '1', title: 'Design 1 · before release', chip: '#0129F4', status: 'built', kind: 'NetRate on study 01 · “Coming soon”', src: 'netrate/01-fintech/index.html', thumb: 'thumbs/nr-1a.jpg',
       ref: { type: 'live', src: '01-fintech/index.html', label: 'Study 01' },
-      facts: ['The app shows in the hero only; one showcase in the style of the owner\'s sample; the App Store page on the last phone', 'Cards play pictures instead of phones: offices sort themselves, a rate expires, an alert lights up', 'Stacked steps, a statement lit word by word, honesty panels, trust, offices, FAQ, a wordmark drawn by the scroll'] },
+      facts: ['The app in the hero, one showcase in the style of the owner\'s sample, and the App Store page on the last phone', 'New: scattered messages that sort themselves (pinned), a working calculator with the app\'s own fee rules, five feature tiles', 'Cards that play pictures, stacked steps, a statement lit word by word, honesty panels, trust, offices, FAQ, a NetRate marquee at the end'] },
     { group: 'nr', id: '1b', n: '1B', design: '1', title: 'Design 1 · after release', chip: '#0129F4', status: 'built', kind: 'NetRate on study 01 · download buttons, the lasting site', src: 'netrate/01-fintech/live.html', thumb: 'thumbs/nr-1b.jpg',
       ref: { type: 'live', src: '01-fintech/index.html', label: 'Study 01' },
       facts: ['Same page after the release: Download in the header, download buttons in the hero, under the phone and in the footer', 'The App Store page says GET; the buttons wait for the real store links'] },
@@ -265,7 +266,7 @@ html:has(body.is-viewing) { height: 100%; }
   }).join('');
 
   /* ---------------- viewing desk */
-  var cur = null, mode = store.get('mode', 'live'), width = +store.get('width', 1440), frame = null, refImgs = [], scale = 1;
+  var cur = null, mode = store.get('mode', 'live'), width = store.get('width', 'fit'), frame = null, refImgs = [], scale = 1;
   var onion = $('onion'), diff = $('diff');
   onion.value = store.get('onion', '50');
   function pressed(group, attr, val) {
@@ -314,7 +315,7 @@ html:has(body.is-viewing) { height: 100%; }
       sf.title = s.ref.label + ' live';
       sf.src = s.ref.src;
       sp.appendChild(sf);
-      sp.appendChild(tag(s.ref.label + ' · ' + w));
+      sp.appendChild(tag(s.ref.label + ' · ' + (w === 'fit' ? 'fit' : w)));
       stage.appendChild(sp);
       if (!canLive(s)) {
         var wait = el('div', 'empty');
@@ -327,7 +328,7 @@ html:has(body.is-viewing) { height: 100%; }
       frame.title = (s.group === 'nr' ? 'NetRate page ' : 'Study ') + s.n + ' live';
       frame.src = s.src;
       pane.appendChild(frame);
-      pane.appendChild(tag((s.group === 'nr' ? 'NetRate · ' : 'Rebuild · ') + w));
+      pane.appendChild(tag((s.group === 'nr' ? 'NetRate · ' : 'Rebuild · ') + (w === 'fit' ? 'fit' : w)));
       if (m === 'onion') {
         var ov = el('div', 'overlay' + (diff.getAttribute('aria-pressed') === 'true' ? ' is-diff' : ''));
         ov.style.opacity = onion.value / 100;
@@ -341,7 +342,7 @@ html:has(body.is-viewing) { height: 100%; }
         lf.title = s.ref.label + ' live';
         lf.src = s.ref.src;
         lp.appendChild(lf);
-        lp.appendChild(tag(s.ref.label + ' · ' + w));
+        lp.appendChild(tag(s.ref.label + ' · ' + (w === 'fit' ? 'fit' : w)));
         stage.appendChild(lp);
       } else if (m === 'split') {
         var rp = el('div', 'pane pane--ref' + (s.ref.type === 'sheet' ? ' is-free' : ''));
@@ -380,6 +381,7 @@ html:has(body.is-viewing) { height: 100%; }
       Array.prototype.forEach.call(panes, function (p) { p.style.width = Math.min(avail, cur.ref.type === 'image' ? 1100 : 1400) + 'px'; p.style.height = H + 'px'; });
       return;
     }
+    if (w === 'fit') w = Math.max(320, Math.floor(avail)); // the page at the stage's own width, unscaled
     scale = Math.min(1, avail / w);
     Array.prototype.forEach.call(panes, function (p) {
       p.style.width = Math.round(w * scale) + 'px';
@@ -406,7 +408,7 @@ html:has(body.is-viewing) { height: 100%; }
   });
   $('widths').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b || b.disabled) return;
-    width = +b.dataset.w; store.set('width', width); render(mode);
+    width = b.dataset.w === 'fit' ? 'fit' : +b.dataset.w; store.set('width', width); render(mode);
   });
   onion.addEventListener('input', function () {
     store.set('onion', onion.value);
@@ -440,7 +442,7 @@ html:has(body.is-viewing) { height: 100%; }
   var t = null;
   window.addEventListener('resize', function () {
     clearTimeout(t);
-    t = setTimeout(function () { if (cur) layout(document.querySelector('#modes [aria-pressed="true"]').dataset.mode, +document.querySelector('#widths [aria-pressed="true"]').dataset.w); }, 80);
+    t = setTimeout(function () { if (cur) render(document.querySelector('#modes [aria-pressed="true"]').dataset.mode); }, 80);
   });
 
   /* ---------------- routing: #study-NN opens a study, no hash shows the index */
@@ -449,7 +451,7 @@ html:has(body.is-viewing) { height: 100%; }
     var s = (m && STUDIES.filter(function (x) { return x.n === m[1]; })[0]) || (n && NETRATE.filter(function (x) { return x.id === n[1]; })[0]);
     if (s) {
       $('index').hidden = true; $('indexNR').hidden = true; $('desk').hidden = false; document.body.classList.add('is-viewing');
-      if (window.innerWidth < 600 && !store.get('width-chosen', '')) width = 390;
+      if (window.innerWidth < 600 && !store.get('width-chosen', '')) width = 'fit';
       open(s);
     } else {
       var nrPage = location.hash === '#netrate';

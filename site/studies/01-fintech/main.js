@@ -36,6 +36,48 @@
     });
   });
 
+  /* calculator: the app's order for any amount (fee rules from the app's ranked list) */
+  var calcList = $('#calcList');
+  var calcRows = calcList ? $$('li', calcList) : [];
+  var fmt = function (n) { return Math.round(n).toLocaleString('en-GB'); };
+  function calcGot(li, a) {
+    var r = +li.dataset.rate, f = +li.dataset.fee, k = li.dataset.kind;
+    if (k === 'fixed') return Math.max(0, a - f) * r;
+    if (k === 'pct') return a * (1 - f / 100) * r;
+    if (k === 'under') return (a < 1000 ? Math.max(0, a - f) : a) * r;
+    return a * r;
+  }
+  var calcAnim = null; // set by the motion layer: animates the reorder and the numbers
+  function calcUpdate(a) {
+    var sorted = calcRows.map(function (li) { return { li: li, v: calcGot(li, a) }; }).sort(function (x, y) { return y.v - x.v; });
+    var top = sorted[0].v || 1, low = sorted[sorted.length - 1].v, span = (top - low) || 1;
+    var before = calcRows.map(function (li) { return li.getBoundingClientRect().top; });
+    sorted.forEach(function (o, i) {
+      calcList.appendChild(o.li);
+      $('i', o.li).textContent = i + 1;
+      o.li.style.setProperty('--w', (.18 + .82 * (o.v - low) / span).toFixed(4)); // the bars show the spread, not the whole amount
+      var v = $('.v', o.li);
+      if (calcAnim) calcAnim.num(v, o.v); else v.textContent = fmt(o.v);
+    });
+    if (calcAnim) calcAnim.move(calcRows, before);
+    $('#calcHead').innerHTML = 'For <b>' + fmt(a) + '</b> pounds you get';
+    var g = $('#calcGap');
+    if (calcAnim) calcAnim.num(g, sorted[0].v - sorted[sorted.length - 1].v); else g.textContent = fmt(sorted[0].v - sorted[sorted.length - 1].v);
+  }
+  if (calcList) {
+    var amtIn = $('#calcAmt'), quick = $$('.calc__quick button');
+    var setPressed = function (a) { quick.forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.a === a)); }); };
+    amtIn.addEventListener('input', function () {
+      var digits = amtIn.value.replace(/\D/g, '').slice(0, 6), a = Math.min(100000, +digits || 0);
+      amtIn.value = a ? fmt(a) : '';
+      setPressed(a);
+      if (a >= 1) calcUpdate(a);
+    });
+    amtIn.addEventListener('blur', function () { if (!amtIn.value) { amtIn.value = '1,000'; setPressed(1000); calcUpdate(1000); } });
+    quick.forEach(function (b) { b.addEventListener('click', function () { var a = +b.dataset.a; amtIn.value = fmt(a); setPressed(a); calcUpdate(a); }); });
+    calcUpdate(1000);
+  }
+
   if (!motion) { show(); return; }
   gsap.registerPlugin(ST);
 
@@ -137,8 +179,8 @@
     .from('.hero__lead', { y: 18, opacity: 0, duration: 1 }, .5)
     .fromTo(cta, { clipPath: 'inset(0% 100% 0% 0% round 20px)' }, { clipPath: 'inset(0% 0% 0% 0% round 20px)', duration: 1.1, ease: 'expo.inOut', clearProps: 'clipPath' }, .55)
     .from('.facts li', { y: 16, opacity: 0, duration: .8, stagger: .07 }, .8)
-    .from('.hero__box', { scaleY: .78, opacity: 0, transformOrigin: '50% 100%', duration: 1.1 }, .1)
-    .from('.phone--hero', { y: 70, rotationX: 12, transformPerspective: 1100, transformOrigin: '50% 100%', opacity: 0, duration: 1.1 }, .12)
+    .from('.hero__box', { opacity: 0, duration: .8, ease: 'power2.out' }, .05)
+    .from('.phone--hero', { opacity: 0, duration: .7, ease: 'power2.out' }, .1)
     .from('.demo-tag--hero', { y: 12, opacity: 0, duration: .8 }, .9);
   gsap.to('.spark', { rotation: 90, scale: .84, duration: 1.4, ease: 'sine.inOut', repeat: -1, yoyo: true, repeatDelay: 1.6, delay: 2.4 });
 
@@ -150,18 +192,6 @@
   gsap.to('.hero__map', { yPercent: 16, ease: 'none', scrollTrigger: heroST });
   gsap.to('.hero__copy', { y: -40, ease: 'none', scrollTrigger: heroST });
   gsap.to('.phone--hero .scr__img', { yPercent: -28.7, ease: 'power1.inOut', scrollTrigger: { trigger: hero, start: 0, end: 'bottom 30%', scrub: .7 } });
-  var vis = $('.hero__visual');
-  if (finePointer && vis) {
-    gsap.set(vis, { transformPerspective: 1600, transformOrigin: '76% 46%' });
-    var tiltX = gsap.quickTo(vis, 'rotationX', { duration: .9, ease: 'power3' }), tiltY = gsap.quickTo(vis, 'rotationY', { duration: .9, ease: 'power3' });
-    hero.addEventListener('pointermove', function (e) {
-      if (e.clientX === 0 && e.clientY === 0) return; // Chromium's synthetic move
-      var ph = $('.phone--hero').getBoundingClientRect();
-      tiltY(Math.max(-1, Math.min(1, (e.clientX - (ph.left + ph.width / 2)) / 700)) * 7);
-      tiltX(Math.max(-1, Math.min(1, (e.clientY - (ph.top + ph.height / 2)) / 600)) * -5);
-    });
-    hero.addEventListener('pointerleave', function () { tiltX(0); tiltY(0); });
-  }
 
   /* ============================================================ rates made clearer: the panel opens, the cards rise and
      each one plays its picture: offices sort themselves, an old rate expires, an alert sentence lights up */
@@ -323,17 +353,34 @@
   gsap.from('.faq .sec-head > *', { y: 26, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: '.faq', start: 'top 80%', once: true } });
   var qs = $$('.q');
   gsap.from(qs, { y: 30, opacity: 0, duration: .9, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.faq__list', start: 'top 85%', once: true } });
-  function openQ(d) {
-    var p = $('p', d);
-    qs.forEach(function (o) { if (o !== d && o.open) closeQ(o); });
-    d.open = true;
-    gsap.fromTo(p, { height: 0, opacity: 0 }, { height: 'auto', opacity: 1, duration: .5, ease: 'power3.out', clearProps: 'height' });
+  /* the list keeps room for one open answer, so opening or closing never moves the page below it (nothing to re-measure);
+     only the questions inside move, by transform (FLIP) */
+  var faqList = $('.faq__list');
+  function reserveFaq() {
+    var was = qs.filter(function (q) { return q.open; });
+    faqList.style.minHeight = '';
+    qs.forEach(function (q) { q.open = false; });
+    var base = faqList.offsetHeight, max = 0;
+    qs.forEach(function (q) { q.open = true; max = Math.max(max, faqList.offsetHeight - base); q.open = false; });
+    was.forEach(function (q) { q.open = true; });
+    faqList.style.minHeight = (base + max) + 'px';
   }
-  function closeQ(d) {
-    var p = $('p', d);
-    gsap.to(p, { height: 0, opacity: 0, duration: .35, ease: 'power3.inOut', onComplete: function () { d.open = false; gsap.set(p, { clearProps: 'height,opacity' }); } });
+  reserveFaq();
+  var rT = null;
+  window.addEventListener('resize', function () { clearTimeout(rT); rT = setTimeout(reserveFaq, 200); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(reserveFaq);
+  function toggleQ(d) {
+    var opening = !d.open;
+    var before = qs.map(function (el) { return el.getBoundingClientRect().top; });
+    if (opening) qs.forEach(function (o) { if (o !== d) o.open = false; });
+    d.open = opening;
+    qs.forEach(function (el, i) {
+      var dy = before[i] - el.getBoundingClientRect().top;
+      if (Math.abs(dy) > .5) gsap.fromTo(el, { y: dy }, { y: 0, duration: .5, ease: 'power3.out', overwrite: true, clearProps: 'transform' });
+    });
+    if (opening) gsap.fromTo($('p', d), { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: .45, ease: 'power2.out', delay: .05, clearProps: 'opacity,transform' });
   }
-  qs.forEach(function (d) { $('summary', d).addEventListener('click', function (e) { e.preventDefault(); d.open ? closeQ(d) : openQ(d); }); });
+  qs.forEach(function (d) { $('summary', d).addEventListener('click', function (e) { e.preventDefault(); toggleQ(d); }); });
 
   /* ============================================================ the App Store phone: it turns into the reference pose,
      its glass catches the light, the screenshots slide by to the end of the page; then it breathes and leans toward
@@ -373,6 +420,65 @@
   gsap.from('.homes__box', { y: 70, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.homes__box', start: 'top 92%', once: true } });
   gsap.fromTo('.homes__img', { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.homes__box', start: 'top bottom', end: 'bottom 40%', scrub: true } });
   gsap.from('.homes__copy > *', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: '.homes__box', start: 'top 70%', once: true } });
+
+  /* ============================================================ the problem: scattered messages sort themselves into one
+     list (pinned on wide screens, scrubbed on phones) */
+  var board = $('.why__board'), msgs = $$('.msg');
+  if (board) {
+    board.classList.add('is-messy');
+    var kk = function () { return board.clientWidth / 700; };
+    var whyTl = gsap.timeline({ defaults: { ease: 'power2.inOut', duration: .6 } });
+    msgs.forEach(function (el, i) {
+      var x0 = +el.dataset.x, y0 = +el.dataset.y;
+      // wide: the scattered spot in the 700 × 600 board; phones: a smaller scatter around the full-width rows
+      whyTl.fromTo(el, { x: function () { return mobile.matches ? (x0 - 200) / 700 * board.clientWidth * .35 : (x0 - 176) * kk(); },
+        y: function () { return mobile.matches ? y0 / 600 * (board.clientHeight - 80) + 40 - (58 + i * 50) : (y0 - 86 - i * 66) * kk(); }, rotation: +el.dataset.r },
+        { x: 0, y: 0, rotation: 0 }, i * .05);
+    });
+    var setMessy = function (self) { board.classList.toggle('is-messy', self.progress < .45); };
+    if (!mobile.matches) ST.create({ trigger: '.why__stage', start: 'top top', end: '+=110%', pin: true, scrub: .6, animation: whyTl, invalidateOnRefresh: true, onUpdate: setMessy });
+    else ST.create({ trigger: board, start: 'top 80%', end: 'center 45%', scrub: .6, animation: whyTl, invalidateOnRefresh: true, onUpdate: setMessy });
+    gsap.from('.why__copy > *, .why__pts li', { y: 26, opacity: 0, duration: 1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: '.why', start: 'top 75%', once: true } });
+  }
+
+  /* ============================================================ calculator: rows move to their new places, numbers roll */
+  if (calcList) {
+    calcAnim = {
+      num: function (el, to) {
+        var from = +(el.textContent.replace(/\D/g, '')) || 0, o = { v: from };
+        gsap.to(o, { v: to, duration: .6, ease: 'power3.out', overwrite: true, onUpdate: function () { el.textContent = fmt(o.v); } });
+      },
+      move: function (rows, before) {
+        rows.forEach(function (li, i) {
+          var dy = before[i] - li.getBoundingClientRect().top;
+          if (Math.abs(dy) > .5) gsap.fromTo(li, { y: dy }, { y: 0, duration: .6, ease: 'power3.out', overwrite: true, clearProps: 'transform' });
+        });
+      }
+    };
+    gsap.from('.calc__box', { y: 60, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: '.calc__box', start: 'top 90%', once: true } });
+    gsap.from(calcRows, { x: 40, opacity: 0, duration: .8, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.calc__box', start: 'top 70%', once: true } });
+    gsap.from('.calc .sec-head > *', { y: 26, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: '.calc', start: 'top 80%', once: true } });
+  }
+
+  /* ============================================================ features: the chart draws itself; rate types, languages
+     and themes change in turn while their tile is on screen */
+  var bento = $('.bento');
+  if (bento) {
+    gsap.from('.bento .sec-head > *', { y: 26, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: bento, start: 'top 80%', once: true } });
+    gsap.from('.tile', { y: 60, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: '.bento__grid', start: 'top 88%', once: true } });
+    var cl = $('.chart__line'), cLen = cl.getTotalLength();
+    gsap.fromTo(cl, { strokeDasharray: cLen, strokeDashoffset: cLen }, { strokeDashoffset: 0, ease: 'none', scrollTrigger: { trigger: '.tile--chart', start: 'top 80%', end: 'center 45%', scrub: .6 } });
+    gsap.from('.chart__dot, .chart__t', { scale: 0, opacity: 0, transformOrigin: '50% 50%', duration: .6, ease: 'back.out(2)', stagger: .1, scrollTrigger: { trigger: '.tile--chart', start: 'center 50%', once: true } });
+    var typeBtns = $$('.types span'), typeNums = $$('.types__nums b'), tI = 0, lI = 0, langs = $$('.lang p'), bTimer = null;
+    var tick = function () {
+      tI = 1 - tI;
+      typeBtns.forEach(function (s, i) { s.classList.toggle('is-on', i === tI); });
+      typeNums.forEach(function (b) { gsap.fromTo(b, { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .45, ease: 'power3.out', onStart: function () { b.textContent = tI ? b.dataset.b : b.dataset.a; } }); });
+      lI = 1 - lI;
+      langs.forEach(function (q, i) { q.classList.toggle('is-on', i === lI); });
+    };
+    ST.create({ trigger: '.bento__grid', start: 'top 85%', end: 'bottom 10%', onToggle: function (self) { clearInterval(bTimer); if (self.isActive) bTimer = setInterval(tick, 2600); } });
+  }
 
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
   window.addEventListener('load', function () { ST.refresh(); });
