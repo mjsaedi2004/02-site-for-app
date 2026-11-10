@@ -1,6 +1,7 @@
 """Build NetRate × Design 1 from page.html into its two pages, side by side in this folder:
   index.html  before release ("Coming soon" everywhere, the App Store page says SOON)
   live.html   after release (download buttons, the App Store page says GET) — the lasting site
+and then the other pages of each version (tools/pages.py): terms, privacy, … beside index.html, live-terms, … beside live.html
 usage (from the repo root): python3 -I site/studies/01-fintech/tools/build.py
 
 Template marks in page.html:
@@ -73,6 +74,8 @@ def build(release):
     html = html.replace('{{rings}}', RINGS).replace('{{body}}', BODY)
     html = re.sub(r'\{\{stores(?::(\w+))?\}\}', lambda m: f'<div class="stores{" stores--" + m.group(1) if m.group(1) else ""}">{STORE}</div>', html)
     html = html.replace('{{SPRITE}}', sprite(html))
+    if release == 'post':                                                   # its own copies of the other pages (tools/pages.py)
+        html = re.sub(r'href="(terms|privacy|disclaimer|cookies|delete-account|offices|contact)\.html', r'href="live-\1.html', html)
     html = re.sub(r'\n[ \t]*\n(?=[ \t]*\n)', '\n', html)                     # blank lines left by removed blocks
     assert '{{' not in html, re.findall(r'\{\{[^}]*\}\}', html)[:3]
     note = f'<!-- Generated from page.html by tools/build.py ({"before" if release == "pre" else "after"} release); edit page.html. -->\n'
@@ -82,5 +85,8 @@ def build(release):
 
 
 if __name__ == '__main__':
+    import subprocess
+    import sys
     for r in ('pre', 'post'):
         print('%s %d bytes' % build(r))
+        subprocess.run([sys.executable, '-I', str(HERE / 'tools/pages.py'), r], check=True)   # the other pages, around this header and footer

@@ -19,7 +19,7 @@ https://claude.ai/artifact/DJ1wyggQMRGJ6CdQxi8axG (open it and pick “NetRate�
 
 | Page | Folder | Pages | Also alone |
 | --- | --- | --- | --- |
-| Design 1 (fintech) | `01-fintech/` | `index.html` before release, `live.html` after release | “NetRate × Design 1”, https://claude.ai/artifact/PmdwM4ASFvM7oNRjBXNXFd |
+| Design 1 (fintech) | `01-fintech/` | `index.html` before release, `live.html` after release; other pages `terms.html` … / `live-terms.html` … | “NetRate × Design 1”, https://claude.ai/artifact/PmdwM4ASFvM7oNRjBXNXFd |
 
 ## Design 1 (`01-fintech/`)
 
@@ -66,3 +66,14 @@ currency coins, flag and Apple badge stay out because of the brief.
 Round 3 (owner): Inter Tight + Inter, no hollow letters, a very large NetRate marquee at the end (left to right, faded
 edges), phone images at once, stronger contrast and framing (white boxes with an edge on a cool off-white ground), a
 dotted background in soft patches with perspective dot floors, lighter rendering for smooth scrolling.
+
+## Design 1, round 5 — the other pages and the hand-off
+
+- `tools/pages.py` (run by `tools/build.py` for both versions) writes Terms of use, Privacy, Disclaimer, Cookies, Delete
+  account, For exchange offices, Contact and 404 around the built home page's own header, phone menu and footer (in-page
+  links become `index.html#…`). The legal texts are **drafts** from how the app works: `[placeholders]` (company, address,
+  emails, law, retention, providers) show as amber `.ph` spans and a “Draft for review” note heads each page.
+- The phone menu: `.menu-btn` in the header (and its floating copy) opens `#msheet`; `main.js` on the home page,
+  `pages.js` on the others.
+- `python3 -I tools/export.py` (repo root) → `exports/`: before/after zips, single offline HTML files of both versions
+  and of the gallery, and the source zip. See `HANDOFF.md`.

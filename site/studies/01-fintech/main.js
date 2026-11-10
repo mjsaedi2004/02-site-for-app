@@ -36,6 +36,21 @@
     });
   });
 
+  /* phones: the menu (the floating header's copy of the button opens the same sheet) */
+  var sheet = $('#msheet');
+  function setMenu(open) {
+    if (!sheet) return;
+    sheet.hidden = !open;
+    $$('.menu-btn').forEach(function (b) { b.setAttribute('aria-expanded', String(open)); b.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); });
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.menu-btn');
+    if (btn) { setMenu(sheet.hidden); return; }
+    if (sheet && !sheet.hidden && !e.target.closest('#msheet')) setMenu(false);
+    if (e.target.closest && e.target.closest('#msheet a')) setMenu(false);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
   /* calculator: the app's order for any amount (fee rules from the app's ranked list) */
   var calcList = $('#calcList');
   var calcRows = calcList ? $$('li', calcList) : [];

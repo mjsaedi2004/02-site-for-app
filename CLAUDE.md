@@ -1,7 +1,7 @@
 # Project instructions — 02-site-for-app
 
 The owner (**Mohammad**, writes in **Persian** — reply in Persian) builds landing sites for a mobile app.
-Four tracks live in this repo (the fourth is the current work):
+Four tracks live in this repo (the fourth is the current work). **`HANDOFF.md`** is the short entry point for whoever continues:
 
 1. **NetRate site (main track, `site/`)** — the real landing site for **«نت‌ریت» / NetRate**, an app Mohammad
    builds for a client: UK exchange-office rates for pound → Toman, side by side. Built from the **app's own
@@ -220,6 +220,21 @@ squares** (10/14/18/22 px, never round); a **capsule header** that detaches from
   fee rules: no fee / fixed pounds / percent / “under 1,000”; it reproduces the app's order for 1,000 pounds exactly),
   and five feature tiles (a 30-day chart drawn by the scroll with Sundays shaded, rate types, themes, English/Persian in
   Vazirmatn, widgets coming soon).
+- Round 5 (his words: check and fix, build the other pages a product site needs, then give complete outputs for another
+  AI, the before/after sites as two zips + HTML files to show the client, and the gallery as a zip + HTML): a phone menu
+  (`.menu-btn` + `#msheet`, also in the floating header), real footer links, `max(14px, …)` floors on the calculator, and
+  the other pages from `tools/pages.py` (run by `tools/build.py`) around the home page's own header and footer: Terms,
+  Privacy, Disclaimer, Cookies, Delete account (drafts with `[placeholders]` in `.ph` spans and a “Draft for review”
+  note), For exchange offices, Contact, 404 — `terms.html` … beside `index.html`, `live-terms.html` … beside `live.html`
+  (`pages.js`: menu + download notes). Hand-off: **`HANDOFF.md`** (read it first) and `python3 -I tools/export.py` →
+  `exports/` (gitignored): the two sites as zips (live.html → index.html) and as single offline HTML files (fonts' used
+  subsets, vendored GSAP/Lenis and images inlined; the other pages as `<template>`s opened over the home page by
+  `site/studies/tools/export_sub.js`), the gallery as a zip and as one file (pages in `srcdoc` frames, so the synced split
+  works from a double-clicked file), and the repo at HEAD (`git archive`).
+- Pitfalls (round 5): `.page` has `isolation: isolate`, so its fixed children (`#msheet` z 70, the floating header) stack
+  inside it — a layer at body level covers them; the export lifts `#msheet` to the body. Inlined `defer` scripts must
+  move to the end of the body; data a page's inline script reads must come before that script; JSON embedded in a
+  `<script>` needs `<` escaped as `\u003c` (a page's own `<!--`/`<script` would confuse the HTML tokenizer).
 - The brief's hard rules hold (no money moving, Coming soon, demo data with its date, legal sentences verbatim,
   signature + Telegram, AA contrast, text ≥ 14 px with `max(14px, …)` floors on scaled text, 44 px targets on touch).
 - Design 1: `site/studies/01-fintech/` — source `page.html` (`<!--pre-->`/`<!--post-->` blocks and `{{…}}` tags, see

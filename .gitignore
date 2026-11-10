@@ -10,3 +10,6 @@ site/assets/img/scenes/**/*.png
 
 # NetRate design variants: generated output
 site/variants/*/public/
+
+# hand-off packages (tools/export.py)
+exports/

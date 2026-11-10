@@ -4,7 +4,8 @@
     python3 -I site/studies/tools/build_artifact.py 01-fintech
 
 The page becomes a fragment (the artifact host adds doctype/html/head/body; a boot line restores <html lang>) and its
-<title> becomes the artifact's name; the page's tools/ and raw renders stay out. GSAP, Lenis and the font already load
+<title> becomes the artifact's name; the page's tools/ and raw renders stay out. The other pages link home to
+home.html, a whole-document copy of index.html. GSAP, Lenis and the font already load
 from jsDelivr and Google Fonts. Prints the files to publish beside index.html."""
 import re
 import shutil
@@ -35,7 +36,18 @@ def main():
         shutil.rmtree(out)
     shutil.copytree(src, out, ignore=lambda d, names: [n for n in names if n in SKIP])
     page = out / 'index.html'
-    page.write_text(fragment(page.read_text(encoding='utf-8'), NAMES[name]), encoding='utf-8')
+    full = page.read_text(encoding='utf-8')
+    page.write_text(fragment(full, NAMES[name]), encoding='utf-8')
+    # the other pages are whole documents; their way home goes to a whole-document copy of the home page (home.html),
+    # not to the fragment the host wraps
+    (out / 'home.html').write_text(full, encoding='utf-8')
+    for f in out.glob('*.html'):
+        if f.name in ('index.html', 'live.html'):
+            continue
+        t = f.read_text(encoding='utf-8')
+        if f.name != 'home.html':
+            t = t.replace('href="index.html', 'href="home.html')
+        f.write_text(t, encoding='utf-8')
     files = sorted(p.relative_to(out).as_posix() for p in out.rglob('*') if p.is_file() and p != page)
     total = sum((out / f).stat().st_size for f in files)
     print(f'{out.relative_to(STUDIES.parent.parent)}: index.html + {len(files)} files, {total / 1024:.0f} KB')
